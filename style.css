@@ -1,12 +1,12 @@
 :root {
-  --theme-1: #010615;
-  --theme-2: #292930;
-  --theme-3: #08121c;
-  --theme-4: #18beba;
-  --theme-5: #28485f;
-  --theme-6: #464b4e;
-  --theme-7: #c1c6c9;
-  --theme-8: #efefef;
+  --theme-1: #0a001f; /* Deep space purple (background) */
+  --theme-2: #2c003e; /* Dark violet (secondary background) */
+  --theme-3: #1a0033; /* Space blue-purple (panels) */
+  --theme-4: #ff4dd2; /* Neon pink (primary accent) */
+  --theme-5: #6e00a4; /* Electric purple (secondary accent) */
+  --theme-6: #a800ff; /* Bright violet (highlight) */
+  --theme-7: #ffb3f3; /* Soft neon pink (text or borders) */
+  --theme-8: #fef6ff; /* Near-white lavender (foreground text) */
 
   --spacing-1: 4px;
   --spacing-2: 8px;
@@ -24,10 +24,9 @@
 }
 
 #c2d {
-  background: var(--theme-2Aaa);
-  image-rendering: pixelated;
-  width: calc(100% - 14px);
-  max-width: 1000px;
+  background: var(--theme-2);
+  width: min(100vw, calc(100vh * 9 / 16));
+  height: 100%;
 }
 
 html,
