@@ -3,7 +3,6 @@ import { drawEngine } from "@/core/draw-engine";
 import { controls } from "@/core/controls";
 import { gameStateMachine } from "@/game-state-machine";
 import { gameState } from "./game.state";
-import { Music } from "@/core/music/music";
 
 class MenuState implements State {
   private startGame() {
@@ -11,11 +10,7 @@ class MenuState implements State {
   }
 
   onEnter() {
-    c2d.addEventListener("click", () => {
-      this.startGame();
-      const MusicPlayer = new Music();
-      MusicPlayer.play();
-    });
+    c2d.addEventListener("click", this.startGame);
   }
 
   onUpdate() {

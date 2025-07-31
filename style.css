@@ -46,3 +46,25 @@ button {
   font-family: var(--font-family);
   font-size: var(--font-size);
 }
+
+.container {
+  position: relative;
+  height: 100%;
+}
+
+.mute-button {
+  position: absolute;
+  top: var(--spacing-2);
+  right: var(--spacing-1);
+  background-color: transparent;
+  color: var(--theme-8);
+  border: none;
+  padding: var(--spacing-2) var(--spacing-3);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.hide {
+  display: none;
+}

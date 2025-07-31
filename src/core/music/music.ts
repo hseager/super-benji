@@ -9,6 +9,7 @@ export class Music {
 
   lead: Sequence;
   bass: Sequence;
+  isPlaying = false;
 
   constructor() {
     this.ac = new AudioContext();
@@ -144,13 +145,16 @@ export class Music {
   }
 
   play() {
+    if (this.isPlaying) return;
     const now = this.ac.currentTime;
     this.lead.play(now);
     this.bass.play(now);
+    this.isPlaying = true;
   }
 
   stop() {
     this.lead.stop();
     this.bass.stop();
+    this.isPlaying = false;
   }
 }
