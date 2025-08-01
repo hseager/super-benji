@@ -6,9 +6,6 @@ export class SpriteBuilder {
     // Offscreen buffer 32x24 (like in original code)
     const buffer = new CanvasBuffer(32, 24);
 
-    // Draw white rectangle (floor/body highlight)
-    buffer.fillRect(1, 14, 27, 6, "#ffffff");
-
     // Draw player body from sprite sheet
     buffer.drawSprite(sheet, 0, 8, 16, 32, 32, 16);
 

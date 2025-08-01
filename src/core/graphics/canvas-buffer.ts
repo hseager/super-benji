@@ -11,11 +11,6 @@ export class CanvasBuffer {
     this.ctx = this.canvas.getContext("2d")!;
   }
 
-  fillRect(x: number, y: number, w: number, h: number, color: string) {
-    this.ctx.fillStyle = color;
-    this.ctx.fillRect(x, y, w, h);
-  }
-
   drawSprite(
     sheet: SpriteSheet,
     dx: number,

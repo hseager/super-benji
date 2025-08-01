@@ -10,12 +10,11 @@ export class Player {
   sprite: HTMLImageElement;
 
   constructor(sprite?: HTMLImageElement) {
-    this.speed = 4;
-    this.life = 3;
+    this.speed = 2;
 
     // Position bottom-center of canvas
     this.x = logicalWidth / 2;
-    this.y = logicalHeight / 2 - 40;
+    this.y = logicalHeight - 40;
 
     this.sprite = sprite ?? new Image();
   }
