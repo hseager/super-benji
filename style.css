@@ -8,6 +8,9 @@
   --theme-7: #ffb3f3; /* Soft neon pink (text or borders) */
   --theme-8: #fef6ff; /* Near-white lavender (foreground text) */
 
+  --black: #000;
+  --white: #fff;
+
   --spacing-1: 4px;
   --spacing-2: 8px;
   --spacing-3: 12px;
@@ -24,7 +27,7 @@
 }
 
 #c2d {
-  background: var(--theme-2);
+  background: var(--black);
   width: min(100vw, calc(100vh * 9 / 16));
   height: 100%;
 }

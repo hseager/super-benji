@@ -59,6 +59,11 @@ class GameState implements State {
 
   onUpdate(delta: number) {
     // Run game state
+    const mouse = drawEngine.mousePosition;
+    this.gameManager.player.update(mouse.x, mouse.y, drawEngine.isPointerDown);
+
+    // Draw player
+    this.gameManager.player.draw(this.ctx);
 
     if (controls.isEscape) {
       gameStateMachine.setState(menuState);

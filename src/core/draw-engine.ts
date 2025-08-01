@@ -1,11 +1,12 @@
 class DrawEngine {
   context: CanvasRenderingContext2D;
   mousePosition: DOMPoint;
+  isPointerDown: boolean = false;
 
   constructor() {
     this.context = c2d.getContext("2d");
-
     this.mousePosition = new DOMPoint(0, 0);
+
     c2d.addEventListener("mousemove", (event: MouseEvent) => {
       let mouseX = event.clientX - c2d.getBoundingClientRect().left;
       let mouseY = event.clientY - c2d.getBoundingClientRect().top;
@@ -23,6 +24,25 @@ class DrawEngine {
 
       this.mousePosition = new DOMPoint(mouseX, mouseY);
     });
+
+    c2d.addEventListener("mousedown", () => (this.isPointerDown = true));
+    c2d.addEventListener("mouseup", () => (this.isPointerDown = false));
+
+    c2d.addEventListener("touchstart", () => {
+      this.isPointerDown = true;
+    });
+    c2d.addEventListener("touchend", () => (this.isPointerDown = false));
+
+    window.addEventListener("resize", this.resizeCanvas);
+    this.resizeCanvas();
+  }
+
+  resizeCanvas() {
+    const rect = c2d.getBoundingClientRect();
+
+    // Match internal resolution to displayed size
+    c2d.width = rect.width;
+    c2d.height = rect.height;
   }
 
   get canvasWidth() {
