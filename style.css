@@ -28,8 +28,10 @@
 
 #c2d {
   background: var(--black);
-  width: min(100vw, calc(100vh * 9 / 16));
-  height: 100%;
+  /* width: min(100vw, calc(100vh * 9 / 16)); */
+  /* height: 100%; */
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 html,
@@ -51,7 +53,7 @@ button {
 }
 
 .container {
-  position: relative;
+  /* position: relative; */
   height: 100%;
 }
 

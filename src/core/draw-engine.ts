@@ -1,3 +1,6 @@
+export const logicalWidth = 144; // base logical resolution
+export const logicalHeight = 256; // base logical resolution
+
 class DrawEngine {
   context: CanvasRenderingContext2D;
   mousePosition: DOMPoint;
@@ -8,21 +11,12 @@ class DrawEngine {
     this.mousePosition = new DOMPoint(0, 0);
 
     c2d.addEventListener("mousemove", (event: MouseEvent) => {
-      let mouseX = event.clientX - c2d.getBoundingClientRect().left;
-      let mouseY = event.clientY - c2d.getBoundingClientRect().top;
-      this.mousePosition = new DOMPoint(mouseX, mouseY);
+      this.mousePosition = this.screenToLogical(event.clientX, event.clientY);
     });
+
     c2d.addEventListener("touchmove", (event: TouchEvent) => {
       const touch = event.touches[0];
-      const rect = c2d.getBoundingClientRect();
-
-      let mouseX = touch.clientX - rect.left;
-      let mouseY = touch.clientY - rect.top;
-
-      mouseX *= c2d.width / rect.width;
-      mouseY *= c2d.height / rect.height;
-
-      this.mousePosition = new DOMPoint(mouseX, mouseY);
+      this.mousePosition = this.screenToLogical(touch.clientX, touch.clientY);
     });
 
     c2d.addEventListener("mousedown", () => (this.isPointerDown = true));
@@ -33,16 +27,17 @@ class DrawEngine {
     });
     c2d.addEventListener("touchend", () => (this.isPointerDown = false));
 
-    window.addEventListener("resize", this.resizeCanvas);
+    window.addEventListener("resize", () => this.resizeCanvas());
+    window.addEventListener("orientationchange", () => this.resizeCanvas());
     this.resizeCanvas();
   }
 
-  resizeCanvas() {
+  private screenToLogical(x: number, y: number): DOMPoint {
     const rect = c2d.getBoundingClientRect();
+    const scaleX = logicalWidth / rect.width;
+    const scaleY = logicalHeight / rect.height;
 
-    // Match internal resolution to displayed size
-    c2d.width = rect.width;
-    c2d.height = rect.height;
+    return new DOMPoint((x - rect.left) * scaleX, (y - rect.top) * scaleY);
   }
 
   get canvasWidth() {
@@ -70,6 +65,28 @@ class DrawEngine {
     context.strokeText(text, x, y);
     context.fillStyle = color;
     context.fillText(text, x, y);
+  }
+
+  resizeCanvas() {
+    const targetRatio = logicalWidth / logicalHeight;
+    const screenRatio = window.innerWidth / window.innerHeight;
+
+    let displayWidth: number;
+    let displayHeight: number;
+
+    if (screenRatio > targetRatio) {
+      // Screen is wider than target, fit height
+      displayHeight = window.innerHeight;
+      displayWidth = displayHeight * targetRatio;
+    } else {
+      // Screen is taller/narrower, fit width
+      displayWidth = window.innerWidth;
+      displayHeight = displayWidth / targetRatio;
+    }
+
+    this.context.canvas.style.width = `${displayWidth}px`;
+    this.context.canvas.style.height = `${displayHeight}px`;
+    this.context.imageSmoothingEnabled = false;
   }
 }
 

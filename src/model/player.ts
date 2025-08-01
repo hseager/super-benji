@@ -1,22 +1,23 @@
 import { playerMaxLife } from "@/core/config";
-import { drawEngine } from "@/core/draw-engine";
+import { logicalHeight, logicalWidth } from "@/core/draw-engine";
 
 export class Player {
   maxLife = playerMaxLife;
   life = playerMaxLife;
   x: number;
   y: number;
-  radius: number;
   speed: number;
+  sprite: HTMLImageElement;
 
-  constructor() {
-    this.radius = 15;
+  constructor(sprite?: HTMLImageElement) {
     this.speed = 4;
     this.life = 3;
 
     // Position bottom-center of canvas
-    this.x = drawEngine.canvasWidth / 2;
-    this.y = drawEngine.canvasHeight - 40 - this.radius * 2;
+    this.x = logicalWidth / 2;
+    this.y = logicalHeight / 2 - 40;
+
+    this.sprite = sprite ?? new Image();
   }
 
   update(targetX: number, targetY: number, active: boolean) {
@@ -26,7 +27,7 @@ export class Player {
     const dy = targetY - this.y;
     const distance = Math.hypot(dx, dy);
 
-    if (distance > 1) {
+    if (distance > 5) {
       // Normalize and move toward mouse at fixed speed
       this.x += (dx / distance) * this.speed;
       this.y += (dy / distance) * this.speed;
@@ -35,12 +36,16 @@ export class Player {
 
   draw(ctx: CanvasRenderingContext2D) {
     ctx.save();
-    ctx.shadowColor = "#0ff"; // glow color
-    ctx.shadowBlur = 20;
-    ctx.fillStyle = "#fff";
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-    ctx.fill();
+
+    // Optional glow like your circle
+    // ctx.shadowColor = "#0ff";
+    // ctx.shadowBlur = 20;
+
+    // ctx.scale(2.5, 2.5); // Scale for pixel art
+
+    // Draw composite sprite (32x24 like JS13k)
+    ctx.drawImage(this.sprite, this.x - 16, this.y - 12);
+
     ctx.restore();
   }
 
