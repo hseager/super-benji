@@ -37,8 +37,8 @@ export class Player {
     ctx.save();
 
     // Optional glow like your circle
-    // ctx.shadowColor = "#0ff";
-    // ctx.shadowBlur = 20;
+    ctx.shadowColor = "#0ff";
+    ctx.shadowBlur = 20;
 
     // ctx.scale(2.5, 2.5); // Scale for pixel art
 

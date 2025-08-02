@@ -1,0 +1,70 @@
+// graphics/palette-applier.ts
+export class PaletteApplier {
+  static applyPalette(
+    baseImage: HTMLImageElement,
+    palette: string[]
+  ): Promise<HTMLImageElement> {
+    return new Promise((resolve, reject) => {
+      if (baseImage.complete && baseImage.naturalWidth !== 0) {
+        resolve(PaletteApplier._applyPaletteSync(baseImage, palette));
+      } else {
+        baseImage.onload = () => {
+          resolve(PaletteApplier._applyPaletteSync(baseImage, palette));
+        };
+        baseImage.onerror = reject;
+      }
+    });
+  }
+
+  static _applyPaletteSync(
+    baseImage: HTMLImageElement,
+    palette: string[]
+  ): HTMLImageElement {
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d")!;
+
+    if (baseImage.width === 0 || baseImage.height === 0) {
+      throw new Error("Base image not loaded or has zero dimensions.");
+    }
+
+    canvas.width = baseImage.width;
+    canvas.height = baseImage.height;
+
+    // Draw base image
+    ctx.drawImage(baseImage, 0, 0);
+
+    // Extract pixels
+    const imageData = ctx.getImageData(0, 0, baseImage.width, baseImage.height);
+    const data = imageData.data;
+
+    // Apply palette (assuming palette entries are hex like "#FF00FF")
+    for (let i = 0; i < data.length; i += 4) {
+      const gray = data[i]; // R channel (assuming grayscale)
+      const colorIndex = Math.floor(gray / (256 / palette.length));
+      const color = this.hexToRgb(palette[colorIndex] || "#000000");
+
+      data[i] = color.r;
+      data[i + 1] = color.g;
+      data[i + 2] = color.b;
+    }
+
+    ctx.putImageData(imageData, 0, 0);
+
+    // Convert the canvas to an Image
+    const img = new Image();
+    img.src = canvas.toDataURL();
+    return img;
+  }
+
+  private static hexToRgb(hex: string) {
+    // if (hex === "transparent") {
+    //   // return { r: 0, g: 0, b: 0, a: 0 }; // fully transparent
+    // }
+    const bigint = parseInt(hex.replace("#", ""), 16);
+    return {
+      r: (bigint >> 16) & 255,
+      g: (bigint >> 8) & 255,
+      b: bigint & 255,
+    };
+  }
+}

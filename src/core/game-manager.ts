@@ -2,6 +2,9 @@ import { Player } from "@/model/player";
 import { SpriteSheet } from "./graphics/sprite-sheet";
 import { SpriteBuilder } from "./graphics/sprite-builder";
 
+const DEFAULT_PALETTE = ["#FF0000", "#000000", "#0000FF", "#FFFFFF"];
+const POWERUP_PALETTE = ["#FFFF00", "#FF00FF", "#00FFFF", "#FFFFFF"];
+
 export class GameManager {
   player: Player;
   spriteSheet: SpriteSheet | null = null;
@@ -10,16 +13,15 @@ export class GameManager {
   constructor() {
     this.player = new Player();
 
-    // Load sprite sheet
     const img = new Image();
     img.src = "g.png";
-    img.onload = () => {
+    img.onload = async () => {
       this.spriteSheet = new SpriteSheet(img);
 
-      // Build composite player sprite (like JS13k code)
-      this.playerSprite = SpriteBuilder.createPlayer(this.spriteSheet);
-
-      // Create player instance
+      this.playerSprite = await SpriteBuilder.createPlayer(
+        this.spriteSheet,
+        DEFAULT_PALETTE
+      );
       this.player.sprite = this.playerSprite;
     };
   }
