@@ -48,31 +48,67 @@ export class Player {
     ctx.shadowColor = "#0ff";
     ctx.shadowBlur = 20;
 
+    this.drawBoosters(ctx);
+    this.manageTilt(ctx);
+
+    ctx.restore();
+  }
+
+  manageTilt(ctx: CanvasRenderingContext2D) {
     const width = this.sprite.width;
     const height = this.sprite.height;
 
-    const tiltAmount = this.velocityX * 3; // scale factor; tweak for feel
+    const tiltAmount = this.velocityX * 2; // scale factor; tweak for feel
+    const centerX = 8;
 
-    // Draw column by column, shifting vertically
     for (let x = 0; x < width; x++) {
-      // Map x (column index) to tilt offset
-      const factor = x / width - 0.5; // -0.5 (left) to 0.5 (right)
-      const yOffset = Math.round(factor * tiltAmount); // more shift on edges
+      // Factor goes -1 (left) → 1 (right)
+      const factor = (x - centerX) / centerX;
+
+      // Invert shift for right/left sides
+      // When moving right: left side goes up, right side goes down
+      const offset = Math.floor(factor * tiltAmount);
 
       ctx.drawImage(
         this.sprite,
         x,
         0,
         1,
-        height, // 1-pixel wide vertical strip
+        height,
         this.x - 8 + x,
-        this.y - 24 + yOffset,
+        this.y - 24 + offset,
         1,
         height
       );
     }
+  }
 
-    ctx.restore();
+  private drawBoosters(ctx: CanvasRenderingContext2D) {
+    // Booster position relative to sprite bottom
+    const boosterX = this.x;
+    const boosterY = this.y - 2; // slightly below ship
+
+    // Create gradient (blue → white → orange)
+    const gradient = ctx.createLinearGradient(
+      boosterX,
+      boosterY,
+      boosterX,
+      boosterY + 20
+    );
+    gradient.addColorStop(0, "rgba(0, 180, 255, 0.9)"); // blue core
+    gradient.addColorStop(0.4, "rgba(255, 255, 255, 0.8)"); // white mid
+    gradient.addColorStop(1, "rgba(255, 140, 0, 0)"); // orange tail fade
+
+    // Flicker by randomizing length
+    const flicker = 5 + Math.random() * 3;
+
+    ctx.fillStyle = gradient;
+    ctx.beginPath();
+    ctx.moveTo(boosterX - 1, boosterY); // left booster edge
+    ctx.lineTo(boosterX, boosterY + flicker); // center flame tip
+    ctx.lineTo(boosterX + 1, boosterY); // right booster edge
+    ctx.closePath();
+    ctx.fill();
   }
 
   takeDamage(damage: number) {
