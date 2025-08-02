@@ -11,6 +11,9 @@ export class Player {
   speed: number;
   sprite: HTMLImageElement;
 
+  private lastX: number = 0;
+  private velocityX: number = 0;
+
   constructor(sprite?: HTMLImageElement) {
     this.speed = 1.2;
     // Position bottom-center of canvas
@@ -33,6 +36,9 @@ export class Player {
       this.x += (dx / distance) * this.speed;
       this.y += (dy / distance) * this.speed;
     }
+
+    this.velocityX = this.x - this.lastX;
+    this.lastX = this.x;
   }
 
   draw(ctx: CanvasRenderingContext2D) {
@@ -42,8 +48,29 @@ export class Player {
     ctx.shadowColor = "#0ff";
     ctx.shadowBlur = 20;
 
-    // Draw composite sprite (32x24 like JS13k)
-    ctx.drawImage(this.sprite, this.x - 8, this.y - 24);
+    const width = this.sprite.width;
+    const height = this.sprite.height;
+
+    const tiltAmount = this.velocityX * 3; // scale factor; tweak for feel
+
+    // Draw column by column, shifting vertically
+    for (let x = 0; x < width; x++) {
+      // Map x (column index) to tilt offset
+      const factor = x / width - 0.5; // -0.5 (left) to 0.5 (right)
+      const yOffset = Math.round(factor * tiltAmount); // more shift on edges
+
+      ctx.drawImage(
+        this.sprite,
+        x,
+        0,
+        1,
+        height, // 1-pixel wide vertical strip
+        this.x - 8 + x,
+        this.y - 24 + yOffset,
+        1,
+        height
+      );
+    }
 
     ctx.restore();
   }

@@ -27,7 +27,7 @@
 }
 
 #c2d {
-  background: #ccc;
+  background: var(--black);
   image-rendering: pixelated;
   image-rendering: crisp-edges;
 }
