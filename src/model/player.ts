@@ -1,6 +1,16 @@
 import { playerMaxLife } from "@/core/config";
 import { logicalHeight, logicalWidth } from "@/core/draw-engine";
 
+export const PLAYER_PALETTE = [
+  "#202020", // deep shadow
+  "#404040", // dark panel
+  "#606060", // mid-tone metal
+  "#808080", // light mid-tone
+  "#A0A0A0", // light metal
+  "#C0C0C0", // highlight
+  "#00BFFF", // cockpit/engine glow
+];
+
 const moveTolerance = 1; // Pixels to consider "close enough" to target
 
 export class Player {

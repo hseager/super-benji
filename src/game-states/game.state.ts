@@ -9,7 +9,7 @@ import { Music } from "@/core/music/music";
 
 class GameState implements State {
   private ctx;
-  private gameManager;
+  private gameManager: GameManager;
   private muteButton: HTMLButtonElement;
 
   musicPlayer: Music;
@@ -62,9 +62,13 @@ class GameState implements State {
   onUpdate(delta: number) {
     // Run game state
     const mouse = drawEngine.mousePosition;
-    this.gameManager.player?.update(mouse.x, mouse.y, drawEngine.isPointerDown);
 
-    // Draw player
+    // Background
+    this.gameManager.background?.update();
+    this.gameManager.background?.draw(this.ctx);
+
+    // Player
+    this.gameManager.player?.update(mouse.x, mouse.y, drawEngine.isPointerDown);
     this.gameManager.player?.draw(this.ctx);
 
     if (controls.isEscape) {

@@ -33,7 +33,6 @@ export class PaletteApplier {
     const imageData = ctx.getImageData(0, 0, baseImage.width, baseImage.height);
     const data = imageData.data;
 
-    // Apply palette (assuming palette entries are hex like "#FF00FF")
     for (let i = 0; i < data.length; i += 4) {
       const alpha = data[i + 3];
       // If original pixel was transparent, keep it transparent
@@ -49,7 +48,6 @@ export class PaletteApplier {
       data[i] = color.r;
       data[i + 1] = color.g;
       data[i + 2] = color.b;
-      data[i + 3] = color.a;
     }
 
     ctx.putImageData(imageData, 0, 0);
@@ -66,7 +64,6 @@ export class PaletteApplier {
       r: (bigint >> 16) & 255,
       g: (bigint >> 8) & 255,
       b: bigint & 255,
-      a: 255,
     };
   }
 }
