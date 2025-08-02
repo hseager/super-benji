@@ -23,10 +23,6 @@ export class PaletteApplier {
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d")!;
 
-    if (baseImage.width === 0 || baseImage.height === 0) {
-      throw new Error("Base image not loaded or has zero dimensions.");
-    }
-
     canvas.width = baseImage.width;
     canvas.height = baseImage.height;
 
@@ -48,7 +44,7 @@ export class PaletteApplier {
         palette.length - 1,
         Math.floor(gray / (256 / palette.length))
       );
-      const color = this.hexToRgb(palette[colorIndex] || "transparent");
+      const color = PaletteApplier.hexToRgb(palette[colorIndex] || "#000000");
 
       data[i] = color.r;
       data[i + 1] = color.g;
@@ -65,9 +61,6 @@ export class PaletteApplier {
   }
 
   private static hexToRgb(hex: string) {
-    if (hex === "transparent") {
-      return { r: 0, g: 0, b: 0, a: 0 }; // fully transparent
-    }
     const bigint = parseInt(hex.replace("#", ""), 16);
     return {
       r: (bigint >> 16) & 255,
