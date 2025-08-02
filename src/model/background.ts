@@ -1,7 +1,7 @@
 const BACKGROUND_COLOR = "#0a0d1fff";
 
 const BACKGROUND_PALETTER = [
-  "#e4f4b5ff", // soft red
+  "#4d592aff", // soft red
   "#231952ff", // orange
   "#aadeffff", // pale yellow
   "#AAAAFF", // light blue
