@@ -1,12 +1,12 @@
 const BACKGROUND_COLOR = "#0a0d1fff";
 
 const BACKGROUND_PALETTER = [
-  "#4d592aff", // soft red
-  "#231952ff", // orange
-  "#aadeffff", // pale yellow
-  "#AAAAFF", // light blue
-  "#5555FF", // blue
-  "#FFFFFF", // white
+  "#4d592aff",
+  "#231952ff",
+  "#38454eff",
+  "#353550ff",
+  "#5555FF",
+  "#5b4949ff",
 ];
 
 export class Background {
