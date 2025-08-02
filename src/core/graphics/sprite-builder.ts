@@ -11,10 +11,10 @@ export class SpriteBuilder {
     const buffer = new CanvasBuffer(32, 24);
 
     // Draw player body
-    buffer.drawSprite(sheet, 0, 8, 16, 32, 32, 16);
+    buffer.drawSprite(sheet, 0, 8, 0, 0, 16, 16);
 
     // Draw player head
-    buffer.drawSprite(sheet, 9, 0, 0, 32, 16, 16);
+    // buffer.drawSprite(sheet, 9, 0, 0, 32, 16, 16);
 
     // Apply palette to the final composite image
     return await PaletteApplier.applyPalette(buffer.toImage(), palette);

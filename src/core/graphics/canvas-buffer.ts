@@ -19,7 +19,7 @@ export class CanvasBuffer {
     sy: number,
     sw: number,
     sh: number,
-    flip: Flip = Flip.None,
+    flip: number = Flip.None,
     rotation?: number
   ) {
     sheet.draw(this.ctx, dx, dy, sx, sy, sw, sh, flip, rotation);

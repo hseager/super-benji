@@ -39,13 +39,21 @@ export class PaletteApplier {
 
     // Apply palette (assuming palette entries are hex like "#FF00FF")
     for (let i = 0; i < data.length; i += 4) {
+      const alpha = data[i + 3];
+      // If original pixel was transparent, keep it transparent
+      if (alpha === 0) continue;
+
       const gray = data[i]; // R channel (assuming grayscale)
-      const colorIndex = Math.floor(gray / (256 / palette.length));
-      const color = this.hexToRgb(palette[colorIndex] || "#000000");
+      const colorIndex = Math.min(
+        palette.length - 1,
+        Math.floor(gray / (256 / palette.length))
+      );
+      const color = this.hexToRgb(palette[colorIndex] || "transparent");
 
       data[i] = color.r;
       data[i + 1] = color.g;
       data[i + 2] = color.b;
+      data[i + 3] = color.a;
     }
 
     ctx.putImageData(imageData, 0, 0);
@@ -57,14 +65,15 @@ export class PaletteApplier {
   }
 
   private static hexToRgb(hex: string) {
-    // if (hex === "transparent") {
-    //   // return { r: 0, g: 0, b: 0, a: 0 }; // fully transparent
-    // }
+    if (hex === "transparent") {
+      return { r: 0, g: 0, b: 0, a: 0 }; // fully transparent
+    }
     const bigint = parseInt(hex.replace("#", ""), 16);
     return {
       r: (bigint >> 16) & 255,
       g: (bigint >> 8) & 255,
       b: bigint & 255,
+      a: 255,
     };
   }
 }

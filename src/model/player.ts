@@ -1,6 +1,8 @@
 import { playerMaxLife } from "@/core/config";
 import { logicalHeight, logicalWidth } from "@/core/draw-engine";
 
+const moveTolerance = 1; // Pixels to consider "close enough" to target
+
 export class Player {
   maxLife = playerMaxLife;
   life = playerMaxLife;
@@ -10,8 +12,7 @@ export class Player {
   sprite: HTMLImageElement;
 
   constructor(sprite?: HTMLImageElement) {
-    this.speed = 2;
-
+    this.speed = 1.2;
     // Position bottom-center of canvas
     this.x = logicalWidth / 2;
     this.y = logicalHeight - 40;
@@ -20,13 +21,14 @@ export class Player {
   }
 
   update(targetX: number, targetY: number, active: boolean) {
-    if (!active) return;
+    // Need to revist active for mobile
+    // if (!active) return;
     // Calculate vector toward target
     const dx = targetX - this.x;
     const dy = targetY - this.y;
     const distance = Math.hypot(dx, dy);
 
-    if (distance > 5) {
+    if (distance > moveTolerance) {
       // Normalize and move toward mouse at fixed speed
       this.x += (dx / distance) * this.speed;
       this.y += (dy / distance) * this.speed;
@@ -40,10 +42,8 @@ export class Player {
     ctx.shadowColor = "#0ff";
     ctx.shadowBlur = 20;
 
-    // ctx.scale(2.5, 2.5); // Scale for pixel art
-
     // Draw composite sprite (32x24 like JS13k)
-    ctx.drawImage(this.sprite, this.x - 16, this.y - 12);
+    ctx.drawImage(this.sprite, this.x - 8, this.y - 24);
 
     ctx.restore();
   }

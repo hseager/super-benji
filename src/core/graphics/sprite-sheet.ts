@@ -1,8 +1,8 @@
-export enum Flip {
-  None = 0,
-  Horizontal = 1,
-  Vertical = 2,
-}
+export const Flip = {
+  None: 0,
+  Horizontal: 1,
+  Vertical: 2,
+};
 
 export class SpriteSheet {
   image: HTMLImageElement;
@@ -19,7 +19,7 @@ export class SpriteSheet {
     sy: number,
     sw: number,
     sh: number,
-    flip: Flip = Flip.None,
+    flip: number = Flip.None,
     rotation?: number
   ) {
     ctx.save();
