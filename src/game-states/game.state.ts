@@ -81,7 +81,7 @@ class GameState implements State {
 
     if (player.attackCooldown <= 0) {
       this.gameManager.fireBullet(
-        player.x,
+        player.x + 1,
         player.y - player.shootingYPosition
       );
       player.attackCooldown = attackSpeed; // reset cooldown

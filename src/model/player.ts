@@ -22,7 +22,7 @@ export class Player {
 
   // GFX
   sprite: HTMLImageElement;
-  shootingYPosition = 16; // Offset for shooting position
+  shootingYPosition = 24; // Offset for shooting position
 
   // Stats
   attackSpeed = 2000;
@@ -35,7 +35,7 @@ export class Player {
   constructor(sprite?: HTMLImageElement) {
     // Position bottom-center of canvas
     this.x = logicalWidth / 2;
-    this.y = logicalHeight - 40;
+    this.y = logicalHeight - 32;
 
     this.sprite = sprite ?? new Image();
   }
@@ -76,7 +76,7 @@ export class Player {
     const height = this.sprite.height;
 
     const tiltAmount = this.velocityX * 2; // scale factor; tweak for feel
-    const centerX = 8;
+    const centerX = width / 2;
 
     for (let x = 0; x < width; x++) {
       // Factor goes -1 (left) → 1 (right)
@@ -92,8 +92,8 @@ export class Player {
         0,
         1,
         height,
-        this.x - 8 + x,
-        this.y - 24 + offset,
+        this.x - 12 + x,
+        this.y - 28 + offset,
         1,
         height
       );
@@ -102,8 +102,8 @@ export class Player {
 
   private drawBoosters(ctx: CanvasRenderingContext2D) {
     // Booster position relative to sprite bottom
-    const boosterX = this.x;
-    const boosterY = this.y - 2; // slightly below ship
+    const boosterX = this.x + 1;
+    const boosterY = this.y; // slightly below ship
 
     // Create gradient (blue → white → orange)
     const gradient = ctx.createLinearGradient(
@@ -117,7 +117,7 @@ export class Player {
     gradient.addColorStop(1, "rgba(255, 140, 0, 0)"); // orange tail fade
 
     // Flicker by randomizing length
-    const flicker = 5 + Math.random() * 3;
+    const flicker = 9 + Math.random() * 3;
 
     ctx.fillStyle = gradient;
     ctx.beginPath();

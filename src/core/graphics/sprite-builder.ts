@@ -7,10 +7,26 @@ export class SpriteBuilder {
     sheet: SpriteSheet,
     palette: string[]
   ): Promise<HTMLImageElement> {
-    const buffer = new CanvasBuffer(32, 24);
+    const buffer = new CanvasBuffer(27, 32);
 
-    // Draw player
-    buffer.drawSprite(sheet, 0, 8, 0, 0, 16, 16);
+    // const wingSize = 6;
+    const maxWingSize = 7;
+    const bodySize = 13;
+
+    // Draw body
+    buffer.drawSprite(sheet, maxWingSize, 0, 0, 16, 13, 30);
+
+    // Draw Basic Wings
+    // Left Wing
+    // buffer.drawSprite(sheet, 0, 18, 0, 45, 6, 9);
+    // // Right Wing
+    // buffer.drawSprite(sheet, bodySize + wingSize, 18, 0, 45, 6, 9, 1);
+    //
+    // Advanced Wings
+    // Left Wing
+    buffer.drawSprite(sheet, 0, 15, 0, 54, 8, 13);
+    // Right Wing
+    buffer.drawSprite(sheet, bodySize + maxWingSize, 15, 0, 54, 8, 13, 1);
 
     // Apply palette to the final composite image
     return await PaletteApplier.applyPalette(buffer.toImage(), palette);

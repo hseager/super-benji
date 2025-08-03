@@ -29,6 +29,7 @@ export class SpriteSheet {
       ctx.translate(dx + sw, dy);
       ctx.scale(-1, 1);
       dx = 0;
+      dy = 0;
     }
     if (flip & Flip.Vertical) {
       ctx.translate(dx, dy + sh);

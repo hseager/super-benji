@@ -5,7 +5,7 @@ export class Music {
   private output: GainNode;
   private compressor: DynamicsCompressorNode;
   private tempo = 220;
-  private volume = 0.5;
+  private volume = 0.15;
 
   lead: Sequence;
   bass: Sequence;
