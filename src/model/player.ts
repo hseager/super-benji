@@ -11,6 +11,36 @@ export const PLAYER_PALETTE = [
   "#00BFFF", // cockpit/engine glow
 ];
 
+// export const PLAYER_PALETTE = [
+//   "#201400", // deep shadow
+//   "#402800", // dark panel
+//   "#604000", // mid-tone metal
+//   "#805800", // light mid-tone
+//   "#A07000", // light metal
+//   "#C08800", // highlight
+//   "#FF7F00", // cockpit/engine glow
+// ];
+
+// export const PLAYER_PALETTE = [
+//   "#002010", // deep shadow
+//   "#004020", // dark panel
+//   "#006030", // mid-tone metal
+//   "#008040", // light mid-tone
+//   "#00A050", // light metal
+//   "#00C060", // highlight
+//   "#00FF7F", // cockpit/engine glow
+// ];
+
+// export const PLAYER_PALETTE = [
+//   "#200000", // deep shadow
+//   "#400000", // dark panel
+//   "#601010", // mid-tone metal
+//   "#802020", // light mid-tone
+//   "#A03030", // light metal
+//   "#C04040", // highlight
+//   "#FF3333", // cockpit/engine glow
+// ];
+
 const moveTolerance = 1; // Pixels to consider "close enough" to target
 
 export class Player {
@@ -31,6 +61,10 @@ export class Player {
   // Track last X position for velocity calculation
   private lastX: number = 0;
   velocityX: number = 0;
+
+  // Glow
+  glowColor: string = "#00bfff7c"; // Default glow color
+  glowAmount: number = 12; // Default glow radius
 
   constructor(sprite?: HTMLImageElement) {
     // Position bottom-center of canvas
@@ -61,9 +95,9 @@ export class Player {
   draw(ctx: CanvasRenderingContext2D) {
     ctx.save();
 
-    // Optional glow like your circle
-    ctx.shadowColor = "#0ff";
-    ctx.shadowBlur = 20;
+    // Glow
+    ctx.shadowColor = this.glowColor;
+    ctx.shadowBlur = this.glowAmount;
 
     this.drawBoosters(ctx);
     this.manageTilt(ctx);
