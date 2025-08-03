@@ -1,3 +1,5 @@
+import { hexToRgba } from "../utilities";
+
 // graphics/palette-applier.ts
 export class PaletteApplier {
   static applyPalette(
@@ -43,7 +45,7 @@ export class PaletteApplier {
         palette.length - 1,
         Math.floor(gray / (256 / palette.length))
       );
-      const color = PaletteApplier.hexToRgb(palette[colorIndex] || "#000000");
+      const color = hexToRgba(palette[colorIndex] || "#000000");
 
       data[i] = color.r;
       data[i + 1] = color.g;
@@ -56,14 +58,5 @@ export class PaletteApplier {
     const img = new Image();
     img.src = canvas.toDataURL();
     return img;
-  }
-
-  private static hexToRgb(hex: string) {
-    const bigint = parseInt(hex.replace("#", ""), 16);
-    return {
-      r: (bigint >> 16) & 255,
-      g: (bigint >> 8) & 255,
-      b: bigint & 255,
-    };
   }
 }

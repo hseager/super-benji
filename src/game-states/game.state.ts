@@ -63,13 +63,40 @@ class GameState implements State {
     // Run game state
     const mouse = drawEngine.mousePosition;
 
+    const { background, player, bullets } = this.gameManager;
+
     // Background
-    this.gameManager.background?.update();
-    this.gameManager.background?.draw(this.ctx);
+    background?.update(this.gameManager.player.velocityX);
+    background?.draw(this.ctx);
 
     // Player
-    this.gameManager.player?.update(mouse.x, mouse.y, drawEngine.isPointerDown);
-    this.gameManager.player?.draw(this.ctx);
+    player?.update(mouse.x, mouse.y);
+    player?.draw(this.ctx);
+
+    // Handle shooting cooldown
+    const { attackCooldown, attackSpeed } = player;
+    if (attackCooldown > 0) {
+      player.attackCooldown -= delta;
+    }
+
+    if (player.attackCooldown <= 0) {
+      this.gameManager.fireBullet(
+        player.x,
+        player.y - player.shootingYPosition
+      );
+      player.attackCooldown = attackSpeed; // reset cooldown
+    }
+
+    // Bullets
+    bullets.forEach((bullet, i) => {
+      bullet.update();
+      bullet.draw(this.ctx);
+
+      // Remove if off screen
+      if (bullet.offScreen()) {
+        bullets.splice(i, 1);
+      }
+    });
 
     if (controls.isEscape) {
       gameStateMachine.setState(menuState);

@@ -3,10 +3,12 @@ import { SpriteSheet } from "./graphics/sprite-sheet";
 import { SpriteBuilder } from "./graphics/sprite-builder";
 import spriteUrl from "../../ss.png";
 import { Background } from "@/model/background";
+import { Bullet } from "@/model/bullet";
 
 export class GameManager {
   player: Player;
   background: Background;
+  bullets: Bullet[] = [];
 
   constructor() {
     // Player
@@ -26,5 +28,9 @@ export class GameManager {
 
     // Background
     this.background = new Background();
+  }
+
+  fireBullet(x: number, y: number) {
+    this.bullets.push(new Bullet(x, y));
   }
 }

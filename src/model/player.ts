@@ -18,14 +18,21 @@ export class Player {
   life = playerMaxLife;
   x: number;
   y: number;
-  speed: number;
-  sprite: HTMLImageElement;
+  movementSpeed: number = 1.2;
 
+  // GFX
+  sprite: HTMLImageElement;
+  shootingYPosition = 16; // Offset for shooting position
+
+  // Stats
+  attackSpeed = 2000;
+  attackCooldown = 0;
+
+  // Track last X position for velocity calculation
   private lastX: number = 0;
-  private velocityX: number = 0;
+  velocityX: number = 0;
 
   constructor(sprite?: HTMLImageElement) {
-    this.speed = 1.2;
     // Position bottom-center of canvas
     this.x = logicalWidth / 2;
     this.y = logicalHeight - 40;
@@ -33,7 +40,7 @@ export class Player {
     this.sprite = sprite ?? new Image();
   }
 
-  update(targetX: number, targetY: number, active: boolean) {
+  update(targetX: number, targetY: number) {
     // Need to revist active for mobile
     // if (!active) return;
     // Calculate vector toward target
@@ -43,8 +50,8 @@ export class Player {
 
     if (distance > moveTolerance) {
       // Normalize and move toward mouse at fixed speed
-      this.x += (dx / distance) * this.speed;
-      this.y += (dy / distance) * this.speed;
+      this.x += (dx / distance) * this.movementSpeed;
+      this.y += (dy / distance) * this.movementSpeed;
     }
 
     this.velocityX = this.x - this.lastX;
