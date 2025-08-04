@@ -25,12 +25,15 @@ export class LevelManager {
 
   /** Draw level text if timer is active */
   drawLevelText() {
-    const ctx = drawEngine.context;
-    ctx.save();
-    ctx.font = "24px monospace";
-    ctx.fillStyle = "white";
-    ctx.textAlign = "center";
-    ctx.fillText(`LEVEL ${this.currentLevel}`, drawEngine.canvasWidth / 2, 80);
-    ctx.restore();
+    drawEngine.context.save();
+    drawEngine.context.font = "24px monospace";
+    drawEngine.context.fillStyle = "white";
+    drawEngine.context.textAlign = "center";
+    drawEngine.context.fillText(
+      `LEVEL ${this.currentLevel}`,
+      drawEngine.canvasWidth / 2,
+      80
+    );
+    drawEngine.context.restore();
   }
 }
