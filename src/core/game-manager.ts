@@ -3,22 +3,26 @@ import { SpriteSheet } from "./graphics/sprite-sheet";
 import { SpriteBuilder } from "./graphics/sprite-builder";
 import { Background } from "@/model/background";
 import { Bullet } from "@/model/bullet";
+import { LevelManager } from "./level-manager";
 
 const SPRITE_BASE64 =
-  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABYCAMAAAByMgEaAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAThQTFRFAAAATExMSUlJX19fUVFRZmZmUFBQIyMjTk5OLy8vODg4NjY2ZGRkbGxsQUFBR0dHNzc3a2trZ2dnQkJCKysrOzs7Xl5eLS0tYWFhV1dXaGhob29vREREJiYmVFRUOjo6cXFxPj4+ISEhSkpKVVVVFxcXWlpaYmJiaWlpFhYWNTU1dnZ2k5OTGRkZiYmJe3t7Y2NjCwsLJSUlNDQ0cnJyiIiIkZGReHh4S0tLVlZWDg4OCQkJmJiYCAgIfHx8EhISf39/WVlZHBwcjIyMKCgoSEhIFBQUPz8/tra2Hh4ejo6OoaGhMTExIyMjKioqQ0NDERERlJSUgoKCuLi4ICAgfn5+dHR0lpaWBgYGhISEGBgYIiIiGhoaICAgBQUFFxcXJiYmFRUVwcHBJycnJycnqKioCgoKIiIiS71T+gAAAGh0Uk5TAP///////////////////////////////////////////////////////////////x3///////////9V/3H///////////////////+N/////////////xj/qnHjGC+Oo1X/uuP/OB8TpO42AAACMUlEQVR4nO2X15LaQBAAVzkLRQQSOWcwGYyPcITLOTln+///wHC+H/CMH+kqHrthZ2vFipC/mCmC4zGEDKj8R5R/bhsuKpAYKjIqcKhR3zF+8jobi/OIwL1pZBwdEejxJ7m4fQbVW+xMb3KCYmdh/mGg0Z7lZzo+w30B+OqB71+GVDXjRJhU9Pe/B6IFa55r8OxFWi7kTMAveEbzOvFPUHnHkhDnCeEnCYv5+u1GkAEu8O1nHxe4va2+QgWOjhiUH5qcihIm0GRKURmzhokdSLHXiMBb92FhvEEEalJh3EH4fJMprp338CGIxYvIWIj/Agc2YaE1XbThQzD4OJMvH5ehaxDNUc4QyoIL3cjHU75055RjQ2hgcr0SrPH6kgIO4cdglmQX1NSlz0H+sCh3lRlLX4WMjg0JMGnppNLX9PWmLdGQgEgv+3Ktq1/peQn0z7SKKYHdUI1puu6Bnqyq6N5QzZiSl+vLKCywCjOtMyefFpQwJDCi07rF2V5deqeAlrC9lyjasJ0R2oRQkMAOM1+pO1B5R/jY++phAjL5TD5gApnt5w4T6BcxNiHzKnj8W5jt5oUqiECXrj1UkojAjdYLBy1EYNAIUnPQKXrBPJCtBGaIBYT7DIcNvIB95yI1pH+v4fzYAeqORUhVx82yQZdQ98SeGC3lEP6ASqkRxBJ62cCKmCWwXx2l/Ajnw9+cs12rEI4k4Q81muU2iZELP480Kya2ByEBDuzZs2fPnv/HH9MfOmHqf1LYAAAAAElFTkSuQmCC";
+  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABYCAMAAAByMgEaAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAEtQTFRFAAAAKCgoU1NTSUlJMzMzQUFBOjo6ZWVlbGxsd3d3ERERi4uLHR0dXV1dl5eXxMTEsLCwCgoKICAgCQkJ////ISEhYGBg3NzcIyMjvz39MwAAABl0Uk5TAP/+//////////////////9hkSP/HKX/1VEFYkAAAAMrSURBVHic7VfZdts6DBQ2guAiOa4b9/+/tJAsOU56cwtZffQ8OFSOOAQGC6FhuCHn4RETDDsx0uNTFy47CRR/3rmGQQx5GHDH/rOktC6zn62yEOywAok3gisMYGSAA+wQomb6tS67KlU1AE0c3p9GEri5TIRZ6uUKKYmEfbCcGsiyBEqEenIVGeKhqFgR5GYxF8i1y4U4rIGiiSmwLLnQUsNOCSFsQM2ZQLWxdj17DrShIIMHJWiBmqqQE4D27Okkvg0X8ylGgF27S+AapI5zRWwJ8bEIILvmP9b13ipY4MbeCZ5B+lI4df5pOwjqYF/sWf5MYYLpVB+elnSYTcoSJTid7EOBcbYdT7MJ9O2OPwj6fZ3Uz+1X9cROKRhJGke6l651YBwnxQKEQR/MUzBtPpg3lzyOIwIrUiwpRsksb6s1SILdxktPSEQxE2qyllYCb8iA0qcJU+IWlHHkXjYNcK4l0Or17RJCSEW0rgXONxHaHETONSO4/zECUtDStlpwC4rXJ6W5ruE9QiB9IVhFcNmEXIYisjwE4O2rt9LKPRldB/a+RMHSpoyYoMAWB16ryaINxXMmNyhCb/d/LSEJ30uex03LJ4Jd+GWWsFFJdP5kQLSjkCZjz/9CiTfN1+YQu949dSvX7FEDXvMW7CZAjmURQU2jOUHbCMwtyT4c1CAB+22syQnW+3lIvU/qt3XsZlJKPk4I+5UIa1sSpMmUSwqpqES9K4MT8NbXAOt0Iog1E+8f4pcjND7z4kJZinGa3KgYwfw+QWtw6+fv/gPZrnarxhhJbtw2wcZSq1idLnQBIYrVQ2/8thGYorB5UwVtEh1S0nAetiEto0Ahu6J3BCaIDWpt+Eh89u42vPvQ45OKexbToOrDA/qewijLlJi/2/IJ3R6btz0eGpCge/Dok6d75oL5QBqN90xDX1F9qsz69/e+t8DHxL7ny+ArsiW/hA8Q9L+/8v844v4jjjixYDy432I5+y3I4p9H/22AHNOyUj4Uzeofakdy0SirHnChzvvz81EwnM/X5wuaTP1mSs+74J+p4jPS86nss/FczUei8MILL7zwwr/Cb3olFq8dbo59AAAAAElFTkSuQmCC";
 
 export class GameManager {
   player: Player;
   background: Background;
   bullets: Bullet[] = [];
+  levelManager: LevelManager;
 
   constructor() {
-    // Player
-    this.player = new Player();
-
+    // Load Sprite Sheet
     const img = new Image();
     img.src = SPRITE_BASE64;
     const spriteSheet = new SpriteSheet(img);
+
+    this.player = new Player();
+    this.levelManager = new LevelManager();
+    this.background = new Background();
 
     img.onload = async () => {
       const playerSprite = await SpriteBuilder.createPlayer(
@@ -27,9 +31,6 @@ export class GameManager {
       );
       this.player.sprite = playerSprite;
     };
-
-    // Background
-    this.background = new Background();
   }
 
   fireBullet(x: number, y: number) {

@@ -14,7 +14,7 @@ export class SpriteBuilder {
     const bodySize = 13;
 
     // Draw body
-    buffer.drawSprite(sheet, maxWingSize, 0, 0, 16, 13, 30);
+    buffer.drawSprite(sheet, maxWingSize, 0, 0, 15, 13, 30);
 
     // Draw Basic Wings
     // Left Wing

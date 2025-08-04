@@ -23,6 +23,12 @@ class GameState implements State {
       ".mute-button"
     ) as HTMLButtonElement;
     this.musicPlayer = new Music();
+
+    // this.gameManager.levelManager.startLevel();
+
+    setTimeout(() => {
+      this.gameManager.levelManager.nextLevel();
+    }, 4000); // Delay to ensure the music starts after the game state is set
   }
 
   // toggleFullscreen() {
@@ -63,10 +69,10 @@ class GameState implements State {
     // Run game state
     const mouse = drawEngine.mousePosition;
 
-    const { background, player, bullets } = this.gameManager;
+    const { background, player, bullets, levelManager } = this.gameManager;
 
     // Background
-    background?.update(this.gameManager.player.velocityX);
+    background?.update(player.velocityX);
     background?.draw(this.ctx);
 
     // Player
@@ -97,6 +103,11 @@ class GameState implements State {
         bullets.splice(i, 1);
       }
     });
+
+    // Update level manager
+    // Inside update(delta)
+    levelManager.update(delta);
+    levelManager.draw(this.ctx);
 
     if (controls.isEscape) {
       gameStateMachine.setState(menuState);
