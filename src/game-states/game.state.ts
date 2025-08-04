@@ -23,12 +23,6 @@ class GameState implements State {
       ".mute-button"
     ) as HTMLButtonElement;
     this.musicPlayer = new Music();
-
-    this.gameManager.levelManager.startLevel(1);
-
-    setTimeout(() => {
-      this.gameManager.levelManager.nextLevel();
-    }, 4000);
   }
 
   // toggleFullscreen() {
@@ -55,14 +49,18 @@ class GameState implements State {
   }
 
   onEnter() {
-    this.gameManager = new GameManager();
-
     this.setupMuteButton();
     // Force fullscreen for mobiles as the gestures in most browsers mess with the game
     // and cause them to exit the tab or refresh the page
     // if (window.innerWidth <= 920) {
     //   this.toggleFullscreen();
     // }
+
+    this.gameManager.levelManager.startLevel(1);
+
+    setTimeout(() => {
+      this.gameManager.levelManager.nextLevel();
+    }, 4000);
   }
 
   onUpdate(delta: number) {
