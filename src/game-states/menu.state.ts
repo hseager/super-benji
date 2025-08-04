@@ -15,7 +15,8 @@ class MenuState implements State {
 
   onUpdate() {
     const xCenter = drawEngine.context.canvas.width / 2;
-    drawEngine.drawText("js13k 2025", 16, xCenter, 60);
+    // drawEngine.drawText("js13k 2025", 16, xCenter, 60);
+    drawEngine.drawTitle("X-Type", 24, xCenter, 60);
     drawEngine.drawText("Start Game", 16, xCenter, 200);
     this.updateControls();
   }

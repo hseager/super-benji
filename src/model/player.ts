@@ -41,30 +41,34 @@ export const PLAYER_PALETTE = [
 //   "#FF3333", // cockpit/engine glow
 // ];
 
-const moveTolerance = 1; // Pixels to consider "close enough" to target
-
 export class Player {
-  maxLife = playerMaxLife;
-  life = playerMaxLife;
+  // Position
   x: number;
   y: number;
-  movementSpeed: number = 1.2;
+  private lastX: number = 0; // Track last X position for velocity calculation
+  velocityX: number = 0;
+
+  // Movement
+  movementXSpeed: number = 0.75;
+  movementYSpeed: number = 0.5;
+  moveTolerance = 1; // Pixels to consider "close enough" to target
 
   // GFX
   sprite: HTMLImageElement;
-  shootingYPosition = 24; // Offset for shooting position
-
-  // Stats
-  attackSpeed = 2;
-  attackCooldown = 0;
-
-  // Track last X position for velocity calculation
-  private lastX: number = 0;
-  velocityX: number = 0;
-
+  shootingYPosition = -24; // Offset for shooting position
+  shootingXPosition = 1; // Offset for shooting position
+  spriteXOffset = 13; // Sprite X offset for centering
+  spriteYOffset = 28; // Sprite Y offset for centering
+  boosterSize = 6; // Size of the booster flame
   // Glow
   glowColor: string = "#00bfff7c"; // Default glow color
   glowAmount: number = 12; // Default glow radius
+
+  // Stats
+  maxLife = playerMaxLife;
+  life = playerMaxLife;
+  attackSpeed = 2;
+  attackCooldown = 0;
 
   constructor(sprite?: HTMLImageElement) {
     // Position bottom-center of canvas
@@ -82,10 +86,10 @@ export class Player {
     const dy = targetY - this.y;
     const distance = Math.hypot(dx, dy);
 
-    if (distance > moveTolerance) {
+    if (distance > this.moveTolerance) {
       // Normalize and move toward mouse at fixed speed
-      this.x += (dx / distance) * this.movementSpeed;
-      this.y += (dy / distance) * this.movementSpeed;
+      this.x += (dx / distance) * this.movementXSpeed;
+      this.y += (dy / distance) * this.movementYSpeed;
     }
 
     this.velocityX = this.x - this.lastX;
@@ -126,8 +130,8 @@ export class Player {
         0,
         1,
         height,
-        this.x - 12 + x,
-        this.y - 28 + offset,
+        this.x - this.spriteXOffset + x,
+        this.y - this.spriteYOffset + offset,
         1,
         height
       );
@@ -136,7 +140,7 @@ export class Player {
 
   private drawBoosters(ctx: CanvasRenderingContext2D) {
     // Booster position relative to sprite bottom
-    const boosterX = this.x + 1;
+    const boosterX = this.x + this.shootingXPosition;
     const boosterY = this.y; // slightly below ship
 
     // Create gradient (blue → white → orange)
@@ -151,7 +155,7 @@ export class Player {
     gradient.addColorStop(1, "rgba(255, 140, 0, 0)"); // orange tail fade
 
     // Flicker by randomizing length
-    const flicker = 9 + Math.random() * 3;
+    const flicker = this.boosterSize + Math.random() * 3;
 
     ctx.fillStyle = gradient;
     ctx.beginPath();

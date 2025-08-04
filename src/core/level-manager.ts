@@ -1,39 +1,52 @@
+import { Enemy } from "@/model/enemy";
 import { drawEngine } from "./draw-engine";
+import { GameManager } from "./game-manager";
 
 export class LevelManager {
+  private baseEnemyCount = 5;
   private currentLevel: number = 1;
   private displayTimer = 0;
+  private gameManager: GameManager;
 
-  /** Start a specific level (used on init or after nextLevel) */
+  constructor(gameManager: GameManager) {
+    this.gameManager = gameManager;
+  }
+
   startLevel(level: number) {
     this.currentLevel = level;
     this.displayTimer = 2;
+    this.gameManager.enemies = []; // Clear previous enemies
+    this.spawnEnemies();
   }
 
-  /** Advance to the next level */
   nextLevel() {
     this.startLevel(this.currentLevel + 1);
   }
 
-  /** Call this every frame with delta in milliseconds */
   update(delta: number) {
     if (this.displayTimer > 0) {
       this.displayTimer -= delta;
-      this.drawLevelText();
     }
   }
 
-  /** Draw level text if timer is active */
-  drawLevelText() {
-    drawEngine.context.save();
-    drawEngine.context.font = "24px monospace";
-    drawEngine.context.fillStyle = "white";
-    drawEngine.context.textAlign = "center";
-    drawEngine.context.fillText(
-      `LEVEL ${this.currentLevel}`,
-      drawEngine.canvasWidth / 2,
-      80
-    );
-    drawEngine.context.restore();
+  draw() {
+    if (this.displayTimer > 0) {
+      drawEngine.drawTitle(
+        `Level ${this.currentLevel}`,
+        24,
+        drawEngine.canvasWidth / 2,
+        80
+      );
+    }
+  }
+
+  spawnEnemies() {
+    const enemyCount = this.baseEnemyCount + (this.currentLevel - 1) * 2;
+
+    for (let i = 0; i < enemyCount; i++) {
+      const x = Math.random() * drawEngine.canvasWidth;
+      const y = Math.random() * 50; // staggered spawn above screen
+      this.gameManager.addEnemy(new Enemy(x, y, this.gameManager.enemySprite));
+    }
   }
 }

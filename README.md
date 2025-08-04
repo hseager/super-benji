@@ -3,8 +3,11 @@
 ## Ideation
 
 - Overworld/planet map screen
-- Each battle/intance gathers resources
+- Each battle/intance gathers resources/unlocks an upgrade
 - Can craft/upgrade on overworld
+- Rogue-like, power ups after each level
+  - Enemies get harder
+  - Poe loot with rarity?
 
 ### Power-ups
 
@@ -30,6 +33,22 @@
 ### Graphics
 
 - Glows
+
+### TODO
+
+- Levels
+  -
+- Enemies
+  - Attacks
+- Artwork
+  - Intro
+  - Titles
+  - Tilesets
+  - Scene animations
+- Rewards
+  - Upgrades/Loot/Powerups
+- Win state
+- Lose State
 
 # About
 

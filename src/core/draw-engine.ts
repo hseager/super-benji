@@ -48,6 +48,27 @@ class DrawEngine {
     return this.context.canvas.height;
   }
 
+  drawTitle(text: string, fontSize: number, x: number, y: number) {
+    const context = this.context;
+
+    // context.save();
+    // context.font = `bold ${fontSize + 1}px "Courier New"`;
+    // context.fillStyle = "#999";
+    // context.fillText(text, x, y + 1);
+
+    const fontColor = "#ed9436";
+    const shadowColor = "#3f2163";
+
+    // Main Text
+    context.save();
+    context.font = `bold ${fontSize - 1}px "Courier New"`;
+    context.strokeStyle = shadowColor;
+    context.strokeText(text, x, y + 1);
+    context.font = `bold ${fontSize}px "Courier New"`;
+    context.fillStyle = fontColor;
+    context.fillText(text, x, y);
+  }
+
   drawText(
     text: string,
     fontSize: number,
@@ -58,9 +79,9 @@ class DrawEngine {
   ) {
     const context = this.context;
 
-    context.font = `${fontSize}px "Courier New", Roboto, Helvetica, Arial, sans-serif-black`;
+    context.font = `${fontSize}px "Courier New"`;
     context.textAlign = textAlign;
-    context.strokeStyle = "black";
+    context.strokeStyle = "#333";
     context.lineWidth = 4;
     context.strokeText(text, x, y);
     context.fillStyle = color;

@@ -64,46 +64,11 @@ class GameState implements State {
   }
 
   onUpdate(delta: number) {
-    // Run game state
     const mouse = drawEngine.mousePosition;
 
-    const { background, player, bullets, levelManager } = this.gameManager;
-
-    // Background
-    background?.update(player.velocityX);
-    background?.draw(this.ctx);
-
-    // Player
-    player?.update(mouse.x, mouse.y);
-    player?.draw(this.ctx);
-
-    // Handle shooting cooldown
-    const { attackCooldown, attackSpeed } = player;
-    if (attackCooldown > 0) {
-      player.attackCooldown -= delta;
-    }
-
-    if (player.attackCooldown <= 0) {
-      this.gameManager.fireBullet(
-        player.x + 1,
-        player.y - player.shootingYPosition
-      );
-      player.attackCooldown = attackSpeed; // reset cooldown
-    }
-
-    // Bullets
-    bullets.forEach((bullet, i) => {
-      bullet.update();
-      bullet.draw(this.ctx);
-
-      // Remove if off screen
-      if (bullet.offScreen()) {
-        bullets.splice(i, 1);
-      }
-    });
-
-    // Update level manager
-    levelManager.update(delta);
+    // Delegate logic to GameManager
+    this.gameManager.update(delta, mouse);
+    this.gameManager.draw(this.ctx);
 
     if (controls.isEscape) {
       gameStateMachine.setState(menuState);
@@ -114,7 +79,7 @@ class GameState implements State {
   }
 
   private checkWinCondition() {
-    //
+    // gameStateMachine.setState(new WinState());
   }
 
   private checkLoseCondition() {
