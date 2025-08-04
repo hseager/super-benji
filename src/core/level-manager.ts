@@ -2,56 +2,35 @@ import { drawEngine } from "./draw-engine";
 
 export class LevelManager {
   private currentLevel: number = 1;
-  private levelTextTimer: number = 0;
-  private levelTextDuration: number = 2000; // 2 seconds
-  private fadeDuration: number = 500; // fade in/out duration (ms)
+  private displayTimer = 0;
 
-  constructor() {}
-
-  startLevel() {
-    this.levelTextTimer = this.levelTextDuration; // reset timer when level starts
+  /** Start a specific level (used on init or after nextLevel) */
+  startLevel(level: number) {
+    this.currentLevel = level;
+    this.displayTimer = 2;
   }
 
+  /** Advance to the next level */
   nextLevel() {
-    this.currentLevel++;
-    this.startLevel();
-    // additional logic for spawning enemies, etc
+    this.startLevel(this.currentLevel + 1);
   }
 
+  /** Call this every frame with delta in milliseconds */
   update(delta: number) {
-    if (this.levelTextTimer > 0) {
-      this.levelTextTimer -= delta;
+    if (this.displayTimer > 0) {
+      this.displayTimer -= delta;
+      this.drawLevelText();
     }
   }
 
-  draw(ctx: CanvasRenderingContext2D) {
-    if (this.levelTextTimer <= 0) return;
-
-    // Calculate fade in/out alpha
-    const timeElapsed = this.levelTextDuration - this.levelTextTimer;
-    let alpha = 1;
-    if (timeElapsed < this.fadeDuration) {
-      // Fade in
-      alpha = timeElapsed / this.fadeDuration;
-    } else if (this.levelTextTimer < this.fadeDuration) {
-      // Fade out
-      alpha = this.levelTextTimer / this.fadeDuration;
-    }
-
+  /** Draw level text if timer is active */
+  drawLevelText() {
+    const ctx = drawEngine.context;
     ctx.save();
-    ctx.globalAlpha = alpha;
-
-    // Text style
-    ctx.fillStyle = "#fff";
-    ctx.font = "bold 48px sans-serif";
+    ctx.font = "24px monospace";
+    ctx.fillStyle = "white";
     ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-
-    ctx.fillText(
-      `Level ${this.currentLevel}`,
-      drawEngine.canvasWidth / 2,
-      drawEngine.canvasHeight / 2
-    );
+    ctx.fillText(`LEVEL ${this.currentLevel}`, drawEngine.canvasWidth / 2, 80);
     ctx.restore();
   }
 }

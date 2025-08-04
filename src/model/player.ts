@@ -55,7 +55,7 @@ export class Player {
   shootingYPosition = 24; // Offset for shooting position
 
   // Stats
-  attackSpeed = 2000;
+  attackSpeed = 2;
   attackCooldown = 0;
 
   // Track last X position for velocity calculation

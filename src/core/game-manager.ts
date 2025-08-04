@@ -24,6 +24,7 @@ export class GameManager {
     this.levelManager = new LevelManager();
     this.background = new Background();
 
+    // Load sprites
     img.onload = async () => {
       const playerSprite = await SpriteBuilder.createPlayer(
         spriteSheet,

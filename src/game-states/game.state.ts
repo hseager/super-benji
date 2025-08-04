@@ -24,11 +24,11 @@ class GameState implements State {
     ) as HTMLButtonElement;
     this.musicPlayer = new Music();
 
-    // this.gameManager.levelManager.startLevel();
+    this.gameManager.levelManager.startLevel(1);
 
     setTimeout(() => {
       this.gameManager.levelManager.nextLevel();
-    }, 4000); // Delay to ensure the music starts after the game state is set
+    }, 4000);
   }
 
   // toggleFullscreen() {
@@ -105,9 +105,7 @@ class GameState implements State {
     });
 
     // Update level manager
-    // Inside update(delta)
     levelManager.update(delta);
-    levelManager.draw(this.ctx);
 
     if (controls.isEscape) {
       gameStateMachine.setState(menuState);
