@@ -25,6 +25,7 @@
   - Fire
   - Ice
   -
+- Adamite/ Mitril Panels
 
 ### Graphics
 
