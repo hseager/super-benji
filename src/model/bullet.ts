@@ -1,16 +1,13 @@
-import { hexToRgba, hexToRgbaString } from "@/core/utilities";
+import { hexToRgbaString } from "@/core/utilities";
+import { GameObject } from "./game-object";
 
-export class Bullet {
-  x: number;
-  y: number;
+export class Bullet extends GameObject {
   speed = 1;
   radius = 1;
-
   glowRadius = 2; // Glow radius for visual effect
 
   constructor(x: number, y: number) {
-    this.x = x;
-    this.y = y;
+    super(x, y, 1, 1);
   }
 
   update() {

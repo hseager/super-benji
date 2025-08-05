@@ -1,4 +1,5 @@
 import { drawEngine } from "@/core/draw-engine";
+import { GameObject } from "./game-object";
 
 export const ENEMY_PALETTE = [
   "#200000", // deep shadow
@@ -10,22 +11,16 @@ export const ENEMY_PALETTE = [
   "#e67c7c", // cockpit/engine glow
 ];
 
-export class Enemy {
-  x: number;
-  y: number;
+export class Enemy extends GameObject {
   speed: number;
   sprite: HTMLImageElement;
-
-  width = 14; // adjust to your sprite
-  height = 14;
 
   // GFX
   glowColor: string = "#ffb3007c"; // Default glow color
   glowAmount: number = 12; // Default glow radius
 
   constructor(x: number, y: number, sprite?: HTMLImageElement) {
-    this.x = x;
-    this.y = y;
+    super(x, y, 14, 14); // Set width and height to match sprite
     this.speed = 10; // faster with each level
     this.sprite = sprite ?? new Image();
   }
@@ -38,7 +33,7 @@ export class Enemy {
     ctx.shadowColor = this.glowColor;
     ctx.shadowBlur = this.glowAmount;
 
-    ctx.drawImage(this.sprite, this.x - 16, this.y - 16);
+    ctx.drawImage(this.sprite, this.x, this.y);
   }
 
   offScreen(): boolean {

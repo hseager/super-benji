@@ -36,10 +36,10 @@ export class SpriteBuilder {
     sheet: SpriteSheet,
     palette: string[]
   ): Promise<HTMLImageElement> {
-    const buffer = new CanvasBuffer(27, 32);
+    const buffer = new CanvasBuffer(16, 16);
 
     // Draw body
-    buffer.drawSprite(sheet, 8, 0, 16, 0, 14, 14);
+    buffer.drawSprite(sheet, 0, 0, 16, 0, 14, 14);
 
     // Apply palette to the final composite image
     return await PaletteApplier.applyPalette(buffer.toImage(), palette);

@@ -60,6 +60,8 @@ export class Player {
   spriteXOffset = 13; // Sprite X offset for centering
   spriteYOffset = 28; // Sprite Y offset for centering
   boosterSize = 6; // Size of the booster flame
+  tiltAmount = 3;
+
   // Glow
   glowColor: string = "#00bfff7c"; // Default glow color
   glowAmount: number = 12; // Default glow radius
@@ -113,7 +115,7 @@ export class Player {
     const width = this.sprite.width;
     const height = this.sprite.height;
 
-    const tiltAmount = this.velocityX * 2; // scale factor; tweak for feel
+    const tiltAmount = this.velocityX * this.tiltAmount;
     const centerX = width / 2;
 
     for (let x = 0; x < width; x++) {

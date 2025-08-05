@@ -57,10 +57,6 @@ class GameState implements State {
     // }
 
     this.gameManager.levelManager.startLevel(1);
-
-    setTimeout(() => {
-      this.gameManager.levelManager.nextLevel();
-    }, 4000);
   }
 
   onUpdate(delta: number) {
