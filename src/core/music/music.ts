@@ -4,7 +4,7 @@ export class Music {
   private ac: AudioContext;
   private output: GainNode;
   private compressor: DynamicsCompressorNode;
-  private tempo = 220;
+  private tempo = 115;
   private volume = 0.15;
 
   lead: Sequence;
@@ -24,14 +24,14 @@ export class Music {
     this.compressor.connect(this.output);
 
     this.lead = new Sequence(this.ac, this.tempo, [
-      "F#4 q",
+      "F#4 e",
       "C#5 q",
       "F#4 q",
       "E5 q",
-      "- q",
+      "F#4 e",
       "E5 q",
-      "C#5 q",
-      "F#5 q",
+      "C#5 e",
+      "F#5 h",
       // Repeat
       "F#4 q",
       "C#5 q",
@@ -96,49 +96,83 @@ export class Music {
       "F5 q",
       "D5 q",
     ]);
-    this.lead.staccato = 0.3;
-    this.lead.smoothing = 0.02;
 
     this.bass = new Sequence(this.ac, this.tempo, [
-      "F#2 h",
-      "F#2 h",
-      "F#2 h",
-      "F#2 h",
-      "B1 h",
-      "B1 h",
-      "C#2 h",
-      "C#2 h",
+      "F#2 q",
+      "F#2 q",
+      "F#2 q",
+      "F#2 q",
+      "F#2 q",
+      "F#2 q",
+      "F#2 q",
+      "F#2 q",
+      "B1 q",
+      "B1 q",
+      "B1 q",
+      "B1 q",
+      "C#2 q",
+      "C#2 q",
+      "C#2 q",
+      "C#2 q",
       // Repeat
-      "F#2 h",
-      "F#2 h",
-      "F#2 h",
-      "F#2 h",
-      "B1 h",
-      "B1 h",
-      "C#2 h",
-      "C#2 h",
+      "F#2 q",
+      "F#2 q",
+      "F#2 q",
+      "F#2 q",
+      "F#2 q",
+      "F#2 q",
+      "F#2 q",
+      "F#2 q",
+      "B1 q",
+      "B1 q",
+      "B1 q",
+      "B1 q",
+      "C#2 q",
+      "C#2 q",
+      "C#2 q",
+      "C#2 q",
       // Next
-      "A2 h",
-      "A2 h",
-      "A2 h",
-      "A2 h",
-      "E2 h",
-      "E2 h",
-      "F#2 h",
-      "F#2 h",
-      "A2 h",
-      "A2 h",
-      "A2 h",
-      "A2 h",
-      "E2 h",
-      "E2 h",
-      "F#2 h",
-      "F#2 h",
+      "A2 q",
+      "A2 q",
+      "A2 q",
+      "A2 q",
+      "A2 q",
+      "A2 q",
+      "A2 q",
+      "A2 q",
+      "E2 q",
+      "E2 q",
+      "E2 q",
+      "E2 q",
+      "F#2 q",
+      "F#2 q",
+      "F#2 q",
+      "F#2 q",
+      "A2 q",
+      "A2 q",
+      "A2 q",
+      "A2 q",
+      "A2 q",
+      "A2 q",
+      "A2 q",
+      "A2 q",
+      "E2 q",
+      "E2 q",
+      "E2 q",
+      "E2 q",
+      "F#2 q",
+      "F#2 q",
+      "F#2 q",
+      "F#2 q",
     ]);
+
+    this.lead.staccato = 0.1;
+    this.lead.smoothing = 0;
+    this.lead.waveType = "sine";
 
     this.bass.staccato = 0.1;
     this.bass.smoothing = 0.2;
-    this.bass.waveType = "sawtooth";
+    this.bass.waveType = "square";
 
     this.lead.connect(this.compressor);
     this.bass.connect(this.compressor);
