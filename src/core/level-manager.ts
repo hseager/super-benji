@@ -46,7 +46,9 @@ export class LevelManager {
     for (let i = 0; i < enemyCount; i++) {
       const x = Math.random() * drawEngine.canvasWidth;
       const y = Math.random() * 50; // staggered spawn above screen
-      this.gameManager.addEnemy(new Enemy(x, y, this.gameManager.enemySprite));
+      this.gameManager.addEnemy(
+        new Enemy(x, y, this.gameManager.spriteManager.enemySprite)
+      );
     }
   }
 }

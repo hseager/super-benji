@@ -1,5 +1,6 @@
 import { playerMaxLife } from "@/core/config";
 import { logicalHeight, logicalWidth } from "@/core/draw-engine";
+import { GameObject } from "./game-object";
 
 export const PLAYER_PALETTE = [
   "#202020", // deep shadow
@@ -41,10 +42,8 @@ export const PLAYER_PALETTE = [
 //   "#FF3333", // cockpit/engine glow
 // ];
 
-export class Player {
+export class Player extends GameObject {
   // Position
-  x: number;
-  y: number;
   private lastX: number = 0; // Track last X position for velocity calculation
   velocityX: number = 0;
 
@@ -72,12 +71,14 @@ export class Player {
   attackSpeed = 2;
   attackCooldown = 0;
 
-  constructor(sprite?: HTMLImageElement) {
-    // Position bottom-center of canvas
-    this.x = logicalWidth / 2;
-    this.y = logicalHeight - 32;
-
-    this.sprite = sprite ?? new Image();
+  constructor(sprite: HTMLImageElement) {
+    super(
+      logicalWidth / 2,
+      logicalHeight - sprite.height,
+      sprite.width,
+      sprite.height
+    );
+    this.sprite = sprite;
   }
 
   update(targetX: number, targetY: number) {
@@ -105,6 +106,10 @@ export class Player {
     ctx.shadowColor = this.glowColor;
     ctx.shadowBlur = this.glowAmount;
 
+    ctx.rect(this.x, this.y, this.width, this.height);
+    ctx.fillStyle = this.glowColor;
+    ctx.fill();
+
     this.drawBoosters(ctx);
     this.manageTilt(ctx);
 
@@ -112,8 +117,7 @@ export class Player {
   }
 
   manageTilt(ctx: CanvasRenderingContext2D) {
-    const width = this.sprite.width;
-    const height = this.sprite.height;
+    const { width, height } = this.sprite;
 
     const tiltAmount = this.velocityX * this.tiltAmount;
     const centerX = width / 2;

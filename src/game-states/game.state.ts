@@ -9,14 +9,13 @@ import { Music } from "@/core/music/music";
 
 class GameState implements State {
   private ctx;
-  private gameManager: GameManager;
+  private gameManager!: GameManager;
   private muteButton: HTMLButtonElement;
 
   musicPlayer: Music;
 
   constructor() {
     this.ctx = drawEngine.context;
-    this.gameManager = new GameManager();
 
     // Setup Music
     this.muteButton = document.querySelector(
@@ -48,7 +47,7 @@ class GameState implements State {
     });
   }
 
-  onEnter() {
+  async onEnter() {
     this.setupMuteButton();
     // Force fullscreen for mobiles as the gestures in most browsers mess with the game
     // and cause them to exit the tab or refresh the page
@@ -56,11 +55,13 @@ class GameState implements State {
     //   this.toggleFullscreen();
     // }
 
-    this.gameManager.levelManager.startLevel(1);
+    this.gameManager = await new GameManager().create();
   }
 
   onUpdate(delta: number) {
     const mouse = drawEngine.mousePosition;
+
+    if (!this.gameManager) return;
 
     // Delegate logic to GameManager
     this.gameManager.update(delta, mouse);

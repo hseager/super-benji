@@ -16,13 +16,15 @@ export class Enemy extends GameObject {
   sprite: HTMLImageElement;
 
   // GFX
-  glowColor: string = "#ffb3007c"; // Default glow color
-  glowAmount: number = 12; // Default glow radius
+  glowColor: string = "#ffb3007c";
+  glowAmount: number = 12;
 
-  constructor(x: number, y: number, sprite?: HTMLImageElement) {
-    super(x, y, 14, 14); // Set width and height to match sprite
-    this.speed = 10; // faster with each level
-    this.sprite = sprite ?? new Image();
+  constructor(x: number, y: number, sprite: HTMLImageElement) {
+    console.log(sprite.width, sprite.height);
+    // TODO these are still 0 0
+    super(x, y, 14, 14);
+    this.speed = 10;
+    this.sprite = sprite;
   }
 
   update(delta: number) {
@@ -32,6 +34,10 @@ export class Enemy extends GameObject {
   draw(ctx: CanvasRenderingContext2D) {
     ctx.shadowColor = this.glowColor;
     ctx.shadowBlur = this.glowAmount;
+
+    ctx.rect(this.x, this.y, this.width, this.height);
+    ctx.fillStyle = this.glowColor;
+    ctx.fill();
 
     ctx.drawImage(this.sprite, this.x, this.y);
   }
