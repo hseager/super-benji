@@ -1,6 +1,5 @@
 import { hexToRgba } from "../utilities";
 
-// graphics/palette-applier.ts
 export class PaletteApplier {
   static applyPalette(
     baseImage: HTMLImageElement,

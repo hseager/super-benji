@@ -20,9 +20,7 @@ export class Enemy extends GameObject {
   glowAmount: number = 12;
 
   constructor(x: number, y: number, sprite: HTMLImageElement) {
-    console.log(sprite.width, sprite.height);
-    // TODO these are still 0 0
-    super(x, y, 14, 14);
+    super(x, y, sprite.width, sprite.height);
     this.speed = 10;
     this.sprite = sprite;
   }
@@ -34,10 +32,6 @@ export class Enemy extends GameObject {
   draw(ctx: CanvasRenderingContext2D) {
     ctx.shadowColor = this.glowColor;
     ctx.shadowBlur = this.glowAmount;
-
-    ctx.rect(this.x, this.y, this.width, this.height);
-    ctx.fillStyle = this.glowColor;
-    ctx.fill();
 
     ctx.drawImage(this.sprite, this.x, this.y);
   }

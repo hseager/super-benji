@@ -55,7 +55,7 @@ class GameState implements State {
     //   this.toggleFullscreen();
     // }
 
-    this.gameManager = await new GameManager().create();
+    this.gameManager = await new GameManager().init();
   }
 
   onUpdate(delta: number) {

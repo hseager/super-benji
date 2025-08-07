@@ -6,7 +6,7 @@ export class SpriteManager {
   playerSprite!: HTMLImageElement;
   enemySprite!: HTMLImageElement;
 
-  async create() {
+  async init() {
     const spriteSheet = await SpriteBuilder.loadSpriteSheet();
 
     this.playerSprite = await SpriteBuilder.createPlayer(

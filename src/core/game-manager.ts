@@ -91,8 +91,8 @@ export class GameManager {
     this.enemies.push(enemy);
   }
 
-  async create(): Promise<GameManager> {
-    this.spriteManager = await new SpriteManager().create();
+  async init(): Promise<GameManager> {
+    this.spriteManager = await new SpriteManager().init();
     this.player = new Player(this.spriteManager.playerSprite);
     this.levelManager = new LevelManager(this);
 

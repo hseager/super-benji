@@ -43,20 +43,27 @@ export class SpriteBuilder {
     // // Right Wing
     // buffer.drawSprite(sheet, bodySize + maxWingSize, 15, 0, 54, 8, 13, 1);
 
-    // Apply palette to the final composite image
-    return await PaletteApplier.applyPalette(buffer.toImage(), palette);
+    const sprite = await PaletteApplier.applyPalette(buffer.toImage(), palette);
+
+    // Ensure the sprite is fully loaded so we get the correct dimensions
+    await sprite.decode();
+
+    return sprite;
   }
 
   static async createBasicEnemy(
     sheet: SpriteSheet,
     palette: string[]
   ): Promise<HTMLImageElement> {
-    const buffer = new CanvasBuffer(16, 16);
+    const buffer = new CanvasBuffer(14, 14);
 
-    // Draw body
     buffer.drawSprite(sheet, 0, 0, 16, 0, 14, 14);
 
-    // Apply palette to the final composite image
-    return await PaletteApplier.applyPalette(buffer.toImage(), palette);
+    const sprite = await PaletteApplier.applyPalette(buffer.toImage(), palette);
+
+    // Ensure the sprite is fully loaded so we get the correct dimensions
+    await sprite.decode();
+
+    return sprite;
   }
 }

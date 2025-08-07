@@ -82,8 +82,6 @@ export class Player extends GameObject {
   }
 
   update(targetX: number, targetY: number) {
-    // Need to revist active for mobile
-    // if (!active) return;
     // Calculate vector toward target
     const dx = targetX - this.x;
     const dy = targetY - this.y;
@@ -136,8 +134,8 @@ export class Player extends GameObject {
         0,
         1,
         height,
-        this.x - this.spriteXOffset + x,
-        this.y - this.spriteYOffset + offset,
+        this.x + x,
+        this.y + offset,
         1,
         height
       );
