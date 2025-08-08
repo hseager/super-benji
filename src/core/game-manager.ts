@@ -54,21 +54,22 @@ export class GameManager {
       const enemy = this.enemies[i];
       enemy.update(delta);
 
-      if (enemy.offScreen()) {
+      if (enemy.offScreen() || enemy.isDead()) {
         this.enemies.splice(i, 1);
       }
     }
 
-    CollisionManager.checkAll(this.bullets, this.enemies, (bullet, enemy) => {
-      const bulletIndex = this.bullets.indexOf(bullet as Bullet);
-      if (bulletIndex !== -1) this.bullets.splice(bulletIndex, 1);
+    CollisionManager.checkAll(
+      this.bullets,
+      this.enemies,
+      (bullet, enemyObject) => {
+        const bulletIndex = this.bullets.indexOf(bullet as Bullet);
+        if (bulletIndex !== -1) this.bullets.splice(bulletIndex, 1);
 
-      // Find and remove enemy
-      const enemyIndex = this.enemies.indexOf(enemy as Enemy);
-      if (enemyIndex !== -1) {
-        this.enemies.splice(enemyIndex, 1);
+        const enemy = enemyObject as Enemy;
+        enemy.explode();
       }
-    });
+    );
 
     // Level logic
     levelManager.update(delta);

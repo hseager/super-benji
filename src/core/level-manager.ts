@@ -24,6 +24,10 @@ export class LevelManager {
   }
 
   update(delta: number) {
+    if (this.gameManager.enemies.length === 0) {
+      this.nextLevel();
+    }
+
     if (this.displayTimer > 0) {
       this.displayTimer -= delta;
     }
