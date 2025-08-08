@@ -29,6 +29,10 @@
   - Ice
   -
 - Adamite/ Mitril Panels
+- Super on title screen
+- Shadows
+- Sound effects on kill
+- Health bars
 
 ### Graphics
 
@@ -36,8 +40,7 @@
 
 ### TODO
 
-- Levels
-  -
+- ## Levels
 - Enemies
   - Attacks
 - Artwork

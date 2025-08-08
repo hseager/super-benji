@@ -57,6 +57,7 @@ export class Player extends GameObject {
   shootingYPosition = -24; // Offset for shooting position
   shootingXPosition = 1; // Offset for shooting position
   boosterSize = 6; // Size of the booster flame
+  boosterYOffset = -2; // Offset for booster flame position
   tiltAmount = 3;
 
   // Glow
@@ -143,9 +144,8 @@ export class Player extends GameObject {
   }
 
   private drawBoosters(ctx: CanvasRenderingContext2D) {
-    // Booster position relative to sprite bottom
     const boosterX = this.centerX();
-    const boosterY = this.y + this.height; // slightly below ship
+    const boosterY = this.y + this.height + this.boosterYOffset;
 
     // Create gradient (blue → white → orange)
     const gradient = ctx.createLinearGradient(

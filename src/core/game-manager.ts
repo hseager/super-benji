@@ -65,7 +65,9 @@ export class GameManager {
 
       // Find and remove enemy
       const enemyIndex = this.enemies.indexOf(enemy as Enemy);
-      if (enemyIndex !== -1) this.enemies.splice(enemyIndex, 1);
+      if (enemyIndex !== -1) {
+        this.enemies.splice(enemyIndex, 1);
+      }
     });
 
     // Level logic

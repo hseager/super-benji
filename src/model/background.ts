@@ -1,6 +1,6 @@
 const BACKGROUND_COLOR = "#0a0d1fff";
 
-const BACKGROUND_PALETTER = [
+const BACKGROUND_PALETTE = [
   "#4d592aff",
   "#231952ff",
   "#38454eff",
@@ -14,8 +14,8 @@ export class Background {
   y = 0;
   x = 0;
   speed = 0.4;
-  private xMovementBuffer = 80; // Pixels to account for player x movement
-  private XMovementAmount = 0.4; // Pixels to account for player x movement
+  private xMovementBuffer = 100;
+  private XMovementAmount = 0.4;
 
   constructor() {
     this.tile = this.generateStarTile(128, 0.01);
@@ -40,7 +40,7 @@ export class Background {
     ctx.translate(this.x, this.y);
     ctx.fillStyle = pattern;
     ctx.fillRect(
-      0,
+      -this.tile.width / 4,
       -this.tile.height,
       width + this.xMovementBuffer,
       height + this.tile.height
@@ -71,8 +71,8 @@ export class Background {
       const x = Math.floor(Math.random() * size);
       const y = Math.floor(Math.random() * size);
       ctx.fillStyle =
-        BACKGROUND_PALETTER[
-          Math.floor(Math.random() * BACKGROUND_PALETTER.length)
+        BACKGROUND_PALETTE[
+          Math.floor(Math.random() * BACKGROUND_PALETTE.length)
         ];
       ctx.beginPath();
       ctx.arc(x, y, 1, 0, Math.PI * 2);

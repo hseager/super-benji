@@ -2,7 +2,7 @@ import { hexToRgbaString } from "@/core/utilities";
 import { GameObject } from "./game-object";
 
 export class Bullet extends GameObject {
-  speed = 1;
+  speed = 6;
   radius = 1;
   glowRadius = 2; // Glow radius for visual effect
 

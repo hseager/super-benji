@@ -30,10 +30,12 @@ export class Enemy extends GameObject {
   }
 
   draw(ctx: CanvasRenderingContext2D) {
+    ctx.save();
     ctx.shadowColor = this.glowColor;
     ctx.shadowBlur = this.glowAmount;
 
     ctx.drawImage(this.sprite, this.x, this.y);
+    ctx.restore();
   }
 
   offScreen(): boolean {
@@ -44,4 +46,6 @@ export class Enemy extends GameObject {
       this.y > drawEngine.canvasHeight
     );
   }
+
+  explode() {}
 }
