@@ -22,7 +22,7 @@ export class SpriteBuilder {
     sheet: SpriteSheet,
     palette: string[]
   ): Promise<HTMLImageElement> {
-    const buffer = new CanvasBuffer(27, 32);
+    const buffer = new CanvasBuffer(27, 30);
 
     // const wingSize = 6;
     const maxWingSize = 7;

@@ -48,7 +48,7 @@ export class Player extends GameObject {
   velocityX: number = 0;
 
   // Movement
-  movementXSpeed: number = 0.75;
+  movementXSpeed: number = 1;
   movementYSpeed: number = 0.5;
   moveTolerance = 1; // Pixels to consider "close enough" to target
 
@@ -56,8 +56,6 @@ export class Player extends GameObject {
   sprite: HTMLImageElement;
   shootingYPosition = -24; // Offset for shooting position
   shootingXPosition = 1; // Offset for shooting position
-  spriteXOffset = 13; // Sprite X offset for centering
-  spriteYOffset = 28; // Sprite Y offset for centering
   boosterSize = 6; // Size of the booster flame
   tiltAmount = 3;
 
@@ -81,10 +79,18 @@ export class Player extends GameObject {
     this.sprite = sprite;
   }
 
+  centerX(): number {
+    return this.x + this.width / 2;
+  }
+
+  centerY(): number {
+    return this.y + this.height / 2;
+  }
+
   update(targetX: number, targetY: number) {
     // Calculate vector toward target
-    const dx = targetX - this.x;
-    const dy = targetY - this.y;
+    const dx = targetX - this.centerX(); // Center the target on the player
+    const dy = targetY - this.centerY();
     const distance = Math.hypot(dx, dy);
 
     if (distance > this.moveTolerance) {
@@ -104,10 +110,6 @@ export class Player extends GameObject {
     ctx.shadowColor = this.glowColor;
     ctx.shadowBlur = this.glowAmount;
 
-    ctx.rect(this.x, this.y, this.width, this.height);
-    ctx.fillStyle = this.glowColor;
-    ctx.fill();
-
     this.drawBoosters(ctx);
     this.manageTilt(ctx);
 
@@ -115,12 +117,10 @@ export class Player extends GameObject {
   }
 
   manageTilt(ctx: CanvasRenderingContext2D) {
-    const { width, height } = this.sprite;
-
     const tiltAmount = this.velocityX * this.tiltAmount;
-    const centerX = width / 2;
+    const centerX = this.width / 2;
 
-    for (let x = 0; x < width; x++) {
+    for (let x = 0; x < this.width; x++) {
       // Factor goes -1 (left) → 1 (right)
       const factor = (x - centerX) / centerX;
 
@@ -133,19 +133,19 @@ export class Player extends GameObject {
         x,
         0,
         1,
-        height,
+        this.height,
         this.x + x,
         this.y + offset,
         1,
-        height
+        this.height
       );
     }
   }
 
   private drawBoosters(ctx: CanvasRenderingContext2D) {
     // Booster position relative to sprite bottom
-    const boosterX = this.x + this.shootingXPosition;
-    const boosterY = this.y; // slightly below ship
+    const boosterX = this.centerX();
+    const boosterY = this.y + this.height; // slightly below ship
 
     // Create gradient (blue → white → orange)
     const gradient = ctx.createLinearGradient(

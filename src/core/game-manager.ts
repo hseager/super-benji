@@ -1,5 +1,4 @@
-import { Player, PLAYER_PALETTE } from "@/model/player";
-import { SpriteBuilder } from "./graphics/sprite-builder";
+import { Player } from "@/model/player";
 import { Background } from "@/model/background";
 import { Bullet } from "@/model/bullet";
 import { LevelManager } from "./level-manager";
@@ -28,16 +27,14 @@ export class GameManager {
     // Player movement
     player.update(mouse.x, mouse.y);
 
+    // TODO Move to player.shoot()
     // Handle shooting cooldown
     if (player.attackCooldown > 0) {
       player.attackCooldown -= delta;
     }
 
     if (player.attackCooldown <= 0) {
-      this.fireBullet(
-        player.x + player.shootingXPosition,
-        player.y + player.shootingYPosition
-      );
+      this.fireBullet(player.centerX(), player.y);
       player.attackCooldown = player.attackSpeed; // reset cooldown
     }
 
