@@ -1,6 +1,7 @@
 import { Enemy } from "@/model/enemy";
 import { drawEngine } from "./draw-engine";
 import { GameManager } from "./game-manager";
+import { Background } from "@/model/background";
 
 export class LevelManager {
   private baseEnemyCount = 5;
@@ -21,6 +22,7 @@ export class LevelManager {
 
   nextLevel() {
     this.startLevel(this.currentLevel + 1);
+    this.gameManager.background = new Background(); // Change the BG colour each level
   }
 
   update(delta: number) {

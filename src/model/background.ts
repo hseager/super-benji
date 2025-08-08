@@ -1,12 +1,13 @@
-const BACKGROUND_COLOR = "#0a0d1fff";
+import { randomisePalette } from "@/core/utilities";
 
-const BACKGROUND_PALETTE = [
-  "#4d592aff",
-  "#231952ff",
-  "#38454eff",
-  "#353550ff",
+const BASE_BACKGROUND_PALETTE = [
+  "#0a0d1f", // BG colour
+  "#4d592a",
+  "#231952",
+  "#38454e",
+  "#353550",
   "#5555FF",
-  "#5b4949ff",
+  "#5b4949",
 ];
 
 export class Background {
@@ -16,9 +17,16 @@ export class Background {
   speed = 0.4;
   private xMovementBuffer = 100;
   private XMovementAmount = 0.4;
+  pallette: string[];
+  private starDensityMax = 0.01;
+  private starDensityMin = 0.002;
+  starDensity =
+    Math.random() * (this.starDensityMax - this.starDensityMin) +
+    this.starDensityMin;
 
   constructor() {
-    this.tile = this.generateStarTile(128, 0.01);
+    this.pallette = randomisePalette(BASE_BACKGROUND_PALETTE);
+    this.tile = this.generateStarTile(128, this.starDensity);
   }
 
   update(playerVelocityX: number) {
@@ -58,11 +66,11 @@ export class Background {
     const ctx = canvas.getContext("2d")!;
     ctx.imageSmoothingEnabled = false;
 
-    ctx.fillStyle = BACKGROUND_COLOR;
+    ctx.fillStyle = this.pallette[0];
     ctx.fillRect(0, 0, size, size);
 
     // Draw a few big soft nebula blobs with globalAlpha for better perf
-    ctx.globalAlpha = 0.2;
+    // ctx.globalAlpha = 0.2;
     // this.drawNebula(ctx, size);
     ctx.globalAlpha = 1;
 
@@ -71,9 +79,7 @@ export class Background {
       const x = Math.floor(Math.random() * size);
       const y = Math.floor(Math.random() * size);
       ctx.fillStyle =
-        BACKGROUND_PALETTE[
-          Math.floor(Math.random() * BACKGROUND_PALETTE.length)
-        ];
+        this.pallette[Math.floor(Math.random() * this.pallette.length)];
       ctx.beginPath();
       ctx.arc(x, y, 1, 0, Math.PI * 2);
       ctx.fill();
