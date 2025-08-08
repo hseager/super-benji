@@ -13,7 +13,7 @@ const BASE_BACKGROUND_PALETTE = [
 export class Background {
   tile: HTMLImageElement = new Image();
   y = 0;
-  x = 0;
+  x = -10;
   speed = 0.4;
   private xMovementBuffer = 100;
   private XMovementAmount = 0.4;
