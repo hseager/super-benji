@@ -63,9 +63,11 @@ export class GameController {
     CollisionController.checkAll(
       [this.player],
       this.enemies,
-      (playerObject) => {
+      (playerObject, enemyObject) => {
         const player = playerObject as Player;
-        player.life -= 0.1;
+        const enemy = enemyObject as Enemy;
+
+        player.life -= enemy.proximityDamage;
       }
     );
 

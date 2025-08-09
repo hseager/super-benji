@@ -13,15 +13,18 @@ export const ENEMY_PALETTE = [
 ];
 
 export class Enemy extends Shooter {
-  speed: number;
   sprite: HTMLImageElement;
+  isExploding = false;
 
   // GFX
   glowSprite: HTMLCanvasElement;
   glowColor: string = "#ffb3007c";
   glowAmount: number = 12;
 
-  isExploding = false;
+  // Stats
+  speed: number = 10;
+  proximityDamage: number = 0.5;
+
   private explosionPieces: {
     x: number;
     y: number;
@@ -42,7 +45,6 @@ export class Enemy extends Shooter {
     sprite: HTMLImageElement
   ) {
     super(bulletPool, x, y, sprite.width, sprite.height);
-    this.speed = 10;
     this.sprite = sprite;
     this.glowSprite = this.preloadGlowSprite();
   }
