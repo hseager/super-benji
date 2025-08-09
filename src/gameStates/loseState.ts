@@ -11,9 +11,8 @@ export class LoseState implements State {
   }
 
   onUpdate() {
-    const xCenter = drawEngine.context.canvas.width / 2;
-    drawEngine.drawTitle("You were", 18, xCenter, 50);
-    drawEngine.drawTitle("destroyed!", 18, xCenter, 70);
-    drawEngine.drawText("Back to Menu", 16, xCenter, 200);
+    drawEngine.drawTitle("You were", 18, drawEngine.getCenterX(), 50);
+    drawEngine.drawTitle("destroyed!", 18, drawEngine.getCenterX(), 70);
+    drawEngine.drawText("Back to Menu", 16, drawEngine.getCenterX(), 200);
   }
 }

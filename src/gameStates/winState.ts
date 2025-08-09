@@ -10,9 +10,8 @@ class WinState implements State {
   }
 
   onUpdate() {
-    const xCenter = drawEngine.context.canvas.width / 2;
-    drawEngine.drawText("You Win!", 60, xCenter, 60);
-    drawEngine.drawText("Back to Menu", 60, xCenter, 400);
+    drawEngine.drawText("You Win!", 60, drawEngine.getCenterX(), 60);
+    drawEngine.drawText("Back to Menu", 60, drawEngine.getCenterX(), 400);
     this.updateControls();
   }
 

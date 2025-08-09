@@ -29,7 +29,6 @@ export class Enemy extends Shooter {
     y: number
   ) {
     super(sprite, bulletPool, x, y, sprite.width, sprite.height);
-
     this.glowSprite = this.preloadGlowSprite();
   }
 

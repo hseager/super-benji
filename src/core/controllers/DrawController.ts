@@ -125,6 +125,10 @@ class DrawController {
     this.context.canvas.style.height = `${displayHeight}px`;
     this.context.imageSmoothingEnabled = false;
   }
+
+  getCenterX() {
+    return drawEngine.context.canvas.width / 2;
+  }
 }
 
 export const drawEngine = new DrawController();

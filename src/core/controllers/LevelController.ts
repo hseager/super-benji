@@ -4,7 +4,7 @@ import { GameController } from "./GameController";
 import { Background } from "@/core/model/background";
 
 export class LevelController {
-  private baseEnemyCount = 50;
+  private baseEnemyCount = 1;
   private currentLevel: number = 1;
   private displayTimer = 0;
   private gameManager: GameController;
@@ -27,7 +27,16 @@ export class LevelController {
   }
 
   update(delta: number) {
-    if (this.gameManager.enemies.length === 0) {
+    if (
+      this.gameManager.enemies.length === 0 &&
+      !this.gameManager.upgradeScreen.isActive &&
+      !this.gameManager.upgradeScreen.isFinished
+    ) {
+      this.gameManager.upgradeScreen.start();
+    }
+
+    if (this.gameManager.upgradeScreen.isFinished) {
+      this.gameManager.upgradeScreen.isFinished = false;
       this.nextLevel();
     }
 
@@ -46,6 +55,8 @@ export class LevelController {
       );
     }
   }
+
+  showEndOfLevelScreen() {}
 
   spawnEnemies() {
     const enemyCount = this.baseEnemyCount + (this.currentLevel - 1) * 2;

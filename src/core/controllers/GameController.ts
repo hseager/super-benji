@@ -6,6 +6,7 @@ import { Enemy } from "@/core/model/enemy";
 import { CollisionController } from "./CollisionController";
 import { SpriteController } from "./SpriteController";
 import { BulletPool } from "../model/bulletPool";
+import { UpgradeScreenController } from "./UpgradeScreenController";
 
 export class GameController {
   spriteManager!: SpriteController;
@@ -15,15 +16,22 @@ export class GameController {
   enemies: Enemy[] = [];
   playerBulletPool: BulletPool;
   enemyBulletPool: BulletPool;
+  upgradeScreen: UpgradeScreenController;
 
   constructor() {
     this.playerBulletPool = new BulletPool(100, () => new Bullet(3));
     this.enemyBulletPool = new BulletPool(100, () => new Bullet(1));
     this.background = new Background();
+    this.upgradeScreen = new UpgradeScreenController(this);
   }
 
   update(delta: number, mouse: { x: number; y: number }) {
     const { player, background, levelManager } = this;
+
+    if (this.upgradeScreen.isActive) {
+      this.upgradeScreen.update(delta);
+      return;
+    }
 
     // Background
     background.update(player.velocityX);
@@ -35,14 +43,16 @@ export class GameController {
     for (const enemy of this.enemies) {
       enemy.update(delta);
     }
-
+    // Remove dead enemies
     this.enemies = this.enemies.filter(
       (enemy) => !enemy.offScreen() && !enemy.isDead()
     );
 
+    // Bullets
     this.playerBulletPool.updateAll();
     this.enemyBulletPool.updateAll();
 
+    // Bullet and enemy collision
     CollisionController.checkAll(
       this.playerBulletPool.pool,
       this.enemies,
@@ -60,6 +70,7 @@ export class GameController {
       }
     );
 
+    // Player and enemy proximity collision
     CollisionController.checkAll(
       [this.player],
       this.enemies,
@@ -71,6 +82,7 @@ export class GameController {
       }
     );
 
+    // Player life
     this.checkPlayerLife();
 
     // Level logic
@@ -84,6 +96,11 @@ export class GameController {
   }
 
   draw(ctx: CanvasRenderingContext2D) {
+    if (this.upgradeScreen.isActive) {
+      this.upgradeScreen.draw(ctx);
+      return;
+    }
+
     this.background.draw(ctx);
     this.enemies.forEach((enemy) => enemy.draw(ctx));
     this.player.draw(ctx);

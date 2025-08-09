@@ -14,14 +14,11 @@ class MenuState implements State {
   }
 
   onUpdate() {
-    const xCenter = drawEngine.context.canvas.width / 2;
-    // drawEngine.drawText("js13k 2025", 16, xCenter, 60);
-
-    drawEngine.drawTitle("X-Type", 24, xCenter, 60);
+    drawEngine.drawTitle("X-Type", 24, drawEngine.getCenterX(), 60);
     drawEngine.drawText(
       "Super",
       10,
-      xCenter - 40,
+      drawEngine.getCenterX() - 40,
       44,
       "#fff",
       "center",
@@ -32,7 +29,7 @@ class MenuState implements State {
     drawEngine.drawText(
       "Start Game",
       16,
-      xCenter,
+      drawEngine.getCenterX(),
       200,
       "#fff",
       "center",
