@@ -110,3 +110,47 @@ function hslToHex(h: number, s: number, l: number) {
 
   return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
 }
+
+export function getInterpolatedColor(
+  t: number,
+  stops: { hp: number; color: string }[]
+): string {
+  // Clamp t between 0 and 1
+  t = Math.max(0, Math.min(1, t));
+
+  // Find which two stops we're between
+  for (let i = 0; i < stops.length - 1; i++) {
+    const curr = stops[i];
+    const next = stops[i + 1];
+
+    if (t <= curr.hp && t >= next.hp) {
+      // Normalise t to 0–1 between these stops
+      const localT = (t - next.hp) / (curr.hp - next.hp);
+
+      // Convert hex to RGBA objects
+      const c1 = hexToRgba(curr.color);
+      const c2 = hexToRgba(next.color);
+
+      // Interpolate each channel
+      const r = Math.round(c1.r + (c2.r - c1.r) * (1 - localT));
+      const g = Math.round(c1.g + (c2.g - c1.g) * (1 - localT));
+      const b = Math.round(c1.b + (c2.b - c1.b) * (1 - localT));
+      const a = c1.alpha + (c2.alpha - c1.alpha) * (1 - localT);
+
+      // Return as RGBA string
+      return hexToRgbaString(rgbToHex(r, g, b), a);
+    }
+  }
+
+  // Fallback to last stop colour
+  return stops[stops.length - 1].color;
+}
+
+function rgbToHex(r: number, g: number, b: number): string {
+  return (
+    "#" +
+    r.toString(16).padStart(2, "0") +
+    g.toString(16).padStart(2, "0") +
+    b.toString(16).padStart(2, "0")
+  );
+}

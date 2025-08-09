@@ -17,8 +17,8 @@ export class GameController {
   enemyBulletPool: BulletPool;
 
   constructor() {
-    this.playerBulletPool = new BulletPool(100, () => new Bullet(2));
-    this.enemyBulletPool = new BulletPool(100, () => new Bullet(2));
+    this.playerBulletPool = new BulletPool(100, () => new Bullet(3));
+    this.enemyBulletPool = new BulletPool(100, () => new Bullet(1));
     this.background = new Background();
   }
 
@@ -57,6 +57,15 @@ export class GameController {
         }
 
         enemy.explode();
+      }
+    );
+
+    CollisionController.checkAll(
+      [this.player],
+      this.enemies,
+      (playerObject) => {
+        const player = playerObject as Player;
+        player.life -= 0.1;
       }
     );
 

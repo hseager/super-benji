@@ -2,6 +2,7 @@ import { playerMaxLife } from "@/core/config";
 import { logicalHeight, logicalWidth } from "@/core/controllers/DrawController";
 import { Shooter } from "./shooter";
 import { BulletPool } from "./bulletPool";
+import { getInterpolatedColor } from "../utilities";
 
 export const PLAYER_PALETTE = [
   "#202020", // deep shadow
@@ -11,6 +12,14 @@ export const PLAYER_PALETTE = [
   "#A0A0A0", // light metal
   "#C0C0C0", // highlight
   "#00BFFF", // cockpit/engine glow
+];
+
+const healthColors = [
+  { hp: 1.0, color: "#00FF66" }, // green
+  { hp: 0.75, color: "#00BFFF" }, // blue
+  { hp: 0.5, color: "#FFA500" }, // orange
+  { hp: 0.25, color: "#FF3333" }, // red
+  { hp: 0.0, color: "rgba(255, 0, 0, 0)" }, // transparent red
 ];
 
 // export const PLAYER_PALETTE = [
@@ -83,7 +92,7 @@ export class Player extends Shooter {
   }
 
   update(delta: number, targetX: number, targetY: number) {
-    // Calculate vector toward target
+    // Movement towards cursor
     const dx = targetX - this.centerX(); // Center the target on the player
     const dy = targetY - this.centerY();
     const distance = Math.hypot(dx, dy);
@@ -96,6 +105,11 @@ export class Player extends Shooter {
 
     this.velocityX = this.x - this.lastX;
     this.lastX = this.x;
+
+    this.glowColor = getInterpolatedColor(
+      this.life / this.maxLife,
+      healthColors
+    );
 
     this.updateShooting(delta);
     this.shoot();
