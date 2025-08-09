@@ -36,6 +36,10 @@ export class GameManager {
       enemy.update(delta);
     }
 
+    this.enemies = this.enemies.filter(
+      (enemy) => !enemy.offScreen() && !enemy.isDead()
+    );
+
     this.playerBulletPool.updateAll();
     this.enemyBulletPool.updateAll();
 

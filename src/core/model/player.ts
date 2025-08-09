@@ -69,7 +69,7 @@ export class Player extends Shooter {
   // Stats
   maxLife = playerMaxLife;
   life = playerMaxLife;
-  attackSpeed: number = 0.1;
+  attackSpeed: number = 0.5;
 
   constructor(sprite: HTMLImageElement, bulletPool: BulletPool) {
     super(

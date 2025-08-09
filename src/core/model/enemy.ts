@@ -17,6 +17,7 @@ export class Enemy extends Shooter {
   sprite: HTMLImageElement;
 
   // GFX
+  glowSprite: HTMLCanvasElement;
   glowColor: string = "#ffb3007c";
   glowAmount: number = 12;
 
@@ -43,6 +44,21 @@ export class Enemy extends Shooter {
     super(bulletPool, x, y, sprite.width, sprite.height);
     this.speed = 10;
     this.sprite = sprite;
+    this.glowSprite = this.preloadGlowSprite();
+  }
+
+  preloadGlowSprite() {
+    const offscreen = document.createElement("canvas");
+    offscreen.width = this.sprite.width + this.glowAmount * 4; // enough padding
+    offscreen.height = this.sprite.height + this.glowAmount * 4;
+    const offCtx = offscreen.getContext("2d");
+    if (!offCtx) throw new Error("Failed to get 2D context");
+
+    offCtx.shadowColor = this.glowColor;
+    offCtx.shadowBlur = this.glowAmount;
+    offCtx.drawImage(this.sprite, this.glowAmount * 2, this.glowAmount * 2);
+
+    return offscreen;
   }
 
   update(delta: number) {
@@ -81,8 +97,11 @@ export class Enemy extends Shooter {
       }
     } else {
       ctx.save();
-      ctx.shadowColor = this.glowColor;
-      ctx.shadowBlur = this.glowAmount;
+      ctx.drawImage(
+        this.glowSprite,
+        this.x - this.glowAmount * 2,
+        this.y - this.glowAmount * 2
+      );
 
       ctx.drawImage(this.sprite, this.x, this.y);
       ctx.restore();

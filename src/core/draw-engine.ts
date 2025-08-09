@@ -51,11 +51,6 @@ class DrawEngine {
   drawTitle(text: string, fontSize: number, x: number, y: number) {
     const context = this.context;
 
-    // context.save();
-    // context.font = `bold ${fontSize + 1}px "Courier New"`;
-    // context.fillStyle = "#999";
-    // context.fillText(text, x, y + 1);
-
     const fontColor = "#ed9436";
     const shadowColor = "#3f2163";
 
@@ -63,10 +58,12 @@ class DrawEngine {
     context.save();
     context.font = `bold ${fontSize - 1}px "Courier New"`;
     context.strokeStyle = shadowColor;
+    context.textAlign = "center";
     context.strokeText(text, x, y + 1);
     context.font = `bold ${fontSize}px "Courier New"`;
     context.fillStyle = fontColor;
     context.fillText(text, x, y);
+    context.restore();
   }
 
   drawText(
@@ -75,17 +72,36 @@ class DrawEngine {
     x: number,
     y: number,
     color = "white",
-    textAlign: "center" | "left" | "right" = "center"
+    textAlign: "center" | "left" | "right" = "center",
+    strokeColor?: string,
+    strokeSize?: number,
+    rotation?: number // rotation in radians
   ) {
     const context = this.context;
 
+    context.save();
     context.font = `${fontSize}px "Courier New"`;
     context.textAlign = textAlign;
-    context.strokeStyle = "#333";
-    context.lineWidth = 4;
-    context.strokeText(text, x, y);
     context.fillStyle = color;
-    context.fillText(text, x, y);
+
+    if (strokeColor) {
+      context.strokeStyle = strokeColor;
+    }
+    if (strokeSize) {
+      context.lineWidth = strokeSize;
+    }
+
+    if (rotation) {
+      context.translate(x, y);
+      context.rotate(rotation);
+      if (strokeColor) context.strokeText(text, 0, 0);
+      context.fillText(text, 0, 0);
+    } else {
+      if (strokeColor) context.strokeText(text, x, y);
+      context.fillText(text, x, y);
+    }
+
+    context.restore();
   }
 
   resizeCanvas() {
