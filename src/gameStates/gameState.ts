@@ -80,7 +80,7 @@ class GameState implements State {
   }
 
   private checkLoseCondition() {
-    if (this.gameManager.player?.life <= 0) {
+    if (this.gameManager.player.isDead()) {
       gameStateMachine.setState(new LoseState());
     }
   }

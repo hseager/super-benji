@@ -82,6 +82,7 @@ export class Player extends Shooter {
 
   constructor(sprite: HTMLImageElement, bulletPool: BulletPool) {
     super(
+      sprite,
       bulletPool,
       logicalWidth / 2,
       logicalHeight - sprite.height,
@@ -92,40 +93,48 @@ export class Player extends Shooter {
   }
 
   update(delta: number, targetX: number, targetY: number) {
-    // Movement towards cursor
-    const dx = targetX - this.centerX(); // Center the target on the player
-    const dy = targetY - this.centerY();
-    const distance = Math.hypot(dx, dy);
+    if (this.isExploding) {
+      this.addExplosionParts();
+    } else {
+      // Movement towards cursor
+      const dx = targetX - this.centerX(); // Center the target on the player
+      const dy = targetY - this.centerY();
+      const distance = Math.hypot(dx, dy);
 
-    if (distance > this.moveTolerance) {
-      // Normalize and move toward mouse at fixed speed
-      this.x += (dx / distance) * this.movementXSpeed;
-      this.y += (dy / distance) * this.movementYSpeed;
+      if (distance > this.moveTolerance) {
+        // Normalize and move toward mouse at fixed speed
+        this.x += (dx / distance) * this.movementXSpeed;
+        this.y += (dy / distance) * this.movementYSpeed;
+      }
+
+      this.velocityX = this.x - this.lastX;
+      this.lastX = this.x;
+
+      this.glowColor = getInterpolatedColor(
+        this.life / this.maxLife,
+        healthColors
+      );
+
+      this.updateShooting(delta);
+      this.shoot();
     }
-
-    this.velocityX = this.x - this.lastX;
-    this.lastX = this.x;
-
-    this.glowColor = getInterpolatedColor(
-      this.life / this.maxLife,
-      healthColors
-    );
-
-    this.updateShooting(delta);
-    this.shoot();
   }
 
   draw(ctx: CanvasRenderingContext2D) {
-    ctx.save();
+    if (this.isExploding) {
+      this.drawExplosionParts(ctx);
+    } else {
+      ctx.save();
 
-    // Glow
-    ctx.shadowColor = this.glowColor;
-    ctx.shadowBlur = this.glowAmount;
+      // Glow
+      ctx.shadowColor = this.glowColor;
+      ctx.shadowBlur = this.glowAmount;
 
-    this.drawBoosters(ctx);
-    this.manageTilt(ctx);
+      this.drawBoosters(ctx);
+      this.manageTilt(ctx);
 
-    ctx.restore();
+      ctx.restore();
+    }
   }
 
   manageTilt(ctx: CanvasRenderingContext2D) {

@@ -29,10 +29,9 @@
   - Ice
   -
 - Adamite/ Mitril Panels
-- Super on title screen
 - Shadows
 - Sound effects on kill
-- Health bars
+- Health bars on bosses
 
 ### Graphics
 

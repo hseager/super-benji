@@ -71,8 +71,16 @@ export class GameController {
       }
     );
 
+    this.checkPlayerLife();
+
     // Level logic
     levelManager.update(delta);
+  }
+
+  checkPlayerLife() {
+    if (this.player.life <= 0) {
+      this.player.explode(20);
+    }
   }
 
   draw(ctx: CanvasRenderingContext2D) {

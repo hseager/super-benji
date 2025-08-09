@@ -58,10 +58,10 @@ export class LevelController {
       const y = Math.random() * this.enemyYSpawnOffset; // staggered spawn above screen
       this.gameManager.addEnemy(
         new Enemy(
+          this.gameManager.spriteManager.enemySprite,
           this.gameManager.enemyBulletPool,
           x,
-          y,
-          this.gameManager.spriteManager.enemySprite
+          y
         )
       );
     }
