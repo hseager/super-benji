@@ -1,7 +1,7 @@
 import { playerMaxLife } from "@/core/config";
-import { logicalHeight, logicalWidth } from "@/core/draw-engine";
+import { logicalHeight, logicalWidth } from "@/core/controllers/DrawController";
 import { Shooter } from "./shooter";
-import { BulletPool } from "./bullet-pool";
+import { BulletPool } from "./bulletPool";
 
 export const PLAYER_PALETTE = [
   "#202020", // deep shadow

@@ -1,8 +1,8 @@
 import { State } from "@/core/types";
-import { drawEngine } from "@/core/draw-engine";
-import { controls } from "@/core/controls";
-import { gameStateMachine } from "@/game-state-machine";
-import { gameState } from "./game.state";
+import { drawEngine } from "@/core/controllers/DrawController";
+import { controls } from "@/core/controllers/ControlsController";
+import { gameStateMachine } from "@/gameStates/gameStateMachine";
+import { gameState } from "./gameState";
 
 class MenuState implements State {
   private startGame() {

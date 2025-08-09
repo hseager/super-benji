@@ -1,16 +1,16 @@
 import { Enemy } from "@/core/model/enemy";
-import { drawEngine } from "../draw-engine";
-import { GameManager } from "./game-manager";
+import { drawEngine } from "./DrawController";
+import { GameController } from "./GameController";
 import { Background } from "@/core/model/background";
 
-export class LevelManager {
+export class LevelController {
   private baseEnemyCount = 50;
   private currentLevel: number = 1;
   private displayTimer = 0;
-  private gameManager: GameManager;
+  private gameManager: GameController;
   private enemyYSpawnOffset = 100;
 
-  constructor(gameManager: GameManager) {
+  constructor(gameManager: GameController) {
     this.gameManager = gameManager;
   }
 

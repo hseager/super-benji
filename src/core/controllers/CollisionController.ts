@@ -1,6 +1,6 @@
-import { GameObject } from "@/core/model/game-object";
+import { GameObject } from "@/core/model/gameObject";
 
-export class CollisionManager {
+export class CollisionController {
   static isColliding(a: GameObject, b: GameObject): boolean {
     if (!a || !b) return false;
     return (
@@ -18,7 +18,7 @@ export class CollisionManager {
   ) {
     for (let i = objects.length - 1; i >= 0; i--) {
       for (let j = targets.length - 1; j >= 0; j--) {
-        if (CollisionManager.isColliding(objects[i], targets[j])) {
+        if (CollisionController.isColliding(objects[i], targets[j])) {
           callback(objects[i], targets[j]);
         }
       }

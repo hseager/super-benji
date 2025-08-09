@@ -1,8 +1,8 @@
 import { PLAYER_PALETTE } from "@/core/model/player";
-import { SpriteBuilder } from "../graphics/sprite-builder";
+import { SpriteBuilder } from "../graphics/spriteBuilder";
 import { ENEMY_PALETTE } from "@/core/model/enemy";
 
-export class SpriteManager {
+export class SpriteController {
   playerSprite!: HTMLImageElement;
   enemySprite!: HTMLImageElement;
 

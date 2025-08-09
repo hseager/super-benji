@@ -1,7 +1,10 @@
-import { drawEngine } from "./core/draw-engine";
-import { createGameStateMachine, gameStateMachine } from "./game-state-machine";
-import { controls } from "@/core/controls";
-import { menuState } from "./game-states/menu.state";
+import { drawEngine } from "./core/controllers/DrawController";
+import {
+  createGameStateMachine,
+  gameStateMachine,
+} from "./gameStates/gameStateMachine";
+import { controls } from "@/core/controllers/ControlsController";
+import { menuState } from "./gameStates/menuState";
 
 createGameStateMachine(menuState);
 

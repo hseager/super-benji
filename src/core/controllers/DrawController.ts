@@ -1,7 +1,7 @@
 export const logicalWidth = 144; // base logical resolution
 export const logicalHeight = 256; // base logical resolution
 
-class DrawEngine {
+class DrawController {
   context: CanvasRenderingContext2D;
   mousePosition: DOMPoint;
   isPointerDown: boolean = false;
@@ -127,4 +127,4 @@ class DrawEngine {
   }
 }
 
-export const drawEngine = new DrawEngine();
+export const drawEngine = new DrawController();

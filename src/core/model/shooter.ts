@@ -1,5 +1,5 @@
-import { BulletPool } from "./bullet-pool";
-import { GameObject } from "./game-object";
+import { BulletPool } from "./bulletPool";
+import { GameObject } from "./gameObject";
 
 export class Shooter extends GameObject {
   bulletPool: BulletPool;

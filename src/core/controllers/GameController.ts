@@ -1,17 +1,17 @@
 import { Player } from "@/core/model/player";
 import { Background } from "@/core/model/background";
 import { Bullet } from "@/core/model/bullet";
-import { LevelManager } from "./level-manager";
+import { LevelController } from "./LevelController";
 import { Enemy } from "@/core/model/enemy";
-import { CollisionManager } from "./collision-manager";
-import { SpriteManager } from "./sprite-manager";
-import { BulletPool } from "../model/bullet-pool";
+import { CollisionController } from "./CollisionController";
+import { SpriteController } from "./SpriteController";
+import { BulletPool } from "../model/bulletPool";
 
-export class GameManager {
-  spriteManager!: SpriteManager;
+export class GameController {
+  spriteManager!: SpriteController;
   player!: Player;
   background: Background;
-  levelManager!: LevelManager;
+  levelManager!: LevelController;
   enemies: Enemy[] = [];
   playerBulletPool: BulletPool;
   enemyBulletPool: BulletPool;
@@ -43,7 +43,7 @@ export class GameManager {
     this.playerBulletPool.updateAll();
     this.enemyBulletPool.updateAll();
 
-    CollisionManager.checkAll(
+    CollisionController.checkAll(
       this.playerBulletPool.pool,
       this.enemies,
       (bulletObject, enemyObject) => {
@@ -79,13 +79,13 @@ export class GameManager {
     this.enemies.push(enemy);
   }
 
-  async init(): Promise<GameManager> {
-    this.spriteManager = await new SpriteManager().init();
+  async init(): Promise<GameController> {
+    this.spriteManager = await new SpriteController().init();
     this.player = new Player(
       this.spriteManager.playerSprite,
       this.playerBulletPool
     );
-    this.levelManager = new LevelManager(this);
+    this.levelManager = new LevelController(this);
 
     this.levelManager.startLevel(1);
 

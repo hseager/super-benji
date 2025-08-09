@@ -1,4 +1,4 @@
-import { Flip, SpriteSheet } from "./sprite-sheet";
+import { Flip, SpriteSheet } from "./spriteSheet";
 
 export class CanvasBuffer {
   canvas: HTMLCanvasElement;

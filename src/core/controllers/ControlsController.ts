@@ -1,4 +1,4 @@
-class Controls {
+class ControlsController {
   isUp = false;
   isDown = false;
   isLeft = false;
@@ -60,4 +60,4 @@ class Controls {
   }
 }
 
-export const controls = new Controls();
+export const controls = new ControlsController();

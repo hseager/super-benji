@@ -1,6 +1,6 @@
-import { drawEngine } from "@/core/draw-engine";
+import { drawEngine } from "@/core/controllers/DrawController";
 import { Shooter } from "./shooter";
-import { BulletPool } from "./bullet-pool";
+import { BulletPool } from "./bulletPool";
 
 export const ENEMY_PALETTE = [
   "#200000", // deep shadow

@@ -1,6 +1,6 @@
-import { drawEngine } from "../draw-engine";
+import { drawEngine } from "../controllers/DrawController";
 import { hexToRgbaString } from "../utilities";
-import { GameObject } from "./game-object";
+import { GameObject } from "./gameObject";
 
 export class Bullet extends GameObject {
   dx: number;

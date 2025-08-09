@@ -1,15 +1,15 @@
 import { State } from "@/core/types";
-import { drawEngine } from "@/core/draw-engine";
-import { controls } from "@/core/controls";
-import { gameStateMachine } from "@/game-state-machine";
-import { menuState } from "@/game-states/menu.state";
-import { GameManager } from "@/core/managers/game-manager";
-import { LoseState } from "./lose.state";
+import { drawEngine } from "@/core/controllers/DrawController";
+import { controls } from "@/core/controllers/ControlsController";
+import { gameStateMachine } from "@/gameStates/gameStateMachine";
+import { menuState } from "@/gameStates/menuState";
+import { GameController } from "@/core/controllers/GameController";
+import { LoseState } from "./loseState";
 import { Music } from "@/core/music/music";
 
 class GameState implements State {
   private ctx;
-  private gameManager!: GameManager;
+  private gameManager!: GameController;
   private muteButton: HTMLButtonElement;
 
   musicPlayer: Music;
@@ -55,7 +55,7 @@ class GameState implements State {
     //   this.toggleFullscreen();
     // }
 
-    this.gameManager = await new GameManager().init();
+    this.gameManager = await new GameController().init();
   }
 
   onUpdate(delta: number) {

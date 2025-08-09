@@ -1,6 +1,6 @@
 import { State } from "@/core/types";
-import { drawEngine } from "@/core/draw-engine";
-import { controls } from "@/core/controls";
+import { drawEngine } from "@/core/controllers/DrawController";
+import { controls } from "@/core/controllers/ControlsController";
 
 export class LoseState implements State {
   constructor() {}
