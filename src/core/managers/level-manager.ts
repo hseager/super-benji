@@ -1,13 +1,14 @@
-import { Enemy } from "@/model/enemy";
-import { drawEngine } from "./draw-engine";
+import { Enemy } from "@/core/model/enemy";
+import { drawEngine } from "../draw-engine";
 import { GameManager } from "./game-manager";
-import { Background } from "@/model/background";
+import { Background } from "@/core/model/background";
 
 export class LevelManager {
-  private baseEnemyCount = 5;
+  private baseEnemyCount = 50;
   private currentLevel: number = 1;
   private displayTimer = 0;
   private gameManager: GameManager;
+  private enemyYSpawnOffset = 100;
 
   constructor(gameManager: GameManager) {
     this.gameManager = gameManager;
@@ -50,10 +51,18 @@ export class LevelManager {
     const enemyCount = this.baseEnemyCount + (this.currentLevel - 1) * 2;
 
     for (let i = 0; i < enemyCount; i++) {
-      const x = Math.random() * drawEngine.canvasWidth;
-      const y = Math.random() * 50; // staggered spawn above screen
+      const x =
+        Math.random() *
+        (drawEngine.canvasWidth -
+          this.gameManager.spriteManager.enemySprite.width);
+      const y = Math.random() * this.enemyYSpawnOffset; // staggered spawn above screen
       this.gameManager.addEnemy(
-        new Enemy(x, y, this.gameManager.spriteManager.enemySprite)
+        new Enemy(
+          this.gameManager.enemyBulletPool,
+          x,
+          y,
+          this.gameManager.spriteManager.enemySprite
+        )
       );
     }
   }

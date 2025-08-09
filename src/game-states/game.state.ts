@@ -3,7 +3,7 @@ import { drawEngine } from "@/core/draw-engine";
 import { controls } from "@/core/controls";
 import { gameStateMachine } from "@/game-state-machine";
 import { menuState } from "@/game-states/menu.state";
-import { GameManager } from "@/core/game-manager";
+import { GameManager } from "@/core/managers/game-manager";
 import { LoseState } from "./lose.state";
 import { Music } from "@/core/music/music";
 

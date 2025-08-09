@@ -1,6 +1,6 @@
-import { PLAYER_PALETTE } from "@/model/player";
-import { SpriteBuilder } from "./graphics/sprite-builder";
-import { ENEMY_PALETTE } from "@/model/enemy";
+import { PLAYER_PALETTE } from "@/core/model/player";
+import { SpriteBuilder } from "../graphics/sprite-builder";
+import { ENEMY_PALETTE } from "@/core/model/enemy";
 
 export class SpriteManager {
   playerSprite!: HTMLImageElement;

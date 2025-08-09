@@ -1,6 +1,7 @@
 import { playerMaxLife } from "@/core/config";
 import { logicalHeight, logicalWidth } from "@/core/draw-engine";
-import { GameObject } from "./game-object";
+import { Shooter } from "./shooter";
+import { BulletPool } from "./bullet-pool";
 
 export const PLAYER_PALETTE = [
   "#202020", // deep shadow
@@ -42,15 +43,15 @@ export const PLAYER_PALETTE = [
 //   "#FF3333", // cockpit/engine glow
 // ];
 
-export class Player extends GameObject {
+export class Player extends Shooter {
   // Position
   private lastX: number = 0; // Track last X position for velocity calculation
   velocityX: number = 0;
 
   // Movement
-  movementXSpeed: number = 1;
+  movementXSpeed: number = 1.5;
   movementYSpeed: number = 0.5;
-  moveTolerance = 1; // Pixels to consider "close enough" to target
+  moveTolerance = 2; // Pixels to consider "close enough" to target
 
   // GFX
   sprite: HTMLImageElement;
@@ -59,6 +60,7 @@ export class Player extends GameObject {
   boosterSize = 6; // Size of the booster flame
   boosterYOffset = -2; // Offset for booster flame position
   tiltAmount = 3;
+  tiltClamp = 4; // Max/min amount of tilting based on movespeed
 
   // Glow
   glowColor: string = "#00bfff7c"; // Default glow color
@@ -67,11 +69,11 @@ export class Player extends GameObject {
   // Stats
   maxLife = playerMaxLife;
   life = playerMaxLife;
-  attackSpeed = 2;
-  attackCooldown = 0;
+  attackSpeed: number = 0.1;
 
-  constructor(sprite: HTMLImageElement) {
+  constructor(sprite: HTMLImageElement, bulletPool: BulletPool) {
     super(
+      bulletPool,
       logicalWidth / 2,
       logicalHeight - sprite.height,
       sprite.width,
@@ -80,15 +82,7 @@ export class Player extends GameObject {
     this.sprite = sprite;
   }
 
-  centerX(): number {
-    return this.x + this.width / 2;
-  }
-
-  centerY(): number {
-    return this.y + this.height / 2;
-  }
-
-  update(targetX: number, targetY: number) {
+  update(delta: number, targetX: number, targetY: number) {
     // Calculate vector toward target
     const dx = targetX - this.centerX(); // Center the target on the player
     const dy = targetY - this.centerY();
@@ -102,6 +96,9 @@ export class Player extends GameObject {
 
     this.velocityX = this.x - this.lastX;
     this.lastX = this.x;
+
+    this.updateShooting(delta);
+    this.shoot();
   }
 
   draw(ctx: CanvasRenderingContext2D) {
@@ -118,11 +115,14 @@ export class Player extends GameObject {
   }
 
   manageTilt(ctx: CanvasRenderingContext2D) {
-    const tiltAmount = this.velocityX * this.tiltAmount;
+    const tiltAmount = Math.max(
+      -this.tiltClamp,
+      Math.min(this.tiltClamp, this.velocityX * this.tiltAmount)
+    );
+
     const centerX = this.width / 2;
 
     for (let x = 0; x < this.width; x++) {
-      // Factor goes -1 (left) → 1 (right)
       const factor = (x - centerX) / centerX;
 
       // Invert shift for right/left sides

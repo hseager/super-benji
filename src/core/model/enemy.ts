@@ -1,5 +1,6 @@
 import { drawEngine } from "@/core/draw-engine";
-import { GameObject } from "./game-object";
+import { Shooter } from "./shooter";
+import { BulletPool } from "./bullet-pool";
 
 export const ENEMY_PALETTE = [
   "#200000", // deep shadow
@@ -11,7 +12,7 @@ export const ENEMY_PALETTE = [
   "#e67c7c", // cockpit/engine glow
 ];
 
-export class Enemy extends GameObject {
+export class Enemy extends Shooter {
   speed: number;
   sprite: HTMLImageElement;
 
@@ -19,7 +20,7 @@ export class Enemy extends GameObject {
   glowColor: string = "#ffb3007c";
   glowAmount: number = 12;
 
-  private exploding = false;
+  isExploding = false;
   private explosionPieces: {
     x: number;
     y: number;
@@ -33,14 +34,19 @@ export class Enemy extends GameObject {
     sy: number;
   }[] = [];
 
-  constructor(x: number, y: number, sprite: HTMLImageElement) {
-    super(x, y, sprite.width, sprite.height);
+  constructor(
+    bulletPool: BulletPool,
+    x: number,
+    y: number,
+    sprite: HTMLImageElement
+  ) {
+    super(bulletPool, x, y, sprite.width, sprite.height);
     this.speed = 10;
     this.sprite = sprite;
   }
 
   update(delta: number) {
-    if (this.exploding) {
+    if (this.isExploding) {
       for (const p of this.explosionPieces) {
         p.x += p.vx;
         p.y += p.vy;
@@ -54,7 +60,7 @@ export class Enemy extends GameObject {
   }
 
   draw(ctx: CanvasRenderingContext2D) {
-    if (this.exploding) {
+    if (this.isExploding) {
       for (const p of this.explosionPieces) {
         ctx.save();
         ctx.globalAlpha = p.alpha;
@@ -93,9 +99,9 @@ export class Enemy extends GameObject {
   }
 
   explode() {
-    if (this.exploding) return;
+    if (this.isExploding) return;
 
-    this.exploding = true;
+    this.isExploding = true;
     const pieceSize = 6;
     const numPieces = 8;
 
@@ -116,6 +122,6 @@ export class Enemy extends GameObject {
   }
 
   isDead(): boolean {
-    return this.exploding && this.explosionPieces.length === 0;
+    return this.isExploding && this.explosionPieces.length === 0;
   }
 }

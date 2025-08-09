@@ -1,4 +1,4 @@
-import { GameObject } from "@/model/game-object";
+import { GameObject } from "@/core/model/game-object";
 
 export class CollisionManager {
   static isColliding(a: GameObject, b: GameObject): boolean {

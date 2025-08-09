@@ -10,4 +10,12 @@ export class GameObject {
     this.width = width;
     this.height = height;
   }
+
+  centerX(): number {
+    return this.x + this.width / 2;
+  }
+
+  centerY(): number {
+    return this.y + this.height / 2;
+  }
 }
