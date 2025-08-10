@@ -5,6 +5,10 @@ class DrawController {
   context: CanvasRenderingContext2D;
   mousePosition: DOMPoint;
   isPointerDown: boolean = false;
+  // For blinking menu actions
+  blinkTimer = 0;
+  menuActionBlinkSpeed = 0.75;
+  showMenuAction = true;
 
   constructor() {
     this.context = c2d.getContext("2d");
@@ -102,6 +106,29 @@ class DrawController {
     }
 
     context.restore();
+  }
+
+  drawMenuAction(text: string, delta: number) {
+    this.blinkTimer += delta;
+
+    if (this.blinkTimer >= this.menuActionBlinkSpeed) {
+      // 1 second toggle
+      this.blinkTimer = 0;
+      this.showMenuAction = !this.showMenuAction;
+    }
+
+    if (this.showMenuAction) {
+      drawEngine.drawText(
+        text,
+        16,
+        drawEngine.getCenterX(),
+        200,
+        "#fff",
+        "center",
+        "#333",
+        4
+      );
+    }
   }
 
   resizeCanvas() {

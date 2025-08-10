@@ -16,7 +16,7 @@ class MenuState implements State {
     c2d.addEventListener("click", this.startGame);
   }
 
-  onUpdate() {
+  onUpdate(delta: number) {
     drawEngine.drawTitle("X-Type", 24, drawEngine.getCenterX(), 60);
     drawEngine.drawText(
       "Super",
@@ -29,16 +29,7 @@ class MenuState implements State {
       2,
       Math.PI / -20
     );
-    drawEngine.drawText(
-      "Start Game",
-      16,
-      drawEngine.getCenterX(),
-      200,
-      "#fff",
-      "center",
-      "#333",
-      4
-    );
+    drawEngine.drawMenuAction("Start Game", delta);
   }
 
   onLeave() {
