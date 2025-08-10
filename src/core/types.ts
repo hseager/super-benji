@@ -3,3 +3,9 @@ export interface State {
   onEnter?: Function;
   onLeave?: Function;
 }
+
+export type UpgradeOption = {
+  name: string;
+  description: string;
+  apply: () => void;
+};

@@ -6,7 +6,7 @@ import { screenTransitions } from "./ScreenTransitionController";
 import { BASE_ANIMATION_TIME } from "../config";
 
 export class LevelController {
-  private baseEnemyCount = 3;
+  private baseEnemyCount = 0;
   private currentLevel: number = 1;
   private displayTimer = 0;
   private gameManager: GameController;
