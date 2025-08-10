@@ -28,6 +28,7 @@ export class GameController {
   update(delta: number, mouse: { x: number; y: number }) {
     const { player, background, levelManager } = this;
 
+    // Upgrade Screen
     if (this.upgradeScreen.isActive) {
       this.upgradeScreen.update(delta);
       return;
@@ -104,7 +105,6 @@ export class GameController {
     this.background.draw(ctx);
     this.enemies.forEach((enemy) => enemy.draw(ctx));
     this.player.draw(ctx);
-    // this.bullets.forEach((bullet) => bullet.draw(ctx));
     this.levelManager.draw();
 
     this.playerBulletPool.drawAll(ctx);

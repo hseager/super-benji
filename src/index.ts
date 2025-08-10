@@ -1,14 +1,17 @@
 import { drawEngine } from "./core/controllers/DrawController";
+import { screenTransitions } from "./core/controllers/ScreenTransitionController";
+import { Background } from "./core/model/background";
 import {
   createGameStateMachine,
   gameStateMachine,
 } from "./gameStates/gameStateMachine";
-import { controls } from "@/core/controllers/ControlsController";
 import { menuState } from "./gameStates/menuState";
 
 createGameStateMachine(menuState);
 
 let previousTime = performance.now();
+
+const globalBackground = new Background();
 
 (() => {
   function gameLoop(currentTime: number) {
@@ -22,7 +25,12 @@ let previousTime = performance.now();
       drawEngine.canvasHeight
     );
 
+    globalBackground.draw(drawEngine.context);
+
     gameStateMachine.getState().onUpdate(delta);
+
+    screenTransitions.update(delta);
+    screenTransitions.draw(drawEngine.context);
 
     requestAnimationFrame(gameLoop);
   }

@@ -1,4 +1,4 @@
-import { playerMaxLife } from "@/core/config";
+import { PLAYER_MAX_LIFE } from "@/core/config";
 import { logicalHeight, logicalWidth } from "@/core/controllers/DrawController";
 import { Shooter } from "./shooter";
 import { BulletPool } from "./bulletPool";
@@ -76,8 +76,8 @@ export class Player extends Shooter {
   glowAmount: number = 12; // Default glow radius
 
   // Stats
-  maxLife = playerMaxLife;
-  life = playerMaxLife;
+  maxLife = PLAYER_MAX_LIFE;
+  life = PLAYER_MAX_LIFE;
   attackSpeed: number = 0.5;
 
   constructor(sprite: HTMLImageElement, bulletPool: BulletPool) {

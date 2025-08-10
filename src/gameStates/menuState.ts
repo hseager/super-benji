@@ -1,12 +1,15 @@
 import { State } from "@/core/types";
 import { drawEngine } from "@/core/controllers/DrawController";
-import { controls } from "@/core/controllers/ControlsController";
 import { gameStateMachine } from "@/gameStates/gameStateMachine";
 import { gameState } from "./gameState";
+import { screenTransitions } from "@/core/controllers/ScreenTransitionController";
+import { BASE_ANIMATION_TIME } from "@/core/config";
 
 class MenuState implements State {
   private startGame() {
-    gameStateMachine.setState(gameState);
+    screenTransitions.startFade("fade-out", BASE_ANIMATION_TIME, () => {
+      gameStateMachine.setState(gameState);
+    });
   }
 
   onEnter() {
@@ -36,13 +39,6 @@ class MenuState implements State {
       "#333",
       4
     );
-    this.updateControls();
-  }
-
-  updateControls() {
-    if (controls.isConfirm) {
-      gameStateMachine.setState(gameState);
-    }
   }
 
   onLeave() {

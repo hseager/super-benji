@@ -2,6 +2,8 @@ import { Enemy } from "@/core/model/enemy";
 import { drawEngine } from "./DrawController";
 import { GameController } from "./GameController";
 import { Background } from "@/core/model/background";
+import { screenTransitions } from "./ScreenTransitionController";
+import { BASE_ANIMATION_TIME } from "../config";
 
 export class LevelController {
   private baseEnemyCount = 1;
@@ -32,7 +34,12 @@ export class LevelController {
       !this.gameManager.upgradeScreen.isActive &&
       !this.gameManager.upgradeScreen.isFinished
     ) {
-      this.gameManager.upgradeScreen.start();
+      if (!screenTransitions.isFading) {
+        screenTransitions.startFade("fade-out", BASE_ANIMATION_TIME, () => {
+          this.gameManager.upgradeScreen.start();
+          screenTransitions.startFade("fade-in");
+        });
+      }
     }
 
     if (this.gameManager.upgradeScreen.isFinished) {
@@ -47,16 +54,24 @@ export class LevelController {
 
   draw() {
     if (this.displayTimer > 0) {
+      // Calculate opacity based on displayTimer (fade out over 2 seconds)
+      const maxDisplayTime = BASE_ANIMATION_TIME;
+      const opacity = Math.min(this.displayTimer / maxDisplayTime, 1);
+
+      // Save the context and set globalAlpha for fade effect
+      drawEngine.context.save();
+      drawEngine.context.globalAlpha = opacity;
+
       drawEngine.drawTitle(
         `Level ${this.currentLevel}`,
         24,
         drawEngine.canvasWidth / 2,
-        80
+        60
       );
+
+      drawEngine.context.restore();
     }
   }
-
-  showEndOfLevelScreen() {}
 
   spawnEnemies() {
     const enemyCount = this.baseEnemyCount + (this.currentLevel - 1) * 2;

@@ -6,6 +6,8 @@ import { menuState } from "@/gameStates/menuState";
 import { GameController } from "@/core/controllers/GameController";
 import { LoseState } from "./loseState";
 import { Music } from "@/core/music/music";
+import { screenTransitions } from "@/core/controllers/ScreenTransitionController";
+import { BASE_ANIMATION_TIME } from "@/core/config";
 
 class GameState implements State {
   private ctx;
@@ -48,14 +50,15 @@ class GameState implements State {
   }
 
   async onEnter() {
-    this.setupMuteButton();
     // Force fullscreen for mobiles as the gestures in most browsers mess with the game
     // and cause them to exit the tab or refresh the page
     // if (window.innerWidth <= 920) {
     //   this.toggleFullscreen();
     // }
 
+    this.setupMuteButton();
     this.gameManager = await new GameController().init();
+    screenTransitions.startFade("fade-in", 1);
   }
 
   onUpdate(delta: number) {
@@ -81,7 +84,12 @@ class GameState implements State {
 
   private checkLoseCondition() {
     if (this.gameManager.player.isDead()) {
-      gameStateMachine.setState(new LoseState());
+      if (!screenTransitions.isFading) {
+        screenTransitions.startFade("fade-out", BASE_ANIMATION_TIME, () => {
+          gameStateMachine.setState(new LoseState());
+          screenTransitions.startFade("fade-in", BASE_ANIMATION_TIME);
+        });
+      }
     }
   }
 
