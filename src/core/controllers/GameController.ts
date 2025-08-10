@@ -80,7 +80,6 @@ export class GameController {
       (playerObject, enemyObject) => {
         const player = playerObject as Player;
         const enemy = enemyObject as Enemy;
-
         player.takeDamage(enemy.proximityDamage);
       }
     );
@@ -93,7 +92,6 @@ export class GameController {
         const player = playerObject as Player;
         const bullet = bulletObject as Bullet;
 
-        console.log("Player taking damage");
         player.takeDamage(bullet.damage);
         bullet.active = false;
       }
