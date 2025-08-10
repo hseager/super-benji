@@ -80,10 +80,15 @@ export class Player extends Shooter {
   life = PLAYER_MAX_LIFE;
   attackSpeed: number = 0.5;
 
-  constructor(sprite: HTMLImageElement, bulletPool: BulletPool) {
+  constructor(
+    sprite: HTMLImageElement,
+    bulletPool: BulletPool,
+    bulletDamage: number
+  ) {
     super(
       sprite,
       bulletPool,
+      bulletDamage,
       logicalWidth / 2,
       logicalHeight - sprite.height,
       sprite.width,
@@ -195,5 +200,8 @@ export class Player extends Shooter {
 
   takeDamage(damage: number) {
     this.life -= damage;
+    if (this.life <= 0) {
+      this.explode(40);
+    }
   }
 }

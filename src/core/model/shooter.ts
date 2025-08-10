@@ -8,6 +8,7 @@ export class Shooter extends GameObject {
   shootDir = { x: 0, y: -1 };
   isExploding = false;
   sprite: HTMLImageElement;
+  damage: number;
 
   explosionPieces: {
     x: number;
@@ -25,6 +26,7 @@ export class Shooter extends GameObject {
   constructor(
     sprite: HTMLImageElement,
     bulletPool: BulletPool,
+    damage: number,
     x: number,
     y: number,
     width: number,
@@ -33,6 +35,7 @@ export class Shooter extends GameObject {
     super(x, y, width, height);
     this.sprite = sprite;
     this.bulletPool = bulletPool;
+    this.damage = damage;
   }
 
   updateShooting(delta: number) {
@@ -46,6 +49,7 @@ export class Shooter extends GameObject {
       const bullet = this.bulletPool.get();
       if (bullet) {
         const y = this.shootDir.y <= 0 ? this.y : this.y + this.height;
+        bullet.damage = this.damage;
         bullet.fire(this.centerX(), y, this.shootDir.x, this.shootDir.y);
         this.attackCooldown = this.attackSpeed;
       }

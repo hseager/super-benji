@@ -17,9 +17,16 @@ export class CollisionController {
     callback: (a: GameObject, b: GameObject) => void
   ) {
     for (let i = objects.length - 1; i >= 0; i--) {
+      const a = objects[i];
+      if (!a.active) continue;
+
       for (let j = targets.length - 1; j >= 0; j--) {
-        if (CollisionController.isColliding(objects[i], targets[j])) {
-          callback(objects[i], targets[j]);
+        const b = targets[j];
+        if (!b.active) continue;
+
+        if (CollisionController.isColliding(a, b)) {
+          callback(a, b);
+          break; // stop checking this bullet against other enemies
         }
       }
     }

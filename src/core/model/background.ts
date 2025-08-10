@@ -1,4 +1,4 @@
-import { randomisePalette } from "@/core/utilities";
+import { hexToRgba, hexToRgbaString, randomisePalette } from "@/core/utilities";
 
 const BASE_BACKGROUND_PALETTE = [
   "#050711ff", // BG colour
@@ -7,7 +7,7 @@ const BASE_BACKGROUND_PALETTE = [
   "#354652ff",
   "#353550",
   "#363692ff",
-  "#462e2eff",
+  "#69416eff",
 ];
 
 export class Background {
@@ -124,7 +124,7 @@ export class Background {
           radius
         );
 
-        grad.addColorStop(0, "rgba(255,255,255,0.05)"); // faint white core
+        grad.addColorStop(0, hexToRgbaString(this.pallette[5], 0.07));
         grad.addColorStop(1, "rgba(0,0,0,0)"); // fade to transparent
 
         ctx.globalCompositeOperation = "screen"; // blend mode for glow

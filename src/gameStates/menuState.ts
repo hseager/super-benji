@@ -3,13 +3,17 @@ import { drawEngine } from "@/core/controllers/DrawController";
 import { gameStateMachine } from "@/gameStates/gameStateMachine";
 import { gameState } from "./gameState";
 import { screenTransitions } from "@/core/controllers/ScreenTransitionController";
-import { BASE_ANIMATION_TIME } from "@/core/config";
+import { BASE_TRANSITION_ANIMATION_TIME } from "@/core/config";
 
 class MenuState implements State {
   private startGame() {
-    screenTransitions.startFade("fade-out", BASE_ANIMATION_TIME, () => {
-      gameStateMachine.setState(gameState);
-    });
+    screenTransitions.startFade(
+      "fade-out",
+      BASE_TRANSITION_ANIMATION_TIME,
+      () => {
+        gameStateMachine.setState(gameState);
+      }
+    );
   }
 
   onEnter() {

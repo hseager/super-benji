@@ -7,6 +7,7 @@ export class Bullet extends GameObject {
   dy: number;
   speed: number;
   active: boolean = false;
+  damage = 1;
 
   radius = 1;
   glowRadius = 2;

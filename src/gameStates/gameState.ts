@@ -7,7 +7,7 @@ import { GameController } from "@/core/controllers/GameController";
 import { LoseState } from "./loseState";
 import { Music } from "@/core/music/music";
 import { screenTransitions } from "@/core/controllers/ScreenTransitionController";
-import { BASE_ANIMATION_TIME } from "@/core/config";
+import { BASE_TRANSITION_ANIMATION_TIME } from "@/core/config";
 
 class GameState implements State {
   private ctx;
@@ -84,10 +84,17 @@ class GameState implements State {
   private checkLoseCondition() {
     if (this.gameManager.player.isDead()) {
       if (!screenTransitions.isFading) {
-        screenTransitions.startFade("fade-out", BASE_ANIMATION_TIME, () => {
-          gameStateMachine.setState(new LoseState());
-          screenTransitions.startFade("fade-in", BASE_ANIMATION_TIME);
-        });
+        screenTransitions.startFade(
+          "fade-out",
+          BASE_TRANSITION_ANIMATION_TIME,
+          () => {
+            gameStateMachine.setState(new LoseState());
+            screenTransitions.startFade(
+              "fade-in",
+              BASE_TRANSITION_ANIMATION_TIME
+            );
+          }
+        );
       }
     }
   }

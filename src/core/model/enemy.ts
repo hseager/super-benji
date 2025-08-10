@@ -1,6 +1,11 @@
 import { drawEngine } from "@/core/controllers/DrawController";
 import { Shooter } from "./shooter";
 import { BulletPool } from "./bulletPool";
+import {
+  ENEMY_BULLET_DAMAGE,
+  ENEMY_MAX_LIFE,
+  ENEMY_PROXIMiTY_DAMAGE,
+} from "../config";
 
 export const ENEMY_PALETTE = [
   "#200000", // deep shadow
@@ -19,20 +24,22 @@ export class Enemy extends Shooter {
   glowAmount: number = 12;
 
   // Stats
+  maxLife = ENEMY_MAX_LIFE;
+  life = ENEMY_MAX_LIFE;
   speed: number = 10;
   vx: number = 0;
-  proximityDamage: number = 0.5;
-  bulletDamage: number = 0.5;
+  proximityDamage: number = ENEMY_PROXIMiTY_DAMAGE;
   attackSpeed: number = 1.5;
   shootDir = { x: 0, y: 1 };
 
   constructor(
     sprite: HTMLImageElement,
     bulletPool: BulletPool,
+    bulletDamage: number,
     x: number,
     y: number
   ) {
-    super(sprite, bulletPool, x, y, sprite.width, sprite.height);
+    super(sprite, bulletPool, bulletDamage, x, y, sprite.width, sprite.height);
     this.glowSprite = this.preloadGlowSprite();
     this.vx = (Math.random() - 0.5) * 60;
   }
@@ -97,5 +104,10 @@ export class Enemy extends Shooter {
     offCtx.drawImage(this.sprite, this.glowAmount * 2, this.glowAmount * 2);
 
     return offscreen;
+  }
+
+  takeDamage(damage: number) {
+    this.life -= damage;
+    if (this.life <= 0) this.explode();
   }
 }

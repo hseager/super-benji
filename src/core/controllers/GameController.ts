@@ -7,6 +7,7 @@ import { CollisionController } from "./CollisionController";
 import { SpriteController } from "./SpriteController";
 import { BulletPool } from "../model/bulletPool";
 import { UpgradeScreenController } from "./UpgradeScreenController";
+import { ENEMY_BULLET_DAMAGE, PLAYER_BULLET_DAMAGE } from "../config";
 
 export class GameController {
   spriteManager!: SpriteController;
@@ -65,15 +66,10 @@ export class GameController {
       this.enemies,
       (bulletObject, enemyObject) => {
         const enemy = enemyObject as Enemy;
+        const bullet = bulletObject as Bullet;
 
-        if (!enemy.isExploding) {
-          const bullet = this.playerBulletPool.pool.find(
-            (b) => b === bulletObject
-          );
-          if (bullet) bullet.active = false;
-        }
-
-        enemy.explode();
+        enemy.takeDamage(bullet.damage);
+        bullet.active = false;
       }
     );
 
@@ -85,21 +81,26 @@ export class GameController {
         const player = playerObject as Player;
         const enemy = enemyObject as Enemy;
 
-        player.life -= enemy.proximityDamage;
+        player.takeDamage(enemy.proximityDamage);
       }
     );
 
-    // Player life
-    this.checkPlayerLife();
+    // Player and enemy bullet collision
+    CollisionController.checkAll(
+      [this.player],
+      this.enemyBulletPool.pool,
+      (playerObject, bulletObject) => {
+        const player = playerObject as Player;
+        const bullet = bulletObject as Bullet;
+
+        console.log("Player taking damage");
+        player.takeDamage(bullet.damage);
+        bullet.active = false;
+      }
+    );
 
     // Level logic
     levelManager.update(delta);
-  }
-
-  checkPlayerLife() {
-    if (this.player.life <= 0) {
-      this.player.explode(20);
-    }
   }
 
   draw(ctx: CanvasRenderingContext2D) {
@@ -125,7 +126,8 @@ export class GameController {
     this.spriteManager = await new SpriteController().init();
     this.player = new Player(
       this.spriteManager.playerSprite,
-      this.playerBulletPool
+      this.playerBulletPool,
+      PLAYER_BULLET_DAMAGE
     );
     this.levelManager = new LevelController(this);
 

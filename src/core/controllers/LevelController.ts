@@ -3,7 +3,7 @@ import { drawEngine } from "./DrawController";
 import { GameController } from "./GameController";
 import { Background } from "@/core/model/background";
 import { screenTransitions } from "./ScreenTransitionController";
-import { BASE_ANIMATION_TIME } from "../config";
+import { BASE_TRANSITION_ANIMATION_TIME, ENEMY_BULLET_DAMAGE } from "../config";
 
 export class LevelController {
   private baseEnemyCount = 4;
@@ -35,10 +35,14 @@ export class LevelController {
       !this.gameManager.upgradeScreen.isFinished
     ) {
       if (!screenTransitions.isFading) {
-        screenTransitions.startFade("fade-out", BASE_ANIMATION_TIME, () => {
-          this.gameManager.upgradeScreen.start();
-          screenTransitions.startFade("fade-in");
-        });
+        screenTransitions.startFade(
+          "fade-out",
+          BASE_TRANSITION_ANIMATION_TIME,
+          () => {
+            this.gameManager.upgradeScreen.start();
+            screenTransitions.startFade("fade-in");
+          }
+        );
       }
     }
 
@@ -55,7 +59,7 @@ export class LevelController {
   draw() {
     if (this.displayTimer > 0) {
       // Calculate opacity based on displayTimer (fade out over 2 seconds)
-      const maxDisplayTime = BASE_ANIMATION_TIME;
+      const maxDisplayTime = BASE_TRANSITION_ANIMATION_TIME;
       const opacity = Math.min(this.displayTimer / maxDisplayTime, 1);
 
       // Save the context and set globalAlpha for fade effect
@@ -86,6 +90,7 @@ export class LevelController {
         new Enemy(
           this.gameManager.spriteManager.enemySprite,
           this.gameManager.enemyBulletPool,
+          ENEMY_BULLET_DAMAGE,
           x,
           y
         )
