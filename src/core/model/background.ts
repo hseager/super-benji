@@ -31,7 +31,7 @@ export class Background {
 
   update(playerVelocityX: number) {
     this.y += this.speed;
-    this.x -= playerVelocityX * this.XMovementAmount; // Adjust background speed based on player movement
+    this.x -= playerVelocityX * this.XMovementAmount;
     if (this.y >= this.tile.height) this.y = 0;
   }
 
@@ -66,14 +66,11 @@ export class Background {
     const ctx = canvas.getContext("2d")!;
     ctx.imageSmoothingEnabled = false;
 
+    // Base background
     ctx.fillStyle = this.pallette[0];
     ctx.fillRect(0, 0, size, size);
 
-    // Draw a few big soft nebula blobs with globalAlpha for better perf
-    // ctx.globalAlpha = 0.2;
-    // this.drawNebula(ctx, size);
-    ctx.globalAlpha = 1;
-
+    // Stars
     const totalStars = Math.floor(size * size * density);
     for (let i = 0; i < totalStars; i++) {
       const x = Math.floor(Math.random() * size);
@@ -85,31 +82,58 @@ export class Background {
       ctx.fill();
     }
 
+    // Add nebula clouds
+    this.drawGalaxyClouds(ctx, size, 3); // 5 random clouds
+
     const img = new Image();
     img.src = canvas.toDataURL();
     return img;
   }
 
-  // drawNebula(ctx: CanvasRenderingContext2D, size: number) {
-  //   const colors = [
-  //     "#6496FF", // soft blue
-  //     "#FF9664", // soft orange
-  //     "#96FFC8", // soft teal
-  //   ];
+  private drawGalaxyClouds(
+    ctx: CanvasRenderingContext2D,
+    size: number,
+    count: number
+  ) {
+    for (let i = 0; i < count; i++) {
+      const radius = Math.random() * (size / 2) + size / 3;
+      const x = Math.random() * size;
+      const y = Math.random() * size;
 
-  //   for (let i = 0; i < 2; i++) {
-  //     const x = Math.random() * (size * 2) - size / 2; // range: -size/2 to 1.5*size
-  //     const y = Math.random() * (size * 2) - size / 2;
-  //     const radius = size * (0.3 + Math.random() * 0.3);
+      // Draw the gradient and wrap around edges
+      this.drawWrappedGradient(ctx, x, y, radius, size);
+    }
+  }
 
-  //     const gradient = ctx.createRadialGradient(x, y, 0, x, y, radius);
-  //     gradient.addColorStop(0, colors[i]);
-  //     gradient.addColorStop(1, "rgba(0,0,0,0)");
+  private drawWrappedGradient(
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    radius: number,
+    size: number
+  ) {
+    // We'll draw the gradient in 9 tiles (center + wrap-around edges) so it tiles seamlessly
+    for (let offsetX = -size; offsetX <= size; offsetX += size) {
+      for (let offsetY = -size; offsetY <= size; offsetY += size) {
+        const grad = ctx.createRadialGradient(
+          x + offsetX,
+          y + offsetY,
+          0,
+          x + offsetX,
+          y + offsetY,
+          radius
+        );
 
-  //     ctx.fillStyle = gradient;
-  //     ctx.beginPath();
-  //     ctx.arc(x, y, radius, 0, Math.PI * 2);
-  //     ctx.fill();
-  //   }
-  // }
+        grad.addColorStop(0, "rgba(255,255,255,0.05)"); // faint white core
+        grad.addColorStop(1, "rgba(0,0,0,0)"); // fade to transparent
+
+        ctx.globalCompositeOperation = "screen"; // blend mode for glow
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(x + offsetX, y + offsetY, radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalCompositeOperation = "source-over"; // reset
+      }
+    }
+  }
 }

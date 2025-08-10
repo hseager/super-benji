@@ -69,7 +69,7 @@ export class Player extends Shooter {
   boosterSize = 6; // Size of the booster flame
   boosterYOffset = -2; // Offset for booster flame position
   tiltAmount = 3;
-  tiltClamp = 4; // Max/min amount of tilting based on movespeed
+  tiltClamp = 2; // Max/min amount of tilting based on movespeed
 
   // Glow
   glowColor: string = "#00bfff7c"; // Default glow color

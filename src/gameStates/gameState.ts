@@ -66,7 +66,6 @@ class GameState implements State {
 
     if (!this.gameManager) return;
 
-    // Delegate logic to GameManager
     this.gameManager.update(delta, mouse);
     this.gameManager.draw(this.ctx);
 
