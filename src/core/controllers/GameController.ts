@@ -19,8 +19,14 @@ export class GameController {
   upgradeScreen: UpgradeScreenController;
 
   constructor() {
-    this.playerBulletPool = new BulletPool(100, () => new Bullet(3));
-    this.enemyBulletPool = new BulletPool(100, () => new Bullet(1));
+    this.playerBulletPool = new BulletPool(
+      100,
+      () => new Bullet(3, "#00c1fca4")
+    );
+    this.enemyBulletPool = new BulletPool(
+      100,
+      () => new Bullet(1.5, "#f0736af1")
+    );
     this.background = new Background();
     this.upgradeScreen = new UpgradeScreenController(this);
   }

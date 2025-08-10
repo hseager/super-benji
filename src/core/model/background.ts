@@ -1,13 +1,13 @@
 import { randomisePalette } from "@/core/utilities";
 
 const BASE_BACKGROUND_PALETTE = [
-  "#0a0d1f", // BG colour
+  "#050711ff", // BG colour
   "#4d592a",
   "#231952",
-  "#38454e",
+  "#354652ff",
   "#353550",
-  "#5555FF",
-  "#5b4949",
+  "#363692ff",
+  "#462e2eff",
 ];
 
 export class Background {
@@ -18,7 +18,7 @@ export class Background {
   private xMovementBuffer = 100;
   private XMovementAmount = 0.4;
   pallette: string[];
-  private starDensityMax = 0.01;
+  private starDensityMax = 0.005;
   private starDensityMin = 0.002;
   starDensity =
     Math.random() * (this.starDensityMax - this.starDensityMin) +

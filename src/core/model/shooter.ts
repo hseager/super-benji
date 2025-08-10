@@ -45,7 +45,8 @@ export class Shooter extends GameObject {
     if (this.attackCooldown <= 0) {
       const bullet = this.bulletPool.get();
       if (bullet) {
-        bullet.fire(this.centerX(), this.y, this.shootDir.x, this.shootDir.y);
+        const y = this.shootDir.y <= 0 ? this.y : this.y + this.height;
+        bullet.fire(this.centerX(), y, this.shootDir.x, this.shootDir.y);
         this.attackCooldown = this.attackSpeed;
       }
     }

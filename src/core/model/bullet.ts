@@ -10,13 +10,14 @@ export class Bullet extends GameObject {
 
   radius = 1;
   glowRadius = 2;
-  glowColor = "#00c1fca4";
+  glowColor: string;
 
-  constructor(speed: number) {
+  constructor(speed: number, color: string) {
     super(0, 0);
     this.dx = 0;
     this.dy = 0;
     this.speed = speed;
+    this.glowColor = color;
   }
 
   fire(x: number, y: number, dirX: number, dirY: number) {
@@ -41,7 +42,7 @@ export class Bullet extends GameObject {
     );
   }
 
-  draw(ctx: CanvasRenderingContext2D, color: string = "#cccccc") {
+  draw(ctx: CanvasRenderingContext2D) {
     const gradient = ctx.createRadialGradient(
       this.x,
       this.y,
@@ -61,7 +62,7 @@ export class Bullet extends GameObject {
     ctx.fill();
 
     // Core
-    ctx.fillStyle = color;
+    ctx.fillStyle = this.glowColor;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
     ctx.fill();

@@ -24,12 +24,16 @@
 - More health
 - Sheild
 - Damage Types
+
   - Poison
   - Fire
   - Ice
   -
+
 - Adamite/ Mitril Panels
-- Shadows
+
+  - Change ship color
+
 - Sound effects on kill
 - Health bars on bosses
 
@@ -43,14 +47,11 @@
 - Enemies
   - Attacks
 - Artwork
-  - Intro
-  - Titles
   - Tilesets
-  - Scene animations
 - Rewards
   - Upgrades/Loot/Powerups
-- Win state
 - Lose State
+- Score screen
 
 # About
 

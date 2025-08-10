@@ -68,7 +68,7 @@ export class UpgradeScreenController {
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
     // Title
-    drawEngine.drawText("Choose an item!", 12, drawEngine.getCenterX(), 20);
+    drawEngine.drawText("Choose an upgrade!", 12, drawEngine.getCenterX(), 20);
 
     // Draw upgrade boxes
     const startY = 40;

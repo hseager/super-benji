@@ -20,7 +20,11 @@ export class Enemy extends Shooter {
 
   // Stats
   speed: number = 10;
+  vx: number = 0;
   proximityDamage: number = 0.5;
+  bulletDamage: number = 0.5;
+  attackSpeed: number = 1.5;
+  shootDir = { x: 0, y: 1 };
 
   constructor(
     sprite: HTMLImageElement,
@@ -30,27 +34,29 @@ export class Enemy extends Shooter {
   ) {
     super(sprite, bulletPool, x, y, sprite.width, sprite.height);
     this.glowSprite = this.preloadGlowSprite();
-  }
-
-  preloadGlowSprite() {
-    const offscreen = document.createElement("canvas");
-    offscreen.width = this.sprite.width + this.glowAmount * 4; // enough padding
-    offscreen.height = this.sprite.height + this.glowAmount * 4;
-    const offCtx = offscreen.getContext("2d");
-    if (!offCtx) throw new Error("Failed to get 2D context");
-
-    offCtx.shadowColor = this.glowColor;
-    offCtx.shadowBlur = this.glowAmount;
-    offCtx.drawImage(this.sprite, this.glowAmount * 2, this.glowAmount * 2);
-
-    return offscreen;
+    this.vx = (Math.random() - 0.5) * 60;
   }
 
   update(delta: number) {
     if (this.isExploding) {
       this.addExplosionParts();
     } else {
-      this.y += this.speed * delta; // move downward
+      // Move
+      this.y += this.speed * delta; // down
+      this.x += this.vx * delta; // sideways
+
+      // Bounce at screen edges
+      if (this.x < 0) {
+        this.x = 0;
+        this.vx *= -1;
+      }
+      if (this.x + this.width > drawEngine.canvasWidth) {
+        this.x = drawEngine.canvasWidth - this.width;
+        this.vx *= -1;
+      }
+
+      this.updateShooting(delta);
+      this.shoot();
     }
   }
 
@@ -77,5 +83,19 @@ export class Enemy extends Shooter {
       this.y + this.height < 0 ||
       this.y > drawEngine.canvasHeight
     );
+  }
+
+  preloadGlowSprite() {
+    const offscreen = document.createElement("canvas");
+    offscreen.width = this.sprite.width + this.glowAmount * 4; // enough padding
+    offscreen.height = this.sprite.height + this.glowAmount * 4;
+    const offCtx = offscreen.getContext("2d");
+    if (!offCtx) throw new Error("Failed to get 2D context");
+
+    offCtx.shadowColor = this.glowColor;
+    offCtx.shadowBlur = this.glowAmount;
+    offCtx.drawImage(this.sprite, this.glowAmount * 2, this.glowAmount * 2);
+
+    return offscreen;
   }
 }
