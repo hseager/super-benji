@@ -8,7 +8,7 @@ export class Bullet extends GameObject {
   active: boolean = false;
 
   // GFX
-  radius = 1;
+  radius = 2;
   glowRadius = 2;
   glowColor: string;
 

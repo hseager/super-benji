@@ -24,3 +24,12 @@ export const PLAYER_BULLET_COLOR = "#00c1fca4";
 export const BACKGROUND_HUE_SHIFT = 200; // 20 = 10%
 export const BACKGROUND_SATURATION_SHIFT = 10;
 export const BACKGROUND_LIGHTNESS_SHIFT = 0;
+
+// Palettes
+export const PLAYER_HEALTH_GLOW_COLOURS = [
+  { hp: 1.0, color: "#00FF66" }, // green
+  { hp: 0.75, color: "#00BFFF" }, // blue
+  { hp: 0.5, color: "#FFA500" }, // orange
+  { hp: 0.25, color: "#FF3333" }, // red
+  { hp: 0.0, color: "rgba(255, 0, 0, 0)" }, // transparent red
+];

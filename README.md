@@ -29,9 +29,14 @@
   - Ice
 - Adamite/ Mitril Panels
   - Change ship color
+- Booster
+  - Changes booster colour
+- Advanced wings
+  - Changes wing sprite
 
 ### TODO
 
+- Theme integration
 - Resources
   - Crafting
   - Gambling
@@ -48,9 +53,16 @@
   - Background Tilesets
 - Score screen
 - Testing
+
   - Mobile
   - High FPS
   - Githubpages
+
+- Items
+  - Hull
+  - Chasis
+  - Canon
+  - Relic
 
 # About
 
