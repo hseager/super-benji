@@ -1,7 +1,7 @@
 import { SPRITE_BASE64 } from "../config";
 import { CanvasBuffer } from "./canvasBuffer";
 import { PaletteApplier } from "./palletteApplier";
-import { SpriteSheet } from "./spriteSheet";
+import { Flip, SpriteSheet } from "./spriteSheet";
 
 export class SpriteBuilder {
   static async loadSpriteSheet(): Promise<SpriteSheet> {
@@ -56,11 +56,12 @@ export class SpriteBuilder {
 
   static async createBullet(
     sheet: SpriteSheet,
-    palette: string[]
+    palette: string[],
+    flip: number = Flip.None
   ): Promise<HTMLImageElement> {
     const buffer = new CanvasBuffer(3, 3);
 
-    buffer.drawSprite(sheet, 0, 0, 0, 0, 3, 3);
+    buffer.drawSprite(sheet, 0, 0, 0, 0, 3, 3, flip);
 
     return this.applyPalette(buffer, palette);
   }

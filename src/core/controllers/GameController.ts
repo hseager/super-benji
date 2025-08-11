@@ -120,16 +120,17 @@ export class GameController {
   async init(): Promise<GameController> {
     // Anything that depends on sprites need to be awaited as the spritesheet is loaded, so we create some objects here instead of the constuctor
     this.spriteManager = await new SpriteController().init();
-    const { playerSprite, bulletSprite } = this.spriteManager;
+    const { playerSprite, enemyBulletSprite, playerBulletSprite } =
+      this.spriteManager;
 
     // Create Bullet pools
     this.playerBulletPool = new BulletPool(
       100,
-      () => new Bullet(bulletSprite, PLAYER_BULLET_COLOR)
+      () => new Bullet(playerBulletSprite, PLAYER_BULLET_COLOR)
     );
     this.enemyBulletPool = new BulletPool(
       100,
-      () => new Bullet(bulletSprite, ENEMY_BULLET_COLOR)
+      () => new Bullet(enemyBulletSprite, ENEMY_BULLET_COLOR)
     );
 
     // Create Player
