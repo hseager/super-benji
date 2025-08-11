@@ -24,34 +24,33 @@
 - More health
 - Sheild
 - Damage Types
-
   - Poison
   - Fire
   - Ice
-  -
-
 - Adamite/ Mitril Panels
-
   - Change ship color
-
-- Sound effects on kill
-- Health bars on bosses
-
-### Graphics
-
-- Glows
 
 ### TODO
 
-- ## Levels
-- Enemies
-  - Attacks
-- Artwork
-  - Tilesets
+- Resources
+  - Crafting
+  - Gambling
+- Bosses
+  - Music
+  - Health bars
 - Rewards
   - Upgrades/Loot/Powerups
-- Lose State
+- Enemies
+  - Types
+  - Health bars
+  - Sound effects on kill
+- Artwork
+  - Background Tilesets
 - Score screen
+- Testing
+  - Mobile
+  - High FPS
+  - Githubpages
 
 # About
 

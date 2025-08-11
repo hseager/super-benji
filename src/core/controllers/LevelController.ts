@@ -3,7 +3,11 @@ import { drawEngine } from "./DrawController";
 import { GameController } from "./GameController";
 import { Background } from "@/core/model/background";
 import { screenTransitions } from "./ScreenTransitionController";
-import { BASE_TRANSITION_ANIMATION_TIME, ENEMY_BULLET_DAMAGE } from "../config";
+import {
+  BASE_TRANSITION_ANIMATION_TIME,
+  ENEMY_BULLET_DAMAGE,
+  ENEMY_BULLET_SPEED,
+} from "../config";
 
 export class LevelController {
   private baseEnemyCount = 4;
@@ -91,6 +95,7 @@ export class LevelController {
           this.gameManager.spriteManager.enemySprite,
           this.gameManager.enemyBulletPool,
           ENEMY_BULLET_DAMAGE,
+          ENEMY_BULLET_SPEED,
           x,
           y
         )

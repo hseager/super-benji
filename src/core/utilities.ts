@@ -1,3 +1,9 @@
+import {
+  BACKGROUND_HUE_SHIFT,
+  BACKGROUND_LIGHTNESS_SHIFT,
+  BACKGROUND_SATURATION_SHIFT,
+} from "./config";
+
 export function hexToRgba(hex: string, alpha: number = 1) {
   const bigint = parseInt(hex.replace("#", ""), 16);
   const r = (bigint >> 16) & 255;
@@ -16,20 +22,16 @@ export function randomisePalette(palette: string[]): string[] {
   return palette.map((hex) => {
     const { h, s, l } = hexToHSL(hex);
 
-    const hueShift = 200; // 20 = 10%
-    const saturationShift = 10;
-    const lightnessShift = 5;
-
     // Small random offsets to keep shade consistent
-    const newH = (h + (Math.random() - 0.5) * hueShift + 360) % 360; // ±10° hue
+    const newH = (h + (Math.random() - 0.5) * BACKGROUND_HUE_SHIFT + 360) % 360; // ±10° hue
     const newS = Math.min(
       100,
-      Math.max(0, s + (Math.random() - 0.5) * saturationShift)
-    ); // ±5% sat
+      Math.max(0, s + (Math.random() - 0.5) * BACKGROUND_SATURATION_SHIFT)
+    );
     const newL = Math.min(
       100,
-      Math.max(0, l + (Math.random() - 0.5) * lightnessShift)
-    ); // ±5% lightness
+      Math.max(0, l + (Math.random() - 0.5) * BACKGROUND_LIGHTNESS_SHIFT)
+    );
 
     return hslToHex(newH, newS, newL);
   });

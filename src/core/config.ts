@@ -7,8 +7,20 @@ export const BASE_TRANSITION_ANIMATION_TIME = 0.5;
 // Enemy
 export const ENEMY_MAX_LIFE = 20;
 export const ENEMY_BULLET_DAMAGE = 5;
-export const ENEMY_PROXIMiTY_DAMAGE = 0.5;
+export const ENEMY_PROXIMITY_DAMAGE = 0.5;
+export const ENEMY_BULLET_SPEED = 1;
+export const ENEMY_MOVEMENT_Y_SPEED = 10;
+export const ENEMY_ATTACK_SPEED = 3;
+export const ENEMY_BULLET_COLOR = "#f0736af1";
 
 // Player Stats
 export const PLAYER_MAX_LIFE = 100;
 export const PLAYER_BULLET_DAMAGE = 10;
+export const PLAYER_BULLET_SPEED = 3;
+export const PLAYER_ATTACK_SPEED = 0.5;
+export const PLAYER_BULLET_COLOR = "#00c1fca4";
+
+// Background Generation
+export const BACKGROUND_HUE_SHIFT = 200; // 20 = 10%
+export const BACKGROUND_SATURATION_SHIFT = 10;
+export const BACKGROUND_LIGHTNESS_SHIFT = 0;

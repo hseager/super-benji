@@ -2,9 +2,11 @@ import { drawEngine } from "@/core/controllers/DrawController";
 import { Shooter } from "./shooter";
 import { BulletPool } from "./bulletPool";
 import {
+  ENEMY_ATTACK_SPEED,
   ENEMY_BULLET_DAMAGE,
   ENEMY_MAX_LIFE,
-  ENEMY_PROXIMiTY_DAMAGE,
+  ENEMY_MOVEMENT_Y_SPEED,
+  ENEMY_PROXIMITY_DAMAGE,
 } from "../config";
 
 export const ENEMY_PALETTE = [
@@ -26,22 +28,32 @@ export class Enemy extends Shooter {
   // Stats
   maxLife = ENEMY_MAX_LIFE;
   life = ENEMY_MAX_LIFE;
-  speed: number = 10;
-  vx: number = 0;
-  proximityDamage: number = ENEMY_PROXIMiTY_DAMAGE;
-  attackSpeed: number = 1.5;
+  movementYSpeed: number = ENEMY_MOVEMENT_Y_SPEED;
+  movementVilocityX: number = 0;
+  proximityDamage: number = ENEMY_PROXIMITY_DAMAGE;
+  attackSpeed: number = ENEMY_ATTACK_SPEED;
   shootDir = { x: 0, y: 1 };
 
   constructor(
     sprite: HTMLImageElement,
     bulletPool: BulletPool,
     bulletDamage: number,
+    bulletSpeed: number,
     x: number,
     y: number
   ) {
-    super(sprite, bulletPool, bulletDamage, x, y, sprite.width, sprite.height);
+    super(
+      sprite,
+      bulletPool,
+      bulletDamage,
+      bulletSpeed,
+      x,
+      y,
+      sprite.width,
+      sprite.height
+    );
     this.glowSprite = this.preloadGlowSprite();
-    this.vx = (Math.random() - 0.5) * 60;
+    this.movementVilocityX = (Math.random() - 0.5) * 60;
   }
 
   update(delta: number) {
@@ -49,17 +61,17 @@ export class Enemy extends Shooter {
       this.addExplosionParts();
     } else {
       // Move
-      this.y += this.speed * delta; // down
-      this.x += this.vx * delta; // sideways
+      this.y += this.movementYSpeed * delta; // down
+      this.x += this.movementVilocityX * delta; // sideways
 
       // Bounce at screen edges
       if (this.x < 0) {
         this.x = 0;
-        this.vx *= -1;
+        this.movementVilocityX *= -1;
       }
       if (this.x + this.width > drawEngine.canvasWidth) {
         this.x = drawEngine.canvasWidth - this.width;
-        this.vx *= -1;
+        this.movementVilocityX *= -1;
       }
 
       this.updateShooting(delta);

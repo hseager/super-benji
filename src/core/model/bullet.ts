@@ -5,19 +5,21 @@ import { GameObject } from "./gameObject";
 export class Bullet extends GameObject {
   dx: number;
   dy: number;
-  speed: number;
   active: boolean = false;
-  damage = 1;
 
+  // GFX
   radius = 1;
   glowRadius = 2;
   glowColor: string;
 
-  constructor(speed: number, color: string) {
+  // Stats
+  damage = 1;
+  speed = 1;
+
+  constructor(color: string) {
     super(0, 0);
     this.dx = 0;
     this.dy = 0;
-    this.speed = speed;
     this.glowColor = color;
   }
 

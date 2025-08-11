@@ -1,13 +1,13 @@
 import { hexToRgba, hexToRgbaString, randomisePalette } from "@/core/utilities";
 
 const BASE_BACKGROUND_PALETTE = [
-  "#050711ff", // BG colour
+  "#06040f", // BG colour
   "#4d592a",
   "#231952",
-  "#354652ff",
+  "#354652",
   "#353550",
-  "#363692ff",
-  "#69416eff",
+  "#363692",
+  "#69416e",
 ];
 
 export class Background {

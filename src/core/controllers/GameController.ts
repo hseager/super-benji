@@ -7,7 +7,12 @@ import { CollisionController } from "./CollisionController";
 import { SpriteController } from "./SpriteController";
 import { BulletPool } from "../model/bulletPool";
 import { UpgradeScreenController } from "./UpgradeScreenController";
-import { ENEMY_BULLET_DAMAGE, PLAYER_BULLET_DAMAGE } from "../config";
+import {
+  ENEMY_BULLET_COLOR,
+  PLAYER_BULLET_COLOR,
+  PLAYER_BULLET_DAMAGE,
+  PLAYER_BULLET_SPEED,
+} from "../config";
 
 export class GameController {
   spriteManager!: SpriteController;
@@ -22,11 +27,11 @@ export class GameController {
   constructor() {
     this.playerBulletPool = new BulletPool(
       100,
-      () => new Bullet(3, "#00c1fca4")
+      () => new Bullet(PLAYER_BULLET_COLOR)
     );
     this.enemyBulletPool = new BulletPool(
       100,
-      () => new Bullet(1.5, "#f0736af1")
+      () => new Bullet(ENEMY_BULLET_COLOR)
     );
     this.background = new Background();
     this.upgradeScreen = new UpgradeScreenController(this);
@@ -125,7 +130,8 @@ export class GameController {
     this.player = new Player(
       this.spriteManager.playerSprite,
       this.playerBulletPool,
-      PLAYER_BULLET_DAMAGE
+      PLAYER_BULLET_DAMAGE,
+      PLAYER_BULLET_SPEED
     );
     this.levelManager = new LevelController(this);
 
