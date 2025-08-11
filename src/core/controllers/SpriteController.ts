@@ -5,6 +5,7 @@ import { ENEMY_PALETTE } from "@/core/model/enemy";
 export class SpriteController {
   playerSprite!: HTMLImageElement;
   enemySprite!: HTMLImageElement;
+  bulletSprite!: HTMLImageElement;
 
   async init() {
     const spriteSheet = await SpriteBuilder.loadSpriteSheet();
@@ -17,6 +18,11 @@ export class SpriteController {
     this.enemySprite = await SpriteBuilder.createBasicEnemy(
       spriteSheet,
       ENEMY_PALETTE
+    );
+
+    this.bulletSprite = await SpriteBuilder.createBullet(
+      spriteSheet,
+      PLAYER_PALETTE
     );
 
     return this;

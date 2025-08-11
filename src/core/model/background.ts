@@ -30,9 +30,9 @@ export class Background {
     this.tile = this.generateStarTile(128, this.starDensity);
   }
 
-  update(delta: number, playerVelocityX: number) {
+  update(delta: number, playerVelocityX?: number) {
     this.y += this.speed * delta;
-    this.x -= playerVelocityX * this.XMovementAmount;
+    if (playerVelocityX) this.x -= playerVelocityX * this.XMovementAmount;
     if (this.y >= this.tile.height) this.y = 0;
   }
 
@@ -55,9 +55,6 @@ export class Background {
       height + this.tile.height
     );
     ctx.restore();
-
-    this.y += this.speed;
-    if (this.y >= this.tile.height) this.y = 0;
   }
 
   generateStarTile(size = 64, density = 0.01): HTMLImageElement {
@@ -84,7 +81,7 @@ export class Background {
     }
 
     // Add nebula clouds
-    this.drawGalaxyClouds(ctx, size, 3); // 5 random clouds
+    this.drawGalaxyClouds(ctx, size, 3);
 
     const img = new Image();
     img.src = canvas.toDataURL();

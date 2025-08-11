@@ -25,6 +25,7 @@ const globalBackground = new Background();
       drawEngine.canvasHeight
     );
 
+    globalBackground.update(delta);
     globalBackground.draw(drawEngine.context);
 
     gameStateMachine.getState().onUpdate(delta);

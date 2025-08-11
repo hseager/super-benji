@@ -22,7 +22,6 @@ export class SpriteBuilder {
   ): Promise<HTMLImageElement> {
     const buffer = new CanvasBuffer(27, 30);
 
-    // const wingSize = 6;
     const maxWingSize = 7;
     const bodySize = 13;
 
@@ -41,12 +40,7 @@ export class SpriteBuilder {
     // // Right Wing
     // buffer.drawSprite(sheet, bodySize + maxWingSize, 15, 0, 54, 8, 13, 1);
 
-    const sprite = await PaletteApplier.applyPalette(buffer.toImage(), palette);
-
-    // Ensure the sprite is fully loaded so we get the correct dimensions
-    await sprite.decode();
-
-    return sprite;
+    return this.applyPalette(buffer, palette);
   }
 
   static async createBasicEnemy(
@@ -57,6 +51,24 @@ export class SpriteBuilder {
 
     buffer.drawSprite(sheet, 0, 0, 16, 0, 14, 14);
 
+    return this.applyPalette(buffer, palette);
+  }
+
+  static async createBullet(
+    sheet: SpriteSheet,
+    palette: string[]
+  ): Promise<HTMLImageElement> {
+    const buffer = new CanvasBuffer(3, 3);
+
+    buffer.drawSprite(sheet, 0, 0, 0, 0, 3, 3);
+
+    return this.applyPalette(buffer, palette);
+  }
+
+  private static async applyPalette(
+    buffer: CanvasBuffer,
+    palette: string[]
+  ): Promise<HTMLImageElement> {
     const sprite = await PaletteApplier.applyPalette(buffer.toImage(), palette);
 
     // Ensure the sprite is fully loaded so we get the correct dimensions

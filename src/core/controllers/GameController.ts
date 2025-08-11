@@ -20,19 +20,11 @@ export class GameController {
   background: Background;
   levelManager!: LevelController;
   enemies: Enemy[] = [];
-  playerBulletPool: BulletPool;
-  enemyBulletPool: BulletPool;
+  playerBulletPool!: BulletPool;
+  enemyBulletPool!: BulletPool;
   upgradeScreen: UpgradeScreenController;
 
   constructor() {
-    this.playerBulletPool = new BulletPool(
-      100,
-      () => new Bullet(PLAYER_BULLET_COLOR)
-    );
-    this.enemyBulletPool = new BulletPool(
-      100,
-      () => new Bullet(ENEMY_BULLET_COLOR)
-    );
     this.background = new Background();
     this.upgradeScreen = new UpgradeScreenController(this);
   }
@@ -65,7 +57,7 @@ export class GameController {
     this.playerBulletPool.updateAll(delta);
     this.enemyBulletPool.updateAll(delta);
 
-    // Bullet and enemy collision
+    // Player Bullet and enemy collision
     CollisionController.checkAll(
       this.playerBulletPool.pool,
       this.enemies,
@@ -74,7 +66,7 @@ export class GameController {
         const bullet = bulletObject as Bullet;
 
         enemy.takeDamage(bullet.damage);
-        bullet.active = false;
+        if (!enemy.isExploding) bullet.active = false;
       }
     );
 
@@ -126,15 +118,30 @@ export class GameController {
   }
 
   async init(): Promise<GameController> {
+    // Anything that depends on sprites need to be awaited as the spritesheet is loaded, so we create some objects here instead of the constuctor
     this.spriteManager = await new SpriteController().init();
+    const { playerSprite, bulletSprite } = this.spriteManager;
+
+    // Create Bullet pools
+    this.playerBulletPool = new BulletPool(
+      100,
+      () => new Bullet(bulletSprite, PLAYER_BULLET_COLOR)
+    );
+    this.enemyBulletPool = new BulletPool(
+      100,
+      () => new Bullet(bulletSprite, ENEMY_BULLET_COLOR)
+    );
+
+    // Create Player
     this.player = new Player(
-      this.spriteManager.playerSprite,
+      playerSprite,
       this.playerBulletPool,
       PLAYER_BULLET_DAMAGE,
       PLAYER_BULLET_SPEED
     );
-    this.levelManager = new LevelController(this);
 
+    // Setup levels
+    this.levelManager = new LevelController(this);
     this.levelManager.startLevel(1);
 
     return this;

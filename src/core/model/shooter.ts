@@ -49,6 +49,7 @@ export class Shooter extends GameObject {
 
   shoot() {
     if (this.attackCooldown <= 0) {
+      if (!this.bulletPool) return;
       const bullet = this.bulletPool.get();
       if (bullet) {
         const y = this.shootDir.y <= 0 ? this.y : this.y + this.height;

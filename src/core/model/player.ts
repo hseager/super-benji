@@ -102,7 +102,7 @@ export class Player extends Shooter {
       this.addExplosionParts();
     } else {
       // Movement towards cursor
-      const dx = targetX - this.centerX(); // Center the target on the player
+      const dx = targetX - this.centerX();
       const dy = targetY - this.centerY();
       const distance = Math.hypot(dx, dy);
 
