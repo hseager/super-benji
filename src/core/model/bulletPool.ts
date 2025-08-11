@@ -15,6 +15,7 @@ export class BulletPool {
     for (const bullet of this.pool) {
       if (!bullet.active) {
         bullet.active = true;
+        bullet.isExploding = false;
         return bullet;
       }
     }

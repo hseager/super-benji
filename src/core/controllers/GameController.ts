@@ -59,16 +59,14 @@ export class GameController {
 
     // Player Bullet and enemy collision
     CollisionController.checkAll(
-      this.playerBulletPool.pool,
-      this.enemies,
+      this.playerBulletPool.pool.filter((b) => b.active && !b.isExploding),
+      this.enemies.filter((e) => !e.isExploding),
       (bulletObject, enemyObject) => {
         const enemy = enemyObject as Enemy;
         const bullet = bulletObject as Bullet;
 
         enemy.takeDamage(bullet.damage);
-        if (!enemy.isExploding) {
-          bullet.active = false;
-        }
+        bullet.explode(6);
       }
     );
 
@@ -86,15 +84,11 @@ export class GameController {
     // Player and enemy bullet collision
     CollisionController.checkAll(
       [this.player],
-      this.enemyBulletPool.pool,
+      this.enemyBulletPool.pool.filter((b) => b.active && !b.isExploding),
       (playerObject, bulletObject) => {
         const player = playerObject as Player;
         const bullet = bulletObject as Bullet;
 
-        if (bullet.isExploding) {
-          if (bullet.isDead()) bullet.active = false;
-          return;
-        }
         player.takeDamage(bullet.damage);
         bullet.explode(6);
       }

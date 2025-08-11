@@ -1,5 +1,4 @@
 import { drawEngine } from "../controllers/DrawController";
-import { hexToRgbaString } from "../utilities";
 import { GameObject } from "./gameObject";
 
 export class Bullet extends GameObject {
@@ -33,9 +32,21 @@ export class Bullet extends GameObject {
     this.active = true;
   }
 
+  draw(ctx: CanvasRenderingContext2D) {
+    if (this.isExploding) {
+      this.drawExplosionParts(ctx);
+    } else {
+      ctx.drawImage(this.sprite, this.x, this.y);
+    }
+  }
+
   update(delta: number) {
     if (this.isExploding) {
       this.addExplosionParts();
+      if (this.isDead()) {
+        this.isExploding = false;
+        this.active = false;
+      }
     } else {
       this.x += this.dx * this.speed * delta;
       this.y += this.dy * this.speed * delta;
@@ -49,37 +60,5 @@ export class Bullet extends GameObject {
       this.x < 0 ||
       this.x > drawEngine.canvasWidth
     );
-  }
-
-  draw(ctx: CanvasRenderingContext2D) {
-    if (this.isExploding) {
-      this.drawExplosionParts(ctx);
-    } else {
-      ctx.drawImage(this.sprite, this.x, this.y);
-    }
-
-    // const gradient = ctx.createRadialGradient(
-    //   this.x,
-    //   this.y,
-    //   0,
-    //   this.x,
-    //   this.y,
-    //   this.radius * this.glowRadius // glow radius
-    // );
-    // gradient.addColorStop(0, hexToRgbaString(this.glowColor, 1)); // solid center
-    // gradient.addColorStop(0.5, hexToRgbaString(this.glowColor, 0.4)); // mid fade
-    // gradient.addColorStop(1, hexToRgbaString(this.glowColor, 0.1));
-
-    // // Glow
-    // ctx.fillStyle = gradient;
-    // ctx.beginPath();
-    // ctx.arc(this.x, this.y, this.radius * 2.5, 0, Math.PI * 2);
-    // ctx.fill();
-
-    // // Core
-    // ctx.fillStyle = this.glowColor;
-    // ctx.beginPath();
-    // ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-    // ctx.fill();
   }
 }

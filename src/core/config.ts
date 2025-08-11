@@ -9,7 +9,7 @@ export const BASE_TRANSITION_ANIMATION_TIME = 0.5;
 export const PLAYER_MAX_LIFE = 100;
 export const PLAYER_BULLET_DAMAGE = 10;
 export const PLAYER_BULLET_SPEED = 100;
-export const PLAYER_ATTACK_SPEED = 0.75;
+export const PLAYER_ATTACK_SPEED = 0.6;
 export const PLAYER_BULLET_COLOR = "#00c1fca4";
 export const PLAYER_MOVEMENT_X_SPEED = 75;
 export const PLAYER_MOVEMENT_Y_SPEED = 50;
@@ -26,7 +26,7 @@ export const PLAYER_BULLET_PALETTE = ["#35a3ec", "#4480b8a2"];
 
 // Enemy
 export const ENEMY_MAX_LIFE = 20;
-export const ENEMY_BULLET_DAMAGE = 5;
+export const ENEMY_BULLET_DAMAGE = 12;
 export const ENEMY_PROXIMITY_DAMAGE = 0.5;
 export const ENEMY_BULLET_SPEED = 50;
 export const ENEMY_MOVEMENT_Y_SPEED = 10;
