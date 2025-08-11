@@ -18,7 +18,7 @@ export class Bullet extends GameObject {
   speed = 1;
 
   constructor(sprite: HTMLImageElement, color: string) {
-    super(0, 0);
+    super(sprite, 0, 0);
     this.dx = 0;
     this.dy = 0;
     this.glowColor = color;
@@ -34,8 +34,12 @@ export class Bullet extends GameObject {
   }
 
   update(delta: number) {
-    this.x += this.dx * this.speed * delta;
-    this.y += this.dy * this.speed * delta;
+    if (this.isExploding) {
+      this.addExplosionParts();
+    } else {
+      this.x += this.dx * this.speed * delta;
+      this.y += this.dy * this.speed * delta;
+    }
   }
 
   offScreen() {
@@ -48,7 +52,12 @@ export class Bullet extends GameObject {
   }
 
   draw(ctx: CanvasRenderingContext2D) {
-    ctx.drawImage(this.sprite, this.x, this.y);
+    if (this.isExploding) {
+      this.drawExplosionParts(ctx);
+    } else {
+      ctx.drawImage(this.sprite, this.x, this.y);
+    }
+
     // const gradient = ctx.createRadialGradient(
     //   this.x,
     //   this.y,

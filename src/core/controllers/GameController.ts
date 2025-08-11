@@ -66,7 +66,9 @@ export class GameController {
         const bullet = bulletObject as Bullet;
 
         enemy.takeDamage(bullet.damage);
-        if (!enemy.isExploding) bullet.active = false;
+        if (!enemy.isExploding) {
+          bullet.active = false;
+        }
       }
     );
 
@@ -89,8 +91,12 @@ export class GameController {
         const player = playerObject as Player;
         const bullet = bulletObject as Bullet;
 
+        if (bullet.isExploding) {
+          if (bullet.isDead()) bullet.active = false;
+          return;
+        }
         player.takeDamage(bullet.damage);
-        bullet.active = false;
+        bullet.explode(6);
       }
     );
 
