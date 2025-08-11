@@ -31,9 +31,9 @@ export class Bullet extends GameObject {
     this.active = true;
   }
 
-  update() {
-    this.x += this.dx * this.speed;
-    this.y += this.dy * this.speed;
+  update(delta: number) {
+    this.x += this.dx * this.speed * delta;
+    this.y += this.dy * this.speed * delta;
   }
 
   offScreen() {

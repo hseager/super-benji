@@ -2,6 +2,8 @@ import {
   PLAYER_ATTACK_SPEED,
   PLAYER_HEALTH_GLOW_COLOURS,
   PLAYER_MAX_LIFE,
+  PLAYER_MOVEMENT_X_SPEED,
+  PLAYER_MOVEMENT_Y_SPEED,
 } from "@/core/config";
 import { logicalHeight, logicalWidth } from "@/core/controllers/DrawController";
 import { Shooter } from "./shooter";
@@ -54,8 +56,8 @@ export class Player extends Shooter {
   velocityX: number = 0;
 
   // Movement
-  movementXSpeed: number = 1.5;
-  movementYSpeed: number = 0.5;
+  movementXSpeed: number = PLAYER_MOVEMENT_X_SPEED;
+  movementYSpeed: number = PLAYER_MOVEMENT_Y_SPEED;
   moveTolerance = 2; // Pixels to consider "close enough" to target
 
   // GFX
@@ -106,8 +108,8 @@ export class Player extends Shooter {
 
       if (distance > this.moveTolerance) {
         // Normalize and move toward mouse at fixed speed
-        this.x += (dx / distance) * this.movementXSpeed;
-        this.y += (dy / distance) * this.movementYSpeed;
+        this.x += (dx / distance) * this.movementXSpeed * delta;
+        this.y += (dy / distance) * this.movementYSpeed * delta;
       }
 
       this.velocityX = this.x - this.lastX;

@@ -28,7 +28,7 @@
     "webpack-dev-server": "^4.0.0"
   },
   "scripts": {
-    "serve": "npm-run-all --parallel tsc vite",
+    "serve": "npm-run-all --npm-path bun --parallel tsc vite",
     "build": "cross-env LEVEL_2_BUILD=true vite build",
     "find-best-roadroller": "node find-best-roadroller.js",
     "build-with-best-roadroller": "cross-env USE_RR_CONFIG=true vite build",

@@ -47,7 +47,7 @@ export class GameController {
     }
 
     // Background
-    background.update(player.velocityX);
+    background.update(delta, player.velocityX);
 
     // Player movement
     player.update(delta, mouse.x, mouse.y);
@@ -62,8 +62,8 @@ export class GameController {
     );
 
     // Bullets
-    this.playerBulletPool.updateAll();
-    this.enemyBulletPool.updateAll();
+    this.playerBulletPool.updateAll(delta);
+    this.enemyBulletPool.updateAll(delta);
 
     // Bullet and enemy collision
     CollisionController.checkAll(

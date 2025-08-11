@@ -53,16 +53,18 @@
   - Background Tilesets
 - Score screen
 - Testing
+- Bullet hit animations
 
   - Mobile
   - High FPS
   - Githubpages
 
 - Items
-  - Hull
-  - Chasis
-  - Canon
-  - Relic
+  - Hull (Health)
+  - Chasis (X movespeed)
+  - Canon (attack)
+  - Relic (everything)
+  - Boosters (Y movespeed)
 
 # About
 

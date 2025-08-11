@@ -1,4 +1,5 @@
-import { hexToRgba, hexToRgbaString, randomisePalette } from "@/core/utilities";
+import { hexToRgbaString, randomisePalette } from "@/core/utilities";
+import { BACKGROUND_MOVEMENT_Y_SPEED } from "../config";
 
 const BASE_BACKGROUND_PALETTE = [
   "#06040f", // BG colour
@@ -14,7 +15,7 @@ export class Background {
   tile: HTMLImageElement = new Image();
   y = 0;
   x = -10;
-  speed = 0.4;
+  speed = BACKGROUND_MOVEMENT_Y_SPEED;
   private xMovementBuffer = 100;
   private XMovementAmount = 0.4;
   pallette: string[];
@@ -29,8 +30,8 @@ export class Background {
     this.tile = this.generateStarTile(128, this.starDensity);
   }
 
-  update(playerVelocityX: number) {
-    this.y += this.speed;
+  update(delta: number, playerVelocityX: number) {
+    this.y += this.speed * delta;
     this.x -= playerVelocityX * this.XMovementAmount;
     if (this.y >= this.tile.height) this.y = 0;
   }

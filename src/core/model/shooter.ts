@@ -4,7 +4,7 @@ import { GameObject } from "./gameObject";
 export class Shooter extends GameObject {
   bulletPool: BulletPool;
   attackCooldown = 0;
-  attackSpeed = 0.1; // ms
+  attackSpeed = 0.1;
   shootDir = { x: 0, y: -1 };
   isExploding = false;
   sprite: HTMLImageElement;

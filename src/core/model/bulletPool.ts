@@ -21,10 +21,10 @@ export class BulletPool {
     return null; // No free bullets
   }
 
-  updateAll() {
+  updateAll(delta: number) {
     for (const bullet of this.pool) {
       if (bullet.active) {
-        bullet.update();
+        bullet.update(delta);
         if (bullet.offScreen()) {
           bullet.active = false;
         }
