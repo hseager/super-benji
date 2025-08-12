@@ -20,7 +20,7 @@ class ControlsController {
       this.toggleKey(event, true)
     );
     document.addEventListener("keyup", (event) => this.toggleKey(event, false));
-    c2d.addEventListener("click", (event: Event) => (this.isConfirm = true));
+    c2d.addEventListener("click", () => (this.isConfirm = true));
     this.inputDirection = new DOMPoint();
   }
 

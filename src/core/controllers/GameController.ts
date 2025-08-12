@@ -34,7 +34,7 @@ export class GameController {
 
     // Upgrade Screen
     if (this.upgradeScreen.isActive) {
-      this.upgradeScreen.update(delta);
+      // this.upgradeScreen.update(delta);
       return;
     }
 
