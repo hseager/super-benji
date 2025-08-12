@@ -14,6 +14,7 @@ let previousTime = performance.now();
 const globalBackground = new Background();
 
 (() => {
+
   function gameLoop(currentTime: number) {
     const delta = (currentTime - previousTime) / 1000; // in seconds
     previousTime = currentTime;
