@@ -33,9 +33,39 @@ export const ENEMY_MOVEMENT_Y_SPEED = 10;
 export const ENEMY_ATTACK_SPEED = 3.5;
 export const ENEMY_ATTACK_VARIANCE = 0.3;
 export const ENEMY_BULLET_COLOR = "#f0736af1";
-export const ENEMY_START_POSITION_Y = -50;
+export const ENEMY_START_POSITION_Y = -15;
 
 export const ENEMY_BULLET_PALETTE = ["#ff5e49", "#881c18"];
+
+export const BASIC_ENEMY_PALETTE = [
+  "#200900", // deep shadow
+  "#190902", // dark panel
+  "#291403", // mid-tone metal
+  "#311d0c", // light mid-tone
+  "#a05030", // light metal
+  "#c06440", // highlight
+  "#e6a67c", // cockpit/engine glow
+];
+
+export const MODERATE_ENEMY_PALETTE = [
+  "#201a00", // deep shadow
+  "#191502", // dark panel
+  "#291f03", // mid-tone metal
+  "#312e0c", // light mid-tone
+  "#a08230", // light metal
+  "#c09e40", // highlight
+  "#e6d37c", // cockpit/engine glow
+];
+
+export const ADVANCED_ENEMY_PALETTE = [
+  "#200000", // deep shadow
+  "#190202", // dark panel
+  "#290303", // mid-tone metal
+  "#310c0c", // light mid-tone
+  "#A03030", // light metal
+  "#c04040", // highlight
+  "#e67c7c", // cockpit/engine glow
+];
 
 // Background
 export const BACKGROUND_HUE_SHIFT = 200; // 20 = 10%

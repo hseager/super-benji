@@ -36,6 +36,7 @@
 
 ### TODO
 
+- Change music to atomospheric dnb
 - Theme integration
 - Resources
   - Crafting
@@ -53,18 +54,16 @@
   - Background Tilesets
 - Score screen
 - Testing
-- Bullet hit animations
 
   - Mobile
-  - High FPS
   - Githubpages
 
 - Items
   - Hull (Health)
   - Chasis (X movespeed)
+  - Boosters (Y movespeed)
   - Canon (attack)
   - Relic (everything)
-  - Boosters (Y movespeed)
 
 # About
 

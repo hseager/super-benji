@@ -54,6 +54,28 @@ export class SpriteBuilder {
     return this.applyPalette(buffer, palette);
   }
 
+  static async createModerateEnemy(
+    sheet: SpriteSheet,
+    palette: string[]
+  ): Promise<HTMLImageElement> {
+    const buffer = new CanvasBuffer(16, 16);
+
+    buffer.drawSprite(sheet, 0, 0, 16, 15, 16, 16);
+
+    return this.applyPalette(buffer, palette);
+  }
+
+  static async createAdvancedEnemy(
+    sheet: SpriteSheet,
+    palette: string[]
+  ): Promise<HTMLImageElement> {
+    const buffer = new CanvasBuffer(16, 16);
+
+    buffer.drawSprite(sheet, 0, 0, 16, 32, 16, 16);
+
+    return this.applyPalette(buffer, palette);
+  }
+
   static async createBullet(
     sheet: SpriteSheet,
     palette: string[],

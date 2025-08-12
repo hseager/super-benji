@@ -94,15 +94,24 @@ export class LevelController {
   spawnEnemies() {
     const enemyCount = this.baseEnemyCount + (this.currentLevel - 1) * 2;
 
+    const enemySprites = [
+      this.gameManager.spriteManager.basicEnemySprite,
+      this.gameManager.spriteManager.moderateEnemySprite,
+      this.gameManager.spriteManager.advancedEnemySprite,
+    ];
+
     for (let i = 0; i < enemyCount; i++) {
+      // Pick sprite at random
+      const randomSprite =
+        enemySprites[Math.floor(Math.random() * enemySprites.length)];
       const x =
         Math.random() *
         (drawEngine.canvasWidth -
-          this.gameManager.spriteManager.enemySprite.width);
+          this.gameManager.spriteManager.moderateEnemySprite.width);
       const y = ENEMY_START_POSITION_Y - Math.random() * this.enemyYSpawnOffset; // staggered spawn above screen
       this.gameManager.addEnemy(
         new Enemy(
-          this.gameManager.spriteManager.enemySprite,
+          randomSprite,
           this.gameManager.enemyBulletPool,
           ENEMY_BULLET_DAMAGE,
           ENEMY_BULLET_SPEED,

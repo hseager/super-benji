@@ -1,12 +1,19 @@
 import { PLAYER_PALETTE } from "@/core/model/player";
 import { SpriteBuilder } from "../graphics/spriteBuilder";
-import { ENEMY_PALETTE } from "@/core/model/enemy";
-import { ENEMY_BULLET_PALETTE, PLAYER_BULLET_PALETTE } from "../config";
+import {
+  ADVANCED_ENEMY_PALETTE,
+  BASIC_ENEMY_PALETTE,
+  ENEMY_BULLET_PALETTE,
+  MODERATE_ENEMY_PALETTE,
+  PLAYER_BULLET_PALETTE,
+} from "../config";
 import { Flip } from "../graphics/spriteSheet";
 
 export class SpriteController {
   playerSprite!: HTMLImageElement;
-  enemySprite!: HTMLImageElement;
+  basicEnemySprite!: HTMLImageElement;
+  moderateEnemySprite!: HTMLImageElement;
+  advancedEnemySprite!: HTMLImageElement;
   playerBulletSprite!: HTMLImageElement;
   enemyBulletSprite!: HTMLImageElement;
 
@@ -18,9 +25,17 @@ export class SpriteController {
       PLAYER_PALETTE
     );
 
-    this.enemySprite = await SpriteBuilder.createBasicEnemy(
+    this.basicEnemySprite = await SpriteBuilder.createBasicEnemy(
       spriteSheet,
-      ENEMY_PALETTE
+      BASIC_ENEMY_PALETTE
+    );
+    this.moderateEnemySprite = await SpriteBuilder.createModerateEnemy(
+      spriteSheet,
+      MODERATE_ENEMY_PALETTE
+    );
+    this.advancedEnemySprite = await SpriteBuilder.createAdvancedEnemy(
+      spriteSheet,
+      ADVANCED_ENEMY_PALETTE
     );
 
     this.playerBulletSprite = await SpriteBuilder.createBullet(

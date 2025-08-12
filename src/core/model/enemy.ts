@@ -9,16 +9,6 @@ import {
   ENEMY_PROXIMITY_DAMAGE,
 } from "../config";
 
-export const ENEMY_PALETTE = [
-  "#200000", // deep shadow
-  "#190202", // dark panel
-  "#290303", // mid-tone metal
-  "#310c0c", // light mid-tone
-  "#A03030", // light metal
-  "#c04040", // highlight
-  "#e67c7c", // cockpit/engine glow
-];
-
 export class Enemy extends Shooter {
   // GFX
   glowSprite: HTMLCanvasElement;
