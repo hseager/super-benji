@@ -11,8 +11,9 @@ export class LoseState implements State {
   }
 
   onUpdate(delta: number) {
-    drawEngine.drawTitle("You were", 18, drawEngine.getCenterX(), 50);
-    drawEngine.drawTitle("destroyed!", 18, drawEngine.getCenterX(), 70);
+    drawEngine.drawTitle("Game Over", 24, drawEngine.getCenterX(), 50);
+    drawEngine.drawTitle("You were", 18, drawEngine.getCenterX(), 110);
+    drawEngine.drawTitle("destroyed!", 18, drawEngine.getCenterX(), 125);
     drawEngine.drawMenuAction("Back to Menu", delta);
   }
 }

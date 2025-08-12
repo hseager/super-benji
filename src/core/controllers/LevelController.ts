@@ -32,26 +32,35 @@ export class LevelController {
     this.gameManager.background = new Background(); // Change the BG colour each level
   }
 
-  update(delta: number) {
-    if (
-      this.gameManager.enemies.length === 0 &&
-      !this.gameManager.upgradeScreen.isActive &&
-      !this.gameManager.upgradeScreen.isFinished
-    ) {
-      if (!screenTransitions.isFading) {
-        screenTransitions.startFade(
-          "fade-out",
-          BASE_TRANSITION_ANIMATION_TIME,
-          () => {
-            this.gameManager.upgradeScreen.start();
-            screenTransitions.startFade("fade-in");
-          }
-        );
-      }
-    }
+  // update(delta: number) {
+  //   if (
+  //     this.gameManager.enemies.length === 0 &&
+  //     !this.gameManager.upgradeScreen.isActive &&
+  //     !this.gameManager.upgradeScreen.isFinished
+  //   ) {
+  //     if (!screenTransitions.isFading) {
+  //       screenTransitions.startFade(
+  //         "fade-out",
+  //         BASE_TRANSITION_ANIMATION_TIME,
+  //         () => {
+  //           this.gameManager.upgradeScreen.start();
+  //           screenTransitions.startFade("fade-in");
+  //         }
+  //       );
+  //     }
+  //   }
 
-    if (this.gameManager.upgradeScreen.isFinished) {
-      this.gameManager.upgradeScreen.isFinished = false;
+  //   if (this.gameManager.upgradeScreen.isFinished) {
+  //     this.gameManager.upgradeScreen.isFinished = false;
+  //     this.nextLevel();
+  //   }
+
+  //   if (this.displayTimer > 0) {
+  //     this.displayTimer -= delta;
+  //   }
+  // }
+  update(delta: number) {
+    if (this.gameManager.enemies.length === 0) {
       this.nextLevel();
     }
 

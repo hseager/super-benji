@@ -40,3 +40,9 @@ export const BACKGROUND_HUE_SHIFT = 200; // 20 = 10%
 export const BACKGROUND_SATURATION_SHIFT = 10;
 export const BACKGROUND_LIGHTNESS_SHIFT = 0;
 export const BACKGROUND_MOVEMENT_Y_SPEED = 20;
+
+// Enemy
+export const EXPLOSION_SIZE = 240; // Pixels per second
+export const EXPLOSION_PART_SIZE = 6;
+export const EXPLOSION_ROTATION_SPEED = 8;
+export const EXPLOSION_DURATION = 1.5;

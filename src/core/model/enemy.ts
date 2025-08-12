@@ -58,7 +58,7 @@ export class Enemy extends Shooter {
 
   update(delta: number) {
     if (this.isExploding) {
-      this.addExplosionParts();
+      this.addExplosionParts(delta);
     } else {
       // Move
       this.y += this.movementYSpeed * delta; // down

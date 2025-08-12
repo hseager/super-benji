@@ -99,7 +99,7 @@ export class Player extends Shooter {
 
   update(delta: number, targetX: number, targetY: number) {
     if (this.isExploding) {
-      this.addExplosionParts();
+      this.addExplosionParts(delta);
     } else {
       // Movement towards cursor
       const dx = targetX - this.centerX();

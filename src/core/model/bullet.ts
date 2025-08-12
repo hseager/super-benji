@@ -42,7 +42,7 @@ export class Bullet extends GameObject {
 
   update(delta: number) {
     if (this.isExploding) {
-      this.addExplosionParts();
+      this.addExplosionParts(delta);
       if (this.isDead()) {
         this.isExploding = false;
         this.active = false;

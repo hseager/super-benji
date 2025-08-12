@@ -1,3 +1,10 @@
+import {
+  EXPLOSION_DURATION,
+  EXPLOSION_PART_SIZE,
+  EXPLOSION_ROTATION_SPEED,
+  EXPLOSION_SIZE,
+} from "../config";
+
 export class GameObject {
   x: number;
   y: number;
@@ -47,17 +54,19 @@ export class GameObject {
     if (this.isExploding) return;
 
     this.isExploding = true;
-    const pieceSize = 6;
-    const numPieces = pieces;
+    const pieceSize = EXPLOSION_PART_SIZE;
 
-    for (let i = 0; i < numPieces; i++) {
+    for (let i = 0; i < pieces; i++) {
+      const speed = (Math.random() - 0.5) * EXPLOSION_SIZE; // px/sec instead of px/frame
+      const angle = Math.random() * Math.PI * 2;
+
       this.explosionPieces.push({
         x: this.x + this.width / 2,
         y: this.y + this.height / 2,
-        vx: (Math.random() - 0.5) * 4,
-        vy: (Math.random() - 0.5) * 4,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
         rot: Math.random() * Math.PI * 2,
-        rotSpeed: (Math.random() - 0.5) * 0.2,
+        rotSpeed: (Math.random() - 0.5) * EXPLOSION_ROTATION_SPEED, // radians/sec
         alpha: 1,
         size: pieceSize,
         sx: Math.floor(Math.random() * (this.sprite.width - pieceSize)),
@@ -66,13 +75,14 @@ export class GameObject {
     }
   }
 
-  addExplosionParts() {
+  addExplosionParts(delta: number) {
     for (const p of this.explosionPieces) {
-      p.x += p.vx;
-      p.y += p.vy;
-      p.rot += p.rotSpeed;
-      p.alpha -= 0.02;
+      p.x += p.vx * delta;
+      p.y += p.vy * delta;
+      p.rot += p.rotSpeed * delta;
+      p.alpha -= EXPLOSION_DURATION * delta;
     }
+
     this.explosionPieces = this.explosionPieces.filter((p) => p.alpha > 0);
   }
 
