@@ -31,7 +31,9 @@ export const ENEMY_PROXIMITY_DAMAGE = 0.5;
 export const ENEMY_BULLET_SPEED = 50;
 export const ENEMY_MOVEMENT_Y_SPEED = 10;
 export const ENEMY_ATTACK_SPEED = 3.5;
+export const ENEMY_ATTACK_VARIANCE = 0.3;
 export const ENEMY_BULLET_COLOR = "#f0736af1";
+export const ENEMY_START_POSITION_Y = -50;
 
 export const ENEMY_BULLET_PALETTE = ["#ff5e49", "#881c18"];
 

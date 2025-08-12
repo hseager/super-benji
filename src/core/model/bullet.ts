@@ -1,4 +1,3 @@
-import { drawEngine } from "../controllers/DrawController";
 import { GameObject } from "./gameObject";
 
 export class Bullet extends GameObject {
@@ -51,14 +50,5 @@ export class Bullet extends GameObject {
       this.x += this.dx * this.speed * delta;
       this.y += this.dy * this.speed * delta;
     }
-  }
-
-  offScreen() {
-    return (
-      this.y < 0 ||
-      this.y > drawEngine.canvasHeight ||
-      this.x < 0 ||
-      this.x > drawEngine.canvasWidth
-    );
   }
 }

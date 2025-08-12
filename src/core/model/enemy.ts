@@ -3,7 +3,7 @@ import { Shooter } from "./shooter";
 import { BulletPool } from "./bulletPool";
 import {
   ENEMY_ATTACK_SPEED,
-  ENEMY_BULLET_DAMAGE,
+  ENEMY_ATTACK_VARIANCE,
   ENEMY_MAX_LIFE,
   ENEMY_MOVEMENT_Y_SPEED,
   ENEMY_PROXIMITY_DAMAGE,
@@ -54,6 +54,11 @@ export class Enemy extends Shooter {
     );
     this.glowSprite = this.preloadGlowSprite();
     this.movementVilocityX = (Math.random() - 0.5) * 60;
+
+    // Give each enemy attack speed variance
+    this.attackSpeed =
+      ENEMY_ATTACK_SPEED + (Math.random() * 2 - 1) * ENEMY_ATTACK_VARIANCE;
+    this.attackCooldown = Math.random() * this.attackSpeed; // Prevent all enemies attacking at the same time
   }
 
   update(delta: number) {
@@ -95,18 +100,10 @@ export class Enemy extends Shooter {
     }
   }
 
-  offScreen(): boolean {
-    return (
-      this.x + this.width < 0 ||
-      this.x > drawEngine.canvasWidth ||
-      this.y + this.height < 0 ||
-      this.y > drawEngine.canvasHeight
-    );
-  }
-
+  // Only create one glow sprite for enemies and reuse it, helps with performance
   preloadGlowSprite() {
     const offscreen = document.createElement("canvas");
-    offscreen.width = this.sprite.width + this.glowAmount * 4; // enough padding
+    offscreen.width = this.sprite.width + this.glowAmount * 4;
     offscreen.height = this.sprite.height + this.glowAmount * 4;
     const offCtx = offscreen.getContext("2d");
     if (!offCtx) throw new Error("Failed to get 2D context");
@@ -121,5 +118,14 @@ export class Enemy extends Shooter {
   takeDamage(damage: number) {
     this.life -= damage;
     if (this.life <= 0) this.explode();
+  }
+
+  // Don't treat spawned enemies above the canvas as offscreen
+  override offScreen(): boolean {
+    return (
+      this.x + this.width < 0 ||
+      this.x > drawEngine.canvasWidth ||
+      this.y > drawEngine.canvasHeight
+    );
   }
 }

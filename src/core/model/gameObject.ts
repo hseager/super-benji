@@ -4,6 +4,7 @@ import {
   EXPLOSION_ROTATION_SPEED,
   EXPLOSION_SIZE,
 } from "../config";
+import { drawEngine } from "../controllers/DrawController";
 
 export class GameObject {
   x: number;
@@ -109,5 +110,14 @@ export class GameObject {
 
   isDead(): boolean {
     return this.isExploding && this.explosionPieces.length === 0;
+  }
+
+  offScreen(): boolean {
+    return (
+      this.x + this.width < 0 ||
+      this.x > drawEngine.canvasWidth ||
+      this.y + this.height < 0 ||
+      this.y > drawEngine.canvasHeight
+    );
   }
 }

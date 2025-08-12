@@ -2,17 +2,17 @@ import { Enemy } from "@/core/model/enemy";
 import { drawEngine } from "./DrawController";
 import { GameController } from "./GameController";
 import { Background } from "@/core/model/background";
-import { screenTransitions } from "./ScreenTransitionController";
 import {
   BASE_TRANSITION_ANIMATION_TIME,
   ENEMY_BULLET_DAMAGE,
   ENEMY_BULLET_SPEED,
+  ENEMY_START_POSITION_Y,
 } from "../config";
 
 export class LevelController {
   private baseEnemyCount = 4;
   private currentLevel: number = 1;
-  private displayTimer = 0;
+  private textDisplayTimer = 0;
   private gameManager: GameController;
   private enemyYSpawnOffset = 100;
 
@@ -22,7 +22,7 @@ export class LevelController {
 
   startLevel(level: number) {
     this.currentLevel = level;
-    this.displayTimer = 2;
+    this.textDisplayTimer = 2;
     this.gameManager.enemies = []; // Clear previous enemies
     this.spawnEnemies();
   }
@@ -59,21 +59,22 @@ export class LevelController {
   //     this.displayTimer -= delta;
   //   }
   // }
+
   update(delta: number) {
     if (this.gameManager.enemies.length === 0) {
       this.nextLevel();
     }
 
-    if (this.displayTimer > 0) {
-      this.displayTimer -= delta;
+    if (this.textDisplayTimer > 0) {
+      this.textDisplayTimer -= delta;
     }
   }
 
   draw() {
-    if (this.displayTimer > 0) {
+    if (this.textDisplayTimer > 0) {
       // Calculate opacity based on displayTimer (fade out over 2 seconds)
       const maxDisplayTime = BASE_TRANSITION_ANIMATION_TIME;
-      const opacity = Math.min(this.displayTimer / maxDisplayTime, 1);
+      const opacity = Math.min(this.textDisplayTimer / maxDisplayTime, 1);
 
       // Save the context and set globalAlpha for fade effect
       drawEngine.context.save();
@@ -98,7 +99,7 @@ export class LevelController {
         Math.random() *
         (drawEngine.canvasWidth -
           this.gameManager.spriteManager.enemySprite.width);
-      const y = Math.random() * this.enemyYSpawnOffset; // staggered spawn above screen
+      const y = ENEMY_START_POSITION_Y - Math.random() * this.enemyYSpawnOffset; // staggered spawn above screen
       this.gameManager.addEnemy(
         new Enemy(
           this.gameManager.spriteManager.enemySprite,
