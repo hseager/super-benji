@@ -33,7 +33,24 @@ class MenuState implements State {
       2,
       Math.PI / -20
     );
-    drawEngine.drawMenuAction("Start Game", delta);
+
+    const { context } = drawEngine;
+
+    context.save();
+    context.font = `900 10px "Tahoma"`;
+    context.textAlign = "center";
+    context.fillStyle = "#f01b1bce";
+    context.fillText("JS13K 2025", 35, drawEngine.canvasHeight - 10);
+    context.restore();
+
+    drawEngine.drawText(
+      "by hseager",
+      9,
+      drawEngine.canvasWidth - 35,
+      drawEngine.canvasHeight - 11,
+      "#f0f0f0c7"
+    );
+    drawEngine.drawMenuAction("Start Game", delta, 150);
   }
 
   onLeave() {

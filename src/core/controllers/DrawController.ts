@@ -52,22 +52,48 @@ class DrawController {
     return this.context.canvas.height;
   }
 
-  drawTitle(text: string, fontSize: number, x: number, y: number) {
-    const context = this.context;
+  getGoldGradient(
+    ctx: CanvasRenderingContext2D,
+    y: number,
+    height: number = 9
+  ) {
+    const grad = ctx.createLinearGradient(0, y - height, 0, y);
+    grad.addColorStop(0.0, "#fff4c1"); // bright highlight top
+    grad.addColorStop(0.25, "#ffd84a"); // gold
+    grad.addColorStop(0.5, "#6a2c00"); // orange
+    grad.addColorStop(0.75, "#b65a00"); // darker orange-brown
+    grad.addColorStop(1.0, "#ff9d00"); // deep shadow bottom
+    return grad;
+  }
 
-    const fontColor = "#ed9436";
-    const shadowColor = "#3f2163";
+  getSteelGradient(ctx: CanvasRenderingContext2D, y: number, height: number) {
+    const grad = ctx.createLinearGradient(0, y - height, 0, y);
+    grad.addColorStop(0.0, "#ffffff"); // white highlight top
+    grad.addColorStop(0.15, "#dcdcdc"); // light silver
+    grad.addColorStop(0.3, "#a0a0a0"); // medium gray
+    grad.addColorStop(0.45, "#f8f8f8"); // bright streak
+    grad.addColorStop(0.6, "#7a7a7a"); // darker metal
+    grad.addColorStop(0.8, "#c8c8c8"); // light gray again
+    grad.addColorStop(1.0, "#5a5a5a"); // bottom shadow
+    return grad;
+  }
+
+  drawTitle(text: string, fontSize: number, x: number, y: number) {
+    const ctx = this.context;
+    const shadowColor = "#0a0601";
 
     // Main Text
-    context.save();
-    context.font = `bold ${fontSize - 1}px "Courier New"`;
-    context.strokeStyle = shadowColor;
-    context.textAlign = "center";
-    context.strokeText(text, x, y + 1);
-    context.font = `bold ${fontSize}px "Courier New"`;
-    context.fillStyle = fontColor;
-    context.fillText(text, x, y);
-    context.restore();
+    ctx.save();
+    ctx.font = `bold ${fontSize - 1}px "Courier New"`;
+    ctx.strokeStyle = shadowColor;
+    ctx.fillStyle = shadowColor;
+    ctx.textAlign = "center";
+    ctx.strokeText(text, x, y + 2);
+    ctx.fillText(text, x, y + 2);
+    ctx.font = `bold ${fontSize}px "Courier New"`;
+    ctx.fillStyle = this.getGoldGradient(ctx, y);
+    ctx.fillText(text, x, y);
+    ctx.restore();
   }
 
   drawText(
@@ -84,7 +110,7 @@ class DrawController {
     const context = this.context;
 
     context.save();
-    context.font = `${fontSize}px "Courier New"`;
+    context.font = `${fontSize}px "Courier New", monospace`;
     context.textAlign = textAlign;
     context.fillStyle = color;
 
@@ -108,7 +134,7 @@ class DrawController {
     context.restore();
   }
 
-  drawMenuAction(text: string, delta: number) {
+  drawMenuAction(text: string, delta: number, y: number = 200) {
     this.blinkTimer += delta;
 
     if (this.blinkTimer >= this.menuActionBlinkSpeed) {
@@ -118,16 +144,21 @@ class DrawController {
     }
 
     if (this.showMenuAction) {
-      drawEngine.drawText(
-        text,
-        16,
-        drawEngine.getCenterX(),
-        200,
-        "#fff",
-        "center",
-        "#333",
-        4
-      );
+      const ctx = this.context;
+      const fontSize = 16;
+
+      ctx.save();
+      ctx.font = `bold ${fontSize}px "Courier New", serif`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+
+      // Fill text with gradient
+      ctx.strokeStyle = "#161616ff";
+      ctx.strokeText(text, ctx.canvas.width / 2, y + 1);
+      ctx.fillStyle = this.getSteelGradient(ctx, y, 10);
+      ctx.fillText(text, ctx.canvas.width / 2, y);
+
+      ctx.restore();
     }
   }
 

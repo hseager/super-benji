@@ -37,6 +37,7 @@
 ### TODO
 
 - Change music to atomospheric dnb
+- Redo enemy sprites, skulls? (they look like crabs)
 - Theme integration
 - Resources
   - Crafting

@@ -54,10 +54,10 @@ export class UpgradeScreenController {
     this.upgrades = shuffled.slice(0, 3);
   }
 
-  update(delta: number) {
-    if (!this.isActive) return;
-    // Add animations / transitions here if wanted
-  }
+  // update(delta: number) {
+  //   if (!this.isActive) return;
+  //   // Add animations / transitions here if wanted
+  // }
 
   draw(ctx: CanvasRenderingContext2D) {
     if (!this.isActive) return;
