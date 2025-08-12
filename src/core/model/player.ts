@@ -51,10 +51,6 @@ export const PLAYER_PALETTE = [
 // ];
 
 export class Player extends Shooter {
-  // Position
-  private lastX: number = 0; // Track last X position for velocity calculation
-  velocityX: number = 0;
-
   // Movement
   movementXSpeed: number = PLAYER_MOVEMENT_X_SPEED;
   movementYSpeed: number = PLAYER_MOVEMENT_Y_SPEED;
@@ -66,8 +62,6 @@ export class Player extends Shooter {
   shootingXPosition = 1; // Offset for shooting position
   boosterSize = 6; // Size of the booster flame
   boosterYOffset = -2; // Offset for booster flame position
-  tiltAmount = 3;
-  tiltClamp = 2; // Max/min amount of tilting based on movespeed
 
   // Glow
   glowColor: string = "#00bfff7c"; // Default glow color
@@ -112,8 +106,15 @@ export class Player extends Shooter {
         this.y += (dy / distance) * this.movementYSpeed * delta;
       }
 
-      this.velocityX = this.x - this.lastX;
-      this.lastX = this.x;
+      this.velocity = {
+        x: this.x - this.lastPosition.x,
+        y: this.y - this.lastPosition.y,
+      };
+
+      this.lastPosition = {
+        x: this.x,
+        y: this.y,
+      };
 
       this.glowColor = getInterpolatedColor(
         this.life / this.maxLife,
@@ -139,35 +140,6 @@ export class Player extends Shooter {
       this.manageTilt(ctx);
 
       ctx.restore();
-    }
-  }
-
-  manageTilt(ctx: CanvasRenderingContext2D) {
-    const tiltAmount = Math.max(
-      -this.tiltClamp,
-      Math.min(this.tiltClamp, this.velocityX * this.tiltAmount)
-    );
-
-    const centerX = this.width / 2;
-
-    for (let x = 0; x < this.width; x++) {
-      const factor = (x - centerX) / centerX;
-
-      // Invert shift for right/left sides
-      // When moving right: left side goes up, right side goes down
-      const offset = Math.floor(factor * tiltAmount);
-
-      ctx.drawImage(
-        this.sprite,
-        x,
-        0,
-        1,
-        this.height,
-        this.x + x,
-        this.y + offset,
-        1,
-        this.height
-      );
     }
   }
 

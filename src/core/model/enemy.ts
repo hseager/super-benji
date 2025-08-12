@@ -4,6 +4,7 @@ import { BulletPool } from "./bulletPool";
 import {
   ENEMY_ATTACK_SPEED,
   ENEMY_ATTACK_VARIANCE,
+  ENEMY_DIRECTION_CHANGE_CHANCE,
   ENEMY_MAX_LIFE,
   ENEMY_MOVEMENT_Y_SPEED,
   ENEMY_PROXIMITY_DAMAGE,
@@ -23,6 +24,8 @@ export class Enemy extends Shooter {
   proximityDamage: number = ENEMY_PROXIMITY_DAMAGE;
   attackSpeed: number = ENEMY_ATTACK_SPEED;
   shootDir = { x: 0, y: 1 };
+
+  private directionChangeTimer = 0;
 
   constructor(
     sprite: HTMLImageElement,
@@ -55,9 +58,21 @@ export class Enemy extends Shooter {
     if (this.isExploding) {
       this.addExplosionParts(delta);
     } else {
+      const prevX = this.x;
+
       // Move
-      this.y += this.movementYSpeed * delta; // down
+      this.y += Math.random() * this.movementYSpeed * delta; // down
       this.x += this.movementVilocityX * delta; // sideways
+
+      // Sometimes change direction
+      this.directionChangeTimer -= delta;
+      if (this.directionChangeTimer <= 0) {
+        if (Math.random() < ENEMY_DIRECTION_CHANGE_CHANCE) {
+          // 30% chance to flip
+          this.movementVilocityX *= -1;
+        }
+        this.directionChangeTimer = 1 + Math.random() * 2;
+      }
 
       // Bounce at screen edges
       if (this.x < 0) {
@@ -68,6 +83,8 @@ export class Enemy extends Shooter {
         this.x = drawEngine.canvasWidth - this.width;
         this.movementVilocityX *= -1;
       }
+
+      this.velocity.x = (this.x - prevX) / delta;
 
       this.updateShooting(delta);
       this.shoot();
@@ -86,6 +103,7 @@ export class Enemy extends Shooter {
       );
 
       ctx.drawImage(this.sprite, this.x, this.y);
+      this.manageTilt(ctx);
       ctx.restore();
     }
   }

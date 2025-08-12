@@ -39,7 +39,7 @@ export class GameController {
     }
 
     // Background
-    background.update(delta, player.velocityX);
+    background.update(delta, player.velocity);
 
     // Player movement
     player.update(delta, mouse.x, mouse.y);
@@ -66,7 +66,7 @@ export class GameController {
         const bullet = bulletObject as Bullet;
 
         enemy.takeDamage(bullet.damage);
-        bullet.explode(6);
+        bullet.explode(6, 1);
       }
     );
 
@@ -90,7 +90,7 @@ export class GameController {
         const bullet = bulletObject as Bullet;
 
         player.takeDamage(bullet.damage);
-        bullet.explode(6);
+        bullet.explode(6, 1);
       }
     );
 

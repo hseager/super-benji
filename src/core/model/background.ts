@@ -1,5 +1,6 @@
 import { hexToRgbaString, randomisePalette } from "@/core/utilities";
 import { BACKGROUND_MOVEMENT_Y_SPEED } from "../config";
+import { Coordinates } from "../types";
 
 const BASE_BACKGROUND_PALETTE = [
   "#06040f", // BG colour
@@ -30,9 +31,36 @@ export class Background {
     const basePalette = randomisePalette(BASE_BACKGROUND_PALETTE);
 
     // Create layers with different densities and speeds for parallax effect
-    this.layers.push(this.createLayer(basePalette, 128, 0.001, BACKGROUND_MOVEMENT_Y_SPEED * 0.4, 0.2, 1));
-    this.layers.push(this.createLayer(basePalette, 128, 0.002, BACKGROUND_MOVEMENT_Y_SPEED * 0.6, 0.3, 1.2));
-    this.layers.push(this.createLayer(basePalette, 128, 0.003, BACKGROUND_MOVEMENT_Y_SPEED * 1, 0.4, 1.2));
+    this.layers.push(
+      this.createLayer(
+        basePalette,
+        128,
+        0.001,
+        BACKGROUND_MOVEMENT_Y_SPEED * 0.4,
+        0.2,
+        1
+      )
+    );
+    this.layers.push(
+      this.createLayer(
+        basePalette,
+        128,
+        0.002,
+        BACKGROUND_MOVEMENT_Y_SPEED * 0.6,
+        0.3,
+        1.2
+      )
+    );
+    this.layers.push(
+      this.createLayer(
+        basePalette,
+        128,
+        0.003,
+        BACKGROUND_MOVEMENT_Y_SPEED * 1,
+        0.4,
+        1.2
+      )
+    );
   }
 
   private createLayer(
@@ -43,7 +71,12 @@ export class Background {
     speedXMultiplier: number,
     starSize: number
   ): BackgroundLayer {
-    const tile = this.generateStarTile(tileSize, starDensity, palette, starSize);
+    const tile = this.generateStarTile(
+      tileSize,
+      starDensity,
+      palette,
+      starSize
+    );
     return {
       palette,
       tile,
@@ -54,23 +87,33 @@ export class Background {
     };
   }
 
-  update(delta: number, playerVelocityX = 0) {
+  update(delta: number, playerVelocity: Coordinates = { x: 0, y: 0 }) {
     for (const layer of this.layers) {
       if (layer.tile.width === 0 || layer.tile.height === 0) {
         // Tile not loaded yet, skip updating this layer
         continue;
       }
 
-      layer.offsetY = (layer.offsetY + layer.speedY * delta) % layer.tile.height;
-      // Parallax horizontal movement scaled by speedXMultiplier and player velocity
-      layer.offsetX = (layer.offsetX - playerVelocityX * this.XMovementAmount * layer.speedXMultiplier) % layer.tile.width;
+      layer.offsetY =
+        (layer.offsetY +
+          layer.speedY * delta -
+          playerVelocity.y * 0.5 * layer.speedXMultiplier) %
+        layer.tile.height;
+
+      if (layer.offsetY < 0) {
+        layer.offsetY += layer.tile.height; // prevent negative values
+      }
+
+      layer.offsetX =
+        (layer.offsetX -
+          playerVelocity.x * this.XMovementAmount * layer.speedXMultiplier) %
+        layer.tile.width;
     }
   }
 
   draw(ctx: CanvasRenderingContext2D) {
     const { width, height } = ctx.canvas;
     ctx.imageSmoothingEnabled = false;
-
 
     const layer = this.layers[0];
     ctx.save();
@@ -98,7 +141,12 @@ export class Background {
     }
   }
 
-  generateStarTile(size = 64, density = 0.01, palette: string[] = BASE_BACKGROUND_PALETTE, starSize: number): HTMLImageElement {
+  generateStarTile(
+    size = 64,
+    density = 0.01,
+    palette: string[] = BASE_BACKGROUND_PALETTE,
+    starSize: number
+  ): HTMLImageElement {
     const canvas = document.createElement("canvas");
     canvas.width = size;
     canvas.height = size;
@@ -115,14 +163,19 @@ export class Background {
     }
 
     // Add nebula clouds
-    this.drawGalaxyClouds(ctx, size, 3, palette);
+    this.drawGalaxyClouds(ctx, size, 2, palette);
 
     const img = new Image();
     img.src = canvas.toDataURL();
     return img;
   }
 
-  private drawGalaxyClouds(ctx: CanvasRenderingContext2D, size: number, count: number, palette: string[]) {
+  private drawGalaxyClouds(
+    ctx: CanvasRenderingContext2D,
+    size: number,
+    count: number,
+    palette: string[]
+  ) {
     for (let i = 0; i < count; i++) {
       const radius = Math.random() * (size / 2) + size / 3;
       const x = Math.random() * size;

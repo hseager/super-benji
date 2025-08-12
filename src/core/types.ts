@@ -9,3 +9,8 @@ export type UpgradeOption = {
   description: string;
   apply: () => void;
 };
+
+export type Coordinates = {
+  y: number;
+  x: number;
+};

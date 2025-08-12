@@ -10,8 +10,8 @@ import {
 } from "../config";
 
 export class LevelController {
+  currentLevel: number = 1;
   private baseEnemyCount = 4;
-  private currentLevel: number = 1;
   private textDisplayTimer = 0;
   private gameManager: GameController;
   private enemyYSpawnOffset = 100;

@@ -2,7 +2,11 @@ import { State } from "@/core/types";
 import { drawEngine } from "@/core/controllers/DrawController";
 
 export class LoseState implements State {
-  constructor() {}
+  level: number = 1;
+
+  constructor(level: number) {
+    this.level = level;
+  }
 
   onEnter() {
     c2d.addEventListener("click", () => {
@@ -12,8 +16,14 @@ export class LoseState implements State {
 
   onUpdate(delta: number) {
     drawEngine.drawTitle("Game Over", 24, drawEngine.getCenterX(), 50);
-    drawEngine.drawTitle("You were", 18, drawEngine.getCenterX(), 110);
-    drawEngine.drawTitle("destroyed!", 18, drawEngine.getCenterX(), 125);
+    drawEngine.drawTitle("You made it", 18, drawEngine.getCenterX(), 100);
+    drawEngine.drawTitle("to level", 18, drawEngine.getCenterX(), 115);
+    drawEngine.drawTitle(
+      this.level.toString(),
+      24,
+      drawEngine.getCenterX(),
+      150
+    );
     drawEngine.drawMenuAction("Back to Menu", delta);
   }
 }

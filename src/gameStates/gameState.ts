@@ -88,7 +88,9 @@ class GameState implements State {
           "fade-out",
           BASE_TRANSITION_ANIMATION_TIME,
           () => {
-            gameStateMachine.setState(new LoseState());
+            gameStateMachine.setState(
+              new LoseState(this.gameManager.levelManager.currentLevel)
+            );
             screenTransitions.startFade(
               "fade-in",
               BASE_TRANSITION_ANIMATION_TIME

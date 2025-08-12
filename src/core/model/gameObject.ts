@@ -51,11 +51,10 @@ export class GameObject {
     return this.y + this.height / 2;
   }
 
-  explode(pieces: number = 8) {
+  explode(pieces: number = 8, pieceSize: number = EXPLOSION_PART_SIZE) {
     if (this.isExploding) return;
 
     this.isExploding = true;
-    const pieceSize = EXPLOSION_PART_SIZE;
 
     for (let i = 0; i < pieces; i++) {
       const speed = (Math.random() - 0.5) * EXPLOSION_SIZE; // px/sec instead of px/frame
