@@ -71,7 +71,8 @@ export const ADVANCED_ENEMY_PALETTE = [
 export const BACKGROUND_HUE_SHIFT = 200; // 20 = 10%
 export const BACKGROUND_SATURATION_SHIFT = 10;
 export const BACKGROUND_LIGHTNESS_SHIFT = 0;
-export const BACKGROUND_MOVEMENT_Y_SPEED = 20;
+export const BACKGROUND_MOVEMENT_Y_SPEED = 30;
+export const BACKGROUND_CLOUD_OPACITY = 0.1;
 
 // Enemy
 export const EXPLOSION_SIZE = 240; // Pixels per second

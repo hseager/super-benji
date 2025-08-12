@@ -30,9 +30,9 @@ export class Background {
     const basePalette = randomisePalette(BASE_BACKGROUND_PALETTE);
 
     // Create layers with different densities and speeds for parallax effect
-    this.layers.push(this.createLayer(basePalette, 128, 0.001, BACKGROUND_MOVEMENT_Y_SPEED * 0.4, 0.2));
-    this.layers.push(this.createLayer(basePalette, 128, 0.002, BACKGROUND_MOVEMENT_Y_SPEED * 0.6, 0.3));
-    this.layers.push(this.createLayer(basePalette, 128, 0.003, BACKGROUND_MOVEMENT_Y_SPEED * 1, 0.4));
+    this.layers.push(this.createLayer(basePalette, 128, 0.001, BACKGROUND_MOVEMENT_Y_SPEED * 0.4, 0.2, 1));
+    this.layers.push(this.createLayer(basePalette, 128, 0.002, BACKGROUND_MOVEMENT_Y_SPEED * 0.6, 0.3, 1.2));
+    this.layers.push(this.createLayer(basePalette, 128, 0.003, BACKGROUND_MOVEMENT_Y_SPEED * 1, 0.4, 1.2));
   }
 
   private createLayer(
@@ -40,9 +40,10 @@ export class Background {
     tileSize: number,
     starDensity: number,
     speedY: number,
-    speedXMultiplier: number
+    speedXMultiplier: number,
+    starSize: number
   ): BackgroundLayer {
-    const tile = this.generateStarTile(tileSize, starDensity, palette);
+    const tile = this.generateStarTile(tileSize, starDensity, palette, starSize);
     return {
       palette,
       tile,
@@ -55,6 +56,11 @@ export class Background {
 
   update(delta: number, playerVelocityX = 0) {
     for (const layer of this.layers) {
+      if (layer.tile.width === 0 || layer.tile.height === 0) {
+        // Tile not loaded yet, skip updating this layer
+        continue;
+      }
+
       layer.offsetY = (layer.offsetY + layer.speedY * delta) % layer.tile.height;
       // Parallax horizontal movement scaled by speedXMultiplier and player velocity
       layer.offsetX = (layer.offsetX - playerVelocityX * this.XMovementAmount * layer.speedXMultiplier) % layer.tile.width;
@@ -92,15 +98,12 @@ export class Background {
     }
   }
 
-  generateStarTile(size = 64, density = 0.01, palette: string[] = BASE_BACKGROUND_PALETTE): HTMLImageElement {
+  generateStarTile(size = 64, density = 0.01, palette: string[] = BASE_BACKGROUND_PALETTE, starSize: number): HTMLImageElement {
     const canvas = document.createElement("canvas");
     canvas.width = size;
     canvas.height = size;
     const ctx = canvas.getContext("2d")!;
     ctx.imageSmoothingEnabled = false;
-
-    // Base background
-
 
     // Stars
     const totalStars = Math.floor(size * size * density);
@@ -108,9 +111,7 @@ export class Background {
       const x = Math.floor(Math.random() * size);
       const y = Math.floor(Math.random() * size);
       ctx.fillStyle = palette[Math.floor(Math.random() * palette.length)];
-      ctx.beginPath();
-      ctx.arc(x, y, 1, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.fillRect(x, y, starSize, starSize);
     }
 
     // Add nebula clouds
@@ -149,7 +150,7 @@ export class Background {
           radius
         );
 
-        grad.addColorStop(0, hexToRgbaString(palette[5], 0.07));
+        grad.addColorStop(0, hexToRgbaString(palette[5], 0.1));
         grad.addColorStop(1, "rgba(0,0,0,0)");
 
         ctx.globalCompositeOperation = "screen";
