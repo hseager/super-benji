@@ -58,8 +58,7 @@ export class Player extends Shooter {
 
   // GFX
   sprite: HTMLImageElement;
-  shootingYPosition = -24; // Offset for shooting position
-  shootingXPosition = 1; // Offset for shooting position
+  shootingXOffset = -2; // Offset for shooting position
   boosterSize = 6; // Size of the booster flame
   boosterYOffset = -2; // Offset for booster flame position
 

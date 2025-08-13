@@ -6,6 +6,7 @@ export class Shooter extends GameObject {
   // Position
   lastPosition: Coordinates = { x: 0, y: 0 };
   velocity: Coordinates = { x: 0, y: 0 };
+  shootingXOffset = 0;
 
   bulletPool: BulletPool;
   attackCooldown = 0;
@@ -47,7 +48,12 @@ export class Shooter extends GameObject {
         const y = this.shootDir.y <= 0 ? this.y : this.y + this.height;
         bullet.damage = this.damage;
         bullet.speed = this.bulletSpeed;
-        bullet.fire(this.centerX(), y, this.shootDir.x, this.shootDir.y);
+        bullet.fire(
+          this.centerX() + this.shootingXOffset,
+          y,
+          this.shootDir.x,
+          this.shootDir.y
+        );
         this.attackCooldown = this.attackSpeed;
       }
     }
