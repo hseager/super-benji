@@ -1,4 +1,4 @@
-# JS13k 2025
+# Super Benji
 
 ## Ideation
 
@@ -39,6 +39,10 @@
 - Change music to atomospheric dnb
 - Redo enemy sprites, skulls? (they look like crabs)
 - Theme integration
+  - Black cat pilot
+  - Iron Wolf/Dog/Jackal/Crow enemies
+    - Different animal themed enemies
+    - Zone 2 - Jackals Domain
 - Resources
   - Crafting
   - Gambling
@@ -48,9 +52,11 @@
 - Rewards
   - Upgrades/Loot/Powerups
 - Enemies
+  - Redo art
   - Types
   - Health bars
   - Sound effects on kill
+  - Some drop bombs
 - Artwork
   - Background Tilesets
 - Score screen

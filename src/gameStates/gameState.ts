@@ -12,18 +12,11 @@ import { BASE_TRANSITION_ANIMATION_TIME } from "@/core/config";
 class GameState implements State {
   private ctx;
   private gameManager!: GameController;
-  private muteButton: HTMLButtonElement;
-
-  musicPlayer: Music;
+  private muteButton!: HTMLButtonElement;
+  musicPlayer!: Music;
 
   constructor() {
     this.ctx = drawEngine.context;
-
-    // Setup Music
-    this.muteButton = document.querySelector(
-      ".mute-button"
-    ) as HTMLButtonElement;
-    this.musicPlayer = new Music();
   }
 
   // toggleFullscreen() {
@@ -55,6 +48,12 @@ class GameState implements State {
     // if (window.innerWidth <= 920) {
     //   this.toggleFullscreen();
     // }
+
+    // Setup Music
+    this.muteButton = document.querySelector(
+      ".mute-button"
+    ) as HTMLButtonElement;
+    this.musicPlayer = new Music();
 
     this.setupMuteButton();
     this.gameManager = await new GameController().init();

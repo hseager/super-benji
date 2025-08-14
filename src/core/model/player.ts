@@ -10,46 +10,6 @@ import { Shooter } from "./shooter";
 import { BulletPool } from "./bulletPool";
 import { getInterpolatedColor } from "../utilities";
 
-export const PLAYER_PALETTE = [
-  "#202020", // deep shadow
-  "#404040", // dark panel
-  "#606060", // mid-tone metal
-  "#808080", // light mid-tone
-  "#A0A0A0", // light metal
-  "#C0C0C0", // highlight
-  "#00BFFF", // cockpit/engine glow
-];
-
-// export const PLAYER_PALETTE = [
-//   "#201400", // deep shadow
-//   "#402800", // dark panel
-//   "#604000", // mid-tone metal
-//   "#805800", // light mid-tone
-//   "#A07000", // light metal
-//   "#C08800", // highlight
-//   "#FF7F00", // cockpit/engine glow
-// ];
-
-// export const PLAYER_PALETTE = [
-//   "#002010", // deep shadow
-//   "#004020", // dark panel
-//   "#006030", // mid-tone metal
-//   "#008040", // light mid-tone
-//   "#00A050", // light metal
-//   "#00C060", // highlight
-//   "#00FF7F", // cockpit/engine glow
-// ];
-
-// export const PLAYER_PALETTE = [
-//   "#200000", // deep shadow
-//   "#400000", // dark panel
-//   "#601010", // mid-tone metal
-//   "#802020", // light mid-tone
-//   "#A03030", // light metal
-//   "#C04040", // highlight
-//   "#FF3333", // cockpit/engine glow
-// ];
-
 export class Player extends Shooter {
   // Movement
   movementXSpeed: number = PLAYER_MOVEMENT_X_SPEED;

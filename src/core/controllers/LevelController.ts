@@ -81,7 +81,7 @@ export class LevelController {
       drawEngine.context.globalAlpha = opacity;
 
       drawEngine.drawTitle(
-        `Level ${this.currentLevel}`,
+        `Zone ${this.currentLevel}`,
         24,
         drawEngine.canvasWidth / 2,
         60

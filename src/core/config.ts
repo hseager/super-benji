@@ -1,6 +1,6 @@
 // Genreated from ss.png in project root
 export const SPRITE_BASE64 =
-  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABYCAMAAAByMgEaAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAGlQTFRFAAAASUlJLCwsQUFBOjo6NDQ0ZGRkFBQUJCQkT09PHR0dXl5eVlZWa2trcnJyeXl5lpaWjo6OhYWFyMjIBwcHpqam3NzcDAwM////HR0dCwsLVFRUCAgIubm51NTU1NTUXl5eISEhZWVlwlG8LgAAACN0Uk5TAP////7///////////////////////9P/44d7nH/X6mw446feByIAAADC0lEQVR4nO1Xa3faMAy1JL/fCYXSbazb/v+PnAKEwUpXNdlH7jkNsU90LV3JsqsUqDs44L3Zu3jNr28nExknJfiuv/8105WiGoxSX8Ve3KDw2pYyE2SxFzfYeYUVKgaFciGukayFwTb0Vpsl9gC50LDfodZETwsIEDQEu63ZGDRLCJRxWIZEezALNYg65gQ6oJfXwg0oqqdgUKulWSA2YwLPei4jUPrNyyexSPq10CrcjMfpET9BMKh2PfTnn42YYLMdrkbHFjPt5UJSgsOhfbkM+uT71+3kwt1udZ8gXd615XXTzvJW1FqYSejbcCmamtDkvrHBIWRhDC2VrOcYagZTeu8BjQ0gK4pOFen57E0Gyqn2fdIZAGQujLpG8+30zg3ZB0qHTdbaRJTJ2DG5uX0FP/3ZsVnPEqJIxdCSdfhyEiFOSTRlLBm5HQgJLFrn/VkEToezKYAm9sX/kBBQ8tZFfxaBZSNgGRzRcSCACT45F92lGFkHw30JhFs7lJyNd16fYzDHMKbciJbnHGxDiegInv/4ND280F71DqwBE3yTWtziZxt1iMFpeLlxQNpRwOpqxgAOjJk1PzeH8K7RNRLhYIbCWfNz3WI9yVhkVQQ46F6ZwM0ElT0pwQnTAGQqjdY4inj2Wae0seSD7GSyQY/Q+E6kI+bTFGU4VDvNyAggJWvQaW/mvoZ52GzBy85W7h9kLWHEF3MMwR034+ZARpbGMH0PnnHq5z/44UvdNT2dsigjKY57z/m9u2GkNmz2sEcCkO2HFPF5Jqg2cF76tqONdDzlBdDqRf2cvQnkn6DtQiZnAGUXtWmZOVjDzUn9Co34phJNlGkw2KtBYBtnMh1viUVkn9v1tmnXiwpqMXEi4SbSz9wLGBV6NUtvQxPGMqZqP/7uXbSh1JxXEJSmbRZfJO4gffzJv7Em/GusCeKIvtK+yWr2XVBbeDG/OEDrtByhrMrmGHJZU4sNqrUrQhgn+7I8Cy3XwgTLNzSvzyeTXh4C/5tKOevlpQwhTLt5TRYeeOCBBx74X/gN1wEaI0xzsV0AAAAASUVORK5CYII=";
+  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABYCAMAAAByMgEaAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAEtQTFRFAAAAHh4eEhISPj4+KCgoS0tLMjIyc3NzY2NjVlZWCAgIwMDAioqKnZ2d3NzckJCQ9/f3ra2t4uLiCgoKr6+vnp6eHR0dYGBg8PDwLyecuwAAABl0Uk5TAP///////////v/4///9Iu/LelwjgY6lCv7BgooAAARvSURBVHic7VfZcuQgDDRI4jDgOXLs/v+XbguMj8STuDL7mK4kZbusRkitNhkGGQ6Q+POzv/f7teJ+/7t5fI/3z+8GcvbDo8ttKtFUxDLdLisBfSQow0Be3LDN7XLL2Riu8Q6/eUvxAd5qBhEEccnikrKzSmABJbEup0cMEw/sxbMMzGu8bZCSkrdmxOVDhhCC5OCZUYge7xEw1tUl50x6YY0/ZhCJnvJ1YgLGeX1GxDgqB5OIGDuCwBznwIJXQvHROXaV4IbyNQLdPsdIqIUSmHI7SsFZ9jnQVVyrwWXSoiF+rPGG689YuzEdpWDIxIA0mJsWbl4Jag0cdiWaIWRSm5GPUiAzjFidhtYFJKBLsm7frZCmiaMUCGEtfVGCt6Ttp6wbb51ooJpCejtKYXdxC1V9IaJ52FeL1m3WDMLRHsbdXTIrQYhMmoTYwEGr6Ew66sMOU92si9i0ZTBUPWJ5aYM19WTjLirrH9MIqvTZmdGRq+2o49C6sBDkwW/j5xng1Am0fuNoSNtn56buCFLJm/g6xpqSp06gOhp7D8bWjx1B2mRQNPdYNAXRIvLM0BvYr1QfvYgphSWeAtYNU8AoQnhoYyPgSjF2NFn3Nkop4jqBD+xiSUEsSyQIqYmfenAvQNXnLCQf0OaFIIrzBZTsgsh4mbhC4rq8iTxjlnIh7+hlrmAUisGXK2wNo4895PoqHkbb9gAheobYHfdhyuSNmwngQ7CEkFJE0wzKeJngDEadJEbsCoNEhgLMAuizlF20vQZSpyhklAIl1KG8lVpyB68yiFZNqimBoRuKoAaW39uN0SY6nz1UO1QCWJrRgkG91iEDFJC0A7xYmmA0sMTLIkMLXxXSueY/g1pCQQ0CsR01AaHRYE1ZLZGC2RBgTYytkCXqo/06FQ9ECNmhyHYU3JXVTGAvQY161TIPTn1pGe3XVAJihCBi/QVBSa/L6z5GB9vsjXTzNOVFGmC4lQw/pDpIMKjd1xGaCYZhNy/LIzcXYwN8XJMXBLN+XNflGwFqsCM4xOvbbVKk29vOSvEVoGgEBO+7BLqjfAcJ0HFGadHhvunZHA6PHp8A6WaXPboGrfWcWgE8fRnZMxDOVAlsJ9BA1GvXhq8IHL7GwaG/bnZWCiFBd8IHB6WDLQhl8aQE3AmiJF8pzxEIjhQYWGTQfY1jTjCUj+esY8A/kDJG3723Ldg6jCnh0SkC0ff1W8utb39E2+An36bxHAn8yPSCFYtDkM/TVa56nDnViCHA0LojYdCpmio+n+TONQJT/77oFjPLmPcJlg5hsPsysMMMq/Ad3A2FQAnMoMegUwQ5bG4EMdapJ2s+p+Kj346N3y56ogQBzZPdTs9lvS4o2btzzTpGxqnSh+/fe5xBhl/H7997TOApxHPec4xnFq94ZvtbPLOJivz9K1/Cn9PsQ4g/N3WPE6Dnapnhq8/F4wT2RLzXM9ITGeQa/3MCH2v8zwca60fE/zwDFJDwz+jPpYxjm07z00P5i1/84he/+A/4B4ZhJXc0dSfjAAAAAElFTkSuQmCC";
 
 // Menus
 export const BASE_TRANSITION_ANIMATION_TIME = 0.5;
@@ -24,6 +24,59 @@ export const PLAYER_HEALTH_GLOW_COLOURS = [
 
 export const PLAYER_BULLET_PALETTE = ["#35a3ec", "#4480b8a2"];
 
+export const PLAYER_PALETTE = [
+  "#202020",
+  "#404040",
+  "#606060",
+  "#808080",
+  "#A0A0A0",
+  "#C0C0C0",
+  "#00BFFF",
+];
+
+export const PLAYER_AVATAR_PALETTE = [
+  "#000000",
+  "#1b1200",
+  "#271701",
+  "#3a2200",
+  "#241700",
+  "#604000",
+  "#805800",
+  "#A07000",
+  "#C08800",
+  "#FF7F00",
+];
+
+// export const PLAYER_PALETTE = [
+//   "#201400",
+//   "#402800",
+//   "#604000",
+//   "#805800",
+//   "#A07000",
+//   "#C08800",
+//   "#FF7F00",
+// ];
+
+// export const PLAYER_PALETTE = [
+//   "#002010",
+//   "#004020",
+//   "#006030",
+//   "#008040",
+//   "#00A050",
+//   "#00C060",
+//   "#00FF7F",
+// ];
+
+// export const PLAYER_PALETTE = [
+//   "#200000",
+//   "#400000",
+//   "#601010",
+//   "#802020",
+//   "#A03030",
+//   "#C04040",
+//   "#FF3333",
+// ];
+
 // Enemy
 export const ENEMY_MAX_LIFE = 20;
 export const ENEMY_BULLET_DAMAGE = 12;
@@ -39,33 +92,33 @@ export const ENEMY_DIRECTION_CHANGE_CHANCE = 0.5; // 50%
 export const ENEMY_BULLET_PALETTE = ["#ff5e49", "#881c18"];
 
 export const BASIC_ENEMY_PALETTE = [
-  "#200900", // deep shadow
-  "#190902", // dark panel
-  "#291403", // mid-tone metal
-  "#311d0c", // light mid-tone
-  "#a05030", // light metal
-  "#c06440", // highlight
-  "#e6a67c", // cockpit/engine glow
+  "#200900",
+  "#190902",
+  "#291403",
+  "#311d0c",
+  "#a05030",
+  "#c06440",
+  "#e6a67c",
 ];
 
 export const MODERATE_ENEMY_PALETTE = [
-  "#201a00", // deep shadow
-  "#191502", // dark panel
-  "#291f03", // mid-tone metal
-  "#312e0c", // light mid-tone
-  "#a08230", // light metal
-  "#c09e40", // highlight
-  "#e6d37c", // cockpit/engine glow
+  "#201a00",
+  "#191502",
+  "#291f03",
+  "#312e0c",
+  "#a08230",
+  "#c09e40",
+  "#e6d37c",
 ];
 
 export const ADVANCED_ENEMY_PALETTE = [
-  "#200000", // deep shadow
-  "#190202", // dark panel
-  "#290303", // mid-tone metal
-  "#310c0c", // light mid-tone
-  "#A03030", // light metal
-  "#c04040", // highlight
-  "#e67c7c", // cockpit/engine glow
+  "#200000",
+  "#190202",
+  "#290303",
+  "#310c0c",
+  "#A03030",
+  "#c04040",
+  "#e67c7c",
 ];
 
 // Background

@@ -1,4 +1,3 @@
-import { PLAYER_PALETTE } from "@/core/model/player";
 import { SpriteBuilder } from "../graphics/spriteBuilder";
 import {
   ADVANCED_ENEMY_PALETTE,
@@ -6,6 +5,7 @@ import {
   ENEMY_BULLET_PALETTE,
   MODERATE_ENEMY_PALETTE,
   PLAYER_BULLET_PALETTE,
+  PLAYER_PALETTE,
 } from "../config";
 import { Flip } from "../graphics/spriteSheet";
 

@@ -88,6 +88,17 @@ export class SpriteBuilder {
     return this.applyPalette(buffer, palette);
   }
 
+  static async createPlayerAvatar(
+    sheet: SpriteSheet,
+    palette: string[]
+  ): Promise<HTMLImageElement> {
+    const buffer = new CanvasBuffer(32, 32);
+
+    buffer.drawSprite(sheet, 0, 0, 32, 0, 32, 32);
+
+    return this.applyPalette(buffer, palette);
+  }
+
   private static async applyPalette(
     buffer: CanvasBuffer,
     palette: string[]
