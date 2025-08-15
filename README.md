@@ -37,40 +37,38 @@
 ### TODO
 
 - Change music to atomospheric dnb
-- Redo enemy sprites, skulls? (they look like crabs)
-- Theme integration
-  - Black cat pilot
-  - Iron Wolf/Dog/Jackal/Crow enemies
-    - Different animal themed enemies
-    - Zone 2 - Jackals Domain
-- Resources
-  - Crafting
-  - Gambling
+- Redo enemy sprites, Iron Jackal Fleet
+- Levels
+  - Enemies
+    - Drop proximity bombs
+    - Faster
+    - Health bars
+    - Sound effects on kill
+  - Redo names: Jackals Domain - Zone 2
+- Loot
+  - Random selection at end of zone
+  - Normal, Rare, Epic, Legendary
+  - Different stats
+- Inventory screen
 - Bosses
   - Music
   - Health bars
-- Rewards
-  - Upgrades/Loot/Powerups
+  - Sprite, attack patterns
 - Enemies
-  - Redo art
-  - Types
-  - Health bars
-  - Sound effects on kill
-  - Some drop bombs
-- Artwork
-  - Background Tilesets
-- Score screen
 - Testing
-
   - Mobile
   - Githubpages
-
 - Items
   - Hull (Health)
   - Chasis (X movespeed)
   - Boosters (Y movespeed)
   - Canon (attack)
   - Relic (everything)
+- Story
+  - Characters
+    - Intro
+    - Avatars
+    - Text, sounds
 
 # About
 

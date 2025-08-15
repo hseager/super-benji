@@ -1,15 +1,14 @@
-import { UpgradeOption } from "../types";
+import { Item } from "../types";
 import { drawEngine } from "./DrawController";
 import { GameController } from "./GameController";
 
 export class UpgradeScreenController {
   isActive = false;
   isFinished = false;
-  upgrades: UpgradeOption[] = [];
-  selectedIndex = 0;
+  upgrades: Item[] = [];
 
   private gameManager: GameController;
-  private allUpgrades: UpgradeOption[] = [];
+  private allUpgrades: Item[] = [];
 
   constructor(gameManager: GameController) {
     this.gameManager = gameManager;
@@ -17,22 +16,26 @@ export class UpgradeScreenController {
     // Define all possible upgrades here
     this.allUpgrades = [
       {
-        name: "Increase Fire Rate",
-        description: "Shoot 20% faster.",
+        type: "Cannon",
+        name: "BOLT LASER MK-II",
+        description: "(DMG +12, ATK SPD +20%)",
         apply: () => {
-          this.gameManager.player.attackSpeed *= 0.8;
+          this.gameManager.player.damage += 12;
+          this.gameManager.player.attackSpeed *= 0.2;
         },
       },
       {
-        name: "Extra Health",
-        description: "Gain +2 health.",
+        type: "Hull",
+        name: "ADAMITE PLATING",
+        description: "(HP +20, REGEN +10)",
         apply: () => {
           this.gameManager.player.life += 2;
         },
       },
       {
-        name: "Speed Boost",
-        description: "Move 15% faster.",
+        type: "Relic",
+        name: "MAMOTH TUSK",
+        description: "(SPD-X +10, ATK SPD +10%)",
         apply: () => {
           this.gameManager.player.movementXSpeed *= 1.15;
           this.gameManager.player.movementYSpeed *= 1.15;
@@ -44,7 +47,6 @@ export class UpgradeScreenController {
   start() {
     this.isActive = true;
     this.isFinished = false;
-    this.selectedIndex = 0;
     this.generateUpgrades();
   }
 
@@ -53,11 +55,6 @@ export class UpgradeScreenController {
     const shuffled = [...this.allUpgrades].sort(() => Math.random() - 0.5);
     this.upgrades = shuffled.slice(0, 3);
   }
-
-  // update(delta: number) {
-  //   if (!this.isActive) return;
-  //   // Add animations / transitions here if wanted
-  // }
 
   draw(ctx: CanvasRenderingContext2D) {
     if (!this.isActive) return;
@@ -68,51 +65,28 @@ export class UpgradeScreenController {
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
     // Title
-    drawEngine.drawText("Choose an upgrade!", 12, drawEngine.getCenterX(), 20);
+    drawEngine.drawTitle("Zone Cleared!", 12, drawEngine.getCenterX(), 15);
+    drawEngine.drawText("Loot found:", 9, drawEngine.getCenterX(), 30);
 
     // Draw upgrade boxes
-    const startY = 40;
+    const startY = 60;
     const boxHeight = 30;
-    const spacing = 20;
+    const spacing = 15;
+    const x = 10;
 
     this.upgrades.forEach((upgrade, index) => {
       const y = startY + index * (boxHeight + spacing);
-      const isSelected = index === this.selectedIndex;
-
-      ctx.fillStyle = isSelected ? "#44aaff" : "#222";
-      ctx.fillRect(ctx.canvas.width / 2 - 50, y, 100, boxHeight);
-
-      ctx.strokeStyle = "white";
-      ctx.lineWidth = 2;
-      ctx.strokeRect(ctx.canvas.width / 2 - 50, y, 100, boxHeight);
 
       ctx.fillStyle = "white";
-      ctx.font = "9px Arial";
+      ctx.font = "bold 9px Arial";
       ctx.textAlign = "left";
-      ctx.fillText(upgrade.name, ctx.canvas.width / 2 - 40, y + 10);
-
-      ctx.font = "9px Arial";
-      ctx.fillText(upgrade.description, ctx.canvas.width / 2 - 40, y + 20);
+      ctx.fillText(`[${upgrade.type}]`, x, y);
+      ctx.fillText(upgrade.name, x, y + 10);
+      ctx.fillText(upgrade.description, x, y + 20);
     });
 
+    drawEngine.drawButton("Inventory", drawEngine.canvasHeight - 35);
+
     ctx.restore();
-  }
-
-  handleInput(key: string) {
-    if (!this.isActive) return;
-
-    if (key === "ArrowUp") {
-      this.selectedIndex =
-        (this.selectedIndex - 1 + this.upgrades.length) % this.upgrades.length;
-    }
-    if (key === "ArrowDown") {
-      this.selectedIndex = (this.selectedIndex + 1) % this.upgrades.length;
-    }
-    if (key === "Enter") {
-      // Apply selected upgrade
-      this.upgrades[this.selectedIndex].apply();
-      this.isActive = false;
-      this.isFinished = true;
-    }
   }
 }

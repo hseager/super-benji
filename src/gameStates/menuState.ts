@@ -65,7 +65,7 @@ class MenuState implements State {
     );
     drawEngine.drawMenuAction("Start Game", delta, 195);
 
-    this.spinTime += delta * 1;
+    this.spinTime += delta * 0.6;
 
     if (this.playerAvatar) {
       const { context } = drawEngine;

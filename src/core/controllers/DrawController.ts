@@ -162,6 +162,27 @@ class DrawController {
     }
   }
 
+  drawButton(text: string, y: number) {
+    const ctx = this.context;
+
+    const buttonWidth = 80;
+    const buttonHeight = 20;
+    const buttonX = ctx.canvas.width / 2 - buttonWidth / 2;
+
+    ctx.fillStyle = "#555";
+    ctx.fillRect(buttonX, y, buttonWidth, buttonHeight);
+
+    ctx.strokeStyle = "white";
+    ctx.lineWidth = 2;
+    ctx.strokeRect(buttonX, y, buttonWidth, buttonHeight);
+
+    ctx.fillStyle = "white";
+    ctx.font = "10px Arial";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(text, ctx.canvas.width / 2, y + buttonHeight / 2);
+  }
+
   resizeCanvas() {
     const targetRatio = logicalWidth / logicalHeight;
     const screenRatio = window.innerWidth / window.innerHeight;

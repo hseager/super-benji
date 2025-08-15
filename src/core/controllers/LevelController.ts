@@ -8,10 +8,12 @@ import {
   ENEMY_BULLET_SPEED,
   ENEMY_START_POSITION_Y,
 } from "../config";
+import { screenTransitions } from "./ScreenTransitionController";
 
 export class LevelController {
   currentLevel: number = 1;
-  private baseEnemyCount = 4;
+  // private baseEnemyCount = 4;
+  private baseEnemyCount = 0;
   private textDisplayTimer = 0;
   private gameManager: GameController;
   private enemyYSpawnOffset = 100;
@@ -32,36 +34,26 @@ export class LevelController {
     this.gameManager.background = new Background(); // Change the BG colour each level
   }
 
-  // update(delta: number) {
-  //   if (
-  //     this.gameManager.enemies.length === 0 &&
-  //     !this.gameManager.upgradeScreen.isActive &&
-  //     !this.gameManager.upgradeScreen.isFinished
-  //   ) {
-  //     if (!screenTransitions.isFading) {
-  //       screenTransitions.startFade(
-  //         "fade-out",
-  //         BASE_TRANSITION_ANIMATION_TIME,
-  //         () => {
-  //           this.gameManager.upgradeScreen.start();
-  //           screenTransitions.startFade("fade-in");
-  //         }
-  //       );
-  //     }
-  //   }
-
-  //   if (this.gameManager.upgradeScreen.isFinished) {
-  //     this.gameManager.upgradeScreen.isFinished = false;
-  //     this.nextLevel();
-  //   }
-
-  //   if (this.displayTimer > 0) {
-  //     this.displayTimer -= delta;
-  //   }
-  // }
-
   update(delta: number) {
-    if (this.gameManager.enemies.length === 0) {
+    if (
+      this.gameManager.enemies.length === 0 &&
+      !this.gameManager.upgradeScreen.isActive &&
+      !this.gameManager.upgradeScreen.isFinished
+    ) {
+      if (!screenTransitions.isFading) {
+        screenTransitions.startFade(
+          "fade-out",
+          BASE_TRANSITION_ANIMATION_TIME,
+          () => {
+            this.gameManager.upgradeScreen.start();
+            screenTransitions.startFade("fade-in");
+          }
+        );
+      }
+    }
+
+    if (this.gameManager.upgradeScreen.isFinished) {
+      this.gameManager.upgradeScreen.isFinished = false;
       this.nextLevel();
     }
 
@@ -69,6 +61,16 @@ export class LevelController {
       this.textDisplayTimer -= delta;
     }
   }
+
+  // update(delta: number) {
+  //   if (this.gameManager.enemies.length === 0) {
+  //     this.nextLevel();
+  //   }
+
+  //   if (this.textDisplayTimer > 0) {
+  //     this.textDisplayTimer -= delta;
+  //   }
+  // }
 
   draw() {
     if (this.textDisplayTimer > 0) {
