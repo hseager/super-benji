@@ -162,25 +162,35 @@ class DrawController {
     }
   }
 
-  drawButton(text: string, y: number) {
+  drawButton(
+    text: string,
+    buttonY: number,
+    options?: {
+      x?: number; // custom x position
+      w?: number; // custom width
+      h?: number; // custom height
+    }
+  ) {
     const ctx = this.context;
 
-    const buttonWidth = 80;
-    const buttonHeight = 20;
-    const buttonX = ctx.canvas.width / 2 - buttonWidth / 2;
+    const buttonWidth = options?.w ?? 80;
+    const buttonHeight = options?.h ?? 20;
+    const buttonX = options?.x ?? ctx.canvas.width / 2 - buttonWidth / 2;
 
     ctx.fillStyle = "#555";
-    ctx.fillRect(buttonX, y, buttonWidth, buttonHeight);
+    ctx.fillRect(buttonX, buttonY, buttonWidth, buttonHeight);
 
     ctx.strokeStyle = "white";
     ctx.lineWidth = 2;
-    ctx.strokeRect(buttonX, y, buttonWidth, buttonHeight);
+    ctx.strokeRect(buttonX, buttonY, buttonWidth, buttonHeight);
 
     ctx.fillStyle = "white";
     ctx.font = "10px Arial";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.fillText(text, ctx.canvas.width / 2, y + buttonHeight / 2);
+    ctx.fillText(text, buttonX + buttonWidth / 2, buttonY + buttonHeight / 2);
+
+    return { x: buttonX, y: buttonY, w: buttonWidth, h: buttonHeight };
   }
 
   resizeCanvas() {

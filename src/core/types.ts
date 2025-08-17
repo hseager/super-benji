@@ -4,12 +4,13 @@ export interface State {
   onLeave?: Function;
 }
 
-export type ItemType = "Hull" | "Wings" | "Booster" | "Cannon" | "Relic";
+export type UpgradeRarity = "Common" | "Rare" | "Epic" | "Legendary";
 
-export type Item = {
-  type: ItemType;
+export type Upgrade = {
+  rarity: UpgradeRarity;
   name: string;
   description: string;
+  description2?: string;
   apply: () => void;
 };
 

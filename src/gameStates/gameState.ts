@@ -12,7 +12,6 @@ import { BASE_TRANSITION_ANIMATION_TIME } from "@/core/config";
 class GameState implements State {
   private ctx;
   private gameManager!: GameController;
-  private muteButton!: HTMLButtonElement;
   musicPlayer!: Music;
 
   constructor() {
@@ -27,21 +26,6 @@ class GameState implements State {
   //   }
   // }
 
-  setupMuteButton() {
-    this.musicPlayer.play();
-    this.muteButton.classList.remove("hide");
-    this.muteButton.textContent = this.musicPlayer.isPlaying ? "🔈" : "🔇";
-    this.muteButton.addEventListener("click", () => {
-      if (this.musicPlayer.isPlaying) {
-        this.musicPlayer.stop();
-        this.muteButton.textContent = "🔇";
-      } else {
-        this.musicPlayer.play();
-        this.muteButton.textContent = "🔈";
-      }
-    });
-  }
-
   async onEnter() {
     // Force fullscreen for mobiles as the gestures in most browsers mess with the game
     // and cause them to exit the tab or refresh the page
@@ -50,12 +34,7 @@ class GameState implements State {
     // }
 
     // Setup Music
-    this.muteButton = document.querySelector(
-      ".mute-button"
-    ) as HTMLButtonElement;
     this.musicPlayer = new Music();
-
-    this.setupMuteButton();
     this.gameManager = await new GameController().init();
     screenTransitions.startFade("fade-in", 1);
   }
@@ -101,7 +80,6 @@ class GameState implements State {
   }
 
   onLeave() {
-    this.muteButton.classList.add("hide");
     this.musicPlayer.stop();
   }
 }

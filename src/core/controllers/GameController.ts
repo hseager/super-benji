@@ -7,12 +7,7 @@ import { CollisionController } from "./CollisionController";
 import { SpriteController } from "./SpriteController";
 import { BulletPool } from "../model/bulletPool";
 import { UpgradeScreenController } from "./UpgradeScreenController";
-import {
-  ENEMY_BULLET_COLOR,
-  PLAYER_BULLET_COLOR,
-  PLAYER_BULLET_DAMAGE,
-  PLAYER_BULLET_SPEED,
-} from "../config";
+import { roll } from "../utilities";
 
 export class GameController {
   spriteManager!: SpriteController;
@@ -31,12 +26,6 @@ export class GameController {
 
   update(delta: number, mouse: { x: number; y: number }) {
     const { player, background, levelManager } = this;
-
-    // Upgrade Screen
-    if (this.upgradeScreen.isActive) {
-      // this.upgradeScreen.update(delta);
-      return;
-    }
 
     // Background
     background.update(delta, player.velocity);
@@ -89,6 +78,11 @@ export class GameController {
         const player = playerObject as Player;
         const bullet = bulletObject as Bullet;
 
+        if (roll() < player.evasion) {
+          bullet.explode(6, 1);
+          return;
+        }
+
         player.takeDamage(bullet.damage);
         bullet.explode(6, 1);
       }
@@ -120,26 +114,20 @@ export class GameController {
   async init(): Promise<GameController> {
     // Anything that depends on sprites need to be awaited as the spritesheet is loaded, so we create some objects here instead of the constuctor
     this.spriteManager = await new SpriteController().init();
-    const { playerSprite, enemyBulletSprite, playerBulletSprite } =
-      this.spriteManager;
+    const { playerSprite, enemyBulletSprite } = this.spriteManager;
 
     // Create Bullet pools
-    this.playerBulletPool = new BulletPool(
-      100,
-      () => new Bullet(playerBulletSprite, PLAYER_BULLET_COLOR)
-    );
+    this.playerBulletPool = new BulletPool(100, () => {
+      // always grab the latest sprite from the sprite manager
+      return new Bullet(this.spriteManager.getBulletSprite());
+    });
     this.enemyBulletPool = new BulletPool(
       100,
-      () => new Bullet(enemyBulletSprite, ENEMY_BULLET_COLOR)
+      () => new Bullet(enemyBulletSprite)
     );
 
     // Create Player
-    this.player = new Player(
-      playerSprite,
-      this.playerBulletPool,
-      PLAYER_BULLET_DAMAGE,
-      PLAYER_BULLET_SPEED
-    );
+    this.player = new Player(this, playerSprite, this.playerBulletPool);
 
     // Setup levels
     this.levelManager = new LevelController(this);

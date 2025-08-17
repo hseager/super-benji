@@ -9,6 +9,7 @@ import {
   ENEMY_MOVEMENT_Y_SPEED,
   ENEMY_PROXIMITY_DAMAGE,
 } from "../config";
+import { GameController } from "../controllers/GameController";
 
 export class Enemy extends Shooter {
   // GFX
@@ -25,21 +26,24 @@ export class Enemy extends Shooter {
   attackSpeed: number = ENEMY_ATTACK_SPEED;
   shootDir = { x: 0, y: 1 };
 
+  damage: number;
+  bulletSpeed: number;
+
   private directionChangeTimer = 0;
 
   constructor(
+    gameController: GameController,
     sprite: HTMLImageElement,
     bulletPool: BulletPool,
-    bulletDamage: number,
+    damage: number,
     bulletSpeed: number,
     x: number,
     y: number
   ) {
     super(
+      gameController,
       sprite,
       bulletPool,
-      bulletDamage,
-      bulletSpeed,
       x,
       y,
       sprite.width,
@@ -47,6 +51,9 @@ export class Enemy extends Shooter {
     );
     this.glowSprite = this.preloadGlowSprite();
     this.movementVilocityX = (Math.random() - 0.5) * 60;
+
+    this.damage = damage;
+    this.bulletSpeed = bulletSpeed;
 
     // Give each enemy attack speed variance
     this.attackSpeed =
@@ -87,7 +94,7 @@ export class Enemy extends Shooter {
       this.velocity.x = (this.x - prevX) / delta;
 
       this.updateShooting(delta);
-      this.shoot();
+      this.shoot(this.damage, this.bulletSpeed);
     }
   }
 

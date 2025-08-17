@@ -9,17 +9,15 @@ export class Bullet extends GameObject {
   sprite: HTMLImageElement;
   radius = 2;
   glowRadius = 2;
-  glowColor: string;
 
   // Stats
   damage = 1;
   speed = 1;
 
-  constructor(sprite: HTMLImageElement, color: string) {
+  constructor(sprite: HTMLImageElement) {
     super(sprite, 0, 0);
     this.dx = 0;
     this.dy = 0;
-    this.glowColor = color;
     this.sprite = sprite;
   }
 

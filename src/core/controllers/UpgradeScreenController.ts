@@ -1,53 +1,77 @@
-import { Item } from "../types";
+import { BASE_TRANSITION_ANIMATION_TIME } from "../config";
+import { Upgrade } from "../types";
+import { addClick, clearClicks } from "./ClickController";
 import { drawEngine } from "./DrawController";
 import { GameController } from "./GameController";
+import { screenTransitions } from "./ScreenTransitionController";
+import { UpgradeController } from "./UpgradeController";
 
 export class UpgradeScreenController {
   isActive = false;
-  isFinished = false;
-  upgrades: Item[] = [];
+  canSelectUpgrade = false;
+  upgrades: Upgrade[] = [];
 
   private gameManager: GameController;
-  private allUpgrades: Item[] = [];
+  private allUpgrades: Upgrade[] = [];
 
   constructor(gameManager: GameController) {
     this.gameManager = gameManager;
-
-    // Define all possible upgrades here
-    this.allUpgrades = [
-      {
-        type: "Cannon",
-        name: "BOLT LASER MK-II",
-        description: "(DMG +12, ATK SPD +20%)",
-        apply: () => {
-          this.gameManager.player.damage += 12;
-          this.gameManager.player.attackSpeed *= 0.2;
-        },
-      },
-      {
-        type: "Hull",
-        name: "ADAMITE PLATING",
-        description: "(HP +20, REGEN +10)",
-        apply: () => {
-          this.gameManager.player.life += 2;
-        },
-      },
-      {
-        type: "Relic",
-        name: "MAMOTH TUSK",
-        description: "(SPD-X +10, ATK SPD +10%)",
-        apply: () => {
-          this.gameManager.player.movementXSpeed *= 1.15;
-          this.gameManager.player.movementYSpeed *= 1.15;
-        },
-      },
-    ];
+    const upgradeController = new UpgradeController(gameManager);
+    this.allUpgrades = upgradeController.getAllUpgrades();
   }
 
   start() {
     this.isActive = true;
-    this.isFinished = false;
+    this.canSelectUpgrade = true;
     this.generateUpgrades();
+
+    clearClicks();
+  }
+
+  drawUpgradeOption(
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    w: number,
+    h: number,
+    upgrade: Upgrade
+  ) {
+    // Border color based on rarity
+    let borderColor = "white";
+    if (upgrade.rarity === "Rare") borderColor = "#60a5fa";
+    else if (upgrade.rarity === "Epic") borderColor = "#c084fc";
+    else if (upgrade.rarity === "Legendary") borderColor = "#fb923c";
+
+    // Rounded rect background
+    const radius = 6;
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+    ctx.closePath();
+
+    ctx.fillStyle = "#333";
+    ctx.fill();
+    ctx.strokeStyle = borderColor;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // Upgrade text
+    ctx.fillStyle = borderColor;
+    ctx.font = "bold 9px Arial";
+    ctx.textAlign = "left";
+    ctx.fillText(`[${upgrade.rarity}]`, x + 6, y + 10);
+
+    ctx.fillStyle = "white";
+    ctx.fillText(upgrade.name, x + 6, y + 20);
+    ctx.fillText(upgrade.description, x + 6, y + 30);
+    if (upgrade.description2) ctx.fillText(upgrade.description2, x + 6, y + 40);
   }
 
   generateUpgrades() {
@@ -66,26 +90,40 @@ export class UpgradeScreenController {
 
     // Title
     drawEngine.drawTitle("Zone Cleared!", 12, drawEngine.getCenterX(), 15);
-    drawEngine.drawText("Loot found:", 9, drawEngine.getCenterX(), 30);
+    drawEngine.drawText("Choose an upgrade:", 9, drawEngine.getCenterX(), 30);
 
-    // Draw upgrade boxes
-    const startY = 60;
-    const boxHeight = 30;
-    const spacing = 15;
-    const x = 10;
+    const boxHeight = 45;
+    const spacing = 10;
+    const x = 5;
+    const width = ctx.canvas.width - 10;
+    const startY = 40;
+
+    clearClicks(); // reset for fresh click mapping
 
     this.upgrades.forEach((upgrade, index) => {
       const y = startY + index * (boxHeight + spacing);
 
-      ctx.fillStyle = "white";
-      ctx.font = "bold 9px Arial";
-      ctx.textAlign = "left";
-      ctx.fillText(`[${upgrade.type}]`, x, y);
-      ctx.fillText(upgrade.name, x, y + 10);
-      ctx.fillText(upgrade.description, x, y + 20);
-    });
+      // Draw box
+      this.drawUpgradeOption(ctx, x, y, width, boxHeight, upgrade);
 
-    drawEngine.drawButton("Inventory", drawEngine.canvasHeight - 35);
+      // Register click
+      if (!this.canSelectUpgrade) return;
+      addClick(x, y, width, boxHeight, () => {
+        upgrade.apply();
+        this.canSelectUpgrade = false;
+
+        screenTransitions.startFade(
+          "fade-out",
+          BASE_TRANSITION_ANIMATION_TIME,
+          () => {
+            clearClicks();
+            this.isActive = false;
+            this.gameManager.levelManager.nextLevel();
+            screenTransitions.startFade("fade-in");
+          }
+        );
+      });
+    });
 
     ctx.restore();
   }

@@ -1,5 +1,8 @@
 import {
   PLAYER_ATTACK_SPEED,
+  PLAYER_BULLET_DAMAGE,
+  PLAYER_BULLET_PALETTES,
+  PLAYER_BULLET_SPEED,
   PLAYER_HEALTH_GLOW_COLOURS,
   PLAYER_MAX_LIFE,
   PLAYER_MOVEMENT_X_SPEED,
@@ -9,11 +12,10 @@ import { logicalHeight, logicalWidth } from "@/core/controllers/DrawController";
 import { Shooter } from "./shooter";
 import { BulletPool } from "./bulletPool";
 import { getInterpolatedColor } from "../utilities";
+import { GameController } from "../controllers/GameController";
 
 export class Player extends Shooter {
   // Movement
-  movementXSpeed: number = PLAYER_MOVEMENT_X_SPEED;
-  movementYSpeed: number = PLAYER_MOVEMENT_Y_SPEED;
   moveTolerance = 2; // Pixels to consider "close enough" to target
 
   // GFX
@@ -21,27 +23,33 @@ export class Player extends Shooter {
   shootingXOffset = -2; // Offset for shooting position
   boosterSize = 6; // Size of the booster flame
   boosterYOffset = -2; // Offset for booster flame position
+  bulletColor: keyof typeof PLAYER_BULLET_PALETTES = "blue";
 
   // Glow
   glowColor: string = "#00bfff7c"; // Default glow color
   glowAmount: number = 10; // Default glow radius
 
   // Stats
+  movementXSpeed: number = PLAYER_MOVEMENT_X_SPEED;
+  movementYSpeed: number = PLAYER_MOVEMENT_Y_SPEED;
   maxLife = PLAYER_MAX_LIFE;
   life = PLAYER_MAX_LIFE;
-  attackSpeed: number = PLAYER_ATTACK_SPEED;
+  attackSpeed = PLAYER_ATTACK_SPEED;
+  damage = PLAYER_BULLET_DAMAGE;
+  bulletSpeed = PLAYER_BULLET_SPEED;
+  evasion = 0;
+  regen = 0;
+  private regenTimer = 0;
 
   constructor(
+    gameController: GameController,
     sprite: HTMLImageElement,
-    bulletPool: BulletPool,
-    bulletDamage: number,
-    bulletSpeed: number
+    bulletPool: BulletPool
   ) {
     super(
+      gameController,
       sprite,
       bulletPool,
-      bulletDamage,
-      bulletSpeed,
       logicalWidth / 2,
       logicalHeight - sprite.height,
       sprite.width,
@@ -54,6 +62,8 @@ export class Player extends Shooter {
     if (this.isExploding) {
       this.addExplosionParts(delta);
     } else {
+      this.regenTick(delta);
+
       // Movement towards cursor
       const dx = targetX - this.centerX();
       const dy = targetY - this.centerY();
@@ -81,7 +91,7 @@ export class Player extends Shooter {
       );
 
       this.updateShooting(delta);
-      this.shoot();
+      this.shoot(this.damage, this.bulletSpeed, this.bulletColor);
     }
   }
 
@@ -99,6 +109,23 @@ export class Player extends Shooter {
       this.manageTilt(ctx);
 
       ctx.restore();
+    }
+  }
+
+  regenTick(delta: number) {
+    if (this.regen > 0 && this.life < this.maxLife) {
+      this.regenTimer += delta;
+
+      // Trigger once per second
+      if (this.regenTimer >= 5) {
+        this.life += this.regen;
+
+        if (this.life > this.maxLife) {
+          this.life = this.maxLife;
+        }
+
+        this.regenTimer = 0; // reset timer
+      }
     }
   }
 

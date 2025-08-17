@@ -4,10 +4,10 @@ import {
   BASIC_ENEMY_PALETTE,
   ENEMY_BULLET_PALETTE,
   MODERATE_ENEMY_PALETTE,
-  PLAYER_BULLET_PALETTE,
+  PLAYER_BULLET_PALETTES,
   PLAYER_PALETTE,
 } from "../config";
-import { Flip } from "../graphics/spriteSheet";
+import { SpriteSheet } from "../graphics/spriteSheet";
 
 export class SpriteController {
   playerSprite!: HTMLImageElement;
@@ -17,38 +17,54 @@ export class SpriteController {
   playerBulletSprite!: HTMLImageElement;
   enemyBulletSprite!: HTMLImageElement;
 
+  private spriteSheet!: SpriteSheet;
+
+  playerBulletSprites: Record<string, HTMLImageElement> = {};
+
   async init() {
-    const spriteSheet = await SpriteBuilder.loadSpriteSheet();
+    this.spriteSheet = await SpriteBuilder.loadSpriteSheet();
+
+    await this.preloadBulletPalettes();
 
     this.playerSprite = await SpriteBuilder.createPlayer(
-      spriteSheet,
+      this.spriteSheet,
       PLAYER_PALETTE
     );
 
     this.basicEnemySprite = await SpriteBuilder.createBasicEnemy(
-      spriteSheet,
+      this.spriteSheet,
       BASIC_ENEMY_PALETTE
     );
     this.moderateEnemySprite = await SpriteBuilder.createModerateEnemy(
-      spriteSheet,
+      this.spriteSheet,
       MODERATE_ENEMY_PALETTE
     );
     this.advancedEnemySprite = await SpriteBuilder.createAdvancedEnemy(
-      spriteSheet,
+      this.spriteSheet,
       ADVANCED_ENEMY_PALETTE
     );
 
-    this.playerBulletSprite = await SpriteBuilder.createBullet(
-      spriteSheet,
-      PLAYER_BULLET_PALETTE,
-      Flip.Vertical
-    );
-
     this.enemyBulletSprite = await SpriteBuilder.createBullet(
-      spriteSheet,
+      this.spriteSheet,
       ENEMY_BULLET_PALETTE
     );
 
     return this;
+  }
+
+  private async preloadBulletPalettes() {
+    const palettes = Object.keys(PLAYER_BULLET_PALETTES);
+    for (const color of palettes) {
+      const palette =
+        PLAYER_BULLET_PALETTES[color as keyof typeof PLAYER_BULLET_PALETTES];
+      this.playerBulletSprites[color] = await SpriteBuilder.createBullet(
+        this.spriteSheet,
+        palette
+      );
+    }
+  }
+
+  getBulletSprite(color: string = "blue") {
+    return this.playerBulletSprites[color] ?? this.playerBulletSprites["blue"];
   }
 }

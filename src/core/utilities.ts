@@ -156,3 +156,7 @@ function rgbToHex(r: number, g: number, b: number): string {
     b.toString(16).padStart(2, "0")
   );
 }
+
+export function roll() {
+  return Math.random() * 100;
+}
