@@ -63,24 +63,27 @@ Story beat: Benji and Torx infiltrate the ship. Final showdown with the Iron Jac
 - No damage bonus
   - Gives 3 options rather than 2 if you take no damage
 - Change music to atomospheric dnb
-- Redo enemy sprites, Iron Jackal Fleet
 - Levels
-  - Enemies
-    - Drop proximity bombs
-    - Faster
-    - Health bars
-    - Sound effects on kill
+  - Tilesets
 - Bosses
   - Music
   - Health bars
   - Sprite, attack patterns
 - Enemies
+  - Drop proximity bombs
+  - Faster
+  - Health bars
+  - Sound effects on kill
+  - Redo enemy sprites, Iron Jackal Fleet
 - Testing
   - Mobile
   - Githubpages
 - Add stat key to intro
 - Screen shake on taking damage
-- Make player speed change background speed
+- Loot
+  - Balance stats
+  - Rarity chance
+- Polish
 
 # About
 
