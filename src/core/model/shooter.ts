@@ -17,7 +17,7 @@ export class Shooter extends GameObject {
   attackSpeed = 0.1;
   shootDir = { x: 0, y: -1 };
   tiltAmount = 3;
-  tiltClamp = 2; // Max/min amount of tilting based on movespeed
+  tiltClamp = 3; // Max/min amount of tilting based on movespeed
 
   constructor(
     gameController: GameController,

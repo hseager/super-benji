@@ -66,7 +66,7 @@ export class Player extends Shooter {
 
       // Movement towards cursor
       const dx = targetX - this.centerX();
-      const dy = targetY - this.centerY();
+      const dy = targetY - this.centerY() - 22;
       const distance = Math.hypot(dx, dy);
 
       if (distance > this.moveTolerance) {

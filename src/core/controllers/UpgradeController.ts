@@ -23,7 +23,7 @@ export class UpgradeController {
     {
       rarity: "Rare",
       name: "Nebula Railcoil",
-      description: "DMG +5, BLT SPD +20%",
+      description: "DMG +5, PROJ SPD +20%",
       apply: () => {
         this.gameManager.player.damage += 5;
         this.gameManager.player.bulletSpeed *= 1.2;
@@ -33,7 +33,7 @@ export class UpgradeController {
     {
       rarity: "Epic",
       name: "Iron Fang Torpedo",
-      description: "DMG +10, BLT SPD +20%",
+      description: "DMG +10, PROJ SPD +20%",
       description2: "ATK SPD +20%",
       apply: () => {
         this.gameManager.player.damage += 10;
@@ -129,7 +129,7 @@ export class UpgradeController {
       rarity: "Rare",
       name: "Plasma Capacitor",
       description: "ATK SPD +15%",
-      description2: "BLT SPD +15%",
+      description2: "PROJ SPD +15%",
       apply: () => {
         this.gameManager.player.attackSpeed *= 0.85;
         this.gameManager.player.bulletSpeed *= 1.15;
@@ -159,9 +159,9 @@ export class UpgradeController {
     {
       rarity: "Common",
       name: "Tuna Suprise",
-      description: "HP +5, REGEN +7",
+      description: "HP +5, REGEN +3",
       apply: () => {
-        this.gameManager.player.regen += 7;
+        this.gameManager.player.regen += 3;
         this.gameManager.player.maxLife += 5;
         this.gameManager.player.life += 5;
       },
@@ -170,7 +170,7 @@ export class UpgradeController {
       rarity: "Rare",
       name: "Iron Jackal Bru",
       description: "HP +10, REGEN +3",
-      description2: "BLT SPD +10%",
+      description2: "PROJ SPD +10%",
       apply: () => {
         this.gameManager.player.regen += 3;
         this.gameManager.player.maxLife += 10;

@@ -66,23 +66,20 @@ export class StoryController {
     }
   }
 
-  getTorxDialog(ctx: CanvasRenderingContext2D) {
-    if (!this.currentTorxDialog) return;
-
-    const spriteManager = this.gameController.spriteManager;
-
-    const dialogBoxHeight = 30;
-    const boxPadding = 6; // space inside the box
-
-    const dialogX = 35;
-    const lineHeight = 10; // spacing between wrapped lines
+  drawDialogBox(
+    ctx: CanvasRenderingContext2D,
+    sprite: HTMLImageElement,
+    words: string[],
+    dialogBoxHeight: number,
+    boxPadding: number
+  ) {
+    const dialogX = dialogBoxHeight + boxPadding;
+    const lineHeight = 10;
     const maxTextWidth = drawEngine.canvasWidth - dialogX - boxPadding;
 
     ctx.save();
     ctx.font = "8px monospace";
 
-    // --- Wrap Text ---
-    const words = this.currentTorxDialog.split(" ");
     const lines: string[] = [];
     let line = "";
 
@@ -138,8 +135,7 @@ export class StoryController {
     );
     ctx.fill();
 
-    const torxSprite = spriteManager.torxAvatar;
-    this.drawAvatar(ctx, torxSprite, {
+    this.drawAvatar(ctx, sprite, {
       x: 10,
       y: dialogBoxHeight,
       width: TORX_AVATAR_WIDTH,
@@ -155,6 +151,23 @@ export class StoryController {
       ctx.fillText(l, dialogX, lineY);
       lineY += lineHeight;
     }
+  }
+
+  getTorxDialog(ctx: CanvasRenderingContext2D) {
+    if (!this.currentTorxDialog) return;
+    const words = this.currentTorxDialog.split(" ");
+    const spriteManager = this.gameController.spriteManager;
+
+    const dialogBoxHeight = 30;
+    const boxPadding = 6; // space inside the box
+
+    this.drawDialogBox(
+      ctx,
+      spriteManager.torxAvatar,
+      words,
+      dialogBoxHeight,
+      boxPadding
+    );
 
     ctx.restore();
   }
