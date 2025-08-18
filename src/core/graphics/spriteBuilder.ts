@@ -1,4 +1,10 @@
-import { BENJI_AVATAR_HEIGHT, BENJI_AVATAR_WIDTH, SPRITE_BASE64, TORX_AVATAR_HEIGHT, TORX_AVATAR_WIDTH } from "../config";
+import {
+  BENJI_AVATAR_HEIGHT,
+  BENJI_AVATAR_WIDTH,
+  SPRITE_BASE64,
+  TORX_AVATAR_HEIGHT,
+  TORX_AVATAR_WIDTH,
+} from "../config";
 import { CanvasBuffer } from "./canvasBuffer";
 import { PaletteApplier } from "./palletteApplier";
 import { Flip, SpriteSheet } from "./spriteSheet";
@@ -40,7 +46,7 @@ export class SpriteBuilder {
     // // Right Wing
     // buffer.drawSprite(sheet, bodySize + maxWingSize, 15, 0, 54, 8, 13, 1);
 
-    return this.applyPalette(buffer, palette);
+    return SpriteBuilder.applyPalette(buffer, palette);
   }
 
   static async createBasicEnemy(
@@ -51,7 +57,7 @@ export class SpriteBuilder {
 
     buffer.drawSprite(sheet, 0, 0, 16, 0, 14, 14);
 
-    return this.applyPalette(buffer, palette);
+    return SpriteBuilder.applyPalette(buffer, palette);
   }
 
   static async createModerateEnemy(
@@ -62,7 +68,7 @@ export class SpriteBuilder {
 
     buffer.drawSprite(sheet, 0, 0, 16, 15, 16, 16);
 
-    return this.applyPalette(buffer, palette);
+    return SpriteBuilder.applyPalette(buffer, palette);
   }
 
   static async createAdvancedEnemy(
@@ -73,7 +79,7 @@ export class SpriteBuilder {
 
     buffer.drawSprite(sheet, 0, 0, 16, 32, 16, 16);
 
-    return this.applyPalette(buffer, palette);
+    return SpriteBuilder.applyPalette(buffer, palette);
   }
 
   static async createBullet(
@@ -85,7 +91,7 @@ export class SpriteBuilder {
 
     buffer.drawSprite(sheet, 0, 0, 0, 0, 3, 3, flip);
 
-    return this.applyPalette(buffer, palette);
+    return SpriteBuilder.applyPalette(buffer, palette);
   }
 
   static async createPlayerAvatar(
@@ -94,9 +100,17 @@ export class SpriteBuilder {
   ): Promise<HTMLImageElement> {
     const buffer = new CanvasBuffer(BENJI_AVATAR_WIDTH, BENJI_AVATAR_HEIGHT);
 
-    buffer.drawSprite(sheet, 0, 0, 29, 52, BENJI_AVATAR_WIDTH, BENJI_AVATAR_HEIGHT);
+    buffer.drawSprite(
+      sheet,
+      0,
+      0,
+      29,
+      52,
+      BENJI_AVATAR_WIDTH,
+      BENJI_AVATAR_HEIGHT
+    );
 
-    return this.applyPalette(buffer, palette);
+    return SpriteBuilder.applyPalette(buffer, palette);
   }
 
   static async createTorxAvatar(
@@ -105,9 +119,17 @@ export class SpriteBuilder {
   ): Promise<HTMLImageElement> {
     const buffer = new CanvasBuffer(TORX_AVATAR_WIDTH, TORX_AVATAR_HEIGHT);
 
-    buffer.drawSprite(sheet, 0, 0, 47, 68, TORX_AVATAR_WIDTH, TORX_AVATAR_HEIGHT);
+    buffer.drawSprite(
+      sheet,
+      0,
+      0,
+      47,
+      68,
+      TORX_AVATAR_WIDTH,
+      TORX_AVATAR_HEIGHT
+    );
 
-    return this.applyPalette(buffer, palette);
+    return SpriteBuilder.applyPalette(buffer, palette);
   }
 
   private static async applyPalette(

@@ -7,13 +7,17 @@ import {
   BASE_TRANSITION_ANIMATION_TIME,
   BENJI_AVATAR_HEIGHT,
   BENJI_AVATAR_WIDTH,
-  PLAYER_AVATAR_PALETTE
+  PLAYER_AVATAR_PALETTE,
 } from "@/core/config";
 import { SpriteBuilder } from "@/core/graphics/spriteBuilder";
 
 class MenuState implements State {
-  playerAvatar!: HTMLImageElement;
+  playerAvatar: HTMLImageElement | null;
   spinTime = 0;
+
+  constructor() {
+    this.playerAvatar = null;
+  }
 
   private startGame() {
     screenTransitions.startFade(
@@ -90,7 +94,13 @@ class MenuState implements State {
       // context.clip();
 
       // Draw the avatar centered
-      context.drawImage(this.playerAvatar, -xSize / 2, -xSize / 2, xSize, ySize);
+      context.drawImage(
+        this.playerAvatar,
+        -xSize / 2,
+        -xSize / 2,
+        xSize,
+        ySize
+      );
 
       context.restore();
     }
