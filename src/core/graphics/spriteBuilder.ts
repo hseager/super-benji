@@ -1,4 +1,4 @@
-import { SPRITE_BASE64 } from "../config";
+import { BENJI_AVATAR_HEIGHT, BENJI_AVATAR_WIDTH, SPRITE_BASE64, TORX_AVATAR_HEIGHT, TORX_AVATAR_WIDTH } from "../config";
 import { CanvasBuffer } from "./canvasBuffer";
 import { PaletteApplier } from "./palletteApplier";
 import { Flip, SpriteSheet } from "./spriteSheet";
@@ -92,9 +92,20 @@ export class SpriteBuilder {
     sheet: SpriteSheet,
     palette: string[]
   ): Promise<HTMLImageElement> {
-    const buffer = new CanvasBuffer(32, 32);
+    const buffer = new CanvasBuffer(BENJI_AVATAR_WIDTH, BENJI_AVATAR_HEIGHT);
 
-    buffer.drawSprite(sheet, 0, 0, 32, 0, 32, 32);
+    buffer.drawSprite(sheet, 0, 0, 29, 52, BENJI_AVATAR_WIDTH, BENJI_AVATAR_HEIGHT);
+
+    return this.applyPalette(buffer, palette);
+  }
+
+  static async createTorxAvatar(
+    sheet: SpriteSheet,
+    palette: string[]
+  ): Promise<HTMLImageElement> {
+    const buffer = new CanvasBuffer(TORX_AVATAR_WIDTH, TORX_AVATAR_HEIGHT);
+
+    buffer.drawSprite(sheet, 0, 0, 47, 68, TORX_AVATAR_WIDTH, TORX_AVATAR_HEIGHT);
 
     return this.applyPalette(buffer, palette);
   }

@@ -5,7 +5,9 @@ import { gameState } from "./gameState";
 import { screenTransitions } from "@/core/controllers/ScreenTransitionController";
 import {
   BASE_TRANSITION_ANIMATION_TIME,
-  PLAYER_AVATAR_PALETTE,
+  BENJI_AVATAR_HEIGHT,
+  BENJI_AVATAR_WIDTH,
+  PLAYER_AVATAR_PALETTE
 } from "@/core/config";
 import { SpriteBuilder } from "@/core/graphics/spriteBuilder";
 
@@ -53,7 +55,7 @@ class MenuState implements State {
     context.font = `900 10px "Tahoma"`;
     context.textAlign = "center";
     context.fillStyle = "#f01b1bce";
-    context.fillText("JS13K 2025", 35, drawEngine.canvasHeight - 10);
+    context.fillText("js13k 2025", 35, drawEngine.canvasHeight - 10);
     context.restore();
 
     drawEngine.drawText(
@@ -72,22 +74,23 @@ class MenuState implements State {
 
       const x = drawEngine.getCenterX();
       const y = 127; // vertical center of avatar
-      const size = 64;
+      const xSize = BENJI_AVATAR_WIDTH * 2;
+      const ySize = BENJI_AVATAR_HEIGHT * 2;
 
-      // Scale horizontally using cosine for smooth flip
-      const scaleX = Math.cos(this.spinTime);
+      // // Scale horizontally using cosine for smooth flip
+      // const scaleX = Math.cos(this.spinTime);
 
-      context.save();
+      // context.save();
       context.translate(x, y); // move to avatar center
-      context.scale(scaleX, 1); // squash horizontally
+      // context.scale(scaleX, 1); // squash horizontally
 
-      // Clip to a circle so edges are round
-      context.beginPath();
-      context.arc(0, 0, size / 2, 0, Math.PI * 2);
-      context.clip();
+      // // Clip to a circle so edges are round
+      // context.beginPath();
+      // context.arc(0, 0, size / 2, 0, Math.PI * 2);
+      // context.clip();
 
       // Draw the avatar centered
-      context.drawImage(this.playerAvatar, -size / 2, -size / 2, size, size);
+      context.drawImage(this.playerAvatar, -xSize / 2, -xSize / 2, xSize, ySize);
 
       context.restore();
     }

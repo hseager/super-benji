@@ -26,6 +26,8 @@ export class UpgradeScreenController {
     this.canSelectUpgrade = true;
     this.generateUpgrades();
 
+    this.gameManager.storyController.chooseTorxDialog();
+
     clearClicks();
   }
 
@@ -91,13 +93,21 @@ export class UpgradeScreenController {
 
     // Title
     drawEngine.drawTitle("Zone Cleared!", 12, drawEngine.getCenterX(), 15);
-    drawEngine.drawText("Choose an upgrade:", 9, drawEngine.getCenterX(), 30);
+    drawEngine.drawText("Choose an upgrade:", 9, drawEngine.getCenterX(), 80);
 
+    this.gameManager.storyController.getTorxDialog(ctx);
+    this.drawUpgradeOptions(ctx);
+
+    ctx.restore();
+  }
+
+  drawUpgradeOptions(ctx: CanvasRenderingContext2D) {
+    ctx.save();
     const boxHeight = 45;
     const spacing = 10;
     const x = 5;
     const width = ctx.canvas.width - 10;
-    const startY = 40;
+    const startY = 90;
 
     clearClicks(); // reset for fresh click mapping
 
@@ -130,7 +140,5 @@ export class UpgradeScreenController {
         );
       });
     });
-
-    ctx.restore();
   }
 }

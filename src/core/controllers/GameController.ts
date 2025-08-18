@@ -8,6 +8,7 @@ import { SpriteController } from "./SpriteController";
 import { BulletPool } from "../model/bulletPool";
 import { UpgradeScreenController } from "./UpgradeScreenController";
 import { roll } from "../utilities";
+import { StoryController } from "./StoryController";
 
 export class GameController {
   spriteManager!: SpriteController;
@@ -17,10 +18,12 @@ export class GameController {
   enemies: Enemy[] = [];
   playerBulletPool!: BulletPool;
   enemyBulletPool!: BulletPool;
+  storyController: StoryController;
   upgradeScreen: UpgradeScreenController;
 
   constructor() {
     this.background = new Background();
+    this.storyController = new StoryController(this);
     this.upgradeScreen = new UpgradeScreenController(this);
   }
 

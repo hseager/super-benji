@@ -4,18 +4,22 @@ import {
   BASIC_ENEMY_PALETTE,
   ENEMY_BULLET_PALETTE,
   MODERATE_ENEMY_PALETTE,
+  PLAYER_AVATAR_PALETTE,
   PLAYER_BULLET_PALETTES,
   PLAYER_PALETTE,
+  TORX_AVATAR_PALETTE,
 } from "../config";
 import { SpriteSheet } from "../graphics/spriteSheet";
 
 export class SpriteController {
   playerSprite!: HTMLImageElement;
+  playerAvatar!: HTMLImageElement;
   basicEnemySprite!: HTMLImageElement;
   moderateEnemySprite!: HTMLImageElement;
   advancedEnemySprite!: HTMLImageElement;
   playerBulletSprite!: HTMLImageElement;
   enemyBulletSprite!: HTMLImageElement;
+  torxAvatar!: HTMLImageElement;
 
   private spriteSheet!: SpriteSheet;
 
@@ -47,6 +51,16 @@ export class SpriteController {
     this.enemyBulletSprite = await SpriteBuilder.createBullet(
       this.spriteSheet,
       ENEMY_BULLET_PALETTE
+    );
+
+    this.playerAvatar = await SpriteBuilder.createPlayerAvatar(
+      this.spriteSheet,
+      PLAYER_AVATAR_PALETTE
+    );
+
+    this.torxAvatar = await SpriteBuilder.createTorxAvatar(
+      this.spriteSheet,
+      TORX_AVATAR_PALETTE
     );
 
     return this;

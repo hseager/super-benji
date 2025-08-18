@@ -35,6 +35,7 @@ class GameState implements State {
 
     // Setup Music
     this.musicPlayer = new Music();
+    this.musicPlayer.play();
     this.gameManager = await new GameController().init();
     screenTransitions.startFade("fade-in", 1);
   }
