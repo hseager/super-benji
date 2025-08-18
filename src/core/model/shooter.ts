@@ -12,6 +12,7 @@ export class Shooter extends GameObject {
   velocity: Coordinates = { x: 0, y: 0 };
   shootingXOffset = 0;
 
+  active = true;
   bulletPool: BulletPool;
   attackCooldown = 0;
   attackSpeed = 0.1;
@@ -45,6 +46,8 @@ export class Shooter extends GameObject {
     bulletSpeed: number,
     bulletColor?: keyof typeof PLAYER_BULLET_PALETTES
   ) {
+    if (!this.active) return;
+
     if (this.attackCooldown <= 0) {
       if (!this.bulletPool) return;
       const bullet = this.bulletPool.get();

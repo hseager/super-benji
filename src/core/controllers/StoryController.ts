@@ -7,8 +7,14 @@ import { ImageProperties } from "../types";
 import { drawEngine } from "./DrawController";
 import { GameController } from "./GameController";
 
+type StoryLine = {
+  speaker: string;
+  text: string;
+};
+
 export class StoryController {
   gameController: GameController;
+  isActive = true;
 
   private torxDialog: string[] = [
     "Zone cleared. Time to upgrade.",
@@ -28,10 +34,101 @@ export class StoryController {
     "Fitting this might take a while.",
   ];
 
+  private introScript: StoryLine[] = [
+    // ---- Prologue / Mission Brief ----
+    {
+      speaker: "Maggie",
+      text: "Benji… the Iron Jackal has stolen the Heart of Pawrus.",
+    },
+    {
+      speaker: "Maggie",
+      text: "An ancient crystalline star-core that powers interstellar warp lanes.",
+    },
+    {
+      speaker: "Maggie",
+      text: "Without it, entire colonies risk isolation… and collapse.",
+    },
+    {
+      speaker: "Benji",
+      text: "Great. So we’re chasing a galaxy-crushing thief again?",
+    },
+    {
+      speaker: "Torx",
+      text: "You got it! And I’ve got sticky tape, wrenches, and more puns than you can handle.",
+    },
+
+    // ---- Area 1: Starfield Frontiers ----
+    {
+      speaker: "Maggie",
+      text: "First stop: Starfield Frontiers. Jackal’s raiding fleets are stripping systems bare.",
+    },
+    {
+      speaker: "Benji",
+      text: "And the scavenger drones? Fueling his mega-ship, no doubt.",
+    },
+    {
+      speaker: "Torx",
+      text: "This isn’t just survival. He’s building something… nasty.",
+    },
+    {
+      speaker: "Benji",
+      text: "Ugh. Jackal, always gotta make things personal.",
+    },
+    {
+      speaker: "Jackal (broadcast)",
+      text: "Ha! Feline Star League — always three steps behind!",
+    },
+    { speaker: "Torx", text: "Yep. That voice. Big ego, bigger lasers." },
+
+    // ---- Area 2: Verdantia Planet System ----
+    {
+      speaker: "Maggie",
+      text: "Verdantia. Jackal’s armies are harvesting planetary cores as fuel.",
+    },
+    { speaker: "Benji", text: "That’s… awful. And very illegal." },
+    { speaker: "Torx", text: "Awful, illegal… and we get to stop him. Score!" },
+    {
+      speaker: "Benji",
+      text: "Any bright ideas on how to actually beat a mega-ship?",
+    },
+    {
+      speaker: "Torx",
+      text: "Step one: survive. Step two: chaos. Step three: victory (hopefully).",
+    },
+    {
+      speaker: "Torx",
+      text: "Also, if the Heart of Purrima powers up… we’re all in the doghouse. Literally.",
+    },
+
+    // ---- Area 3: Ironfang Megaship ----
+    {
+      speaker: "Maggie",
+      text: "Ironfang Megaship. Bigger than a moon. Powered by the Heart.",
+    },
+    { speaker: "Benji", text: "Wow. That’s… intimidating." },
+    {
+      speaker: "Torx",
+      text: "Intimidating? Yes. Inviting for a good wrecking? Absolutely.",
+    },
+    {
+      speaker: "Benji",
+      text: "Final showdown time. Jackal, meet chaos and sticky tape.",
+    },
+    { speaker: "Torx", text: "Let’s go! Moon-sized boss fight incoming!" },
+  ];
+
   private currentTorxDialog: string | null = null; // stores the chosen line
 
   constructor(gameController: GameController) {
     this.gameController = gameController;
+  }
+
+  start() {
+    this.chooseTorxDialog();
+  }
+
+  draw() {
+    this.getTorxUpgradeDialog(drawEngine.context);
   }
 
   chooseTorxDialog() {
@@ -153,8 +250,9 @@ export class StoryController {
     }
   }
 
-  getTorxDialog(ctx: CanvasRenderingContext2D) {
+  getTorxUpgradeDialog(ctx: CanvasRenderingContext2D) {
     if (!this.currentTorxDialog) return;
+
     const words = this.currentTorxDialog.split(" ");
     const spriteManager = this.gameController.spriteManager;
 

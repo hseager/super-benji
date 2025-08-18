@@ -25,17 +25,6 @@ Story beat: Benji and Torx infiltrate the ship. Final showdown with the Iron Jac
 
 ### Stats
 
-#### Standard
-
-- Evasion
-- HP
-- Regen
-- Damage
-- Attack Speed
-- Luck (increases item rarity chance)
-- Move X/Y Speed
-- Bullet speed
-
 #### Special
 
 - Duoshot, Trishot, Multishot
@@ -60,7 +49,7 @@ Story beat: Benji and Torx infiltrate the ship. Final showdown with the Iron Jac
     - Intro
     - Avatars
     - Text, sounds
-- No damage bonus
+- Perfect bonus / Collect drops
   - Gives 3 options rather than 2 if you take no damage
 - Change music to atomospheric dnb
 - Levels

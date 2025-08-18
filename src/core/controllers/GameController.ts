@@ -92,7 +92,7 @@ export class GameController {
     );
 
     // Level logic
-    levelManager.update(delta);
+    levelManager && levelManager.update(delta);
   }
 
   draw(ctx: CanvasRenderingContext2D) {
@@ -104,10 +104,14 @@ export class GameController {
     this.background.draw(ctx);
     this.enemies.forEach((enemy) => enemy.draw(ctx));
     this.player.draw(ctx);
-    this.levelManager.draw();
+    this.levelManager && this.levelManager.draw();
 
     this.playerBulletPool.drawAll(ctx);
     this.enemyBulletPool.drawAll(ctx);
+
+    if (this.storyController.isActive) {
+      this.storyController.draw();
+    }
   }
 
   addEnemy(enemy: Enemy) {
@@ -132,9 +136,12 @@ export class GameController {
     // Create Player
     this.player = new Player(this, playerSprite, this.playerBulletPool);
 
+    this.storyController.start();
+
     // Setup levels
-    this.levelManager = new LevelController(this);
-    this.levelManager.startLevel(1);
+    // this.player.active = true;
+    // this.levelManager = new LevelController(this);
+    // this.levelManager.startLevel(1);
 
     return this;
   }

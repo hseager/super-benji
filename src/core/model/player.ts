@@ -8,13 +8,16 @@ import {
   PLAYER_MOVEMENT_X_SPEED,
   PLAYER_MOVEMENT_Y_SPEED,
 } from "@/core/config";
-import { logicalHeight, logicalWidth } from "@/core/controllers/DrawController";
+import { drawEngine } from "@/core/controllers/DrawController";
 import { Shooter } from "./shooter";
 import { BulletPool } from "./bulletPool";
 import { getInterpolatedColor } from "../utilities";
 import { GameController } from "../controllers/GameController";
 
 export class Player extends Shooter {
+  // Disabled by default for story, no shooting or movement
+  active = false;
+
   // Movement
   moveTolerance = 2; // Pixels to consider "close enough" to target
 
@@ -50,8 +53,8 @@ export class Player extends Shooter {
       gameController,
       sprite,
       bulletPool,
-      logicalWidth / 2,
-      logicalHeight - sprite.height,
+      drawEngine.getCenterX() - sprite.width / 2,
+      150,
       sprite.width,
       sprite.height
     );
@@ -69,7 +72,7 @@ export class Player extends Shooter {
       const dy = targetY - this.centerY() - 22;
       const distance = Math.hypot(dx, dy);
 
-      if (distance > this.moveTolerance) {
+      if (this.active && distance > this.moveTolerance) {
         // Normalize and move toward mouse at fixed speed
         this.x += (dx / distance) * this.movementXSpeed * delta;
         this.y += (dy / distance) * this.movementYSpeed * delta;
