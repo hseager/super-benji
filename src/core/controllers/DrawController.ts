@@ -138,7 +138,6 @@ class DrawController {
     this.blinkTimer += delta;
 
     if (this.blinkTimer >= this.menuActionBlinkSpeed) {
-      // 1 second toggle
       this.blinkTimer = 0;
       this.showMenuAction = !this.showMenuAction;
     }

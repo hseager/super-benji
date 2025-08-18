@@ -4,6 +4,7 @@ import { gameStateMachine } from "@/gameStates/gameStateMachine";
 import { gameState } from "./gameState";
 import { screenTransitions } from "@/core/controllers/ScreenTransitionController";
 import {
+  AVATAR_BODY_HEIGHT,
   BASE_TRANSITION_ANIMATION_TIME,
   BENJI_AVATAR_HEIGHT,
   BENJI_AVATAR_WIDTH,
@@ -79,7 +80,7 @@ class MenuState implements State {
       const x = drawEngine.getCenterX();
       const y = 127; // vertical center of avatar
       const xSize = BENJI_AVATAR_WIDTH * 2;
-      const ySize = BENJI_AVATAR_HEIGHT * 2;
+      const ySize = (BENJI_AVATAR_HEIGHT + AVATAR_BODY_HEIGHT) * 2;
 
       // // Scale horizontally using cosine for smooth flip
       // const scaleX = Math.cos(this.spinTime);

@@ -18,3 +18,8 @@ export type Coordinates = {
   y: number;
   x: number;
 };
+
+export type ImageProperties = Coordinates & {
+  width: number;
+  height: number;
+};

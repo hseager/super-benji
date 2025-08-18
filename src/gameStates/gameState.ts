@@ -18,20 +18,20 @@ class GameState implements State {
     this.ctx = drawEngine.context;
   }
 
-  // toggleFullscreen() {
-  //   if (!document.fullscreenElement) {
-  //     document.documentElement.requestFullscreen();
-  //   } else {
-  //     document.exitFullscreen();
-  //   }
-  // }
+  toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  }
 
   async onEnter() {
     // Force fullscreen for mobiles as the gestures in most browsers mess with the game
     // and cause them to exit the tab or refresh the page
-    // if (window.innerWidth <= 920) {
-    //   this.toggleFullscreen();
-    // }
+    if (window.innerWidth <= 720) {
+      this.toggleFullscreen();
+    }
 
     // Setup Music
     this.musicPlayer = new Music();

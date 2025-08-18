@@ -1,4 +1,6 @@
 import {
+  AVATAR_BODY_HEIGHT,
+  AVATAR_BODY_WIDTH,
   BENJI_AVATAR_HEIGHT,
   BENJI_AVATAR_WIDTH,
   SPRITE_BASE64,
@@ -98,8 +100,12 @@ export class SpriteBuilder {
     sheet: SpriteSheet,
     palette: string[]
   ): Promise<HTMLImageElement> {
-    const buffer = new CanvasBuffer(BENJI_AVATAR_WIDTH, BENJI_AVATAR_HEIGHT);
+    const buffer = new CanvasBuffer(
+      BENJI_AVATAR_WIDTH,
+      BENJI_AVATAR_HEIGHT + AVATAR_BODY_HEIGHT
+    );
 
+    // Head
     buffer.drawSprite(
       sheet,
       0,
@@ -110,6 +116,17 @@ export class SpriteBuilder {
       BENJI_AVATAR_HEIGHT
     );
 
+    // Body
+    buffer.drawSprite(
+      sheet,
+      1,
+      BENJI_AVATAR_HEIGHT,
+      47,
+      84,
+      AVATAR_BODY_WIDTH,
+      AVATAR_BODY_HEIGHT
+    );
+
     return SpriteBuilder.applyPalette(buffer, palette);
   }
 
@@ -117,7 +134,10 @@ export class SpriteBuilder {
     sheet: SpriteSheet,
     palette: string[]
   ): Promise<HTMLImageElement> {
-    const buffer = new CanvasBuffer(TORX_AVATAR_WIDTH, TORX_AVATAR_HEIGHT);
+    const buffer = new CanvasBuffer(
+      TORX_AVATAR_WIDTH,
+      TORX_AVATAR_HEIGHT + AVATAR_BODY_HEIGHT
+    );
 
     buffer.drawSprite(
       sheet,
@@ -127,6 +147,16 @@ export class SpriteBuilder {
       68,
       TORX_AVATAR_WIDTH,
       TORX_AVATAR_HEIGHT
+    );
+
+    buffer.drawSprite(
+      sheet,
+      1,
+      TORX_AVATAR_HEIGHT,
+      47,
+      84,
+      AVATAR_BODY_WIDTH,
+      AVATAR_BODY_HEIGHT
     );
 
     return SpriteBuilder.applyPalette(buffer, palette);

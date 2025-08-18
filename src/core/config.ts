@@ -147,6 +147,8 @@ export const LEVEL_NAMES = [
 ];
 
 // Sprites
+export const AVATAR_BODY_WIDTH = 16;
+export const AVATAR_BODY_HEIGHT = 5;
 export const BENJI_AVATAR_WIDTH = 18;
 export const BENJI_AVATAR_HEIGHT = 16;
 export const TORX_AVATAR_WIDTH = 17;
