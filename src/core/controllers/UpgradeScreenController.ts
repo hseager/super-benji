@@ -1,5 +1,6 @@
 import { BASE_TRANSITION_ANIMATION_TIME } from "../config";
 import { Upgrade } from "../types";
+import { shuffleArray } from "../utilities";
 import { addClick, clearClicks } from "./ClickController";
 import { drawEngine } from "./DrawController";
 import { GameController } from "./GameController";
@@ -76,7 +77,7 @@ export class UpgradeScreenController {
 
   generateUpgrades() {
     // Shuffle and pick first 3
-    const shuffled = [...this.allUpgrades].sort(() => Math.random() - 0.5);
+    const shuffled = shuffleArray(this.allUpgrades);
     this.upgrades = shuffled.slice(0, 3);
   }
 
@@ -110,7 +111,12 @@ export class UpgradeScreenController {
       if (!this.canSelectUpgrade) return;
       addClick(x, y, width, boxHeight, () => {
         upgrade.apply();
+
+        // Prevent multiple clicks
         this.canSelectUpgrade = false;
+
+        // Remove upgrade from future options
+        this.allUpgrades = this.allUpgrades.filter((u) => u !== upgrade);
 
         screenTransitions.startFade(
           "fade-out",

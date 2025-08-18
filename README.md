@@ -55,6 +55,11 @@ Story beat: Benji and Torx infiltrate the ship. Final showdown with the Iron Jac
 
 ### TODO
 
+- Story
+  - Characters
+    - Intro
+    - Avatars
+    - Text, sounds
 - No damage bonus
   - Gives 3 options rather than 2 if you take no damage
 - Change music to atomospheric dnb
@@ -65,8 +70,6 @@ Story beat: Benji and Torx infiltrate the ship. Final showdown with the Iron Jac
     - Faster
     - Health bars
     - Sound effects on kill
-  - Redo names: Jackals Domain - Zone 2
-- Inventory screen
 - Bosses
   - Music
   - Health bars
@@ -75,19 +78,9 @@ Story beat: Benji and Torx infiltrate the ship. Final showdown with the Iron Jac
 - Testing
   - Mobile
   - Githubpages
-- Items
-  - Hull (Health)
-  - Chasis (X movespeed)
-  - Boosters (Y movespeed)
-  - Canon (attack)
-  - Relic (everything)
-- Story
-  - Characters
-    - Intro
-    - Avatars
-    - Text, sounds
 - Add stat key to intro
 - Screen shake on taking damage
+- Make player speed change background speed
 
 # About
 
