@@ -13,7 +13,7 @@ import { screenTransitions } from "./ScreenTransitionController";
 
 export class LevelController {
   currentLevel: number = 1;
-  private baseEnemyCount = 0;
+  private baseEnemyCount = 4;
   private textDisplayTimer = 0;
   private gameManager: GameController;
   private enemyYSpawnOffset = 100;
