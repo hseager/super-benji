@@ -12,8 +12,8 @@ import {
 import { screenTransitions } from "./ScreenTransitionController";
 
 export class LevelController {
-  currentLevel: number = 1;
-  private baseEnemyCount = 4;
+  currentLevel: number = 0;
+  private baseEnemyCount = 1;
   private textDisplayTimer = 0;
   private gameManager: GameController;
   private enemyYSpawnOffset = 100;
@@ -22,31 +22,27 @@ export class LevelController {
     this.gameManager = gameManager;
   }
 
-  startLevel(level: number) {
-    this.currentLevel = level;
+  startLevel() {
+    this.gameManager.background = new Background();
     this.textDisplayTimer = 3;
     this.gameManager.enemies = []; // Clear previous enemies
     this.spawnEnemies();
   }
 
   nextLevel() {
-    if (this.currentLevel === 2) {
-      this.gameManager.storyController.progressStory(this.currentLevel);
-    } else {
-      this.startNextLevel();
+    this.currentLevel++;
+    this.gameManager.storyController.progressStory(this.currentLevel);
+
+    if (!this.gameManager.storyController.isActive) {
+      this.startLevel();
     }
-
-  }
-
-  startNextLevel() {
-    this.startLevel(this.currentLevel + 1);
-    this.gameManager.background = new Background(); // Change the BG colour each level
   }
 
   update(delta: number) {
     if (
       this.gameManager.enemies.length === 0 &&
-      !this.gameManager.upgradeScreen.isActive
+      !this.gameManager.upgradeScreen.isActive &&
+      !this.gameManager.storyController.isActive
     ) {
       if (!screenTransitions.isFading) {
         screenTransitions.startFade(

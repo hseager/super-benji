@@ -10,8 +10,79 @@ import { GameController } from "./GameController";
 export class StoryController {
   gameController: GameController;
   isActive = true;
-  currentAct: StoryActs = "intro";
+  currentAct: StoryActs = "act1";
   currentActPart = 0;
+  levelsToProgressStory = [2, 4, 6];
+
+  private storyActs: Record<StoryActs, StoryLine[]> = {
+    act1: [
+      {
+        speaker: "Maggie",
+        text: "Benji… the Iron Jackal has stolen the Titan Heart.",
+      },
+      {
+        speaker: "Maggie",
+        text: "An ancient crystalline star-core that powers interstellar warp lanes.",
+      },
+      {
+        speaker: "Maggie",
+        text: "Without it, entire colonies risk isolation… and collapse.",
+      },
+      {
+        speaker: "Benji",
+        text: "Great. So we’re chasing a galaxy-crushing thief again?",
+      },
+      {
+        speaker: "Torx",
+        text: "That’s right. First stop: Starfield Frontiers — Jackal’s raiders are tearing the system apart.",
+      },
+    ],
+    act2: [
+      // ---- Area 2: Verdantia Planet System ----
+      {
+        speaker: "Maggie",
+        text: "Next stop, Verdantia. Jackal’s forces are harvesting planetary cores to power a superweapon.",
+      },
+      {
+        speaker: "Benji",
+        text: "A superweapon? That’s… way above our pay grade.",
+      },
+      {
+        speaker: "Torx",
+        text: "Above our pay grade, sure… but at least we get hazard pay in adrenaline!", // joke
+      },
+      {
+        speaker: "Benji",
+        text: "Any bright ideas on how to take down a mega-ship before it completes the weapon?",
+      },
+      {
+        speaker: "Torx",
+        text: "Step one: survive. Step two: wreak some chaos. Step three: victory… hopefully without turning into space debris.",
+      },
+      {
+        speaker: "Maggie",
+        text: "And remember, if the Titan Heart powers up, it won’t just ruin our day—it’ll ruin everyone’s day. Literally.",
+      },
+    ],
+    act3: [
+      // ---- Area 3: Ironfang Megaship ----
+      {
+        speaker: "Maggie",
+        text: "Ironfang Megaship. Bigger than a moon. Powered by the Heart.",
+      },
+      { speaker: "Benji", text: "Wow. That’s… intimidating." },
+      {
+        speaker: "Torx",
+        text: "Intimidating? Yes. Inviting for a good wrecking? Absolutely.",
+      },
+      {
+        speaker: "Benji",
+        text: "Final showdown time. Jackal, meet chaos and sticky tape.",
+      },
+      { speaker: "Torx", text: "Let’s go! Moon-sized boss fight incoming!" },
+    ],
+    epilogue: [],
+  };
 
   private torxDialog: string[] = [
     "Scrap secured. Upgrade time!",
@@ -31,95 +102,6 @@ export class StoryController {
     "Fitting this might take a plasma torch… or luck.",
   ];
 
-  private introScript: StoryLine[] = [
-    // ---- Prologue / Mission Brief ----
-    {
-      speaker: "Maggie",
-      text: "Benji… the Iron Jackal has stolen the Titan Heart.",
-    },
-    {
-      speaker: "Maggie",
-      text: "An ancient crystalline star-core that powers interstellar warp lanes.",
-    },
-    {
-      speaker: "Maggie",
-      text: "Without it, entire colonies risk isolation… and collapse.",
-    },
-    {
-      speaker: "Benji",
-      text: "Great. So we’re chasing a galaxy-crushing thief again?",
-    },
-    {
-      speaker: "Torx",
-      text: "That’s right. First stop: Starfield Frontiers — Jackal’s raiders are tearing the system apart.",
-    },
-  ];
-
-  // private act1 = [
-  //   // ---- Area 1: Starfield Frontiers ----
-  //   {
-  //     speaker: "Maggie",
-  //     text: "First stop: Starfield Frontiers. Jackal’s raiding fleets are stripping systems bare.",
-  //   },
-  //   {
-  //     speaker: "Benji",
-  //     text: "And the scavenger drones? Fueling his mega-ship, no doubt.",
-  //   },
-  //   {
-  //     speaker: "Torx",
-  //     text: "This isn’t just survival. He’s building something… nasty.",
-  //   },
-  //   {
-  //     speaker: "Benji",
-  //     text: "Ugh. Jackal, always gotta make things personal.",
-  //   },
-  //   {
-  //     speaker: "Jackal (broadcast)",
-  //     text: "Ha! Feline Star League — always three steps behind!",
-  //   },
-  //   { speaker: "Torx", text: "Yep. That voice. Big ego, bigger lasers." },
-  // ];
-
-  // private act2 = [
-  //   // ---- Area 2: Verdantia Planet System ----
-  //   {
-  //     speaker: "Maggie",
-  //     text: "Verdantia. Jackal’s armies are harvesting planetary cores as fuel.",
-  //   },
-  //   { speaker: "Benji", text: "That’s… awful. And very illegal." },
-  //   { speaker: "Torx", text: "Awful, illegal… and we get to stop him. Score!" },
-  //   {
-  //     speaker: "Benji",
-  //     text: "Any bright ideas on how to actually beat a mega-ship?",
-  //   },
-  //   {
-  //     speaker: "Torx",
-  //     text: "Step one: survive. Step two: chaos. Step three: victory (hopefully).",
-  //   },
-  //   {
-  //     speaker: "Torx",
-  //     text: "Also, if the Heart of Purrima powers up… we’re all in the doghouse. Literally.",
-  //   },
-  // ];
-
-  // private act3 = [
-  //   // ---- Area 3: Ironfang Megaship ----
-  //   {
-  //     speaker: "Maggie",
-  //     text: "Ironfang Megaship. Bigger than a moon. Powered by the Heart.",
-  //   },
-  //   { speaker: "Benji", text: "Wow. That’s… intimidating." },
-  //   {
-  //     speaker: "Torx",
-  //     text: "Intimidating? Yes. Inviting for a good wrecking? Absolutely.",
-  //   },
-  //   {
-  //     speaker: "Benji",
-  //     text: "Final showdown time. Jackal, meet chaos and sticky tape.",
-  //   },
-  //   { speaker: "Torx", text: "Let’s go! Moon-sized boss fight incoming!" },
-  // ];
-
   private currentTorxDialog: string | null = null; // stores the chosen line
 
   constructor(gameController: GameController) {
@@ -134,36 +116,54 @@ export class StoryController {
     });
   }
 
+  private getCurrentActScript(): StoryLine[] {
+    return this.storyActs[this.currentAct];
+  }
+
   next() {
-    this.currentActPart++;
+    const actScript = this.getCurrentActScript();
 
-    if (this.currentActPart >= this.introScript.length) {
-      this.currentActPart = this.introScript.length - 1; // clamp
+    if (this.currentActPart < actScript.length - 1) {
+      // Move to next part of current act
+      this.currentActPart++;
+    } else {
+      // End of act, move to next act
+      this.currentActPart = 0;
 
-      if (this.currentAct === 'intro') {
-        this.currentAct = "act1";
-        this.gameController.startGame();
-      } else if (this.currentAct === 'act1') {
+      if (this.currentAct === "act1") {
         this.currentAct = "act2";
-      } else if (this.currentAct === 'act2') {
+        this.gameController.startGame();
+        this.gameController.resumeGame();
+      } else if (this.currentAct === "act2") {
         this.currentAct = "act3";
-      } else if (this.currentAct === 'act3') {
+        this.gameController.levelManager.startLevel();
+        this.gameController.resumeGame();
+      } else if (this.currentAct === "act3") {
         this.currentAct = "epilogue";
+        this.gameController.levelManager.startLevel();
+        this.gameController.resumeGame();
       }
     }
   }
 
   progressStory(level: number) {
-    if (level === 2) {
+    // Only pause/resume game; don't change currentAct
+    if (this.levelsToProgressStory.includes(level)) {
       this.gameController.pauseGame();
-      this.isActive = true;
+    } else {
+      this.gameController.resumeGame();
     }
   }
 
   draw() {
-    const actPart = this.introScript[this.currentActPart];
-    const avatar = this.getDialogAvatar(actPart.speaker);
+    if (!this.isActive) return;
+    const actScript = this.getCurrentActScript();
+    if (!actScript.length) return;
 
+    const actPart = actScript[this.currentActPart];
+    if (!actPart) return;
+
+    const avatar = this.getDialogAvatar(actPart.speaker);
     const dialogBoxY = 190;
     const dialogBoxHeight = 50;
 
@@ -234,9 +234,8 @@ export class StoryController {
     sprite: HTMLImageElement,
     words: string[],
     dialogBoxY: number,
-    dialogBoxHeight: number,
+    dialogBoxHeight: number
   ) {
-
     const avatarPosition: ImageProperties = {
       x: 15,
       y: dialogBoxY - 34,

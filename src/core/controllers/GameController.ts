@@ -145,11 +145,16 @@ export class GameController {
     this.storyController.isActive = false;
     this.player.active = true;
     this.levelManager = new LevelController(this);
-    this.levelManager.startLevel(1);
+    this.levelManager.nextLevel();
+  }
+
+  resumeGame() {
+    this.storyController.isActive = false;
+    this.player.active = true;
   }
 
   pauseGame() {
-    this.storyController.isActive = false;
+    this.storyController.isActive = true;
     this.player.active = false;
   }
 }
