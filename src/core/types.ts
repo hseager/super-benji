@@ -29,5 +29,5 @@ export type StoryLine = {
   text: string;
 };
 
-export type StoryActs = "intro" | "act1" | "act2" | "act3";
+export type StoryActs = "intro" | "act1" | "act2" | "act3" | "epilogue";
 export type Character = "Benji" | "Maggie" | "Torx" | "Jackal";

@@ -135,12 +135,21 @@ export class GameController {
 
     // Create Player
     this.player = new Player(this, playerSprite, this.playerBulletPool);
-
-    // Setup levels
-    // this.player.active = true;
-    // this.levelManager = new LevelController(this);
-    // this.levelManager.startLevel(1);
+    // Begin Story
+    this.storyController.start();
 
     return this;
+  }
+
+  startGame() {
+    this.storyController.isActive = false;
+    this.player.active = true;
+    this.levelManager = new LevelController(this);
+    this.levelManager.startLevel(1);
+  }
+
+  pauseGame() {
+    this.storyController.isActive = false;
+    this.player.active = false;
   }
 }

@@ -149,9 +149,9 @@ export class UpgradeController {
     {
       rarity: "Common",
       name: "Left-over Sushi",
-      description: "HP +10, REGEN +5",
+      description: "HP +10, REGEN +1",
       apply: () => {
-        this.gameManager.player.regen += 10;
+        this.gameManager.player.regen += 1;
         this.gameManager.player.maxLife += 10;
         this.gameManager.player.life += 10;
       },

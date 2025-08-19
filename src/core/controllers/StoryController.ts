@@ -3,32 +3,32 @@ import {
   TORX_AVATAR_HEIGHT,
   TORX_AVATAR_WIDTH,
 } from "../config";
-import { Character, ImageProperties, StoryLine } from "../types";
+import { Character, ImageProperties, StoryActs, StoryLine } from "../types";
 import { drawEngine } from "./DrawController";
 import { GameController } from "./GameController";
 
 export class StoryController {
   gameController: GameController;
   isActive = true;
-  currentAct = "intro";
+  currentAct: StoryActs = "intro";
   currentActPart = 0;
 
   private torxDialog: string[] = [
-    "Zone cleared. Time to upgrade.",
-    "Your scrap haul looks promising.",
-    "Another zone down. Nice work Benji.",
-    "The reactor’s stable… for now.",
-    "Enemy tech is scrap for us.",
-    "Should I cut the green or red wire?",
-    "I’ve patched the hull, with sticky tape.",
-    "Do you think Maggie likes silver?",
-    "What does this big red button do?",
-    "This isn't as easy as it looks.",
-    "Don’t let the Jackal see this upgrade coming.",
-    "Look what I found!",
-    "This part looks purr-fect!",
-    "Keep your claws sharp, Jackal’s crew is close.",
-    "Fitting this might take a while.",
+    "Scrap secured. Upgrade time!",
+    "Jackal’s junk is our treasure.",
+    "Zone clear. Let’s bolt on something new.",
+    "Reactor’s humming—don’t breathe too close.",
+    "Enemy tech? More like spare parts.",
+    "Cut the green wire… I think.",
+    "Hull patched. Tape counts as armor, right?",
+    "Think Maggie prefers chrome or silver?",
+    "Big red button… probably important.",
+    "Not easy, but nothing worth doing is.",
+    "Shh—don’t tell the Jackal about this mod.",
+    "Found a shiny bit for the collection!",
+    "This part’s purr-fect for Benji’s claws.",
+    "Stay sharp—Jackal’s crew love ambushes.",
+    "Fitting this might take a plasma torch… or luck.",
   ];
 
   private introScript: StoryLine[] = [
@@ -51,79 +51,113 @@ export class StoryController {
     },
     {
       speaker: "Torx",
-      text: "You got it! And I’ve got sticky tape, wrenches, and more puns than you can handle.",
+      text: "That’s right. First stop: Starfield Frontiers — Jackal’s raiders are tearing the system apart.",
     },
   ];
 
-  private act1 = [
-    // ---- Area 1: Starfield Frontiers ----
-    {
-      speaker: "Maggie",
-      text: "First stop: Starfield Frontiers. Jackal’s raiding fleets are stripping systems bare.",
-    },
-    {
-      speaker: "Benji",
-      text: "And the scavenger drones? Fueling his mega-ship, no doubt.",
-    },
-    {
-      speaker: "Torx",
-      text: "This isn’t just survival. He’s building something… nasty.",
-    },
-    {
-      speaker: "Benji",
-      text: "Ugh. Jackal, always gotta make things personal.",
-    },
-    {
-      speaker: "Jackal (broadcast)",
-      text: "Ha! Feline Star League — always three steps behind!",
-    },
-    { speaker: "Torx", text: "Yep. That voice. Big ego, bigger lasers." },
-  ];
+  // private act1 = [
+  //   // ---- Area 1: Starfield Frontiers ----
+  //   {
+  //     speaker: "Maggie",
+  //     text: "First stop: Starfield Frontiers. Jackal’s raiding fleets are stripping systems bare.",
+  //   },
+  //   {
+  //     speaker: "Benji",
+  //     text: "And the scavenger drones? Fueling his mega-ship, no doubt.",
+  //   },
+  //   {
+  //     speaker: "Torx",
+  //     text: "This isn’t just survival. He’s building something… nasty.",
+  //   },
+  //   {
+  //     speaker: "Benji",
+  //     text: "Ugh. Jackal, always gotta make things personal.",
+  //   },
+  //   {
+  //     speaker: "Jackal (broadcast)",
+  //     text: "Ha! Feline Star League — always three steps behind!",
+  //   },
+  //   { speaker: "Torx", text: "Yep. That voice. Big ego, bigger lasers." },
+  // ];
 
-  private act2 = [
-    // ---- Area 2: Verdantia Planet System ----
-    {
-      speaker: "Maggie",
-      text: "Verdantia. Jackal’s armies are harvesting planetary cores as fuel.",
-    },
-    { speaker: "Benji", text: "That’s… awful. And very illegal." },
-    { speaker: "Torx", text: "Awful, illegal… and we get to stop him. Score!" },
-    {
-      speaker: "Benji",
-      text: "Any bright ideas on how to actually beat a mega-ship?",
-    },
-    {
-      speaker: "Torx",
-      text: "Step one: survive. Step two: chaos. Step three: victory (hopefully).",
-    },
-    {
-      speaker: "Torx",
-      text: "Also, if the Heart of Purrima powers up… we’re all in the doghouse. Literally.",
-    },
-  ];
+  // private act2 = [
+  //   // ---- Area 2: Verdantia Planet System ----
+  //   {
+  //     speaker: "Maggie",
+  //     text: "Verdantia. Jackal’s armies are harvesting planetary cores as fuel.",
+  //   },
+  //   { speaker: "Benji", text: "That’s… awful. And very illegal." },
+  //   { speaker: "Torx", text: "Awful, illegal… and we get to stop him. Score!" },
+  //   {
+  //     speaker: "Benji",
+  //     text: "Any bright ideas on how to actually beat a mega-ship?",
+  //   },
+  //   {
+  //     speaker: "Torx",
+  //     text: "Step one: survive. Step two: chaos. Step three: victory (hopefully).",
+  //   },
+  //   {
+  //     speaker: "Torx",
+  //     text: "Also, if the Heart of Purrima powers up… we’re all in the doghouse. Literally.",
+  //   },
+  // ];
 
-  private act3 = [
-    // ---- Area 3: Ironfang Megaship ----
-    {
-      speaker: "Maggie",
-      text: "Ironfang Megaship. Bigger than a moon. Powered by the Heart.",
-    },
-    { speaker: "Benji", text: "Wow. That’s… intimidating." },
-    {
-      speaker: "Torx",
-      text: "Intimidating? Yes. Inviting for a good wrecking? Absolutely.",
-    },
-    {
-      speaker: "Benji",
-      text: "Final showdown time. Jackal, meet chaos and sticky tape.",
-    },
-    { speaker: "Torx", text: "Let’s go! Moon-sized boss fight incoming!" },
-  ];
+  // private act3 = [
+  //   // ---- Area 3: Ironfang Megaship ----
+  //   {
+  //     speaker: "Maggie",
+  //     text: "Ironfang Megaship. Bigger than a moon. Powered by the Heart.",
+  //   },
+  //   { speaker: "Benji", text: "Wow. That’s… intimidating." },
+  //   {
+  //     speaker: "Torx",
+  //     text: "Intimidating? Yes. Inviting for a good wrecking? Absolutely.",
+  //   },
+  //   {
+  //     speaker: "Benji",
+  //     text: "Final showdown time. Jackal, meet chaos and sticky tape.",
+  //   },
+  //   { speaker: "Torx", text: "Let’s go! Moon-sized boss fight incoming!" },
+  // ];
 
   private currentTorxDialog: string | null = null; // stores the chosen line
 
   constructor(gameController: GameController) {
     this.gameController = gameController;
+  }
+
+  start() {
+    drawEngine.context.canvas.addEventListener("click", () => {
+      if (this.isActive) {
+        this.next();
+      }
+    });
+  }
+
+  next() {
+    this.currentActPart++;
+
+    if (this.currentActPart >= this.introScript.length) {
+      this.currentActPart = this.introScript.length - 1; // clamp
+
+      if (this.currentAct === 'intro') {
+        this.currentAct = "act1";
+        this.gameController.startGame();
+      } else if (this.currentAct === 'act1') {
+        this.currentAct = "act2";
+      } else if (this.currentAct === 'act2') {
+        this.currentAct = "act3";
+      } else if (this.currentAct === 'act3') {
+        this.currentAct = "epilogue";
+      }
+    }
+  }
+
+  progressStory(level: number) {
+    if (level === 2) {
+      this.gameController.pauseGame();
+      this.isActive = true;
+    }
   }
 
   draw() {
@@ -139,13 +173,7 @@ export class StoryController {
       avatar,
       actPart.text.split(" "),
       dialogBoxY,
-      dialogBoxHeight,
-      {
-        x: 15,
-        y: dialogBoxY - 35,
-        width: TORX_AVATAR_WIDTH,
-        height: TORX_AVATAR_HEIGHT + AVATAR_BODY_HEIGHT,
-      }
+      dialogBoxHeight
     );
   }
 
@@ -207,8 +235,15 @@ export class StoryController {
     words: string[],
     dialogBoxY: number,
     dialogBoxHeight: number,
-    avatarPosition: ImageProperties
   ) {
+
+    const avatarPosition: ImageProperties = {
+      x: 15,
+      y: dialogBoxY - 34,
+      width: TORX_AVATAR_WIDTH,
+      height: TORX_AVATAR_HEIGHT + AVATAR_BODY_HEIGHT,
+    };
+
     const boxPadding = 5;
     const lineHeight = 10;
     const radius = 4;
@@ -293,7 +328,7 @@ export class StoryController {
     const words = this.currentTorxDialog.split(" ");
     const spriteManager = this.gameController.spriteManager;
 
-    const dialogBoxY = 30;
+    const dialogBoxY = 55;
     const dialogBoxHeight = 30;
 
     this.drawDialogBox(
@@ -302,13 +337,7 @@ export class StoryController {
       spriteManager.torxAvatar,
       words,
       dialogBoxY,
-      dialogBoxHeight,
-      {
-        x: 10,
-        y: dialogBoxHeight,
-        width: TORX_AVATAR_WIDTH,
-        height: TORX_AVATAR_HEIGHT + AVATAR_BODY_HEIGHT,
-      }
+      dialogBoxHeight
     );
 
     ctx.restore();

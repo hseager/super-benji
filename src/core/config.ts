@@ -40,16 +40,16 @@ export const PLAYER_PALETTE = [
 ];
 
 export const PLAYER_AVATAR_PALETTE = [
-  "#000000",
-  "#1b1200",
-  "#271701",
-  "#3a2200",
-  "#241700",
-  "#80491d",
-  "#996e1f",
-  "#ecc89f",
-  "#ad8a48",
-  "#5ec7f8",
+  "#1a1a1a", // near-black
+  "#311f00", // dark brown
+  "#432508", // warm deep brown
+  "#522f00", // orange-brown, darker
+  "#332200", // dark umber
+  "#915525", // earthy orange, toned down
+  "#a87d32", // muted golden brown
+  "#eccfae", // soft light skin tone
+  "#bb9a54", // subdued gold
+  "#73cff4", // slightly darker sky blue
 ];
 
 // export const PLAYER_PALETTE = [

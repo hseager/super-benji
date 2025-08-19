@@ -93,7 +93,6 @@ export class UpgradeScreenController {
 
     // Title
     drawEngine.drawTitle("Zone Cleared!", 12, drawEngine.getCenterX(), 15);
-    drawEngine.drawText("Choose an upgrade:", 9, drawEngine.getCenterX(), 80);
 
     this.gameManager.storyController.getTorxUpgradeDialog(ctx);
     this.drawUpgradeOptions(ctx);

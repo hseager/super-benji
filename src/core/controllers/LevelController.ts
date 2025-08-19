@@ -30,6 +30,15 @@ export class LevelController {
   }
 
   nextLevel() {
+    if (this.currentLevel === 2) {
+      this.gameManager.storyController.progressStory(this.currentLevel);
+    } else {
+      this.startNextLevel();
+    }
+
+  }
+
+  startNextLevel() {
     this.startLevel(this.currentLevel + 1);
     this.gameManager.background = new Background(); // Change the BG colour each level
   }

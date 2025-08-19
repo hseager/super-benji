@@ -64,15 +64,13 @@ Story beat: Benji and Torx infiltrate the ship. Final showdown with the Iron Jac
   - Health bars
   - Sound effects on kill
   - Redo enemy sprites, Iron Jackal Fleet
-- Testing
-  - Mobile
-  - Githubpages
-- Add stat key to intro
+- Add stat key to intro text
 - Screen shake on taking damage
 - Loot
   - Balance stats
   - Rarity chance
-- Polish
+- UI Polish
+  - Better fonts
 
 # About
 
