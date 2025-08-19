@@ -169,8 +169,8 @@ export class StoryController {
     return speaker === "Maggie"
       ? sm.maggieAvatar
       : speaker === "Torx"
-      ? sm.torxAvatar
-      : sm.playerAvatar;
+        ? sm.torxAvatar
+        : sm.playerAvatar;
   }
 
   private drawDialogBox(
@@ -190,8 +190,7 @@ export class StoryController {
 
     // Draw box
     const boxPadding = 5,
-      lineHeight = 10,
-      radius = 4;
+      lineHeight = 10;
     const maxTextWidth =
       drawEngine.canvasWidth - (avatarPos.width + boxPadding);
 
@@ -208,36 +207,9 @@ export class StoryController {
 
     const textHeight = lines.length * lineHeight + boxPadding;
     const boxHeight = Math.max(dialogBoxHeight, textHeight);
-    const boxWidth = drawEngine.canvasWidth - boxPadding;
+    const boxWidth = drawEngine.canvasWidth - boxPadding * 2;
 
-    ctx.save();
-    ctx.fillStyle = "#1f1722";
-    ctx.beginPath();
-    ctx.moveTo(boxPadding + radius, dialogBoxY);
-    ctx.lineTo(boxWidth - radius, dialogBoxY);
-    ctx.quadraticCurveTo(boxWidth, dialogBoxY, boxWidth, dialogBoxY + radius);
-    ctx.lineTo(boxWidth, dialogBoxY + boxHeight - radius);
-    ctx.quadraticCurveTo(
-      boxWidth,
-      dialogBoxY + boxHeight,
-      boxWidth - radius,
-      dialogBoxY + boxHeight
-    );
-    ctx.lineTo(boxPadding + radius, dialogBoxY + boxHeight);
-    ctx.quadraticCurveTo(
-      boxPadding,
-      dialogBoxY + boxHeight,
-      boxPadding,
-      dialogBoxY + boxHeight - radius
-    );
-    ctx.lineTo(boxPadding, dialogBoxY + radius);
-    ctx.quadraticCurveTo(
-      boxPadding,
-      dialogBoxY,
-      boxPadding + radius,
-      dialogBoxY
-    );
-    ctx.fill();
+    drawEngine.drawRoundedRect(ctx, boxPadding, dialogBoxY, boxWidth, boxHeight, 4, "#1f1722");
 
     // Draw avatar & text
     this.drawAvatar(ctx, speaker, this.getAvatar(speaker), avatarPos);
