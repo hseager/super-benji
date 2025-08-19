@@ -35,7 +35,7 @@ class GameState implements State {
     this.musicPlayer = new Music();
     this.musicPlayer.play();
     this.gameManager = await new GameController().init();
-    screenTransitions.startFade("fade-in", 1);
+    screenTransitions.start(0, 1, 1);
   }
 
   onUpdate(delta: number) {
@@ -51,16 +51,16 @@ class GameState implements State {
 
   private checkLoseCondition() {
     if (this.gameManager.player.isDead()) {
-      if (!screenTransitions.isFading) {
-        screenTransitions.startFade(
-          "fade-out",
+      if (!screenTransitions.active) {
+        screenTransitions.start(
+          1, 0,
           BASE_TRANSITION_ANIMATION_TIME,
           () => {
             gameStateMachine.setState(
               new LoseState(this.gameManager.levelManager.currentLevel)
             );
-            screenTransitions.startFade(
-              "fade-in",
+            screenTransitions.start(
+              0, 1,
               BASE_TRANSITION_ANIMATION_TIME
             );
           }

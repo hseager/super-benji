@@ -21,8 +21,8 @@ class MenuState implements State {
   }
 
   private startGame() {
-    screenTransitions.startFade(
-      "fade-out",
+    screenTransitions.start(
+      1, 0,
       BASE_TRANSITION_ANIMATION_TIME,
       () => {
         gameStateMachine.setState(gameState);

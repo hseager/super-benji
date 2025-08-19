@@ -44,13 +44,13 @@ export class LevelController {
       !this.gameManager.upgradeScreen.isActive &&
       !this.gameManager.storyController.isActive
     ) {
-      if (!screenTransitions.isFading) {
-        screenTransitions.startFade(
-          "fade-out",
+      if (!screenTransitions.active) {
+        screenTransitions.start(
+          1, 0,
           BASE_TRANSITION_ANIMATION_TIME,
           () => {
             this.gameManager.upgradeScreen.start();
-            screenTransitions.startFade("fade-in");
+            screenTransitions.start(0, 1, BASE_TRANSITION_ANIMATION_TIME);
           }
         );
       }

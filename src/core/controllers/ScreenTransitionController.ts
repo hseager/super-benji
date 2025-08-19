@@ -1,53 +1,36 @@
 import { drawEngine } from "./DrawController";
 
+// Minified for JS13k
 class ScreenTransitionController {
-  fadeAlpha = 0;
-  isFading = false;
-  fadeType: "fade-in" | "fade-out" | null = null;
-  fadeDuration = 1;
-  fadeElapsed = 0;
-  onFadeComplete?: () => void;
+  a = 0; e = 0; d = 1; f = 0;
+  s = 0; g = 0; c?: () => void;
 
-  startFade(
-    type: "fade-in" | "fade-out",
-    duration: number = 0.5,
-    onComplete?: () => void
-  ) {
-    this.fadeType = type;
-    this.fadeDuration = duration;
-    this.fadeElapsed = 0;
-    this.isFading = true;
-    this.onFadeComplete = onComplete;
-
-    this.fadeAlpha = type === "fade-in" ? 1 : 0;
+  start(from: number, to: number, dur: number, onDone?: () => void) {
+    this.s = from; this.g = to; this.a = from;
+    this.d = dur; this.e = 0;
+    this.f = 1;
+    this.c = onDone;
   }
 
-  update(delta: number) {
-    if (!this.isFading) return;
-
-    this.fadeElapsed += delta;
-    let t = Math.min(this.fadeElapsed / this.fadeDuration, 1);
-
-    if (this.fadeType === "fade-in") {
-      this.fadeAlpha = 1 - t; // 1 → 0
-    } else if (this.fadeType === "fade-out") {
-      this.fadeAlpha = t; // 0 → 1
-    }
-
-    if (t >= 1) {
-      this.isFading = false;
-      this.onFadeComplete?.();
-    }
+  update(dt: number) {
+    if (!this.f) return;
+    this.e += dt;
+    let t = Math.min(this.e / this.d, 1);
+    this.a = this.s + (this.g - this.s) * t;
+    if (t >= 1) { this.f = 0; this.c?.(); }
   }
 
   draw(ctx: CanvasRenderingContext2D) {
-    if (!this.isFading && this.fadeAlpha === 0) return;
-
-    ctx.save();
-    ctx.fillStyle = `rgba(0, 0, 0, ${this.fadeAlpha * 0.8})`;
+    if (!this.f && this.a <= 0) return;
+    // Flip meaning: 1 = clear, 0 = black
+    ctx.fillStyle = `rgba(0,0,0,${(1 - this.a) * 0.8})`;
     ctx.fillRect(0, 0, drawEngine.canvasWidth, drawEngine.canvasHeight);
-    ctx.restore();
+  }
+
+  get active() {
+    return this.f === 1;
   }
 }
+
 
 export const screenTransitions = new ScreenTransitionController();

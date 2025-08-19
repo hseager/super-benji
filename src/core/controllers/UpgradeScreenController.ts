@@ -127,14 +127,14 @@ export class UpgradeScreenController {
         // Remove upgrade from future options
         this.allUpgrades = this.allUpgrades.filter((u) => u !== upgrade);
 
-        screenTransitions.startFade(
-          "fade-out",
+        screenTransitions.start(
+          1, 0,
           BASE_TRANSITION_ANIMATION_TIME,
           () => {
             clearClicks();
             this.isActive = false;
             this.gameManager.levelManager.nextLevel();
-            screenTransitions.startFade("fade-in");
+            screenTransitions.start(0, 1, BASE_TRANSITION_ANIMATION_TIME);
           }
         );
       });
