@@ -63,7 +63,12 @@ export class UpgradeScreenController {
   generateUpgrades() {
     // Shuffle and pick first 3
     const shuffled = shuffleArray(this.allUpgrades);
-    this.upgrades = shuffled.slice(0, 3);
+    // this.upgrades = shuffled.slice(0, 3);
+    this.upgrades = [
+      this.allUpgrades[0],
+      this.allUpgrades[1],
+      this.allUpgrades[2],
+    ];
   }
 
   draw(ctx: CanvasRenderingContext2D) {
@@ -110,16 +115,12 @@ export class UpgradeScreenController {
         // Remove upgrade from future options
         this.allUpgrades = this.allUpgrades.filter((u) => u !== upgrade);
 
-        screenTransitions.start(
-          1, 0,
-          BASE_TRANSITION_ANIMATION_TIME,
-          () => {
-            clearClicks();
-            this.isActive = false;
-            this.gameManager.levelManager.nextLevel();
-            screenTransitions.start(0, 1, BASE_TRANSITION_ANIMATION_TIME);
-          }
-        );
+        screenTransitions.start(1, 0, BASE_TRANSITION_ANIMATION_TIME, () => {
+          clearClicks();
+          this.isActive = false;
+          this.gameManager.levelManager.nextLevel();
+          screenTransitions.start(0, 1, BASE_TRANSITION_ANIMATION_TIME);
+        });
       });
     });
   }

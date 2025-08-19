@@ -4,9 +4,7 @@ import { GameController } from "./GameController";
 export class UpgradeController {
   private gameManager: GameController;
 
-  // TODO Change color of bullets with weapons
   // Change color of boosters
-  // Trishot etc
   // Adamite/Mithril panel colour
   private upgrades: Upgrade[] = [
     // Offensive
@@ -24,22 +22,36 @@ export class UpgradeController {
       rarity: "Rare",
       name: "Nebula Railcoil",
       description: "DMG +5, PROJ SPD +20%",
+      description2: "Burst Shot",
       apply: () => {
         this.gameManager.player.damage += 5;
         this.gameManager.player.bulletSpeed *= 1.2;
         this.gameManager.player.bulletColor = "purple";
+        this.gameManager.player.shootPattern = "burst";
       },
     },
     {
       rarity: "Epic",
       name: "Iron Fang Torpedo",
-      description: "DMG +10, PROJ SPD +20%",
-      description2: "ATK SPD +20%",
+      description: "DMG +10, ATK SPD +20%",
+      description2: "Spread Shot",
       apply: () => {
         this.gameManager.player.damage += 10;
-        this.gameManager.player.bulletSpeed *= 1.2;
         this.gameManager.player.attackSpeed *= 0.8;
         this.gameManager.player.bulletColor = "orange";
+        this.gameManager.player.shootPattern = "spread";
+      },
+    },
+    {
+      rarity: "Legendary",
+      name: "F.P.S Killa",
+      description: "DMG -5, ATK SPD +60%",
+      description2: "Mega Shot",
+      apply: () => {
+        this.gameManager.player.damage -= 5;
+        this.gameManager.player.attackSpeed *= 0.6;
+        this.gameManager.player.bulletColor = "pink";
+        this.gameManager.player.shootPattern = "megaspread";
       },
     },
     // Defensive

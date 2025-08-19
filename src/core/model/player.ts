@@ -13,6 +13,7 @@ import { Shooter } from "./shooter";
 import { BulletPool } from "./bulletPool";
 import { getInterpolatedColor } from "../utilities";
 import { GameController } from "../controllers/GameController";
+import { ShootPattern } from "../types";
 
 export class Player extends Shooter {
   // Disabled by default for story, no shooting or movement
@@ -43,6 +44,8 @@ export class Player extends Shooter {
   evasion = 0;
   regen = 0;
   private regenTimer = 0;
+
+  shootPattern: ShootPattern = "single";
 
   constructor(
     gameController: GameController,
@@ -93,8 +96,7 @@ export class Player extends Shooter {
         PLAYER_HEALTH_GLOW_COLOURS
       );
 
-      this.updateShooting(delta);
-      this.shoot(this.damage, this.bulletSpeed, this.bulletColor);
+      this.updateShooting(delta, this.damage, this.bulletSpeed);
     }
   }
 

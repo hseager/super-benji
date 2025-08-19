@@ -4,12 +4,12 @@ import { BulletPool } from "./bulletPool";
 import {
   ENEMY_ATTACK_SPEED,
   ENEMY_ATTACK_VARIANCE,
-  ENEMY_DIRECTION_CHANGE_CHANCE,
   ENEMY_MAX_LIFE,
   ENEMY_MOVEMENT_Y_SPEED,
   ENEMY_PROXIMITY_DAMAGE,
 } from "../config";
 import { GameController } from "../controllers/GameController";
+import { MovePattern, ShootPattern } from "../types";
 
 export class Enemy extends Shooter {
   // GFX
@@ -31,6 +31,8 @@ export class Enemy extends Shooter {
 
   private directionChangeTimer = 0;
 
+  movePattern: MovePattern;
+
   constructor(
     gameController: GameController,
     sprite: HTMLImageElement,
@@ -38,7 +40,9 @@ export class Enemy extends Shooter {
     damage: number,
     bulletSpeed: number,
     x: number,
-    y: number
+    y: number,
+    movePattern: MovePattern,
+    shootPattern: ShootPattern
   ) {
     super(
       gameController,
@@ -55,6 +59,9 @@ export class Enemy extends Shooter {
     this.damage = damage;
     this.bulletSpeed = bulletSpeed;
 
+    this.movePattern = movePattern;
+    this.shootPattern = shootPattern;
+
     // Give each enemy attack speed variance
     this.attackSpeed =
       ENEMY_ATTACK_SPEED + (Math.random() * 2 - 1) * ENEMY_ATTACK_VARIANCE;
@@ -64,38 +71,46 @@ export class Enemy extends Shooter {
   update(delta: number) {
     if (this.isExploding) {
       this.addExplosionParts(delta);
-    } else {
-      const prevX = this.x;
-
-      // Move
-      this.y += Math.random() * this.movementYSpeed * delta; // down
-      this.x += this.movementVilocityX * delta; // sideways
-
-      // Sometimes change direction
-      this.directionChangeTimer -= delta;
-      if (this.directionChangeTimer <= 0) {
-        if (Math.random() < ENEMY_DIRECTION_CHANGE_CHANCE) {
-          // 30% chance to flip
-          this.movementVilocityX *= -1;
-        }
-        this.directionChangeTimer = 1 + Math.random() * 2;
-      }
-
-      // Bounce at screen edges
-      if (this.x < 0) {
-        this.x = 0;
-        this.movementVilocityX *= -1;
-      }
-      if (this.x + this.width > drawEngine.canvasWidth) {
-        this.x = drawEngine.canvasWidth - this.width;
-        this.movementVilocityX *= -1;
-      }
-
-      this.velocity.x = (this.x - prevX) / delta;
-
-      this.updateShooting(delta);
-      this.shoot(this.damage, this.bulletSpeed);
+      return;
     }
+
+    const prevX = this.x;
+
+    // --- Movement ---
+    switch (this.movePattern) {
+      case "straight":
+        this.y += this.movementYSpeed * delta;
+        break;
+
+      case "sine":
+        this.y += this.movementYSpeed * delta;
+        this.x += Math.sin(this.y / 40) * 2;
+        break;
+
+      case "zigzag":
+        this.y += this.movementYSpeed * delta;
+        this.directionChangeTimer -= delta;
+        if (this.directionChangeTimer <= 0) {
+          this.movementVilocityX = (Math.random() < 0.5 ? -1 : 1) * 80;
+          this.directionChangeTimer = 0.5;
+        }
+        this.x += this.movementVilocityX * delta;
+        break;
+    }
+
+    // Keep in bounds
+    if (this.x < 0) {
+      this.x = 0;
+      this.movementVilocityX *= -1;
+    }
+    if (this.x + this.width > drawEngine.canvasWidth) {
+      this.x = drawEngine.canvasWidth - this.width;
+      this.movementVilocityX *= -1;
+    }
+
+    this.velocity.x = (this.x - prevX) / delta;
+
+    this.updateShooting(delta, this.damage, this.bulletSpeed);
   }
 
   draw(ctx: CanvasRenderingContext2D) {

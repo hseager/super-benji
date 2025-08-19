@@ -31,3 +31,14 @@ export type StoryLine = {
 
 export type StoryActs = "act1" | "act2" | "act3" | "epilogue";
 export type Character = "Benji" | "Maggie" | "Torx" | "Jackal";
+
+export type MovePattern = "straight" | "sine" | "zigzag";
+export type ShootPattern = "single" | "burst" | "spread" | "megaspread";
+
+export type EnemyConfig = {
+  sprite: HTMLImageElement;
+  movePattern: MovePattern;
+  shootPattern: ShootPattern;
+  bulletSpeed: number;
+  bulletDamage: number;
+};

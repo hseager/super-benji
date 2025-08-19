@@ -1,6 +1,6 @@
 import { PLAYER_BULLET_PALETTES } from "../config";
 import { GameController } from "../controllers/GameController";
-import { Coordinates } from "../types";
+import { Coordinates, ShootPattern } from "../types";
 import { BulletPool } from "./bulletPool";
 import { GameObject } from "./gameObject";
 
@@ -20,6 +20,12 @@ export class Shooter extends GameObject {
   tiltAmount = 3;
   tiltClamp = 3; // Max/min amount of tilting based on movespeed
 
+  shootPattern: ShootPattern = "single";
+  burstShotsRemaining = 0;
+  burstTimer = 0;
+  burstInterval = 0.1; // gap between burst shots
+  burstCount = 3; // how many bullets per burst
+
   constructor(
     gameController: GameController,
     sprite: HTMLImageElement,
@@ -35,39 +41,108 @@ export class Shooter extends GameObject {
     this.bulletPool = bulletPool;
   }
 
-  updateShooting(delta: number) {
-    if (this.attackCooldown > 0) {
+  updateShooting(delta: number, damage: number, bulletSpeed: number) {
+    if (!this.active) return;
+
+    if (this.shootPattern === "burst") {
+      if (this.burstShotsRemaining > 0) {
+        // Continue burst
+        this.burstTimer -= delta;
+        if (this.burstTimer <= 0) {
+          this.shoot(damage, bulletSpeed, this.shootDir);
+          this.burstShotsRemaining--;
+          this.burstTimer = this.burstInterval;
+        }
+
+        if (this.burstShotsRemaining <= 0) {
+          this.attackCooldown = this.attackSpeed; // after burst, reset
+        }
+      } else {
+        // Waiting to start burst
+        this.attackCooldown -= delta;
+        if (this.attackCooldown <= 0) {
+          this.burstShotsRemaining = this.burstCount;
+          this.burstTimer = 0; // fire immediately
+        }
+      }
+    } else {
+      // Normal single/spread fire
       this.attackCooldown -= delta;
+      if (this.attackCooldown <= 0) {
+        switch (this.shootPattern) {
+          case "single":
+            this.shoot(damage, bulletSpeed, this.shootDir);
+            break;
+
+          case "spread": {
+            const spreadAngles = [-0.3, 0, 0.3]; // radians
+
+            // normalize base direction
+            const baseLen = Math.hypot(this.shootDir.x, this.shootDir.y);
+            const bx = this.shootDir.x / baseLen;
+            const by = this.shootDir.y / baseLen;
+
+            for (const a of spreadAngles) {
+              // rotate (bx, by) by angle a
+              const cosA = Math.cos(a);
+              const sinA = Math.sin(a);
+
+              const dir = {
+                x: bx * cosA - by * sinA,
+                y: bx * sinA + by * cosA,
+              };
+
+              this.shoot(damage, bulletSpeed, dir);
+            }
+            break;
+          }
+          case "megaspread": {
+            const spreadAngles = [-0.6, -0.3, 0, 0.3, 0.6]; // wider fan, 5 shots
+
+            // normalize base direction
+            const baseLen = Math.hypot(this.shootDir.x, this.shootDir.y);
+            const bx = this.shootDir.x / baseLen;
+            const by = this.shootDir.y / baseLen;
+
+            for (const a of spreadAngles) {
+              const cosA = Math.cos(a);
+              const sinA = Math.sin(a);
+
+              const dir = {
+                x: bx * cosA - by * sinA,
+                y: bx * sinA + by * cosA,
+              };
+
+              this.shoot(damage, bulletSpeed, dir);
+            }
+            break;
+          }
+        }
+        this.attackCooldown = this.attackSpeed;
+      }
     }
   }
 
   shoot(
     damage: number,
     bulletSpeed: number,
+    dir: { x: number; y: number } = this.shootDir,
     bulletColor?: keyof typeof PLAYER_BULLET_PALETTES
   ) {
-    if (!this.active) return;
+    if (!this.active || !this.bulletPool) return;
 
-    if (this.attackCooldown <= 0) {
-      if (!this.bulletPool) return;
-      const bullet = this.bulletPool.get();
-      if (bullet) {
-        if (bulletColor) {
-          bullet.sprite =
-            this.gameController.spriteManager.getBulletSprite(bulletColor);
-        }
-
-        const y = this.shootDir.y <= 0 ? this.y : this.y + this.height;
-        bullet.damage = damage;
-        bullet.speed = bulletSpeed;
-        bullet.fire(
-          this.centerX() + this.shootingXOffset,
-          y,
-          this.shootDir.x,
-          this.shootDir.y
-        );
-        this.attackCooldown = this.attackSpeed;
+    const bullet = this.bulletPool.get();
+    if (bullet) {
+      if (bulletColor) {
+        bullet.sprite =
+          this.gameController.spriteManager.getBulletSprite(bulletColor);
       }
+
+      const y = dir.y <= 0 ? this.y : this.y + this.height;
+
+      bullet.damage = damage;
+      bullet.speed = bulletSpeed;
+      bullet.fire(this.centerX() + this.shootingXOffset, y, dir.x, dir.y);
     }
   }
 
