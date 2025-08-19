@@ -44,14 +44,14 @@ Story beat: Benji and Torx infiltrate the ship. Final showdown with the Iron Jac
 
 ### TODO
 
-- Story
-  - Characters
-    - Intro
-    - Avatars
-    - Text, sounds
+- Better enemy AI
+  - Waves
+  - Spawn/attack patterns
+- Boss
+- Change music to atomospheric dnb
+
 - Perfect bonus / Collect drops
   - Gives 3 options rather than 2 if you take no damage
-- Change music to atomospheric dnb
 - Levels
   - Tilesets
 - Bosses
