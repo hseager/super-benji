@@ -2,7 +2,7 @@
 
 ## Story
 
-The Iron Jackal has stolen the Heart of Pawrus, an ancient crystalline star-core that powers interstellar warp lanes. Without it, whole colonies risk isolation and collapse.
+The Iron Jackal has stolen the Titan Heart, an ancient crystalline star-core that powers interstellar warp lanes. Without it, whole colonies risk isolation and collapse.
 Benji and his sidekick Torx, an ingenious turtle mechanic, must chase him down before he uses the Heart to forge a galaxy-crushing superweapon.
 
 Area 1: Starfield Frontiers

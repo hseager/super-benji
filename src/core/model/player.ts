@@ -54,7 +54,7 @@ export class Player extends Shooter {
       sprite,
       bulletPool,
       drawEngine.getCenterX() - sprite.width / 2,
-      150,
+      120,
       sprite.width,
       sprite.height
     );

@@ -45,11 +45,11 @@ export const PLAYER_AVATAR_PALETTE = [
   "#271701",
   "#3a2200",
   "#241700",
-  "#6b572f",
-  "#805800",
-  "#8b753f",
-  "#b19452",
-  "#f8ab5e",
+  "#80491d",
+  "#996e1f",
+  "#ecc89f",
+  "#ad8a48",
+  "#5ec7f8",
 ];
 
 // export const PLAYER_PALETTE = [
@@ -153,6 +153,8 @@ export const BENJI_AVATAR_WIDTH = 18;
 export const BENJI_AVATAR_HEIGHT = 16;
 export const TORX_AVATAR_WIDTH = 17;
 export const TORX_AVATAR_HEIGHT = 16;
+export const MAGGIE_AVATAR_WIDTH = 17;
+export const MAGGIE_AVATAR_HEIGHT = 16;
 
 export const TORX_AVATAR_PALETTE = [
   "#181a17", // dark green-brown
@@ -165,4 +167,17 @@ export const TORX_AVATAR_PALETTE = [
   "#7aa37a", // lighter green
   "#a3c4a3", // pale green
   "#c0e0c0", // soft pastel green
+];
+
+export const MAGGIE_AVATAR_PALETTE = [
+  "#111821", // near-black navy
+  "#152236", // deep midnight blue
+  "#1b2e45", // dark slate blue
+  "#2d4668", // muted navy blue
+  "#22354f", // shadow blue
+  "#3a567a", // steel blue
+  "#5a7ba3", // medium blue-gray
+  "#6f92b8", // lighter dusty blue
+  "#90afcf", // pale cool blue
+  "#b0cde6", // soft pastel blue
 ];

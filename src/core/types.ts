@@ -23,3 +23,11 @@ export type ImageProperties = Coordinates & {
   width: number;
   height: number;
 };
+
+export type StoryLine = {
+  speaker: Character;
+  text: string;
+};
+
+export type StoryActs = "intro" | "act1" | "act2" | "act3";
+export type Character = "Benji" | "Maggie" | "Torx" | "Jackal";

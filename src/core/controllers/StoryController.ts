@@ -3,18 +3,15 @@ import {
   TORX_AVATAR_HEIGHT,
   TORX_AVATAR_WIDTH,
 } from "../config";
-import { ImageProperties } from "../types";
+import { Character, ImageProperties, StoryLine } from "../types";
 import { drawEngine } from "./DrawController";
 import { GameController } from "./GameController";
-
-type StoryLine = {
-  speaker: string;
-  text: string;
-};
 
 export class StoryController {
   gameController: GameController;
   isActive = true;
+  currentAct = "intro";
+  currentActPart = 0;
 
   private torxDialog: string[] = [
     "Zone cleared. Time to upgrade.",
@@ -38,7 +35,7 @@ export class StoryController {
     // ---- Prologue / Mission Brief ----
     {
       speaker: "Maggie",
-      text: "Benji… the Iron Jackal has stolen the Heart of Pawrus.",
+      text: "Benji… the Iron Jackal has stolen the Titan Heart.",
     },
     {
       speaker: "Maggie",
@@ -56,7 +53,9 @@ export class StoryController {
       speaker: "Torx",
       text: "You got it! And I’ve got sticky tape, wrenches, and more puns than you can handle.",
     },
+  ];
 
+  private act1 = [
     // ---- Area 1: Starfield Frontiers ----
     {
       speaker: "Maggie",
@@ -79,7 +78,9 @@ export class StoryController {
       text: "Ha! Feline Star League — always three steps behind!",
     },
     { speaker: "Torx", text: "Yep. That voice. Big ego, bigger lasers." },
+  ];
 
+  private act2 = [
     // ---- Area 2: Verdantia Planet System ----
     {
       speaker: "Maggie",
@@ -99,7 +100,9 @@ export class StoryController {
       speaker: "Torx",
       text: "Also, if the Heart of Purrima powers up… we’re all in the doghouse. Literally.",
     },
+  ];
 
+  private act3 = [
     // ---- Area 3: Ironfang Megaship ----
     {
       speaker: "Maggie",
@@ -123,11 +126,44 @@ export class StoryController {
     this.gameController = gameController;
   }
 
-  start() {
-    this.chooseTorxDialog();
+  draw() {
+    const actPart = this.introScript[this.currentActPart];
+    const avatar = this.getDialogAvatar(actPart.speaker);
+
+    const dialogBoxY = 190;
+    const dialogBoxHeight = 50;
+
+    this.drawDialogBox(
+      drawEngine.context,
+      actPart.speaker,
+      avatar,
+      actPart.text.split(" "),
+      dialogBoxY,
+      dialogBoxHeight,
+      {
+        x: 15,
+        y: dialogBoxY - 35,
+        width: TORX_AVATAR_WIDTH,
+        height: TORX_AVATAR_HEIGHT + AVATAR_BODY_HEIGHT,
+      }
+    );
   }
 
-  draw() {
+  getDialogAvatar(speaker: Character) {
+    if (speaker === "Benji") {
+      return this.gameController.spriteManager.playerAvatar;
+    } else if (speaker === "Maggie") {
+      return this.gameController.spriteManager.maggieAvatar;
+    } else if (speaker === "Torx") {
+      return this.gameController.spriteManager.torxAvatar;
+    } else if (speaker === "Jackal") {
+      return this.gameController.spriteManager.playerAvatar;
+    } else {
+      return this.gameController.spriteManager.playerAvatar;
+    }
+  }
+
+  drawActPart() {
     this.getTorxUpgradeDialog(drawEngine.context);
   }
 
@@ -138,6 +174,7 @@ export class StoryController {
 
   drawAvatar(
     ctx: CanvasRenderingContext2D,
+    speaker: Character,
     sprite: HTMLImageElement,
     properties: ImageProperties
   ) {
@@ -158,96 +195,96 @@ export class StoryController {
       ctx.fillStyle = "white";
       ctx.textAlign = "center";
       ctx.font = "9px monospace";
-      ctx.fillText("Torx", x + width / 2, y + height + 10);
+      ctx.fillText(speaker, x + width / 2, y + height + 10);
       ctx.restore();
     }
   }
 
   drawDialogBox(
     ctx: CanvasRenderingContext2D,
+    speaker: Character,
     sprite: HTMLImageElement,
     words: string[],
+    dialogBoxY: number,
     dialogBoxHeight: number,
-    boxPadding: number
+    avatarPosition: ImageProperties
   ) {
-    const dialogX = dialogBoxHeight + boxPadding;
+    const boxPadding = 5;
     const lineHeight = 10;
-    const maxTextWidth = drawEngine.canvasWidth - dialogX - boxPadding;
+    const radius = 4;
 
     ctx.save();
     ctx.font = "8px monospace";
 
+    // --- Wrap text ---
+    const maxTextWidth =
+      drawEngine.canvasWidth - (avatarPosition.width + boxPadding);
+
     const lines: string[] = [];
     let line = "";
-
     for (let n = 0; n < words.length; n++) {
       const testLine = line + words[n] + " ";
       if (ctx.measureText(testLine).width > maxTextWidth) {
-        lines.push(line);
+        lines.push(line.trim());
         line = words[n] + " ";
       } else {
         line = testLine;
       }
     }
-    lines.push(line); // push remaining
+    lines.push(line.trim());
 
-    const boxHeight = Math.max(
-      TORX_AVATAR_HEIGHT + AVATAR_BODY_HEIGHT + 20,
-      lines.length * lineHeight + boxPadding * 2
-    );
-    const boxWidth = drawEngine.canvasWidth - boxPadding * 2;
+    // --- Compute final box height ---
+    const textHeight = lines.length * lineHeight + boxPadding;
+    const boxHeight = Math.max(dialogBoxHeight, textHeight);
+
+    const boxWidth = drawEngine.canvasWidth - boxPadding;
 
     // --- Draw Rounded Dialog Box ---
-    const radius = 4;
     ctx.fillStyle = "#1f1722";
     ctx.beginPath();
-    ctx.moveTo(boxPadding + radius, dialogBoxHeight - boxPadding);
-    ctx.lineTo(boxWidth - radius, dialogBoxHeight - boxPadding);
+    ctx.moveTo(boxPadding + radius, dialogBoxY);
+    ctx.lineTo(boxWidth - radius, dialogBoxY);
+    ctx.quadraticCurveTo(boxWidth, dialogBoxY, boxWidth, dialogBoxY + radius);
+    ctx.lineTo(boxWidth, dialogBoxY + boxHeight - radius);
     ctx.quadraticCurveTo(
       boxWidth,
-      dialogBoxHeight - boxPadding,
-      boxWidth,
-      dialogBoxHeight - boxPadding + radius
-    );
-    ctx.lineTo(boxWidth, dialogBoxHeight - boxPadding + boxHeight - radius);
-    ctx.quadraticCurveTo(
-      boxWidth,
-      dialogBoxHeight - boxPadding + boxHeight,
+      dialogBoxY + boxHeight,
       boxWidth - radius,
-      dialogBoxHeight - boxPadding + boxHeight
+      dialogBoxY + boxHeight
     );
-    ctx.lineTo(boxPadding + radius, dialogBoxHeight - boxPadding + boxHeight);
+    ctx.lineTo(boxPadding + radius, dialogBoxY + boxHeight);
     ctx.quadraticCurveTo(
       boxPadding,
-      dialogBoxHeight - boxPadding + boxHeight,
+      dialogBoxY + boxHeight,
       boxPadding,
-      dialogBoxHeight - boxPadding + boxHeight - radius
+      dialogBoxY + boxHeight - radius
     );
-    ctx.lineTo(boxPadding, dialogBoxHeight - boxPadding + radius);
+    ctx.lineTo(boxPadding, dialogBoxY + radius);
     ctx.quadraticCurveTo(
       boxPadding,
-      dialogBoxHeight - boxPadding,
+      dialogBoxY,
       boxPadding + radius,
-      dialogBoxHeight - boxPadding
+      dialogBoxY
     );
     ctx.fill();
 
-    this.drawAvatar(ctx, sprite, {
-      x: 10,
-      y: dialogBoxHeight,
-      width: TORX_AVATAR_WIDTH,
-      height: TORX_AVATAR_HEIGHT + AVATAR_BODY_HEIGHT,
-    });
+    // --- Draw Avatar ---
+    this.drawAvatar(ctx, speaker, sprite, avatarPosition);
 
+    // --- Draw Text ---
     ctx.fillStyle = "white";
     ctx.textAlign = "left";
     ctx.font = "8px monospace";
 
-    let lineY = dialogBoxHeight + 5;
+    // Start text to the right of avatar
+    const textX = boxPadding * 2;
+    let lineY = dialogBoxY + boxPadding + 8;
     for (const l of lines) {
-      ctx.fillText(l, dialogX, lineY);
+      ctx.fillText(l, textX, lineY);
       lineY += lineHeight;
     }
+
+    ctx.restore();
   }
 
   getTorxUpgradeDialog(ctx: CanvasRenderingContext2D) {
@@ -256,15 +293,22 @@ export class StoryController {
     const words = this.currentTorxDialog.split(" ");
     const spriteManager = this.gameController.spriteManager;
 
+    const dialogBoxY = 30;
     const dialogBoxHeight = 30;
-    const boxPadding = 6; // space inside the box
 
     this.drawDialogBox(
       ctx,
+      "Torx",
       spriteManager.torxAvatar,
       words,
+      dialogBoxY,
       dialogBoxHeight,
-      boxPadding
+      {
+        x: 10,
+        y: dialogBoxHeight,
+        width: TORX_AVATAR_WIDTH,
+        height: TORX_AVATAR_HEIGHT + AVATAR_BODY_HEIGHT,
+      }
     );
 
     ctx.restore();

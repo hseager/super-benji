@@ -3,6 +3,8 @@ import {
   AVATAR_BODY_WIDTH,
   BENJI_AVATAR_HEIGHT,
   BENJI_AVATAR_WIDTH,
+  MAGGIE_AVATAR_HEIGHT,
+  MAGGIE_AVATAR_WIDTH,
   SPRITE_BASE64,
   TORX_AVATAR_HEIGHT,
   TORX_AVATAR_WIDTH,
@@ -153,6 +155,38 @@ export class SpriteBuilder {
       sheet,
       1,
       TORX_AVATAR_HEIGHT,
+      47,
+      84,
+      AVATAR_BODY_WIDTH,
+      AVATAR_BODY_HEIGHT
+    );
+
+    return SpriteBuilder.applyPalette(buffer, palette);
+  }
+
+  static async createMaggieAvatar(
+    sheet: SpriteSheet,
+    palette: string[]
+  ): Promise<HTMLImageElement> {
+    const buffer = new CanvasBuffer(
+      MAGGIE_AVATAR_WIDTH,
+      MAGGIE_AVATAR_HEIGHT + AVATAR_BODY_HEIGHT
+    );
+
+    buffer.drawSprite(
+      sheet,
+      0,
+      0,
+      47,
+      52,
+      MAGGIE_AVATAR_WIDTH,
+      MAGGIE_AVATAR_HEIGHT
+    );
+
+    buffer.drawSprite(
+      sheet,
+      1,
+      MAGGIE_AVATAR_HEIGHT,
       47,
       84,
       AVATAR_BODY_WIDTH,

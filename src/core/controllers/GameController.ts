@@ -136,8 +136,6 @@ export class GameController {
     // Create Player
     this.player = new Player(this, playerSprite, this.playerBulletPool);
 
-    this.storyController.start();
-
     // Setup levels
     // this.player.active = true;
     // this.levelManager = new LevelController(this);
