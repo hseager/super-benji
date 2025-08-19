@@ -119,7 +119,7 @@ export class StoryController {
   }
 
   private getCurrentActScript() {
-    return this.storyActs[this.currentAct];
+    return this.storyActs[this.currentAct] ?? [];
   }
 
   next() {
@@ -159,7 +159,14 @@ export class StoryController {
 
   draw() {
     if (!this.isActive) return;
-    const part = this.getCurrentActScript()[this.currentActPart];
+
+    const script = this.getCurrentActScript();
+    let part: StoryLine | undefined;
+
+    if (this.currentActPart >= 0 && this.currentActPart < script.length) {
+      part = script[this.currentActPart];
+    }
+
     if (!part) return;
     this.drawDialogBox(part.speaker, part.text, 190, 50);
   }
@@ -169,8 +176,8 @@ export class StoryController {
     return speaker === "Maggie"
       ? sm.maggieAvatar
       : speaker === "Torx"
-        ? sm.torxAvatar
-        : sm.playerAvatar;
+      ? sm.torxAvatar
+      : sm.playerAvatar;
   }
 
   private drawDialogBox(
@@ -209,7 +216,15 @@ export class StoryController {
     const boxHeight = Math.max(dialogBoxHeight, textHeight);
     const boxWidth = drawEngine.canvasWidth - boxPadding * 2;
 
-    drawEngine.drawRoundedRect(ctx, boxPadding, dialogBoxY, boxWidth, boxHeight, 4, "#1f1722");
+    drawEngine.drawRoundedRect(
+      ctx,
+      boxPadding,
+      dialogBoxY,
+      boxWidth,
+      boxHeight,
+      4,
+      "#1f1722"
+    );
 
     // Draw avatar & text
     this.drawAvatar(ctx, speaker, this.getAvatar(speaker), avatarPos);

@@ -27,8 +27,6 @@ Story beat: Benji and Torx infiltrate the ship. Final showdown with the Iron Jac
 
 #### Special
 
-- Duoshot, Trishot, Multishot
-- Shoot 100% quicker for 1 second every 4 seconds
 - Explosion size
 
 #### Maybe Later
