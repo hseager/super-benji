@@ -1,10 +1,11 @@
 export const logicalWidth = 144; // base logical resolution
 export const logicalHeight = 256; // base logical resolution
 
+type GradientStop = [number, string];
+
 class DrawController {
   context: CanvasRenderingContext2D;
   mousePosition: DOMPoint;
-  isPointerDown: boolean = false;
   // For blinking menu actions
   blinkTimer = 0;
   menuActionBlinkSpeed = 0.75;
@@ -22,14 +23,6 @@ class DrawController {
       const touch = event.touches[0];
       this.mousePosition = this.screenToLogical(touch.clientX, touch.clientY);
     });
-
-    c2d.addEventListener("mousedown", () => (this.isPointerDown = true));
-    c2d.addEventListener("mouseup", () => (this.isPointerDown = false));
-
-    c2d.addEventListener("touchstart", () => {
-      this.isPointerDown = true;
-    });
-    c2d.addEventListener("touchend", () => (this.isPointerDown = false));
 
     window.addEventListener("resize", () => this.resizeCanvas());
     window.addEventListener("orientationchange", () => this.resizeCanvas());
@@ -66,15 +59,14 @@ class DrawController {
     return grad;
   }
 
-  getSteelGradient(ctx: CanvasRenderingContext2D, y: number, height: number) {
+  getGradient(
+    ctx: CanvasRenderingContext2D,
+    y: number,
+    stops: GradientStop[],
+    height = 9
+  ) {
     const grad = ctx.createLinearGradient(0, y - height, 0, y);
-    grad.addColorStop(0.0, "#ffffff"); // white highlight top
-    grad.addColorStop(0.15, "#dcdcdc"); // light silver
-    grad.addColorStop(0.3, "#a0a0a0"); // medium gray
-    grad.addColorStop(0.45, "#f8f8f8"); // bright streak
-    grad.addColorStop(0.6, "#7a7a7a"); // darker metal
-    grad.addColorStop(0.8, "#c8c8c8"); // light gray again
-    grad.addColorStop(1.0, "#5a5a5a"); // bottom shadow
+    stops.forEach(([pos, col]) => grad.addColorStop(pos, col));
     return grad;
   }
 
@@ -91,7 +83,13 @@ class DrawController {
     ctx.strokeText(text, x, y + 2);
     ctx.fillText(text, x, y + 2);
     ctx.font = `bold ${fontSize}px "Courier New"`;
-    ctx.fillStyle = this.getGoldGradient(ctx, y);
+    ctx.fillStyle = this.getGradient(ctx, y, [
+      [0.0, "#fff4c1"],
+      [0.25, "#ffd84a"],
+      [0.5, "#6a2c00"],
+      [0.75, "#b65a00"],
+      [1.0, "#ff9d00"],
+    ]);
     ctx.fillText(text, x, y);
     ctx.restore();
   }
@@ -154,7 +152,22 @@ class DrawController {
       // Fill text with gradient
       ctx.strokeStyle = "#161616ff";
       ctx.strokeText(text, ctx.canvas.width / 2, y + 1);
-      ctx.fillStyle = this.getSteelGradient(ctx, y, 10);
+
+      // Steel Gradient
+      ctx.fillStyle = this.getGradient(
+        ctx,
+        y,
+        [
+          [0.0, "#ffffff"],
+          [0.15, "#dcdcdc"],
+          [0.3, "#a0a0a0"],
+          [0.45, "#f8f8f8"],
+          [0.6, "#7a7a7a"],
+          [0.8, "#c8c8c8"],
+          [1, "#5a5a5a"],
+        ],
+        10
+      );
       ctx.fillText(text, ctx.canvas.width / 2, y);
 
       ctx.restore();

@@ -1,8 +1,6 @@
 import { State } from "@/core/types";
 import { drawEngine } from "@/core/controllers/DrawController";
-import { controls } from "@/core/controllers/ControlsController";
 import { gameStateMachine } from "@/gameStates/gameStateMachine";
-import { menuState } from "@/gameStates/menuState";
 import { GameController } from "@/core/controllers/GameController";
 import { LoseState } from "./loseState";
 import { Music } from "@/core/music/music";
@@ -48,16 +46,7 @@ class GameState implements State {
     this.gameManager.update(delta, mouse);
     this.gameManager.draw(this.ctx);
 
-    if (controls.isEscape) {
-      gameStateMachine.setState(menuState);
-    }
-
-    this.checkWinCondition();
     this.checkLoseCondition();
-  }
-
-  private checkWinCondition() {
-    // gameStateMachine.setState(new WinState());
   }
 
   private checkLoseCondition() {

@@ -12,7 +12,7 @@ export class StoryController {
   isActive = true;
   currentAct: StoryActs = "act1";
   currentActPart = 0;
-  levelsToProgressStory = [2, 4, 6];
+  levelsToProgressStory = [6, 11, 16];
 
   private storyActs: Record<StoryActs, StoryLine[]> = {
     act1: [
@@ -38,7 +38,6 @@ export class StoryController {
       },
     ],
     act2: [
-      // ---- Area 2: Verdantia Planet System ----
       {
         speaker: "Maggie",
         text: "Next stop, Verdantia. Jackal’s forces are harvesting planetary cores to power a superweapon.",
@@ -49,7 +48,7 @@ export class StoryController {
       },
       {
         speaker: "Torx",
-        text: "Above our pay grade, sure… but at least we get hazard pay in adrenaline!", // joke
+        text: "Above our pay grade, sure… but at least we get hazard pay in adrenaline!",
       },
       {
         speaker: "Benji",
@@ -65,7 +64,6 @@ export class StoryController {
       },
     ],
     act3: [
-      // ---- Area 3: Ironfang Megaship ----
       {
         speaker: "Maggie",
         text: "Ironfang Megaship. Bigger than a moon. Powered by the Heart.",
@@ -81,7 +79,12 @@ export class StoryController {
       },
       { speaker: "Torx", text: "Let’s go! Moon-sized boss fight incoming!" },
     ],
-    epilogue: [],
+    epilogue: [
+      {
+        speaker: "Maggie",
+        text: "Well, you did it! But there's still the Jackals fleet to clear up.",
+      },
+    ],
   };
 
   private torxDialog: string[] = [
@@ -102,21 +105,20 @@ export class StoryController {
     "Fitting this might take a plasma torch… or luck.",
   ];
 
-  private currentTorxDialog: string | null = null; // stores the chosen line
+  private currentTorxDialog: string | null = null;
 
   constructor(gameController: GameController) {
     this.gameController = gameController;
   }
 
   start() {
-    drawEngine.context.canvas.addEventListener("click", () => {
-      if (this.isActive) {
-        this.next();
-      }
-    });
+    drawEngine.context.canvas.addEventListener(
+      "click",
+      () => this.isActive && this.next()
+    );
   }
 
-  private getCurrentActScript(): StoryLine[] {
+  private getCurrentActScript() {
     return this.storyActs[this.currentAct];
   }
 
@@ -124,156 +126,91 @@ export class StoryController {
     const actScript = this.getCurrentActScript();
 
     if (this.currentActPart < actScript.length - 1) {
-      // Move to next part of current act
       this.currentActPart++;
-    } else {
-      // End of act, move to next act
-      this.currentActPart = 0;
+      return;
+    }
 
-      if (this.currentAct === "act1") {
+    // Move to next act
+    this.currentActPart = 0;
+    switch (this.currentAct) {
+      case "act1":
         this.currentAct = "act2";
         this.gameController.startGame();
         this.gameController.resumeGame();
-      } else if (this.currentAct === "act2") {
+        break;
+      case "act2":
         this.currentAct = "act3";
         this.gameController.levelManager.startLevel();
         this.gameController.resumeGame();
-      } else if (this.currentAct === "act3") {
+        break;
+      case "act3":
         this.currentAct = "epilogue";
         this.gameController.levelManager.startLevel();
         this.gameController.resumeGame();
-      }
+        break;
     }
   }
 
   progressStory(level: number) {
-    // Only pause/resume game; don't change currentAct
-    if (this.levelsToProgressStory.includes(level)) {
-      this.gameController.pauseGame();
-    } else {
-      this.gameController.resumeGame();
-    }
+    this.levelsToProgressStory.includes(level)
+      ? this.gameController.pauseGame()
+      : this.gameController.resumeGame();
   }
 
   draw() {
     if (!this.isActive) return;
-    const actScript = this.getCurrentActScript();
-    if (!actScript.length) return;
-
-    const actPart = actScript[this.currentActPart];
-    if (!actPart) return;
-
-    const avatar = this.getDialogAvatar(actPart.speaker);
-    const dialogBoxY = 190;
-    const dialogBoxHeight = 50;
-
-    this.drawDialogBox(
-      drawEngine.context,
-      actPart.speaker,
-      avatar,
-      actPart.text.split(" "),
-      dialogBoxY,
-      dialogBoxHeight
-    );
+    const part = this.getCurrentActScript()[this.currentActPart];
+    if (!part) return;
+    this.drawDialogBox(part.speaker, part.text, 190, 50);
   }
 
-  getDialogAvatar(speaker: Character) {
-    if (speaker === "Benji") {
-      return this.gameController.spriteManager.playerAvatar;
-    } else if (speaker === "Maggie") {
-      return this.gameController.spriteManager.maggieAvatar;
-    } else if (speaker === "Torx") {
-      return this.gameController.spriteManager.torxAvatar;
-    } else if (speaker === "Jackal") {
-      return this.gameController.spriteManager.playerAvatar;
-    } else {
-      return this.gameController.spriteManager.playerAvatar;
-    }
+  private getAvatar(speaker: Character) {
+    const sm = this.gameController.spriteManager;
+    return speaker === "Maggie"
+      ? sm.maggieAvatar
+      : speaker === "Torx"
+      ? sm.torxAvatar
+      : sm.playerAvatar;
   }
 
-  drawActPart() {
-    this.getTorxUpgradeDialog(drawEngine.context);
-  }
-
-  chooseTorxDialog() {
-    this.currentTorxDialog =
-      this.torxDialog[Math.floor(Math.random() * this.torxDialog.length)];
-  }
-
-  drawAvatar(
-    ctx: CanvasRenderingContext2D,
+  private drawDialogBox(
     speaker: Character,
-    sprite: HTMLImageElement,
-    properties: ImageProperties
-  ) {
-    if (sprite) {
-      const { x, y, width, height } = properties;
-
-      ctx.save();
-      // Draw the avatar sprite
-      ctx.drawImage(sprite, x, y, width, height);
-
-      // Draw 1px white border
-      ctx.strokeStyle = "white";
-      ctx.lineWidth = 1;
-      ctx.strokeRect(x + 0.5, y + 0.5, width - 1, height - 1);
-      ctx.strokeRect(x, y, width, height);
-
-      // Draw name under avatar
-      ctx.fillStyle = "white";
-      ctx.textAlign = "center";
-      ctx.font = "9px monospace";
-      ctx.fillText(speaker, x + width / 2, y + height + 10);
-      ctx.restore();
-    }
-  }
-
-  drawDialogBox(
-    ctx: CanvasRenderingContext2D,
-    speaker: Character,
-    sprite: HTMLImageElement,
-    words: string[],
+    text: string,
     dialogBoxY: number,
     dialogBoxHeight: number
   ) {
-    const avatarPosition: ImageProperties = {
+    const ctx = drawEngine.context;
+    const words = text.split(" ");
+    const avatarPos: ImageProperties = {
       x: 15,
       y: dialogBoxY - 34,
       width: TORX_AVATAR_WIDTH,
       height: TORX_AVATAR_HEIGHT + AVATAR_BODY_HEIGHT,
     };
 
-    const boxPadding = 5;
-    const lineHeight = 10;
-    const radius = 4;
-
-    ctx.save();
-    ctx.font = "8px monospace";
-
-    // --- Wrap text ---
+    // Draw box
+    const boxPadding = 5,
+      lineHeight = 10,
+      radius = 4;
     const maxTextWidth =
-      drawEngine.canvasWidth - (avatarPosition.width + boxPadding);
+      drawEngine.canvasWidth - (avatarPos.width + boxPadding);
 
-    const lines: string[] = [];
-    let line = "";
-    for (let n = 0; n < words.length; n++) {
-      const testLine = line + words[n] + " ";
+    let lines: string[] = [],
+      line = "";
+    for (let w of words) {
+      const testLine = line + w + " ";
       if (ctx.measureText(testLine).width > maxTextWidth) {
         lines.push(line.trim());
-        line = words[n] + " ";
-      } else {
-        line = testLine;
-      }
+        line = w + " ";
+      } else line = testLine;
     }
     lines.push(line.trim());
 
-    // --- Compute final box height ---
     const textHeight = lines.length * lineHeight + boxPadding;
     const boxHeight = Math.max(dialogBoxHeight, textHeight);
-
     const boxWidth = drawEngine.canvasWidth - boxPadding;
 
-    // --- Draw Rounded Dialog Box ---
+    ctx.save();
     ctx.fillStyle = "#1f1722";
     ctx.beginPath();
     ctx.moveTo(boxPadding + radius, dialogBoxY);
@@ -302,43 +239,46 @@ export class StoryController {
     );
     ctx.fill();
 
-    // --- Draw Avatar ---
-    this.drawAvatar(ctx, speaker, sprite, avatarPosition);
-
-    // --- Draw Text ---
+    // Draw avatar & text
+    this.drawAvatar(ctx, speaker, this.getAvatar(speaker), avatarPos);
     ctx.fillStyle = "white";
     ctx.textAlign = "left";
     ctx.font = "8px monospace";
-
-    // Start text to the right of avatar
-    const textX = boxPadding * 2;
-    let lineY = dialogBoxY + boxPadding + 8;
-    for (const l of lines) {
-      ctx.fillText(l, textX, lineY);
-      lineY += lineHeight;
+    let y = dialogBoxY + boxPadding + 8;
+    for (let l of lines) {
+      ctx.fillText(l, boxPadding * 2, y);
+      y += lineHeight;
     }
-
     ctx.restore();
   }
 
-  getTorxUpgradeDialog(ctx: CanvasRenderingContext2D) {
-    if (!this.currentTorxDialog) return;
-
-    const words = this.currentTorxDialog.split(" ");
-    const spriteManager = this.gameController.spriteManager;
-
-    const dialogBoxY = 55;
-    const dialogBoxHeight = 30;
-
-    this.drawDialogBox(
-      ctx,
-      "Torx",
-      spriteManager.torxAvatar,
-      words,
-      dialogBoxY,
-      dialogBoxHeight
-    );
-
+  private drawAvatar(
+    ctx: CanvasRenderingContext2D,
+    speaker: Character,
+    sprite: HTMLImageElement,
+    { x, y, width, height }: ImageProperties
+  ) {
+    if (!sprite) return;
+    ctx.save();
+    ctx.drawImage(sprite, x, y, width, height);
+    ctx.strokeStyle = "white";
+    ctx.lineWidth = 1;
+    ctx.strokeRect(x + 0.5, y + 0.5, width - 1, height - 1);
+    ctx.strokeRect(x, y, width, height);
+    ctx.fillStyle = "white";
+    ctx.textAlign = "center";
+    ctx.font = "9px monospace";
+    ctx.fillText(speaker, x + width / 2, y + height + 10);
     ctx.restore();
+  }
+
+  chooseTorxDialog() {
+    this.currentTorxDialog =
+      this.torxDialog[Math.floor(Math.random() * this.torxDialog.length)];
+  }
+
+  drawTorxDialog() {
+    if (!this.currentTorxDialog) return;
+    this.drawDialogBox("Torx", this.currentTorxDialog, 55, 30);
   }
 }
