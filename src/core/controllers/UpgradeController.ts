@@ -44,13 +44,25 @@ export class UpgradeController {
     },
     {
       rarity: "Legendary",
-      name: "F.P.S Killa",
-      description: "DMG -5, ATK SPD +60%",
+      name: "Modified Sprinkler",
+      description: "DMG -8, ATK SPD +60%",
       description2: "Mega Shot",
       apply: () => {
-        this.gameManager.player.damage -= 5;
+        this.gameManager.player.damage -= 8;
         this.gameManager.player.attackSpeed *= 0.6;
         this.gameManager.player.bulletColor = "pink";
+        this.gameManager.player.shootPattern = "megaspread";
+      },
+    },
+    {
+      rarity: "Legendary",
+      name: "Glass Canon",
+      description: "HP -25, DMG +12",
+      description2: "Mega Shot",
+      apply: () => {
+        this.gameManager.player.damage += 12;
+        this.gameManager.player.life -= 25;
+        this.gameManager.player.bulletColor = "orange";
         this.gameManager.player.shootPattern = "megaspread";
       },
     },
