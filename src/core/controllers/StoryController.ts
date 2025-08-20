@@ -92,7 +92,7 @@ export class StoryController {
   isActive = true;
   currentAct: number = StoryActs.Act1;
   currentActPart = 0;
-  levelsToProgressStory = [2, 3, 4];
+  levelsToProgressStory = [6, 11, 16];
 
   private torxDialog: string[] = [
     "Scrap secured. Upgrade time!",
@@ -243,7 +243,7 @@ export class StoryController {
     this.drawAvatar(ctx, speaker, this.getAvatar(speaker), avatarPos);
     ctx.fillStyle = "white";
     ctx.textAlign = "left";
-    ctx.font = "8px monospace";
+    ctx.font = "9px monospace";
     let y = dialogBoxY + boxPadding + 8;
     for (let l of lines) {
       ctx.fillText(l, boxPadding * 2, y);

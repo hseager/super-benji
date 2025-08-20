@@ -40,11 +40,12 @@ Story beat: Benji and Torx infiltrate the ship. Final showdown with the Iron Jac
 
 - Boss
 - Change music to atomospheric dnb
-
+- Levels
+  - Don't do tilesets, it looks bad and takes up too much space.
+  - Change colour through acts, add astroids or something else in the story.
+  - Maybe add planets or galaxies in the BG
 - Perfect bonus / Collect drops
   - Gives 3 options rather than 2 if you take no damage
-- Levels
-  - Tilesets
 - Bosses
   - Music
   - Health bars
