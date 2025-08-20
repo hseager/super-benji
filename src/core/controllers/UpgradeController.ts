@@ -1,5 +1,22 @@
-import { Upgrade } from "../types";
+import { Upgrade, UpgradeRarity } from "../types";
 import { GameController } from "./GameController";
+
+const RarityLabel: Record<string, UpgradeRarity> = {
+  Common: "Common",
+  Rare: "Rare",
+  Epic: "Epic",
+  Legendary: "Legendary",
+};
+
+const StatLabel: Record<string, string> = {
+  DMG: "DMG",
+  ATKSPD: "ATK SPD",
+  PROJSPD: "PROJ SPD",
+  HP: "HP",
+  REGEN: "REGEN",
+  EVASION: "EVASION",
+  MOVESPD: "MOVE SPD",
+};
 
 export class UpgradeController {
   private gameManager: GameController;
@@ -9,9 +26,9 @@ export class UpgradeController {
   private upgrades: Upgrade[] = [
     // Offensive
     {
-      rarity: "Common",
+      rarity: RarityLabel.Common,
       name: "Pulse Lazer MK-II",
-      description: "DMG +2, ATK SPD +10%",
+      description: `${StatLabel.DMG} +2, ${StatLabel.ATKSPD} +10%`,
       apply: async () => {
         this.gameManager.player.damage += 2;
         this.gameManager.player.attackSpeed *= 0.9;
@@ -19,9 +36,9 @@ export class UpgradeController {
       },
     },
     {
-      rarity: "Rare",
+      rarity: RarityLabel.Rare,
       name: "Nebula Railcoil",
-      description: "DMG +5, PROJ SPD +20%",
+      description: `${StatLabel.DMG} +5, ${StatLabel.PROJSPD} +20%`,
       description2: "Burst Shot",
       apply: () => {
         this.gameManager.player.damage += 5;
@@ -31,9 +48,9 @@ export class UpgradeController {
       },
     },
     {
-      rarity: "Epic",
+      rarity: RarityLabel.Epic,
       name: "Iron Fang Torpedo",
-      description: "DMG +10, ATK SPD +20%",
+      description: `${StatLabel.DMG} +10, ${StatLabel.ATKSPD} +20%`,
       description2: "Spread Shot",
       apply: () => {
         this.gameManager.player.damage += 10;
@@ -43,9 +60,9 @@ export class UpgradeController {
       },
     },
     {
-      rarity: "Legendary",
+      rarity: RarityLabel.Legendary,
       name: "Modified Sprinkler",
-      description: "DMG -8, ATK SPD +60%",
+      description: `${StatLabel.DMG} -8, ${StatLabel.ATKSPD} +60%`,
       description2: "Mega Shot",
       apply: () => {
         this.gameManager.player.damage -= 8;
@@ -55,9 +72,9 @@ export class UpgradeController {
       },
     },
     {
-      rarity: "Legendary",
+      rarity: RarityLabel.Legendary,
       name: "Glass Canon",
-      description: "HP -25, DMG +12",
+      description: `${StatLabel.HP} -25, ${StatLabel.DMG} +12`,
       description2: "Mega Shot",
       apply: () => {
         this.gameManager.player.damage += 12;
@@ -68,10 +85,10 @@ export class UpgradeController {
     },
     // Defensive
     {
-      rarity: "Common",
+      rarity: RarityLabel.Common,
       name: "Mithril Plating",
-      description: "HP +10, REGEN +2",
-      description2: "EVASION +5%",
+      description: `${StatLabel.HP} +10, ${StatLabel.REGEN} +2`,
+      description2: `${StatLabel.EVASION} +5%`,
       apply: () => {
         this.gameManager.player.maxLife += 20;
         this.gameManager.player.life += 20;
@@ -80,9 +97,9 @@ export class UpgradeController {
       },
     },
     {
-      rarity: "Common",
+      rarity: RarityLabel.Common,
       name: "Adamite Panels",
-      description: "HP +20, REGEN +5",
+      description: `${StatLabel.HP} +20, ${StatLabel.REGEN} +5`,
       apply: () => {
         this.gameManager.player.maxLife += 20;
         this.gameManager.player.life += 20;
@@ -90,9 +107,9 @@ export class UpgradeController {
       },
     },
     {
-      rarity: "Rare",
+      rarity: RarityLabel.Rare,
       name: "Torx’s Reinforced Shell",
-      description: "HP +50, REGEN +10",
+      description: `${StatLabel.HP} +50, ${StatLabel.REGEN} +10`,
       apply: () => {
         this.gameManager.player.maxLife += 50;
         this.gameManager.player.life += 50;
@@ -100,28 +117,28 @@ export class UpgradeController {
       },
     },
     {
-      rarity: "Epic",
+      rarity: RarityLabel.Epic,
       name: "Aether Veil",
-      description: "EVASION +15%",
+      description: `${StatLabel.EVASION} +15%`,
       apply: () => {
         this.gameManager.player.evasion += 15;
       },
     },
     // Movement
     {
-      rarity: "Common",
+      rarity: RarityLabel.Common,
       name: "Starwing Stabilizers",
-      description: "MOVE SPD +10%",
+      description: `${StatLabel.MOVESPD} +10%`,
       apply: () => {
         this.gameManager.player.movementXSpeed *= 1.15;
         this.gameManager.player.movementYSpeed *= 1.15;
       },
     },
     {
-      rarity: "Rare",
+      rarity: RarityLabel.Rare,
       name: "Meteor Thrusters",
-      description: "MOVE SPD +20%",
-      description2: "EVASION +5%",
+      description: `${StatLabel.MOVESPD} +20%`,
+      description2: `${StatLabel.EVASION} +5%`,
       apply: () => {
         this.gameManager.player.movementXSpeed *= 1.2;
         this.gameManager.player.movementYSpeed *= 1.2;
@@ -129,10 +146,10 @@ export class UpgradeController {
       },
     },
     {
-      rarity: "Legendary",
+      rarity: RarityLabel.Legendary,
       name: "Voidstep Drive",
-      description: "MOVE SPD +30%",
-      description2: "EVASION +10%",
+      description: `${StatLabel.MOVESPD} +30%`,
+      description2: `${StatLabel.EVASION} +10%`,
       apply: () => {
         this.gameManager.player.movementXSpeed *= 1.3;
         this.gameManager.player.movementYSpeed *= 1.3;
@@ -141,28 +158,28 @@ export class UpgradeController {
     },
     // Utility
     {
-      rarity: "Common",
+      rarity: RarityLabel.Common,
       name: "Hunter’s Instinct",
-      description: "DMG +4, EVASION +2%",
+      description: `${StatLabel.DMG} +4, ${StatLabel.EVASION} +2%`,
       apply: () => {
         this.gameManager.player.damage += 4;
         this.gameManager.player.evasion += 2;
       },
     },
     {
-      rarity: "Rare",
+      rarity: RarityLabel.Rare,
       name: "Plasma Capacitor",
-      description: "ATK SPD +15%",
-      description2: "PROJ SPD +15%",
+      description: `${StatLabel.ATKSPD} +15%`,
+      description2: `${StatLabel.PROJSPD} +15%`,
       apply: () => {
         this.gameManager.player.attackSpeed *= 0.85;
         this.gameManager.player.bulletSpeed *= 1.15;
       },
     },
     {
-      rarity: "Legendary",
+      rarity: RarityLabel.Legendary,
       name: "Jackalbane Core",
-      description: "DMG +15, HP +50",
+      description: `${StatLabel.DMG} +15, ${StatLabel.HP} +50`,
       apply: () => {
         this.gameManager.player.damage += 15;
         this.gameManager.player.maxLife += 50;
@@ -171,9 +188,9 @@ export class UpgradeController {
     },
     // Heal
     {
-      rarity: "Common",
+      rarity: RarityLabel.Common,
       name: "Left-over Sushi",
-      description: "HP +10, REGEN +1",
+      description: `${StatLabel.HP} +10, ${StatLabel.REGEN} +1`,
       apply: () => {
         this.gameManager.player.regen += 1;
         this.gameManager.player.maxLife += 10;
@@ -181,9 +198,9 @@ export class UpgradeController {
       },
     },
     {
-      rarity: "Common",
+      rarity: RarityLabel.Common,
       name: "Tuna Suprise",
-      description: "HP +5, REGEN +3",
+      description: `${StatLabel.HP} +5, ${StatLabel.REGEN} +3`,
       apply: () => {
         this.gameManager.player.regen += 3;
         this.gameManager.player.maxLife += 5;
@@ -191,10 +208,10 @@ export class UpgradeController {
       },
     },
     {
-      rarity: "Rare",
+      rarity: RarityLabel.Rare,
       name: "Iron Jackal Bru",
-      description: "HP +10, REGEN +3",
-      description2: "PROJ SPD +10%",
+      description: `${StatLabel.HP} +10, ${StatLabel.REGEN} +3`,
+      description2: `${StatLabel.PROJSPD} +10%`,
       apply: () => {
         this.gameManager.player.regen += 3;
         this.gameManager.player.maxLife += 10;
