@@ -39,17 +39,17 @@ export const PLAYER_PALETTE = [
   "#00BFFF",
 ];
 
-export const PLAYER_AVATAR_PALETTE = [
-  "#1a1a1a", // near-black
-  "#311f00", // dark brown
-  "#432508", // warm deep brown
-  "#522f00", // orange-brown, darker
-  "#332200", // dark umber
-  "#915525", // earthy orange, toned down
-  "#a87d32", // muted golden brown
-  "#eccfae", // soft light skin tone
-  "#bb9a54", // subdued gold
-  "#73cff4", // slightly darker sky blue
+export const BENJI_AVATAR_PALETTE = [
+  "#0d0d0d", // near-black (fur/primary shadow)
+  "#1a1a1a", // soft black (highlighted fur)
+  "#2c2c2c", // dark gray (mid-tone fur)
+  "#3f3f3f", // lighter gray (whiskers/edges)
+  "#5a2b00", // deep burnt umber (transition into suit)
+  "#8c3b00", // dark orange-brown (undersuit/shadows)
+  "#9aacac", // vivid orange (main jumpsuit)
+  "#ff7b1c", // bright orange (highlighted suit)
+  "#ffb84d", // golden orange (trim/glow details)
+  "#ffd9a3", // pale orange-cream (soft highlight/accent)
 ];
 
 // export const PLAYER_PALETTE = [
@@ -155,6 +155,8 @@ export const TORX_AVATAR_WIDTH = 17;
 export const TORX_AVATAR_HEIGHT = 16;
 export const MAGGIE_AVATAR_WIDTH = 17;
 export const MAGGIE_AVATAR_HEIGHT = 16;
+export const JACKAL_AVATAR_WIDTH = 16;
+export const JACKAL_AVATAR_HEIGHT = 20;
 
 export const TORX_AVATAR_PALETTE = [
   "#181a17", // dark green-brown
@@ -180,4 +182,17 @@ export const MAGGIE_AVATAR_PALETTE = [
   "#6f92b8", // lighter dusty blue
   "#90afcf", // pale cool blue
   "#b0cde6", // soft pastel blue
+];
+
+export const JACKAL_AVATAR_PALETTE = [
+  "#1a130f", // near-black brown (shadowed metal)
+  "#2a1f18", // deep iron-brown
+  "#3b2c22", // dark forged brown
+  "#544036", // muted rusted brown
+  "#6a5448", // weathered steel-brown
+  "#7f6a5a", // tarnished bronze tone
+  "#8e8e91", // dark steel gray
+  "#a5a6a9", // worn silver
+  "#c5c6c9", // polished steel
+  "#e0e1e3", // bright silver highlight
 ];

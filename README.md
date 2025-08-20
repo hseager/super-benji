@@ -25,10 +25,6 @@ Story beat: Benji and Torx infiltrate the ship. Final showdown with the Iron Jac
 
 ### Stats
 
-#### Special
-
-- Explosion size
-
 #### Maybe Later
 
 - Damage types (Ice, Fire, Poison) + enemy Res
@@ -42,9 +38,6 @@ Story beat: Benji and Torx infiltrate the ship. Final showdown with the Iron Jac
 
 ### TODO
 
-- Better enemy AI
-  - Waves
-  - Spawn/attack patterns
 - Boss
 - Change music to atomospheric dnb
 

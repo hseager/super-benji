@@ -3,6 +3,8 @@ import {
   AVATAR_BODY_WIDTH,
   BENJI_AVATAR_HEIGHT,
   BENJI_AVATAR_WIDTH,
+  JACKAL_AVATAR_HEIGHT,
+  JACKAL_AVATAR_WIDTH,
   MAGGIE_AVATAR_HEIGHT,
   MAGGIE_AVATAR_WIDTH,
   SPRITE_BASE64,
@@ -191,6 +193,25 @@ export class SpriteBuilder {
       84,
       AVATAR_BODY_WIDTH,
       AVATAR_BODY_HEIGHT
+    );
+
+    return SpriteBuilder.applyPalette(buffer, palette);
+  }
+
+  static async createJackalAvatar(
+    sheet: SpriteSheet,
+    palette: string[]
+  ): Promise<HTMLImageElement> {
+    const buffer = new CanvasBuffer(JACKAL_AVATAR_WIDTH, JACKAL_AVATAR_HEIGHT);
+
+    buffer.drawSprite(
+      sheet,
+      0,
+      0,
+      31,
+      68,
+      JACKAL_AVATAR_WIDTH,
+      JACKAL_AVATAR_HEIGHT
     );
 
     return SpriteBuilder.applyPalette(buffer, palette);

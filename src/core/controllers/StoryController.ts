@@ -11,71 +11,78 @@ const storyActs: Record<number, StoryLine[]> = {
   [StoryActs.Act1]: [
     {
       speaker: "Maggie",
-      text: "Benji… the Iron Jackal has stolen the Titan Heart.",
+      text: "Benji, the Iron Jackal has taken the Titan Heart.",
     },
     {
       speaker: "Maggie",
-      text: "An ancient crystalline star-core that powers interstellar warp lanes.",
-    },
-    {
-      speaker: "Maggie",
-      text: "Without it, entire colonies risk isolation… and collapse.",
+      text: "Without it, warp lanes will collapse. Whole colonies could be stranded.",
     },
     {
       speaker: "Benji",
-      text: "Great. So we’re chasing a galaxy-crushing thief again?",
+      text: "So he wants to choke the galaxy by cutting off its roads. Clever. Evil, but clever.",
     },
     {
       speaker: "Torx",
-      text: "That’s right. First stop: Starfield Frontiers — Jackal’s raiders are tearing the system apart.",
+      text: "Then we’ll just have to hunt him down before the galaxy gridlocks into chaos.",
     },
   ],
   [StoryActs.Act2]: [
     {
       speaker: "Maggie",
-      text: "Next stop, Verdantia. Jackal’s forces are harvesting planetary cores to power a superweapon.",
+      text: "Jackal’s fleet is on Verdantia. He’s channeling the Titan Heart into a weapon core.",
     },
     {
       speaker: "Benji",
-      text: "A superweapon? That’s… way above our pay grade.",
+      text: "A superweapon, naturally. Why do they always build those instead of, I don’t know, hospitals?",
     },
     {
       speaker: "Torx",
-      text: "Above our pay grade, sure… but at least we get hazard pay in adrenaline!",
-    },
-    {
-      speaker: "Benji",
-      text: "Any bright ideas on how to take down a mega-ship before it completes the weapon?",
-    },
-    {
-      speaker: "Torx",
-      text: "Step one: survive. Step two: wreak some chaos. Step three: victory… hopefully without turning into space debris.",
+      text: "Because hospitals don’t vaporize planets. Stay sharp — he’s accelerating the build.",
     },
     {
       speaker: "Maggie",
-      text: "And remember, if the Titan Heart powers up, it won’t just ruin our day—it’ll ruin everyone’s day. Literally.",
+      text: "If he succeeds, no world will be safe. We have to stop him here.",
     },
   ],
   [StoryActs.Act3]: [
     {
       speaker: "Maggie",
-      text: "Ironfang Megaship. Bigger than a moon. Powered by the Heart.",
-    },
-    { speaker: "Benji", text: "Wow. That’s… intimidating." },
-    {
-      speaker: "Torx",
-      text: "Intimidating? Yes. Inviting for a good wrecking? Absolutely.",
+      text: "There it is. The Ironfang Megaship… the Titan Heart at its core.",
     },
     {
       speaker: "Benji",
-      text: "Final showdown time. Jackal, meet chaos and sticky tape.",
+      text: "Looks more like a floating fortress than a ship.",
     },
-    { speaker: "Torx", text: "Let’s go! Moon-sized boss fight incoming!" },
+    {
+      speaker: "Jackal",
+      text: "You’ve come far, but this is where your defiance ends. The galaxy belongs to me.",
+    },
+    {
+      speaker: "Torx",
+      text: "Big words from a man hiding behind a flying mountain.",
+    },
+    {
+      speaker: "Jackal",
+      text: "Your courage is amusing. Your resistance is doomed.",
+    },
+    {
+      speaker: "Benji",
+      text: "We’ll see. If you want the galaxy, you’ll have to take it over our wreckage.",
+    },
+    { speaker: "Jackal", text: "Gladly." },
   ],
   [StoryActs.Epilogue]: [
     {
       speaker: "Maggie",
-      text: "Well, you did it! You defeated the Iron Jackal! But there's still the Jackals fleet to clear up…",
+      text: "It’s done. The Jackal is defeated, and the Titan Heart is safe.",
+    },
+    {
+      speaker: "Benji",
+      text: "For now. But if he clawed his way back once, he might try again.",
+    },
+    {
+      speaker: "Torx",
+      text: "Then we’ll be ready. Galaxy’s not done needing heroes yet.",
     },
   ],
 };
@@ -181,6 +188,8 @@ export class StoryController {
       ? sm.maggieAvatar
       : speaker === "Torx"
       ? sm.torxAvatar
+      : speaker === "Jackal"
+      ? sm.jackalAvatar
       : sm.playerAvatar;
   }
 

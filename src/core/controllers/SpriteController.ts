@@ -3,9 +3,10 @@ import {
   ADVANCED_ENEMY_PALETTE,
   BASIC_ENEMY_PALETTE,
   ENEMY_BULLET_PALETTE,
+  JACKAL_AVATAR_PALETTE,
   MAGGIE_AVATAR_PALETTE,
   MODERATE_ENEMY_PALETTE,
-  PLAYER_AVATAR_PALETTE,
+  BENJI_AVATAR_PALETTE,
   PLAYER_BULLET_PALETTES,
   PLAYER_PALETTE,
   TORX_AVATAR_PALETTE,
@@ -22,6 +23,7 @@ export class SpriteController {
   enemyBulletSprite!: HTMLImageElement;
   torxAvatar!: HTMLImageElement;
   maggieAvatar!: HTMLImageElement;
+  jackalAvatar!: HTMLImageElement;
 
   private spriteSheet!: SpriteSheet;
 
@@ -57,7 +59,7 @@ export class SpriteController {
 
     this.playerAvatar = await SpriteBuilder.createPlayerAvatar(
       this.spriteSheet,
-      PLAYER_AVATAR_PALETTE
+      BENJI_AVATAR_PALETTE
     );
 
     this.torxAvatar = await SpriteBuilder.createTorxAvatar(
@@ -68,6 +70,11 @@ export class SpriteController {
     this.maggieAvatar = await SpriteBuilder.createMaggieAvatar(
       this.spriteSheet,
       MAGGIE_AVATAR_PALETTE
+    );
+
+    this.jackalAvatar = await SpriteBuilder.createJackalAvatar(
+      this.spriteSheet,
+      JACKAL_AVATAR_PALETTE
     );
 
     return this;
