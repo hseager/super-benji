@@ -75,7 +75,7 @@ const storyActs: Record<number, StoryLine[]> = {
   [StoryActs.Epilogue]: [
     {
       speaker: "Maggie",
-      text: "Well, you did it! But there's still the Jackals fleet to clear up.",
+      text: "Well, you did it! You defeated the Iron Jackal! But there's still the Jackals fleet to clear up…",
     },
   ],
 };
@@ -85,7 +85,7 @@ export class StoryController {
   isActive = true;
   currentAct: number = StoryActs.Act1;
   currentActPart = 0;
-  levelsToProgressStory = [6, 11, 16];
+  levelsToProgressStory = [2, 3, 4];
 
   private torxDialog: string[] = [
     "Scrap secured. Upgrade time!",
@@ -145,6 +145,10 @@ export class StoryController {
         break;
       case StoryActs.Act3:
         this.currentAct = StoryActs.Epilogue;
+        this.gameController.levelManager.startLevel();
+        this.gameController.resumeGame();
+        break;
+      default:
         this.gameController.levelManager.startLevel();
         this.gameController.resumeGame();
         break;

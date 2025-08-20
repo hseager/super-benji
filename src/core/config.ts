@@ -116,9 +116,9 @@ export const MODERATE_ENEMY_PALETTE = [
 ];
 
 export const ADVANCED_ENEMY_PALETTE = [
-  "#200000",
-  "#190202",
-  "#290303",
+  "#310101",
+  "#331515",
+  "#380d0d",
   "#310c0c",
   "#A03030",
   "#c04040",
