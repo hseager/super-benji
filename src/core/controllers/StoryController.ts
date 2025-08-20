@@ -7,85 +7,85 @@ import { Character, ImageProperties, StoryActs, StoryLine } from "../types";
 import { drawEngine } from "./DrawController";
 import { GameController } from "./GameController";
 
+const storyActs: Record<number, StoryLine[]> = {
+  [StoryActs.Act1]: [
+    {
+      speaker: "Maggie",
+      text: "Benji… the Iron Jackal has stolen the Titan Heart.",
+    },
+    {
+      speaker: "Maggie",
+      text: "An ancient crystalline star-core that powers interstellar warp lanes.",
+    },
+    {
+      speaker: "Maggie",
+      text: "Without it, entire colonies risk isolation… and collapse.",
+    },
+    {
+      speaker: "Benji",
+      text: "Great. So we’re chasing a galaxy-crushing thief again?",
+    },
+    {
+      speaker: "Torx",
+      text: "That’s right. First stop: Starfield Frontiers — Jackal’s raiders are tearing the system apart.",
+    },
+  ],
+  [StoryActs.Act2]: [
+    {
+      speaker: "Maggie",
+      text: "Next stop, Verdantia. Jackal’s forces are harvesting planetary cores to power a superweapon.",
+    },
+    {
+      speaker: "Benji",
+      text: "A superweapon? That’s… way above our pay grade.",
+    },
+    {
+      speaker: "Torx",
+      text: "Above our pay grade, sure… but at least we get hazard pay in adrenaline!",
+    },
+    {
+      speaker: "Benji",
+      text: "Any bright ideas on how to take down a mega-ship before it completes the weapon?",
+    },
+    {
+      speaker: "Torx",
+      text: "Step one: survive. Step two: wreak some chaos. Step three: victory… hopefully without turning into space debris.",
+    },
+    {
+      speaker: "Maggie",
+      text: "And remember, if the Titan Heart powers up, it won’t just ruin our day—it’ll ruin everyone’s day. Literally.",
+    },
+  ],
+  [StoryActs.Act3]: [
+    {
+      speaker: "Maggie",
+      text: "Ironfang Megaship. Bigger than a moon. Powered by the Heart.",
+    },
+    { speaker: "Benji", text: "Wow. That’s… intimidating." },
+    {
+      speaker: "Torx",
+      text: "Intimidating? Yes. Inviting for a good wrecking? Absolutely.",
+    },
+    {
+      speaker: "Benji",
+      text: "Final showdown time. Jackal, meet chaos and sticky tape.",
+    },
+    { speaker: "Torx", text: "Let’s go! Moon-sized boss fight incoming!" },
+  ],
+  [StoryActs.Epilogue]: [
+    {
+      speaker: "Maggie",
+      text: "Well, you did it! But there's still the Jackals fleet to clear up.",
+    },
+  ],
+};
+
 export class StoryController {
   gameController: GameController;
   isActive = true;
-  currentAct: StoryActs = "act1";
+  currentAct: number = StoryActs.Act1;
   currentActPart = 0;
   levelsToProgressStory = [6, 11, 16];
-
-  private storyActs: Record<StoryActs, StoryLine[]> = {
-    act1: [
-      {
-        speaker: "Maggie",
-        text: "Benji… the Iron Jackal has stolen the Titan Heart.",
-      },
-      {
-        speaker: "Maggie",
-        text: "An ancient crystalline star-core that powers interstellar warp lanes.",
-      },
-      {
-        speaker: "Maggie",
-        text: "Without it, entire colonies risk isolation… and collapse.",
-      },
-      {
-        speaker: "Benji",
-        text: "Great. So we’re chasing a galaxy-crushing thief again?",
-      },
-      {
-        speaker: "Torx",
-        text: "That’s right. First stop: Starfield Frontiers — Jackal’s raiders are tearing the system apart.",
-      },
-    ],
-    act2: [
-      {
-        speaker: "Maggie",
-        text: "Next stop, Verdantia. Jackal’s forces are harvesting planetary cores to power a superweapon.",
-      },
-      {
-        speaker: "Benji",
-        text: "A superweapon? That’s… way above our pay grade.",
-      },
-      {
-        speaker: "Torx",
-        text: "Above our pay grade, sure… but at least we get hazard pay in adrenaline!",
-      },
-      {
-        speaker: "Benji",
-        text: "Any bright ideas on how to take down a mega-ship before it completes the weapon?",
-      },
-      {
-        speaker: "Torx",
-        text: "Step one: survive. Step two: wreak some chaos. Step three: victory… hopefully without turning into space debris.",
-      },
-      {
-        speaker: "Maggie",
-        text: "And remember, if the Titan Heart powers up, it won’t just ruin our day—it’ll ruin everyone’s day. Literally.",
-      },
-    ],
-    act3: [
-      {
-        speaker: "Maggie",
-        text: "Ironfang Megaship. Bigger than a moon. Powered by the Heart.",
-      },
-      { speaker: "Benji", text: "Wow. That’s… intimidating." },
-      {
-        speaker: "Torx",
-        text: "Intimidating? Yes. Inviting for a good wrecking? Absolutely.",
-      },
-      {
-        speaker: "Benji",
-        text: "Final showdown time. Jackal, meet chaos and sticky tape.",
-      },
-      { speaker: "Torx", text: "Let’s go! Moon-sized boss fight incoming!" },
-    ],
-    epilogue: [
-      {
-        speaker: "Maggie",
-        text: "Well, you did it! But there's still the Jackals fleet to clear up.",
-      },
-    ],
-  };
 
   private torxDialog: string[] = [
     "Scrap secured. Upgrade time!",
@@ -119,7 +119,7 @@ export class StoryController {
   }
 
   private getCurrentActScript() {
-    return this.storyActs[this.currentAct] ?? [];
+    return storyActs[this.currentAct] ?? [];
   }
 
   next() {
@@ -133,18 +133,18 @@ export class StoryController {
     // Move to next act
     this.currentActPart = 0;
     switch (this.currentAct) {
-      case "act1":
-        this.currentAct = "act2";
+      case StoryActs.Act1:
+        this.currentAct = StoryActs.Act2;
         this.gameController.startGame();
         this.gameController.resumeGame();
         break;
-      case "act2":
-        this.currentAct = "act3";
+      case StoryActs.Act2:
+        this.currentAct = StoryActs.Act3;
         this.gameController.levelManager.startLevel();
         this.gameController.resumeGame();
         break;
-      case "act3":
-        this.currentAct = "epilogue";
+      case StoryActs.Act3:
+        this.currentAct = StoryActs.Epilogue;
         this.gameController.levelManager.startLevel();
         this.gameController.resumeGame();
         break;

@@ -29,7 +29,13 @@ export type StoryLine = {
   text: string;
 };
 
-export type StoryActs = "act1" | "act2" | "act3" | "epilogue";
+export const StoryActs = {
+  Act1: 0,
+  Act2: 1,
+  Act3: 2,
+  Epilogue: 3,
+};
+
 export type Character = "Benji" | "Maggie" | "Torx" | "Jackal";
 
 export type MovePattern = "straight" | "sine" | "zigzag";

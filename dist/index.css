@@ -45,15 +45,6 @@ body {
   flex-wrap: wrap;
 }
 
-button {
-  font-family: var(--font-family);
-  font-size: var(--font-size);
-}
-
 .container {
   height: 100%;
-}
-
-.hide {
-  display: none;
 }
