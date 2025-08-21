@@ -179,7 +179,12 @@ export class StoryController {
     }
 
     if (!part) return;
-    this.drawDialogBox(part.speaker, part.text, 190, 50);
+    this.drawDialogBox(
+      part.speaker,
+      part.text,
+      drawEngine.canvasHeight - 65,
+      50
+    );
   }
 
   private getAvatar(speaker: Character) {
@@ -202,14 +207,14 @@ export class StoryController {
     const ctx = drawEngine.context;
     const words = text.split(" ");
     const avatarPos: ImageProperties = {
-      x: 15,
-      y: dialogBoxY - 34,
-      width: TORX_AVATAR_WIDTH,
-      height: TORX_AVATAR_HEIGHT + AVATAR_BODY_HEIGHT,
+      x: 25,
+      y: dialogBoxY - 65,
+      width: TORX_AVATAR_WIDTH * 2,
+      height: (TORX_AVATAR_HEIGHT + AVATAR_BODY_HEIGHT) * 2,
     };
 
     // Draw box
-    const boxPadding = 5,
+    const boxPadding = 10,
       lineHeight = 10;
     const maxTextWidth =
       drawEngine.canvasWidth - (avatarPos.width + boxPadding);
@@ -241,9 +246,10 @@ export class StoryController {
 
     // Draw avatar & text
     this.drawAvatar(ctx, speaker, this.getAvatar(speaker), avatarPos);
+
     ctx.fillStyle = "white";
     ctx.textAlign = "left";
-    ctx.font = "9px monospace";
+    ctx.font = "bold 12px Courier New";
     let y = dialogBoxY + boxPadding + 8;
     for (let l of lines) {
       ctx.fillText(l, boxPadding * 2, y);
@@ -267,8 +273,8 @@ export class StoryController {
     ctx.strokeRect(x, y, width, height);
     ctx.fillStyle = "white";
     ctx.textAlign = "center";
-    ctx.font = "9px monospace";
-    ctx.fillText(speaker, x + width / 2, y + height + 10);
+    ctx.font = "bold 12px Courier New";
+    ctx.fillText(speaker, x + width / 2, y + height + 15);
     ctx.restore();
   }
 

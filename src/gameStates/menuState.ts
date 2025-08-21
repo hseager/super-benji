@@ -24,12 +24,12 @@ class MenuState implements State {
   }
 
   onUpdate(delta: number) {
-    drawEngine.drawTitle("Benji", 28, drawEngine.getCenterX() + 15, 110);
+    drawEngine.drawTitle("Benji", 56, drawEngine.getCenterX() + 15, 180);
     drawEngine.drawText(
       "Super",
-      18,
-      drawEngine.getCenterX() - 30,
-      94,
+      36,
+      drawEngine.getCenterX() - 55,
+      135,
       "#fff",
       "center",
       "#ee2626",
@@ -40,20 +40,24 @@ class MenuState implements State {
     const { context } = drawEngine;
 
     context.save();
-    context.font = `900 10px "Tahoma"`;
+    context.font = `900 15px "Tahoma"`;
     context.textAlign = "center";
     context.fillStyle = "#f01b1bce";
-    context.fillText("js13k 2025", 35, drawEngine.canvasHeight - 10);
+    context.fillText("JS13K 2025", 60, drawEngine.canvasHeight - 10);
     context.restore();
 
     drawEngine.drawText(
       "by hseager",
-      9,
-      drawEngine.canvasWidth - 35,
+      18,
+      drawEngine.canvasWidth - 70,
       drawEngine.canvasHeight - 11,
       "#f0f0f0c7"
     );
-    drawEngine.drawMenuAction("Start Game", delta, 180);
+    drawEngine.drawMenuAction(
+      "Start Game",
+      delta,
+      drawEngine.canvasHeight * 0.6
+    );
   }
 
   onLeave() {

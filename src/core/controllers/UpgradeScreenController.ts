@@ -50,7 +50,7 @@ export class UpgradeScreenController {
 
     // Upgrade text
     ctx.fillStyle = borderColor;
-    ctx.font = "bold 10px monospace";
+    ctx.font = "bold 10px Courier New";
     ctx.textAlign = "left";
     ctx.fillText(`[${upgrade.rarity}]`, x + 6, y + 10);
 

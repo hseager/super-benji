@@ -41,26 +41,37 @@ Story beat: Benji and Torx infiltrate the ship. Final showdown with the Iron Jac
 - Boss
 - Change music to atomospheric dnb
 - Levels
+  - Don't have upgrades at the end of every level
+    - Have random chance of healing, gold or upgrade
+      - Risk/reward = Sacrifice HP for random upgrade
+      - Spend gold to heal
+    - Get an item and more enemies next round
+    - Pick a ? card, get health, gold, item or curse?
   - Don't do tilesets, it looks bad and takes up too much space.
-  - Change colour through acts, add astroids or something else in the story.
+  - Change colour through acts, add astroids or something to dodge in the story (Ion storms).
   - Maybe add planets or galaxies in the BG
-- Perfect bonus / Collect drops
-  - Gives 3 options rather than 2 if you take no damage
+- Perfect bonus
+  - Gives gold bonus
+  - Each upgrade option
 - Bosses
+  - Reuse enemy sprites, change colour
   - Music
   - Health bars
   - Sprite, attack patterns
+  - Drop loads of coins
 - Enemies
   - Drop proximity bombs
   - Faster
+  - Increase health each level
   - Health bars
   - Sound effects on kill
   - Redo enemy sprites, Iron Jackal Fleet
 - Add stat key to intro text
 - Screen shake on taking damage
-- Loot
-  - Balance stats
-  - Rarity chance
+- Loot/Upgrades
+  - Each upgrade costs gold, rarer = more expensive
+  - Balance stats, add more downsizes
+  - Increase Rarity chance
 - UI Polish
   - Better fonts
 

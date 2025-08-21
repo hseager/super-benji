@@ -45,7 +45,9 @@ export class SpriteSheet {
       dy = -sh / 2;
     }
 
-    ctx.drawImage(this.image, sx, sy, sw, sh, dx, dy, sw, sh);
+    ctx.imageSmoothingEnabled = false;
+
+    ctx.drawImage(this.image, sx, sy, sw, sh, dx, dy, sw * 2, sh * 2);
     ctx.restore();
   }
 }

@@ -154,8 +154,18 @@ export class LevelController {
 
       const { area, zone } = this.getLevelName(this.currentLevel);
 
-      drawEngine.drawTitle(area, 12, drawEngine.canvasWidth / 2, 40);
-      drawEngine.drawTitle(`Zone ${zone}`, 16, drawEngine.canvasWidth / 2, 65);
+      drawEngine.drawTitle(
+        area,
+        24,
+        drawEngine.canvasWidth / 2,
+        drawEngine.canvasHeight * 0.2
+      );
+      drawEngine.drawTitle(
+        `Zone ${zone}`,
+        32,
+        drawEngine.canvasWidth / 2,
+        drawEngine.canvasHeight * 0.275
+      );
 
       drawEngine.context.restore();
     }

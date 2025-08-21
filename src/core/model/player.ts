@@ -25,7 +25,7 @@ export class Player extends Shooter {
   // GFX
   sprite: HTMLImageElement;
   shootingXOffset = -2; // Offset for shooting position
-  boosterSize = 6; // Size of the booster flame
+  boosterSize = 12; // Size of the booster flame
   boosterYOffset = -2; // Offset for booster flame position
   bulletColor: keyof typeof PLAYER_BULLET_PALETTES = "blue";
 
@@ -57,7 +57,7 @@ export class Player extends Shooter {
       sprite,
       bulletPool,
       drawEngine.getCenterX() - sprite.width / 2,
-      120,
+      drawEngine.canvasHeight * 0.5,
       sprite.width,
       sprite.height
     );

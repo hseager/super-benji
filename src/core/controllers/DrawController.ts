@@ -1,5 +1,5 @@
-export const logicalWidth = 144; // base logical resolution
-export const logicalHeight = 256; // base logical resolution
+export const logicalWidth = 288; // base logical resolution
+export const logicalHeight = 512; // base logical resolution
 
 type GradientStop = [number, string];
 
@@ -142,7 +142,7 @@ class DrawController {
 
     if (this.showMenuAction) {
       const ctx = this.context;
-      const fontSize = 16;
+      const fontSize = 24;
 
       ctx.save();
       ctx.font = `bold ${fontSize}px "Courier New", serif`;

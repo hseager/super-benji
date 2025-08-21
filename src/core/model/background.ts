@@ -25,6 +25,7 @@ export class Background {
   layers: BackgroundLayer[] = [];
   private xMovementBuffer = 100;
   private XMovementAmount = 0.4;
+  private tileSize = 256;
 
   constructor() {
     // Randomise a base palette
@@ -34,7 +35,7 @@ export class Background {
     this.layers.push(
       this.createLayer(
         basePalette,
-        128,
+        this.tileSize,
         0.001,
         BACKGROUND_MOVEMENT_Y_SPEED * 0.4,
         0.2,
@@ -44,7 +45,7 @@ export class Background {
     this.layers.push(
       this.createLayer(
         basePalette,
-        128,
+        this.tileSize,
         0.002,
         BACKGROUND_MOVEMENT_Y_SPEED * 0.6,
         0.3,
@@ -54,7 +55,7 @@ export class Background {
     this.layers.push(
       this.createLayer(
         basePalette,
-        128,
+        this.tileSize,
         0.003,
         BACKGROUND_MOVEMENT_Y_SPEED * 1,
         0.4,
@@ -142,7 +143,7 @@ export class Background {
   }
 
   generateStarTile(
-    size = 64,
+    size = 128,
     density = 0.01,
     palette: string[] = BASE_BACKGROUND_PALETTE,
     starSize: number
