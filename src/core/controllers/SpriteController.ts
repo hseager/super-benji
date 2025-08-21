@@ -2,12 +2,11 @@ import { SpriteBuilder } from "../graphics/spriteBuilder";
 import {
   ADVANCED_ENEMY_PALETTE,
   BASIC_ENEMY_PALETTE,
-  ENEMY_BULLET_PALETTE,
   JACKAL_AVATAR_PALETTE,
   MAGGIE_AVATAR_PALETTE,
   MODERATE_ENEMY_PALETTE,
   BENJI_AVATAR_PALETTE,
-  PLAYER_BULLET_PALETTES,
+  BULLET_PALETTES,
   PLAYER_PALETTE,
   TORX_AVATAR_PALETTE,
 } from "../config";
@@ -20,7 +19,6 @@ export class SpriteController {
   moderateEnemySprite!: HTMLImageElement;
   advancedEnemySprite!: HTMLImageElement;
   playerBulletSprite!: HTMLImageElement;
-  enemyBulletSprite!: HTMLImageElement;
   torxAvatar!: HTMLImageElement;
   maggieAvatar!: HTMLImageElement;
   jackalAvatar!: HTMLImageElement;
@@ -52,11 +50,6 @@ export class SpriteController {
       ADVANCED_ENEMY_PALETTE
     );
 
-    this.enemyBulletSprite = await SpriteBuilder.createBullet(
-      this.spriteSheet,
-      ENEMY_BULLET_PALETTE
-    );
-
     this.playerAvatar = await SpriteBuilder.createPlayerAvatar(
       this.spriteSheet,
       BENJI_AVATAR_PALETTE
@@ -81,10 +74,9 @@ export class SpriteController {
   }
 
   private async preloadBulletPalettes() {
-    const palettes = Object.keys(PLAYER_BULLET_PALETTES);
+    const palettes = Object.keys(BULLET_PALETTES);
     for (const color of palettes) {
-      const palette =
-        PLAYER_BULLET_PALETTES[color as keyof typeof PLAYER_BULLET_PALETTES];
+      const palette = BULLET_PALETTES[color as keyof typeof BULLET_PALETTES];
       this.playerBulletSprites[color] = await SpriteBuilder.createBullet(
         this.spriteSheet,
         palette

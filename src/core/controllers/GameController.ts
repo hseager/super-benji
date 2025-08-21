@@ -58,7 +58,7 @@ export class GameController {
         const bullet = bulletObject as Bullet;
 
         enemy.takeDamage(bullet.damage);
-        bullet.explode(6, 1);
+        bullet.explode(6, 2);
       }
     );
 
@@ -82,12 +82,12 @@ export class GameController {
         const bullet = bulletObject as Bullet;
 
         if (roll() < player.evasion) {
-          bullet.explode(6, 1);
+          bullet.explode(6, 2);
           return;
         }
 
         player.takeDamage(bullet.damage);
-        bullet.explode(6, 1);
+        bullet.explode(6, 2);
       }
     );
 
@@ -121,7 +121,7 @@ export class GameController {
   async init(): Promise<GameController> {
     // Anything that depends on sprites need to be awaited as the spritesheet is loaded, so we create some objects here instead of the constuctor
     this.spriteManager = await new SpriteController().init();
-    const { playerSprite, enemyBulletSprite } = this.spriteManager;
+    const { playerSprite } = this.spriteManager;
 
     // Create Bullet pools
     this.playerBulletPool = new BulletPool(100, () => {
@@ -130,7 +130,7 @@ export class GameController {
     });
     this.enemyBulletPool = new BulletPool(
       100,
-      () => new Bullet(enemyBulletSprite)
+      () => new Bullet(this.spriteManager.getBulletSprite("red"))
     );
 
     // Create Player

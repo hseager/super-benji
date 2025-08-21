@@ -30,7 +30,7 @@ export class Enemy extends Shooter {
   bulletSpeed: number;
 
   private directionChangeTimer = 0;
-
+  bulletColor: string = "red";
   movePattern: MovePattern;
 
   constructor(

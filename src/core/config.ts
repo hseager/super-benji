@@ -25,12 +25,13 @@ export const PLAYER_HEALTH_GLOW_COLOURS = [
   { hp: 0.0, color: "rgba(255, 0, 0, 0)" }, // transparent red
 ];
 
-export const PLAYER_BULLET_PALETTES: Record<string, string[]> = {
+export const BULLET_PALETTES: Record<string, string[]> = {
   blue: ["#35a3ec", "#4480b8"],
   green: ["#35ec5d", "#44b867"],
   purple: ["#a935ec", "#a144b8"],
   pink: ["#ec35be", "#b84488"],
   orange: ["#eca335", "#b88244"],
+  red: ["#ff5e49", "#881c18"],
 };
 
 export const PLAYER_PALETTE = [
@@ -97,8 +98,6 @@ export const ENEMY_ATTACK_VARIANCE = 0.3;
 export const ENEMY_START_POSITION_Y = -15;
 export const ENEMY_DIRECTION_CHANGE_CHANCE = 0.5; // 50%
 
-export const ENEMY_BULLET_PALETTE = ["#ff5e49", "#881c18"];
-
 export const BASIC_ENEMY_PALETTE = [
   "#200900",
   "#190902",
@@ -137,8 +136,8 @@ export const BACKGROUND_MOVEMENT_Y_SPEED = 60;
 export const BACKGROUND_CLOUD_OPACITY = 0.1;
 
 // Enemy
-export const EXPLOSION_SIZE = 240; // Pixels per second
-export const EXPLOSION_PART_SIZE = 6;
+export const EXPLOSION_SIZE = 400; // Pixels per second
+export const EXPLOSION_PART_SIZE = 12;
 export const EXPLOSION_ROTATION_SPEED = 8;
 export const EXPLOSION_DURATION = 1.5;
 

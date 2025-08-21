@@ -1,7 +1,7 @@
 import {
   PLAYER_ATTACK_SPEED,
   PLAYER_BULLET_DAMAGE,
-  PLAYER_BULLET_PALETTES,
+  BULLET_PALETTES,
   PLAYER_BULLET_SPEED,
   PLAYER_HEALTH_GLOW_COLOURS,
   PLAYER_MAX_LIFE,
@@ -27,7 +27,6 @@ export class Player extends Shooter {
   shootingXOffset = -2; // Offset for shooting position
   boosterSize = 12; // Size of the booster flame
   boosterYOffset = -2; // Offset for booster flame position
-  bulletColor: keyof typeof PLAYER_BULLET_PALETTES = "blue";
 
   // Glow
   glowColor: string = "#00bfff7c"; // Default glow color
@@ -46,6 +45,7 @@ export class Player extends Shooter {
   private regenTimer = 0;
 
   shootPattern: ShootPattern = "single";
+  bulletColor: string = "blue";
 
   constructor(
     gameController: GameController,

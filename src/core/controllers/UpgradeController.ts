@@ -9,13 +9,13 @@ const RarityLabel: Record<string, UpgradeRarity> = {
 };
 
 const StatLabel: Record<string, string> = {
-  DMG: "DMG",
-  ATKSPD: "ATK SPD",
-  PROJSPD: "PROJ SPD",
+  DMG: "Damage",
+  ATKSPD: "Attack Speed",
+  PROJSPD: "Projectile Speed",
   HP: "HP",
-  REGEN: "REGEN",
-  EVASION: "EVASION",
-  MOVESPD: "MOVE SPD",
+  REGEN: "Regen",
+  EVASION: "Evasion",
+  MOVESPD: "Move Speed",
 };
 
 export class UpgradeController {

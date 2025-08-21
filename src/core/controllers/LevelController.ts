@@ -15,7 +15,7 @@ import { EnemyConfig } from "../types";
 export class LevelController {
   currentLevel: number = 0;
   currentWave: number = 0;
-  wavesPerLevel: number = 2; // waves per level
+  wavesPerLevel: number = 1; // waves per level
   private baseEnemyCount = 1;
   private textDisplayTimer = 0;
   private gameManager: GameController;

@@ -1,4 +1,4 @@
-import { PLAYER_BULLET_PALETTES } from "../config";
+import { BULLET_PALETTES } from "../config";
 import { GameController } from "../controllers/GameController";
 import { Coordinates, ShootPattern } from "../types";
 import { BulletPool } from "./bulletPool";
@@ -17,14 +17,16 @@ export class Shooter extends GameObject {
   attackCooldown = 0;
   attackSpeed = 0.1;
   shootDir = { x: 0, y: -1 };
-  tiltAmount = 3;
-  tiltClamp = 3; // Max/min amount of tilting based on movespeed
+  tiltAmount = 4;
+  tiltClamp = 5; // Max/min amount of tilting based on movespeed
 
   shootPattern: ShootPattern = "single";
   burstShotsRemaining = 0;
   burstTimer = 0;
   burstInterval = 0.1; // gap between burst shots
   burstCount = 3; // how many bullets per burst
+
+  bulletColor: string = "red";
 
   constructor(
     gameController: GameController,
@@ -49,7 +51,7 @@ export class Shooter extends GameObject {
         // Continue burst
         this.burstTimer -= delta;
         if (this.burstTimer <= 0) {
-          this.shoot(damage, bulletSpeed, this.shootDir);
+          this.shoot(damage, bulletSpeed, this.shootDir, this.bulletColor);
           this.burstShotsRemaining--;
           this.burstTimer = this.burstInterval;
         }
@@ -71,7 +73,7 @@ export class Shooter extends GameObject {
       if (this.attackCooldown <= 0) {
         switch (this.shootPattern) {
           case "single":
-            this.shoot(damage, bulletSpeed, this.shootDir);
+            this.shoot(damage, bulletSpeed, this.shootDir, this.bulletColor);
             break;
 
           case "spread": {
@@ -92,7 +94,7 @@ export class Shooter extends GameObject {
                 y: bx * sinA + by * cosA,
               };
 
-              this.shoot(damage, bulletSpeed, dir);
+              this.shoot(damage, bulletSpeed, dir, this.bulletColor);
             }
             break;
           }
@@ -113,7 +115,7 @@ export class Shooter extends GameObject {
                 y: bx * sinA + by * cosA,
               };
 
-              this.shoot(damage, bulletSpeed, dir);
+              this.shoot(damage, bulletSpeed, dir, this.bulletColor);
             }
             break;
           }
@@ -127,7 +129,7 @@ export class Shooter extends GameObject {
     damage: number,
     bulletSpeed: number,
     dir: { x: number; y: number } = this.shootDir,
-    bulletColor?: keyof typeof PLAYER_BULLET_PALETTES
+    bulletColor?: keyof typeof BULLET_PALETTES
   ) {
     if (!this.active || !this.bulletPool) return;
 
