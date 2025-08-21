@@ -132,7 +132,7 @@ class DrawController {
     context.restore();
   }
 
-  drawMenuAction(text: string, delta: number, y: number = 200) {
+  drawMenuAction(text: string, delta: number, y: number = 400) {
     this.blinkTimer += delta;
 
     if (this.blinkTimer >= this.menuActionBlinkSpeed) {

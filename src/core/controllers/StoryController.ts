@@ -285,6 +285,6 @@ export class StoryController {
 
   drawTorxDialog() {
     if (!this.currentTorxDialog) return;
-    this.drawDialogBox("Torx", this.currentTorxDialog, 55, 30);
+    this.drawDialogBox("Torx", this.currentTorxDialog, 120, 60);
   }
 }

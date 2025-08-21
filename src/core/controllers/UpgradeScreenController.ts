@@ -39,6 +39,9 @@ export class UpgradeScreenController {
     h: number,
     upgrade: Upgrade
   ) {
+    const padding = 10;
+    const lineHeight = 18;
+
     // Border color based on rarity
     let borderColor = "white";
     if (upgrade.rarity === "Rare") borderColor = "#60a5fa";
@@ -48,16 +51,32 @@ export class UpgradeScreenController {
     // Rounded rect background
     drawEngine.drawRoundedRect(ctx, x, y, w, h, 6, "#222", borderColor);
 
-    // Upgrade text
-    ctx.fillStyle = borderColor;
-    ctx.font = "bold 10px Courier New";
-    ctx.textAlign = "left";
-    ctx.fillText(`[${upgrade.rarity}]`, x + 6, y + 10);
+    // Start text cursor just below the top padding
+    let textY = y + lineHeight;
 
+    // Rarity line
+    ctx.fillStyle = borderColor;
+    ctx.font = "16px Courier New";
+    ctx.fillText(`[${upgrade.rarity}]`, x + padding, textY);
+
+    // Move down one line
+    textY += lineHeight;
+
+    // Name
+    ctx.font = "bold 16px Courier New";
     ctx.fillStyle = "white";
-    ctx.fillText(upgrade.name, x + 6, y + 20);
-    ctx.fillText(upgrade.description, x + 6, y + 30);
-    if (upgrade.description2) ctx.fillText(upgrade.description2, x + 6, y + 40);
+    ctx.fillText(upgrade.name, x + padding, textY);
+
+    // Description
+    ctx.font = "16px Courier New";
+    textY += lineHeight;
+    ctx.fillText(upgrade.description, x + padding, textY);
+
+    // Optional second description
+    if (upgrade.description2) {
+      textY += lineHeight;
+      ctx.fillText(upgrade.description2, x + padding, textY);
+    }
   }
 
   generateUpgrades() {
@@ -75,7 +94,7 @@ export class UpgradeScreenController {
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
     // Title
-    drawEngine.drawTitle("Zone Cleared!", 12, drawEngine.getCenterX(), 15);
+    drawEngine.drawTitle("Zone Cleared!", 24, drawEngine.getCenterX(), 30);
 
     this.gameManager.storyController.drawTorxDialog();
     this.drawUpgradeOptions(ctx);
@@ -85,11 +104,11 @@ export class UpgradeScreenController {
 
   drawUpgradeOptions(ctx: CanvasRenderingContext2D) {
     ctx.save();
-    const boxHeight = 45;
-    const spacing = 10;
-    const x = 5;
-    const width = ctx.canvas.width - 10;
-    const startY = 90;
+    const boxHeight = 90;
+    const spacing = 15;
+    const x = 10;
+    const width = ctx.canvas.width - x * 2;
+    const startY = 200;
 
     clearClicks(); // reset for fresh click mapping
 

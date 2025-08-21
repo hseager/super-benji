@@ -15,14 +15,14 @@ export class LoseState implements State {
   }
 
   onUpdate(delta: number) {
-    drawEngine.drawTitle("Game Over", 24, drawEngine.getCenterX(), 50);
-    drawEngine.drawTitle("You made it", 18, drawEngine.getCenterX(), 100);
-    drawEngine.drawTitle("to level", 18, drawEngine.getCenterX(), 115);
+    drawEngine.drawTitle("Game Over", 48, drawEngine.getCenterX(), 100);
+    drawEngine.drawTitle("You made it", 32, drawEngine.getCenterX(), 200);
+    drawEngine.drawTitle("to level", 32, drawEngine.getCenterX(), 230);
     drawEngine.drawTitle(
       this.level.toString(),
-      24,
+      48,
       drawEngine.getCenterX(),
-      150
+      300
     );
     drawEngine.drawMenuAction("Back to Menu", delta);
   }
