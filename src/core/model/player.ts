@@ -166,14 +166,15 @@ export class Player extends Shooter {
       boosterX,
       boosterY + 20
     );
-    gradient.addColorStop(0, "rgba(0, 180, 255, 0.9)"); // blue core
-    gradient.addColorStop(0.4, "rgba(255, 255, 255, 0.8)"); // white mid
-    gradient.addColorStop(1, "rgba(255, 140, 0, 0)"); // orange tail fade
-
-    // Flicker by randomizing length
-    const flicker = this.boosterSize + Math.random() * 10;
+    gradient.addColorStop(0, "rgba(0, 180, 255, 0.9)");
+    gradient.addColorStop(0.4, "rgba(255, 255, 255, 0.8)");
+    gradient.addColorStop(1, "rgba(255, 140, 0, 0)");
 
     ctx.fillStyle = gradient;
+
+    // Make the flame tip more jittery
+    const flicker = this.boosterSize + Math.random() * 15; // bigger randomness
+
     ctx.beginPath();
     ctx.moveTo(boosterX - 1, boosterY); // left booster edge
     ctx.lineTo(boosterX, boosterY + flicker); // center flame tip

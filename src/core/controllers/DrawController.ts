@@ -63,7 +63,7 @@ class DrawController {
     ctx: CanvasRenderingContext2D,
     y: number,
     stops: GradientStop[],
-    height = 9
+    height = 18
   ) {
     const grad = ctx.createLinearGradient(0, y - height, 0, y);
     stops.forEach(([pos, col]) => grad.addColorStop(pos, col));
@@ -76,7 +76,7 @@ class DrawController {
 
     // Main Text
     ctx.save();
-    ctx.font = `bold ${fontSize - 1}px "Courier New"`;
+    ctx.font = `bold ${fontSize - 2}px "Courier New"`;
     ctx.strokeStyle = shadowColor;
     ctx.fillStyle = shadowColor;
     ctx.textAlign = "center";
@@ -166,7 +166,7 @@ class DrawController {
           [0.8, "#c8c8c8"],
           [1, "#5a5a5a"],
         ],
-        10
+        20
       );
       ctx.fillText(text, ctx.canvas.width / 2, y);
 

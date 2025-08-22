@@ -24,8 +24,8 @@ class MenuState implements State {
     drawEngine.drawText(
       "Super",
       36,
-      drawEngine.getCenterX() - 55,
-      135,
+      drawEngine.getCenterX() - 70,
+      145,
       "#fff",
       "center",
       "#ee2626",
@@ -36,16 +36,16 @@ class MenuState implements State {
     const { context } = drawEngine;
 
     context.save();
-    context.font = `900 15px "Tahoma"`;
+    context.font = `900 14px "Tahoma"`;
     context.textAlign = "center";
     context.fillStyle = "#f01b1bce";
-    context.fillText("JS13K 2025", 60, drawEngine.canvasHeight - 10);
+    context.fillText("JS13K 2025", 55, drawEngine.canvasHeight - 10);
     context.restore();
 
     drawEngine.drawText(
       "by hseager",
-      18,
-      drawEngine.canvasWidth - 70,
+      14,
+      drawEngine.canvasWidth - 60,
       drawEngine.canvasHeight - 11,
       "#f0f0f0c7"
     );
