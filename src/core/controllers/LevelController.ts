@@ -171,7 +171,7 @@ export class LevelController {
         const radius = t * armLength;
 
         // spiral angle
-        const angle = angleOffset + t * 2.5 + time * 0.002;
+        const angle = angleOffset + t * 2.5 + time * 0.75;
 
         const px = Math.cos(angle) * radius;
         const py = Math.sin(angle) * radius;

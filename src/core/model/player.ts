@@ -28,8 +28,8 @@ export class Player extends Shooter {
   boosterYOffset = -2; // Offset for booster flame position
 
   // Glow
-  glowColor: string = "#00bfff7c"; // Default glow color
-  glowAmount: number = 10; // Default glow radius
+  glowColor: string = "#00bfff"; // Default glow color
+  glowAmount: number = 20; // Default glow radius
 
   // Stats
   movementXSpeed: number = PLAYER_MOVEMENT_X_SPEED;
@@ -105,15 +105,37 @@ export class Player extends Shooter {
     } else {
       ctx.save();
 
-      // Glow
-      ctx.shadowColor = this.glowColor;
-      ctx.shadowBlur = this.glowAmount;
-
+      this.drawGlow(ctx);
       this.drawBoosters(ctx);
+
       this.manageTilt(ctx);
 
       ctx.restore();
     }
+  }
+
+  drawGlow(ctx: CanvasRenderingContext2D) {
+    if (!this.sprite) return;
+
+    const off = document.createElement("canvas");
+    off.width = this.width;
+    off.height = this.height;
+    const offCtx = off.getContext("2d")!;
+
+    // draw sprite to offscreen canvas
+    offCtx.drawImage(this.sprite, 0, 0, this.width, this.height);
+
+    // tint with glow color
+    offCtx.globalCompositeOperation = "source-in";
+    offCtx.fillStyle = this.glowColor;
+    offCtx.fillRect(0, 0, this.width, this.height);
+
+    // draw blurred glow behind the sprite
+    ctx.save();
+    ctx.globalAlpha = 0.8; // adjust intensity
+    ctx.filter = `blur(${this.glowAmount}px)`;
+    ctx.drawImage(off, this.x, this.y, this.width, this.height);
+    ctx.restore();
   }
 
   regenTick(delta: number) {
