@@ -22,6 +22,7 @@ export class SpriteController {
   torxAvatar!: HTMLImageElement;
   maggieAvatar!: HTMLImageElement;
   jackalAvatar!: HTMLImageElement;
+  jackalSprite!: HTMLImageElement;
 
   private spriteSheet!: SpriteSheet;
 
@@ -66,6 +67,11 @@ export class SpriteController {
     );
 
     this.jackalAvatar = await SpriteBuilder.createJackalAvatar(
+      this.spriteSheet,
+      JACKAL_AVATAR_PALETTE
+    );
+
+    this.jackalSprite = await SpriteBuilder.createJackalSprite(
       this.spriteSheet,
       JACKAL_AVATAR_PALETTE
     );

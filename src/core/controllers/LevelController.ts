@@ -5,6 +5,8 @@ import { Background } from "@/core/model/background";
 import {
   BACKGROUND_SPEED_INCREASE,
   BASE_TRANSITION_ANIMATION_TIME,
+  BOSS_BULLET_DAMAGE,
+  BOSS_BULLET_SPEED,
   ENEMY_BULLET_DAMAGE,
   ENEMY_BULLET_SPEED,
   ENEMY_START_POSITION_Y,
@@ -12,6 +14,7 @@ import {
 } from "../config";
 import { screenTransitions } from "./ScreenTransitionController";
 import { EnemyConfig } from "../types";
+import { Boss } from "../model/boss";
 
 export class LevelController {
   currentLevel: number = 0;
@@ -22,6 +25,9 @@ export class LevelController {
   private gameManager: GameController;
   private enemyYSpawnOffset = 100;
   private enemyTypes: EnemyConfig[];
+  bossSpawned = false;
+  rifts: { x: number; y: number; spawnTime: number }[] = [];
+  gameTime: number = 0;
 
   constructor(gameManager: GameController) {
     this.gameManager = gameManager;
@@ -93,7 +99,12 @@ export class LevelController {
     );
     this.textDisplayTimer = 3;
     this.gameManager.enemies = []; // Clear previous enemies
-    this.spawnNextWave();
+
+    if (this.currentLevel === 1) {
+      this.spawnBoss();
+    } else {
+      this.spawnNextWave();
+    }
   }
 
   /** Spawn the next wave or end the level */
@@ -120,12 +131,155 @@ export class LevelController {
     }
   }
 
+  spawnBoss() {
+    this.bossSpawned = true;
+    this.gameManager.addEnemy(
+      new Boss(
+        this.gameManager,
+        this.gameManager.spriteManager.jackalSprite,
+        this.gameManager.enemyBulletPool,
+        BOSS_BULLET_DAMAGE,
+        BOSS_BULLET_SPEED,
+        drawEngine.canvasWidth / 2 -
+          this.gameManager.spriteManager.jackalSprite.width / 2,
+        20,
+        "none",
+        "boss"
+      )
+    );
+  }
+
+  spawnRift() {
+    const x = Math.random() * drawEngine.canvasWidth;
+    const y = Math.random() * drawEngine.canvasHeight * 0.4; // keep it near top/middle
+    this.rifts.push({ x, y, spawnTime: this.gameTime });
+  }
+
+  drawRift(ctx: CanvasRenderingContext2D, x: number, y: number, time: number) {
+    const numArms = 5; // spiral arms
+    const armLength = 30; // how far out the galaxy goes
+    const particles = 15; // number of dots per arm
+
+    ctx.save();
+    ctx.translate(x, y);
+
+    for (let arm = 0; arm < numArms; arm++) {
+      const angleOffset = (arm / numArms) * Math.PI * 2;
+
+      for (let i = 0; i < particles; i++) {
+        const t = i / particles;
+        const radius = t * armLength;
+
+        // spiral angle
+        const angle = angleOffset + t * 2.5 + time * 0.002;
+
+        const px = Math.cos(angle) * radius;
+        const py = Math.sin(angle) * radius;
+
+        ctx.fillStyle = `rgba(150, 100, 255, ${1 - t})`;
+        ctx.beginPath();
+        ctx.arc(px, py, 1.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    ctx.restore();
+  }
+
+  showBossHealth() {
+    const boss = this.gameManager.enemies[0];
+    if (!boss) return;
+
+    const ctx = drawEngine.context;
+
+    const barWidth = drawEngine.canvasWidth; // total width of the bar
+    const barHeight = 10; // height of the bar
+    const x = (ctx.canvas.width - barWidth) / 2; // center at top
+    const y = 5;
+
+    const healthRatio = boss.life / boss.maxLife;
+    const currentWidth = barWidth * healthRatio;
+
+    // background (gray)
+    ctx.fillStyle = "#444";
+    ctx.fillRect(x, y, barWidth, barHeight);
+
+    // health (red)
+    ctx.fillStyle = "#e33";
+    ctx.fillRect(x, y, currentWidth, barHeight);
+
+    // outline
+    ctx.strokeStyle = "#fff";
+    ctx.lineWidth = 2;
+    ctx.strokeRect(x, y, barWidth, barHeight);
+  }
+
+  checkRifts() {
+    const boss = this.gameManager.enemies[0];
+    if (!boss) return;
+
+    if (boss.life <= boss.maxLife * 0.75 && this.rifts.length <= 0) {
+      this.spawnRift();
+    }
+
+    if (boss.life <= boss.maxLife * 0.35 && this.rifts.length <= 1) {
+      this.spawnRift();
+    }
+
+    for (const rift of this.rifts) {
+      if (Math.random() < 0.02) {
+        // 2% chance each frame
+        this.shootFromRift(rift, ENEMY_BULLET_DAMAGE, ENEMY_BULLET_SPEED * 1.2);
+      }
+    }
+  }
+
+  shootFromRift(rift: { x: number; y: number }, damage: number, speed: number) {
+    const bullet = this.gameManager.enemyBulletPool.get();
+    if (!bullet) return;
+
+    // random direction (unit vector)
+    const angle = Math.random() * Math.PI * 2;
+    const dx = Math.cos(angle);
+    const dy = 1;
+
+    bullet.damage = damage;
+    bullet.speed = speed;
+
+    // spawn at rift center
+    bullet.fire(rift.x, rift.y, dx, dy);
+
+    // optional: make rift bullets a different color
+    bullet.sprite = this.gameManager.spriteManager.getBulletSprite("purple");
+  }
+
+  handleBossDown() {
+    this.bossSpawned = false;
+    this.rifts = [];
+    if (!screenTransitions.active) {
+      screenTransitions.start(1, 0, BASE_TRANSITION_ANIMATION_TIME, () => {
+        this.gameManager.upgradeScreen.start();
+        screenTransitions.start(0, 1, BASE_TRANSITION_ANIMATION_TIME);
+      });
+    }
+  }
+
   /** Called every frame */
   update(delta: number) {
+    this.gameTime += delta;
+
     const noEnemiesLeft = this.gameManager.enemies.length === 0;
     const noScreensActive =
       !this.gameManager.upgradeScreen.isActive &&
       !this.gameManager.storyController.isActive;
+
+    if (this.bossSpawned) {
+      this.checkRifts();
+    }
+
+    if (this.bossSpawned && noEnemiesLeft) {
+      this.handleBossDown();
+    }
 
     if (noEnemiesLeft && noScreensActive) {
       if (this.currentWave < this.wavesPerLevel) {
@@ -146,8 +300,21 @@ export class LevelController {
     }
   }
 
-  /** Draw level/zone title during fade-in */
   draw() {
+    if (this.bossSpawned) {
+      this.showBossHealth();
+    }
+
+    for (const rift of this.rifts) {
+      this.drawRift(
+        drawEngine.context,
+        rift.x,
+        rift.y,
+        this.gameTime - rift.spawnTime
+      );
+    }
+
+    /** Draw level/zone title during fade-in */
     if (this.textDisplayTimer > 0) {
       const maxDisplayTime = BASE_TRANSITION_ANIMATION_TIME;
       const opacity = Math.min(this.textDisplayTimer / maxDisplayTime, 1);

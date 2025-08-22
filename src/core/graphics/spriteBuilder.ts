@@ -221,6 +221,17 @@ export class SpriteBuilder {
     return SpriteBuilder.applyPalette(buffer, palette);
   }
 
+  static async createJackalSprite(
+    sheet: SpriteSheet,
+    palette: string[]
+  ): Promise<HTMLImageElement> {
+    const buffer = new CanvasBuffer(64, 62);
+
+    buffer.drawSprite(sheet, 0, 0, 32, 0, 32, 31);
+
+    return SpriteBuilder.applyPalette(buffer, palette);
+  }
+
   private static async applyPalette(
     buffer: CanvasBuffer,
     palette: string[]

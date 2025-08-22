@@ -13,78 +13,69 @@ const storyActs: Record<number, StoryLine[]> = {
   [StoryActs.Act1]: [
     {
       speaker: "Maggie",
-      text: "Benji, the Iron Jackal has taken the Titan Heart.",
+      text: "Benji, the Iron Jackal has stolen the Warp Core.",
     },
     {
       speaker: "Maggie",
-      text: "Without it, warp lanes will collapse. Whole colonies could be stranded.",
-    },
-    {
-      speaker: "Benji",
-      text: "So he wants to choke the galaxy by cutting off its roads. Clever. Evil, but clever.",
+      text: "Who knows what he plans to do with it, but it can't be good.",
     },
     {
       speaker: "Torx",
-      text: "Then we’ll just have to hunt him down before the galaxy gridlocks into chaos.",
+      text: "That core could power a thousand fleets…",
+    },
+    {
+      speaker: "Benji",
+      text: "Then what are we waiting for? After him!",
     },
   ],
   [StoryActs.Act2]: [
     {
       speaker: "Maggie",
-      text: "Jackal’s fleet is on Verdantia. He’s channeling the Titan Heart into a weapon core.",
-    },
-    {
-      speaker: "Benji",
-      text: "A superweapon, naturally. Why do they always build those instead of, I don’t know, hospitals?",
+      text: "The closer we get, the more concerning some of these readings are. ",
     },
     {
       speaker: "Torx",
-      text: "Because hospitals don’t vaporize planets. Stay sharp — he’s accelerating the build.",
+      text: "It looks like space-time itself is... distorting...",
     },
     {
-      speaker: "Maggie",
-      text: "If he succeeds, no world will be safe. We have to stop him here.",
+      speaker: "Jackal",
+      text: "Hahaha, you should be running rather than chasing me!",
+    },
+    {
+      speaker: "Benji",
+      text: "You will regret stealing The Warp Core once we are done with you Jackal!",
     },
   ],
   [StoryActs.Act3]: [
     {
-      speaker: "Maggie",
-      text: "There it is. The Ironfang Megaship… the Titan Heart at its core.",
-    },
-    {
-      speaker: "Benji",
-      text: "Looks more like a floating fortress than a ship.",
-    },
-    {
-      speaker: "Jackal",
-      text: "You’ve come far, but this is where your defiance ends. The galaxy belongs to me.",
-    },
-    {
       speaker: "Torx",
-      text: "Big words from a man hiding behind a flying mountain.",
+      text: "We're close, but I hope we're ready, this area looks very unstable.",
     },
     {
       speaker: "Jackal",
-      text: "Your courage is amusing. Your resistance is doomed.",
+      text: "Just in time for us to test our Mega Drive! Hahaha",
+    },
+    {
+      speaker: "Maggie",
+      text: "Watch out Benji! He's charging his new weapon",
     },
     {
       speaker: "Benji",
-      text: "We’ll see. If you want the galaxy, you’ll have to take it over our wreckage.",
+      text: "This stops now Jackal! Feel my claws",
     },
-    { speaker: "Jackal", text: "Gladly." },
   ],
   [StoryActs.Epilogue]: [
     {
       speaker: "Maggie",
-      text: "It’s done. The Jackal is defeated, and the Titan Heart is safe.",
-    },
-    {
-      speaker: "Benji",
-      text: "For now. But if he clawed his way back once, he might try again.",
+      text: "It’s done. The Jackal is defeated, and The Core is safe.",
     },
     {
       speaker: "Torx",
-      text: "Then we’ll be ready. Galaxy’s not done needing heroes yet.",
+      text: "There's plenty of Iron Jackal's allies left to clean up.",
+    },
+    {
+      speaker: "Benji",
+      text: "Let's see how far we can get!",
     },
   ],
 };

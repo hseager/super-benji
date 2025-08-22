@@ -51,7 +51,7 @@ export class Background {
         0.002,
         this.backgroundYSpeed * 0.6,
         0.3,
-        1.2
+        1
       )
     );
     this.layers.push(
@@ -61,7 +61,7 @@ export class Background {
         0.003,
         this.backgroundYSpeed * 1,
         0.4,
-        1.2
+        1
       )
     );
   }

@@ -38,8 +38,13 @@ export const StoryActs = {
 
 export type Character = "Benji" | "Maggie" | "Torx" | "Jackal";
 
-export type MovePattern = "straight" | "sine" | "zigzag";
-export type ShootPattern = "single" | "burst" | "spread" | "megaspread";
+export type MovePattern = "none" | "straight" | "sine" | "zigzag";
+export type ShootPattern =
+  | "single"
+  | "burst"
+  | "spread"
+  | "megaspread"
+  | "boss";
 
 export type EnemyConfig = {
   sprite: HTMLImageElement;

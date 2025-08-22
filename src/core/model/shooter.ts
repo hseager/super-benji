@@ -119,6 +119,36 @@ export class Shooter extends GameObject {
             }
             break;
           }
+          case "boss": {
+            const spreadAngles = [-0.5, -0.4, -0.2, 0, 0.2, 0.4, 0.5];
+
+            // normalize base direction
+            const baseLen = Math.hypot(this.shootDir.x, this.shootDir.y);
+            const bx = this.shootDir.x / baseLen;
+            const by = this.shootDir.y / baseLen;
+
+            for (const a of spreadAngles) {
+              const cosA = Math.cos(a);
+              const sinA = Math.sin(a);
+
+              let dir = {
+                x: bx * cosA - by * sinA,
+                y: bx * sinA + by * cosA,
+              };
+
+              // add jitter to x axis
+              const jitter = (Math.random() - 0.5) * 0.5; // tweak 0.4 for strength
+              dir.x += jitter;
+
+              // re-normalize so speed stays consistent
+              const len = Math.hypot(dir.x, dir.y);
+              dir.x /= len;
+              dir.y /= len;
+
+              this.shoot(damage, bulletSpeed, dir, this.bulletColor);
+            }
+            break;
+          }
         }
         this.attackCooldown = this.attackSpeed;
       }
