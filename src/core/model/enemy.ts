@@ -80,11 +80,17 @@ export class Enemy extends Shooter {
     switch (this.movePattern) {
       case "straight":
         this.y += this.movementYSpeed * delta;
+        this.directionChangeTimer -= delta;
+        if (this.directionChangeTimer <= 0) {
+          this.movementVilocityX = (Math.random() < 0.5 ? -1 : 1) * 80;
+          this.directionChangeTimer = 0.5;
+        }
+        this.x += this.movementVilocityX * delta;
         break;
 
       case "sine":
         this.y += this.movementYSpeed * delta;
-        this.x += Math.sin(this.y / 40) * 2;
+        this.x += Math.sin(this.y / 20) * 1.5;
         break;
 
       case "zigzag":

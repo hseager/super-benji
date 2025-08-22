@@ -236,24 +236,32 @@ export class StoryController {
       height: (TORX_AVATAR_HEIGHT + AVATAR_BODY_HEIGHT) * 2,
     };
 
-    // Draw box
-    const boxPadding = 10,
-      lineHeight = 10;
-    const maxTextWidth =
-      drawEngine.canvasWidth - (avatarPos.width + boxPadding * 4);
+    // Settings
+    const boxPadding = 10;
+    const fontSize = 12;
+    const lineHeight = fontSize + 4; // breathing room between lines
 
-    let lines: string[] = [],
-      line = "";
+    ctx.font = `bold ${fontSize}px Courier New`;
+
+    const textX = boxPadding * 2;
+    const maxTextWidth = drawEngine.canvasWidth - textX - boxPadding;
+
+    // Word wrapping
+    let lines: string[] = [];
+    let line = "";
     for (let w of words) {
       const testLine = line + w + " ";
       if (ctx.measureText(testLine).width > maxTextWidth) {
         lines.push(line.trim());
         line = w + " ";
-      } else line = testLine;
+      } else {
+        line = testLine;
+      }
     }
-    lines.push(line.trim());
+    if (line.trim()) lines.push(line.trim());
 
-    const textHeight = lines.length * lineHeight + boxPadding;
+    // Box size
+    const textHeight = lines.length * lineHeight + boxPadding * 2;
     const boxHeight = Math.max(dialogBoxHeight, textHeight);
     const boxWidth = drawEngine.canvasWidth - boxPadding * 2;
 
@@ -267,18 +275,18 @@ export class StoryController {
       "#1f1722"
     );
 
-    // Draw avatar & text
+    // Draw avatar
     this.drawAvatar(ctx, speaker, this.getAvatar(speaker), avatarPos);
 
+    // Draw text
     ctx.fillStyle = "white";
     ctx.textAlign = "left";
-    ctx.font = "bold 12px Courier New";
-    let y = dialogBoxY + boxPadding + 8;
+
+    let y = dialogBoxY + boxPadding / 2 + fontSize;
     for (let l of lines) {
-      ctx.fillText(l, boxPadding * 2, y);
+      ctx.fillText(l, textX, y);
       y += lineHeight;
     }
-    ctx.restore();
   }
 
   private drawAvatar(

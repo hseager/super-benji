@@ -10,8 +10,8 @@ const RarityLabel: Record<string, UpgradeRarity> = {
 
 const StatLabel: Record<string, string> = {
   DMG: "Damage",
-  ATKSPD: "Attack Speed",
-  PROJSPD: "Projectile Speed",
+  ATKSPD: "Fire Rate",
+  PROJSPD: "Proj Speed",
   HP: "HP",
   REGEN: "Regen",
   EVASION: "Evasion",
@@ -74,11 +74,11 @@ export class UpgradeController {
     {
       rarity: RarityLabel.Legendary,
       name: "Glass Canon",
-      description: `${StatLabel.HP} -25, ${StatLabel.DMG} +12`,
+      description: `${StatLabel.HP} -30, ${StatLabel.DMG} +4`,
       description2: "Mega Shot",
       apply: () => {
-        this.gameManager.player.damage += 12;
-        this.gameManager.player.life -= 25;
+        this.gameManager.player.damage += 4;
+        this.gameManager.player.life -= 30;
         this.gameManager.player.bulletColor = "orange";
         this.gameManager.player.shootPattern = "megaspread";
       },

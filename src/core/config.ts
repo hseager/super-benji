@@ -163,16 +163,16 @@ export const JACKAL_AVATAR_WIDTH = 16;
 export const JACKAL_AVATAR_HEIGHT = 20;
 
 export const TORX_AVATAR_PALETTE = [
-  "#181a17", // dark green-brown
-  "#17221b", // deep forest green
-  "#1e331e", // dark olive green
-  "#5f745f", // medium green
-  "#193d19", // shadow green
-  "#4f7550", // muted moss green
-  "#85b385", // medium olive green
-  "#7aa37a", // lighter green
-  "#a3c4a3", // pale green
-  "#c0e0c0", // soft pastel green
+  "#0a0f0a", // near-black green, deepest shadow
+  "#121a12", // dark moss shadow
+  "#1b261a", // muted forest
+  "#253424", // earthy green
+  "#3d583e", // olive shadow
+  "#4a5c46", // mid muted green
+  "#63755f", // softer desaturated mid
+  "#7f8f7c", // gray-olive highlight
+  "#a4b1a1", // pale moss highlight
+  "#d0d8ce", // soft, muted off-white highlight
 ];
 
 export const MAGGIE_AVATAR_PALETTE = [
