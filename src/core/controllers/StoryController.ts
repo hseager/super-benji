@@ -1,11 +1,13 @@
 import {
   AVATAR_BODY_HEIGHT,
+  BASE_TRANSITION_ANIMATION_TIME,
   TORX_AVATAR_HEIGHT,
   TORX_AVATAR_WIDTH,
 } from "../config";
 import { Character, ImageProperties, StoryActs, StoryLine } from "../types";
 import { drawEngine } from "./DrawController";
 import { GameController } from "./GameController";
+import { screenTransitions } from "./ScreenTransitionController";
 
 const storyActs: Record<number, StoryLine[]> = {
   [StoryActs.Act1]: [
@@ -142,22 +144,43 @@ export class StoryController {
     switch (this.currentAct) {
       case StoryActs.Act1:
         this.currentAct = StoryActs.Act2;
-        this.gameController.startGame();
-        this.gameController.resumeGame();
+        if (!screenTransitions.active) {
+          screenTransitions.start(1, 0, BASE_TRANSITION_ANIMATION_TIME, () => {
+            this.gameController.startGame();
+            this.gameController.resumeGame();
+            screenTransitions.start(0, 1, BASE_TRANSITION_ANIMATION_TIME);
+          });
+        }
+
         break;
       case StoryActs.Act2:
         this.currentAct = StoryActs.Act3;
-        this.gameController.levelManager.startLevel();
-        this.gameController.resumeGame();
+        if (!screenTransitions.active) {
+          screenTransitions.start(1, 0, BASE_TRANSITION_ANIMATION_TIME, () => {
+            this.gameController.levelManager.startLevel();
+            this.gameController.resumeGame();
+            screenTransitions.start(0, 1, BASE_TRANSITION_ANIMATION_TIME);
+          });
+        }
         break;
       case StoryActs.Act3:
         this.currentAct = StoryActs.Epilogue;
-        this.gameController.levelManager.startLevel();
-        this.gameController.resumeGame();
+        if (!screenTransitions.active) {
+          screenTransitions.start(1, 0, BASE_TRANSITION_ANIMATION_TIME, () => {
+            this.gameController.levelManager.startLevel();
+            this.gameController.resumeGame();
+            screenTransitions.start(0, 1, BASE_TRANSITION_ANIMATION_TIME);
+          });
+        }
         break;
       default:
-        this.gameController.levelManager.startLevel();
-        this.gameController.resumeGame();
+        if (!screenTransitions.active) {
+          screenTransitions.start(1, 0, BASE_TRANSITION_ANIMATION_TIME, () => {
+            this.gameController.levelManager.startLevel();
+            this.gameController.resumeGame();
+            screenTransitions.start(0, 1, BASE_TRANSITION_ANIMATION_TIME);
+          });
+        }
         break;
     }
   }
@@ -217,7 +240,7 @@ export class StoryController {
     const boxPadding = 10,
       lineHeight = 10;
     const maxTextWidth =
-      drawEngine.canvasWidth - (avatarPos.width + boxPadding);
+      drawEngine.canvasWidth - (avatarPos.width + boxPadding * 4);
 
     let lines: string[] = [],
       line = "";

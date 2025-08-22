@@ -132,7 +132,8 @@ export const ADVANCED_ENEMY_PALETTE = [
 export const BACKGROUND_HUE_SHIFT = 200; // 20 = 10%
 export const BACKGROUND_SATURATION_SHIFT = 10;
 export const BACKGROUND_LIGHTNESS_SHIFT = 0;
-export const BACKGROUND_MOVEMENT_Y_SPEED = 60;
+export const BACKGROUND_MOVEMENT_Y_SPEED = 75;
+export const BACKGROUND_SPEED_INCREASE = 1.1; // Increase background speed each level
 export const BACKGROUND_CLOUD_OPACITY = 0.1;
 
 // Enemy

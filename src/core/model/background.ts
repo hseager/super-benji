@@ -26,10 +26,12 @@ export class Background {
   private xMovementBuffer = 100;
   private XMovementAmount = 0.4;
   private tileSize = 256;
+  backgroundYSpeed;
 
-  constructor() {
+  constructor(backgroundYSpeed = BACKGROUND_MOVEMENT_Y_SPEED) {
     // Randomise a base palette
     const basePalette = randomisePalette(BASE_BACKGROUND_PALETTE);
+    this.backgroundYSpeed = backgroundYSpeed;
 
     // Create layers with different densities and speeds for parallax effect
     this.layers.push(
@@ -37,7 +39,7 @@ export class Background {
         basePalette,
         this.tileSize,
         0.001,
-        BACKGROUND_MOVEMENT_Y_SPEED * 0.4,
+        this.backgroundYSpeed * 0.4,
         0.2,
         1
       )
@@ -47,7 +49,7 @@ export class Background {
         basePalette,
         this.tileSize,
         0.002,
-        BACKGROUND_MOVEMENT_Y_SPEED * 0.6,
+        this.backgroundYSpeed * 0.6,
         0.3,
         1.2
       )
@@ -57,7 +59,7 @@ export class Background {
         basePalette,
         this.tileSize,
         0.003,
-        BACKGROUND_MOVEMENT_Y_SPEED * 1,
+        this.backgroundYSpeed * 1,
         0.4,
         1.2
       )

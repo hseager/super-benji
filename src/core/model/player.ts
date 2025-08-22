@@ -25,7 +25,7 @@ export class Player extends Shooter {
   // GFX
   sprite: HTMLImageElement;
   shootingXOffset = -2; // Offset for shooting position
-  boosterSize = 12; // Size of the booster flame
+  boosterSize = 20; // Size of the booster flame
   boosterYOffset = -2; // Offset for booster flame position
 
   // Glow
@@ -150,7 +150,7 @@ export class Player extends Shooter {
     gradient.addColorStop(1, "rgba(255, 140, 0, 0)"); // orange tail fade
 
     // Flicker by randomizing length
-    const flicker = this.boosterSize + Math.random() * 3;
+    const flicker = this.boosterSize + Math.random() * 10;
 
     ctx.fillStyle = gradient;
     ctx.beginPath();

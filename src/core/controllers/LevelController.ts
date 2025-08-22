@@ -3,6 +3,7 @@ import { drawEngine } from "./DrawController";
 import { GameController } from "./GameController";
 import { Background } from "@/core/model/background";
 import {
+  BACKGROUND_SPEED_INCREASE,
   BASE_TRANSITION_ANIMATION_TIME,
   ENEMY_BULLET_DAMAGE,
   ENEMY_BULLET_SPEED,
@@ -87,7 +88,9 @@ export class LevelController {
   /** Start a new level */
   startLevel() {
     this.currentWave = 0;
-    this.gameManager.background = new Background();
+    this.gameManager.background = new Background(
+      this.gameManager.background.backgroundYSpeed * BACKGROUND_SPEED_INCREASE
+    );
     this.textDisplayTimer = 3;
     this.gameManager.enemies = []; // Clear previous enemies
     this.spawnNextWave();

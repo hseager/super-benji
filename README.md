@@ -40,6 +40,7 @@ Story beat: Benji and Torx infiltrate the ship. Final showdown with the Iron Jac
 
 - Boss
 - Change music to atomospheric dnb
+- Focus on speed and soundtrack
 - Levels
   - Don't have upgrades at the end of every level
     - Have random chance of healing, gold or upgrade

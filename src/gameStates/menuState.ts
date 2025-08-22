@@ -2,8 +2,6 @@ import { State } from "@/core/types";
 import { drawEngine } from "@/core/controllers/DrawController";
 import { gameStateMachine } from "@/gameStates/gameStateMachine";
 import { gameState } from "./gameState";
-import { screenTransitions } from "@/core/controllers/ScreenTransitionController";
-import { BASE_TRANSITION_ANIMATION_TIME } from "@/core/config";
 
 class MenuState implements State {
   playerAvatar: HTMLImageElement | null;
@@ -14,9 +12,7 @@ class MenuState implements State {
   }
 
   private startGame() {
-    screenTransitions.start(1, 0, BASE_TRANSITION_ANIMATION_TIME, () => {
-      gameStateMachine.setState(gameState);
-    });
+    gameStateMachine.setState(gameState);
   }
 
   async onEnter() {
