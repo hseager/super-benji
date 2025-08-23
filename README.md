@@ -2,26 +2,13 @@
 
 ## Story
 
-The Iron Jackal has stolen the Titan Heart, an ancient crystalline star-core that powers interstellar warp lanes. Without it, whole colonies risk isolation and collapse.
-Benji and his sidekick Torx, an ingenious turtle mechanic, must chase him down before he uses the Heart to forge a galaxy-crushing superweapon.
+In a distant frontier of the galaxy, a ruthless warlord known as The Iron Jackal has stolen the Warp Core—a powerful artifact capable of bending space and time itself. With the core in his claws, he threatens to reshape the universe to his own design, or destroy it in the process.
 
-Area 1: Starfield Frontiers
+You play as Benji, a daring pilot who won’t stand by while chaos spreads. Alongside Maggie, the strategist, and Torx, the engineer, you’ll chase the Jackal across starfields, through unstable war zones, and into the heart of cosmic distortion.
 
-The chase begins. Jackal’s raiding fleets and scavenger drones are stripping systems bare to fuel his mega-ship. Jackal broadcasts a taunt to Benji, mocking the Feline Star League’s weakness. Torx says this isn’t just about survival — Jackal is building something.
+As you draw closer, the very fabric of reality begins to warp—stars ripple, space bends, and time threatens to unravel. The Jackal taunts you from the shadows, daring you to follow him into the unknown.
 
-Area 2: Verdantia Planet System
-
-Jackal’s armies are invading worlds to extract planetary cores for fuel.
-
-Story beat: Benji discovers the Iron Jackal’s endgame — his mega-ship is being built around the Heart of Purrima. Torx warns: “If that thing powers up, the galaxy’s in the doghouse — literally.”
-
-Area 3: The Ironfang Megaship
-
-The Jackal’s mobile base, bigger than a moon, powered by the Heart.
-
-Mecha Tileset, columns to dodge
-
-Story beat: Benji and Torx infiltrate the ship. Final showdown with the Iron Jackal himself.
+The hunt builds toward a final showdown aboard the Jackal’s massive flagship, where his ultimate weapon waits. Only Benji has the courage to face him and reclaim the Warp Core before the galaxy collapses into madness.
 
 ### Stats
 
@@ -38,7 +25,6 @@ Story beat: Benji and Torx infiltrate the ship. Final showdown with the Iron Jac
 
 ### TODO
 
-- Boss
 - Change music to atomospheric dnb
 - Focus on speed and soundtrack
 - Levels
@@ -55,10 +41,6 @@ Story beat: Benji and Torx infiltrate the ship. Final showdown with the Iron Jac
   - Gives gold bonus
   - Each upgrade option
 - Bosses
-  - Reuse enemy sprites, change colour
-  - Music
-  - Health bars
-  - Sprite, attack patterns
   - Drop loads of coins
 - Enemies
   - Drop proximity bombs
@@ -67,7 +49,6 @@ Story beat: Benji and Torx infiltrate the ship. Final showdown with the Iron Jac
   - Health bars
   - Sound effects on kill
   - Redo enemy sprites, Iron Jackal Fleet
-- Add stat key to intro text
 - Screen shake on taking damage
 - Loot/Upgrades
   - Each upgrade costs gold, rarer = more expensive
