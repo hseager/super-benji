@@ -37,6 +37,7 @@ export class Enemy extends Shooter {
     gameController: GameController,
     sprite: HTMLImageElement,
     bulletPool: BulletPool,
+    health: number,
     damage: number,
     bulletSpeed: number,
     x: number,
@@ -53,6 +54,9 @@ export class Enemy extends Shooter {
       sprite.width,
       sprite.height
     );
+    this.maxLife = health;
+    this.life = health;
+
     this.glowSprite = this.preloadGlowSprite();
     this.movementVilocityX = (Math.random() - 0.5) * 60;
 
@@ -82,7 +86,7 @@ export class Enemy extends Shooter {
         this.y += this.movementYSpeed * delta;
         this.directionChangeTimer -= delta;
         if (this.directionChangeTimer <= 0) {
-          this.movementVilocityX = (Math.random() < 0.5 ? -1 : 1) * 80;
+          this.movementVilocityX = (Math.random() < 0.5 ? -1 : 1) * 30;
           this.directionChangeTimer = 0.5;
         }
         this.x += this.movementVilocityX * delta;
@@ -97,7 +101,7 @@ export class Enemy extends Shooter {
         this.y += this.movementYSpeed * delta;
         this.directionChangeTimer -= delta;
         if (this.directionChangeTimer <= 0) {
-          this.movementVilocityX = (Math.random() < 0.5 ? -1 : 1) * 80;
+          this.movementVilocityX = (Math.random() < 0.5 ? -1 : 1) * 50;
           this.directionChangeTimer = 0.5;
         }
         this.x += this.movementVilocityX * delta;
@@ -153,7 +157,10 @@ export class Enemy extends Shooter {
 
   takeDamage(damage: number) {
     this.life -= damage;
-    if (this.life <= 0) this.explode();
+    if (this.life <= 0) {
+      this.explode();
+      this.gameController.musicPlayer.playExplosionSound();
+    }
   }
 
   // Don't treat spawned enemies above the canvas as offscreen

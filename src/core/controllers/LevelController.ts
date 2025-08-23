@@ -7,8 +7,10 @@ import {
   BASE_TRANSITION_ANIMATION_TIME,
   BOSS_BULLET_DAMAGE,
   BOSS_BULLET_SPEED,
+  BOSS_MAX_LIFE,
   ENEMY_BULLET_DAMAGE,
   ENEMY_BULLET_SPEED,
+  ENEMY_MAX_LIFE,
   ENEMY_START_POSITION_Y,
   LEVEL_NAMES,
 } from "../config";
@@ -52,7 +54,7 @@ export class LevelController {
         movePattern: "zigzag",
         shootPattern: "spread",
         bulletSpeed: ENEMY_BULLET_SPEED * 1.5,
-        bulletDamage: ENEMY_BULLET_DAMAGE * 1.2,
+        bulletDamage: ENEMY_BULLET_DAMAGE,
       },
     ];
   }
@@ -68,9 +70,10 @@ export class LevelController {
 
       // scale difficulty with level
       const scaledBulletSpeed =
-        config.bulletSpeed * (1 + this.currentLevel * 0.05);
+        config.bulletSpeed * (1 + this.currentLevel * 0.03);
       const scaledBulletDamage =
-        config.bulletDamage * (1 + this.currentLevel * 0.03);
+        config.bulletDamage * (1 + this.currentLevel * 0.02);
+      const scaledHealth = ENEMY_MAX_LIFE * (1 + this.currentLevel * 0.03);
 
       const x = Math.random() * (drawEngine.canvasWidth - config.sprite.width);
       const y = ENEMY_START_POSITION_Y - Math.random() * this.enemyYSpawnOffset;
@@ -80,6 +83,7 @@ export class LevelController {
           this.gameManager,
           config.sprite,
           this.gameManager.enemyBulletPool,
+          scaledHealth,
           scaledBulletDamage,
           scaledBulletSpeed,
           x,
@@ -100,6 +104,11 @@ export class LevelController {
     );
     this.textDisplayTimer = 4;
     this.gameManager.enemies = []; // Clear previous enemies
+
+    // Increase waves
+    if (this.currentLevel % 6 === 0) {
+      this.wavesPerLevel++;
+    }
 
     if (this.currentLevel === 15) {
       this.spawnBoss();
@@ -139,6 +148,7 @@ export class LevelController {
         this.gameManager,
         this.gameManager.spriteManager.jackalSprite,
         this.gameManager.enemyBulletPool,
+        BOSS_MAX_LIFE,
         BOSS_BULLET_DAMAGE,
         BOSS_BULLET_SPEED,
         drawEngine.canvasWidth / 2 -

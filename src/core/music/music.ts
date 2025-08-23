@@ -1,7 +1,7 @@
 import { Sequence } from "./sequence";
 import { DrumSynth } from "./drumSynth";
 
-export class Music {
+export class MusicPlayer {
   private ac: AudioContext;
   private output: GainNode;
   private compressor: DynamicsCompressorNode;
@@ -66,7 +66,7 @@ export class Music {
       "- h",
     ]);
     this.bass.staccato = 0;
-    this.bass.smoothing = 0.8;
+    this.bass.smoothing = 0;
     this.bass.waveType = "triangle";
     const bassGain = this.ac.createGain();
     bassGain.gain.value = 1.5;
@@ -81,7 +81,9 @@ export class Music {
     this.isPlaying = true;
 
     const now = this.ac.currentTime;
-    this.lead.play(now);
+    const barLength = (60 / this.tempo) * 4;
+
+    this.lead.play(now + barLength * 8);
     this.bass.play(now);
 
     const schedule = () => {
@@ -93,19 +95,22 @@ export class Music {
       ) {
         const stepTime = this.currentStep * this.stepLength;
 
-        // Reduced hi-hat: play only on selected steps for swing
-        if ([0, 3, 6, 10, 12, 15].includes(this.currentStep % 16)) {
-          this.drumSynth.playHiHat(stepTime);
-        }
+        // Only start drums after 16 bars
+        if (this.currentStep >= 256) {
+          // Reduced hi-hat: play only on selected steps for swing
+          if ([0, 3, 6, 10, 12, 15].includes(this.currentStep % 16)) {
+            this.drumSynth.playHiHat(stepTime);
+          }
 
-        // Kick pattern with slight swing
-        if ([0, 7, 11].includes(this.currentStep % 16)) {
-          this.drumSynth.playKick(stepTime);
-        }
+          // Kick pattern with slight swing
+          if ([0, 7, 11].includes(this.currentStep % 16)) {
+            this.drumSynth.playKick(stepTime);
+          }
 
-        // Snare on 4 and 12 (classic DnB break)
-        if ([4, 12].includes(this.currentStep % 16)) {
-          this.drumSynth.playSnare(stepTime);
+          // Snare on 4 and 12 (classic DnB break)
+          if ([4, 12].includes(this.currentStep % 16)) {
+            this.drumSynth.playSnare(stepTime);
+          }
         }
 
         this.currentStep++;
@@ -123,5 +128,28 @@ export class Music {
     this.isPlaying = false;
     if (this.schedulerId) clearTimeout(this.schedulerId);
     this.currentStep = 0;
+  }
+
+  playExplosionSound() {
+    const ac = this.ac;
+
+    // White noise buffer
+    const bufferSize = ac.sampleRate * 0.2; // 200ms crash
+    const buffer = ac.createBuffer(1, bufferSize, ac.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+
+    const noise = ac.createBufferSource();
+    noise.buffer = buffer;
+
+    const gain = ac.createGain();
+    gain.gain.setValueAtTime(3, ac.currentTime); // start loud
+    gain.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 0.2); // decay
+
+    noise.connect(gain);
+    gain.connect(this.compressor);
+
+    noise.start();
+    noise.stop(ac.currentTime + 0.2);
   }
 }

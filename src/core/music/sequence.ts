@@ -67,14 +67,6 @@ export class Sequence {
     return 60 / this.tempo;
   }
 
-  private getNextPlayableNote(index: number): Note | null {
-    for (let i = 1; i <= this.notes.length; i++) {
-      const n = this.notes[(index + i) % this.notes.length];
-      if (n.frequency > 0) return n;
-    }
-    return null;
-  }
-
   private scheduleNote(index: number, when: number): number {
     const n = this.notes[index];
     const spb = this.secsPerBeat();
@@ -84,44 +76,33 @@ export class Sequence {
     const gate = duration * (1 - (this.staccato || 1e-10));
 
     // small envelope constants to avoid clicks
-    const attack = 0.003;
-    const release = 0.012;
+    // smoother envelope constants
+    const attack = 0.01; // 10 ms
+    const release = 0.05; // 50 ms
 
-    // cancel stale automation from this time onward
+    // cancel stale automation
     this.gain.gain.cancelScheduledValues(when);
     this.osc!.frequency.cancelScheduledValues(when);
 
     if (n.frequency > 0) {
-      // NOTE ON
       this.osc!.frequency.setValueAtTime(n.frequency, when);
 
-      // Gain envelope
-      this.gain.gain.setValueAtTime(0, when);
-      this.gain.gain.linearRampToValueAtTime(1, when + attack);
-      // hold
-      this.gain.gain.setValueAtTime(1, when + Math.max(attack, gate - release));
-      // release to silence
-      this.gain.gain.linearRampToValueAtTime(0, when + gate);
+      // Gain envelope (use exponential for smoother fades)
+      this.gain.gain.setValueAtTime(0.0001, when); // start just above 0
+      this.gain.gain.exponentialRampToValueAtTime(1.0, when + attack);
 
-      // Portamento into next playable note (not into rests)
-      if (this.smoothing > 0) {
-        const next = this.getNextPlayableNote(index);
-        if (next) {
-          const slideWindow = Math.min(gate, this.smoothing);
-          const slideStart = gate - slideWindow;
-          this.osc!.frequency.setValueAtTime(n.frequency, when + slideStart);
-          this.osc!.frequency.linearRampToValueAtTime(
-            next.frequency,
-            when + gate
-          );
-        }
-      }
+      // sustain
+      this.gain.gain.setValueAtTime(
+        1.0,
+        when + Math.max(attack, gate - release)
+      );
+
+      // release
+      this.gain.gain.exponentialRampToValueAtTime(0.0001, when + gate);
     } else {
-      // REST: ensure gate is closed cleanly
-      const current = this.gain.gain.value;
-      this.gain.gain.setValueAtTime(current, when);
-      this.gain.gain.linearRampToValueAtTime(0, when + 0.005);
-      // No frequency scheduling on rests (prevents 0 Hz pops)
+      // REST: force silence
+      this.gain.gain.cancelScheduledValues(when);
+      this.gain.gain.setValueAtTime(0.0001, when);
     }
 
     return when + duration;

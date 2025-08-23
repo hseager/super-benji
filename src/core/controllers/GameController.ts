@@ -9,8 +9,10 @@ import { BulletPool } from "../model/bulletPool";
 import { UpgradeScreenController } from "./UpgradeScreenController";
 import { roll } from "../utilities";
 import { StoryController } from "./StoryController";
+import { MusicPlayer } from "../music/music";
 
 export class GameController {
+  musicPlayer!: MusicPlayer;
   spriteManager!: SpriteController;
   player!: Player;
   background: Background;
@@ -118,8 +120,9 @@ export class GameController {
     this.enemies.push(enemy);
   }
 
-  async init(): Promise<GameController> {
+  async init(musicPlayer: MusicPlayer): Promise<GameController> {
     // Anything that depends on sprites need to be awaited as the spritesheet is loaded, so we create some objects here instead of the constuctor
+    this.musicPlayer = musicPlayer;
     this.spriteManager = await new SpriteController().init();
     const { playerSprite } = this.spriteManager;
 
