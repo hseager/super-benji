@@ -25,8 +25,6 @@ The hunt builds toward a final showdown aboard the Jackal’s massive flagship, 
 
 ### TODO
 
-- Change music to atomospheric dnb
-- Focus on speed and soundtrack
 - Levels
   - Don't have upgrades at the end of every level
     - Have random chance of healing, gold or upgrade
@@ -34,9 +32,6 @@ The hunt builds toward a final showdown aboard the Jackal’s massive flagship, 
       - Spend gold to heal
     - Get an item and more enemies next round
     - Pick a ? card, get health, gold, item or curse?
-  - Don't do tilesets, it looks bad and takes up too much space.
-  - Change colour through acts, add astroids or something to dodge in the story (Ion storms).
-  - Maybe add planets or galaxies in the BG
 - Perfect bonus
   - Gives gold bonus
   - Each upgrade option
@@ -45,17 +40,12 @@ The hunt builds toward a final showdown aboard the Jackal’s massive flagship, 
 - Enemies
   - Drop proximity bombs
   - Faster
-  - Increase health each level
   - Health bars
-  - Sound effects on kill
   - Redo enemy sprites, Iron Jackal Fleet
 - Screen shake on taking damage
 - Loot/Upgrades
   - Each upgrade costs gold, rarer = more expensive
   - Balance stats, add more downsizes
-  - Increase Rarity chance
-- UI Polish
-  - Better fonts
 
 # About
 
@@ -63,4 +53,5 @@ My entry for the [JS13K](https://js13kgames.com/) 2025 competition.
 
 ## Credits
 
-- roblouie for [js13k-typescript-starter](https://github.com/roblouie/js13k-typescript-starter)
+- [js13k-typescript-starter](https://github.com/roblouie/js13k-typescript-starter)
+- [TinyMusic](https://github.com/kevincennis/TinyMusic)
