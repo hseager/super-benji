@@ -1,5 +1,9 @@
 import { hexToRgbaString, randomisePalette } from "@/core/utilities";
-import { BACKGROUND_MOVEMENT_Y_SPEED } from "../config";
+import {
+  BACKGROUND_MOVEMENT_Y_SPEED,
+  BACKGROUND_WAVE_DISTORTION,
+  STORY_LEVELS,
+} from "../config";
 import { Coordinates } from "../types";
 
 const BASE_BACKGROUND_PALETTE = [
@@ -27,11 +31,17 @@ export class Background {
   private XMovementAmount = 0.4;
   private tileSize = 256;
   backgroundYSpeed;
+  private time = 0;
+  private currentLevel;
 
-  constructor(backgroundYSpeed = BACKGROUND_MOVEMENT_Y_SPEED) {
+  constructor(
+    backgroundYSpeed = BACKGROUND_MOVEMENT_Y_SPEED,
+    currentLevel = 1
+  ) {
     // Randomise a base palette
     const basePalette = randomisePalette(BASE_BACKGROUND_PALETTE);
     this.backgroundYSpeed = backgroundYSpeed;
+    this.currentLevel = currentLevel;
 
     // Create layers with different densities and speeds for parallax effect
     this.layers.push(
@@ -91,6 +101,7 @@ export class Background {
   }
 
   update(delta: number, playerVelocity: Coordinates = { x: 0, y: 0 }) {
+    this.time += delta * 0.1;
     for (const layer of this.layers) {
       if (layer.tile.width === 0 || layer.tile.height === 0) {
         // Tile not loaded yet, skip updating this layer
@@ -114,6 +125,15 @@ export class Background {
     }
   }
 
+  private getWaveDistortion(): number {
+    for (let i = STORY_LEVELS.length - 1; i >= 0; i--) {
+      if (this.currentLevel >= STORY_LEVELS[i]) {
+        return BACKGROUND_WAVE_DISTORTION[i];
+      }
+    }
+    return 0; // default before act2
+  }
+
   draw(ctx: CanvasRenderingContext2D) {
     const { width, height } = ctx.canvas;
     ctx.imageSmoothingEnabled = false;
@@ -130,8 +150,19 @@ export class Background {
       if (!pattern) continue;
 
       ctx.save();
+
+      // Make stars "wave" in X
+      const waveAmplitude = 20 * layer.speedXMultiplier; // pixels
+
+      // Distort background through story
+      const waveSpeed = this.getWaveDistortion();
+
+      const waveOffset =
+        Math.sin(this.time * waveSpeed + layer.speedXMultiplier * 2) *
+        waveAmplitude;
+
       // Translate by the negative offsets to scroll the pattern seamlessly
-      ctx.translate(layer.offsetX, layer.offsetY);
+      ctx.translate(layer.offsetX + waveOffset, layer.offsetY);
 
       ctx.fillStyle = pattern;
       ctx.fillRect(

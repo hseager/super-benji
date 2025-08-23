@@ -95,12 +95,13 @@ export class LevelController {
   startLevel() {
     this.currentWave = 0;
     this.gameManager.background = new Background(
-      this.gameManager.background.backgroundYSpeed * BACKGROUND_SPEED_INCREASE
+      this.gameManager.background.backgroundYSpeed * BACKGROUND_SPEED_INCREASE,
+      this.currentLevel
     );
-    this.textDisplayTimer = 3;
+    this.textDisplayTimer = 4;
     this.gameManager.enemies = []; // Clear previous enemies
 
-    if (this.currentLevel === 1) {
+    if (this.currentLevel === 15) {
       this.spawnBoss();
     } else {
       this.spawnNextWave();

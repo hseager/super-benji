@@ -33,7 +33,7 @@ export const StoryActs = {
   Act1: 0,
   Act2: 1,
   Act3: 2,
-  Epilogue: 3,
+  Epilogue: 4,
 };
 
 export type Character = "Benji" | "Maggie" | "Torx" | "Jackal";

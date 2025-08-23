@@ -129,10 +129,10 @@ export const ADVANCED_ENEMY_PALETTE = [
 ];
 
 // Boss
-export const BOSS_MAX_LIFE = 400;
+export const BOSS_MAX_LIFE = 1000;
 export const BOSS_BULLET_DAMAGE = 10;
 export const BOSS_BULLET_SPEED = 150;
-export const BOSS_ATTACK_SPEED = 1.5;
+export const BOSS_ATTACK_SPEED = 1.4;
 
 // Background
 export const BACKGROUND_HUE_SHIFT = 200; // 20 = 10%
@@ -141,6 +141,7 @@ export const BACKGROUND_LIGHTNESS_SHIFT = 0;
 export const BACKGROUND_MOVEMENT_Y_SPEED = 75;
 export const BACKGROUND_SPEED_INCREASE = 1.1; // Increase background speed each level
 export const BACKGROUND_CLOUD_OPACITY = 0.1;
+export const BACKGROUND_WAVE_DISTORTION = [25, 50, 0];
 
 // Enemy
 export const EXPLOSION_SIZE = 400; // Pixels per second
@@ -151,10 +152,12 @@ export const EXPLOSION_DURATION = 1.5;
 // Levels
 export const LEVEL_NAMES = [
   "Starfield Frontiers",
-  "Verdantia Expanse",
-  "Ironfang Megaship",
+  "Factured Expanse",
+  "Rift Horizon",
   "Outer wilds",
 ];
+
+export const STORY_LEVELS = [6, 15, 16];
 
 // Sprites
 export const AVATAR_BODY_WIDTH = 16;

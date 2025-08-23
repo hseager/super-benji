@@ -1,6 +1,7 @@
 import {
   AVATAR_BODY_HEIGHT,
   BASE_TRANSITION_ANIMATION_TIME,
+  STORY_LEVELS,
   TORX_AVATAR_HEIGHT,
   TORX_AVATAR_WIDTH,
 } from "../config";
@@ -85,7 +86,6 @@ export class StoryController {
   isActive = true;
   currentAct: number = StoryActs.Act1;
   currentActPart = 0;
-  levelsToProgressStory = [6, 11, 16];
 
   private torxDialog: string[] = [
     "Scrap secured. Upgrade time!",
@@ -129,6 +129,9 @@ export class StoryController {
       this.currentActPart++;
       return;
     }
+
+    // Disable dialog showing
+    this.isActive = false;
 
     // Move to next act
     this.currentActPart = 0;
@@ -177,7 +180,7 @@ export class StoryController {
   }
 
   progressStory(level: number) {
-    this.levelsToProgressStory.includes(level)
+    STORY_LEVELS.includes(level)
       ? this.gameController.pauseGame()
       : this.gameController.resumeGame();
   }
