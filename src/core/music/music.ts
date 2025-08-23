@@ -16,13 +16,7 @@ export class Music {
   lead: Sequence;
   bass: Sequence;
   drumSynth: DrumSynth;
-  drumPattern: number[] = [0, 2, 4, 6, 8, 10, 12, 14]; // kick on 0, snare on 4, hihat on all
   isPlaying = false;
-
-  atmosPad: OscillatorNode;
-  atmosGain: GainNode;
-  atmosLFO: OscillatorNode;
-  atmosLFOGain: GainNode;
 
   constructor() {
     this.ac = new AudioContext();
@@ -37,29 +31,7 @@ export class Music {
     this.compressor.threshold.value = -12;
     this.compressor.connect(this.output);
 
-    // --- Atmospheric pad ---
-    this.atmosPad = this.ac.createOscillator();
-    this.atmosGain = this.ac.createGain();
-    this.atmosPad.type = "sine";
-    this.atmosGain.gain.value = 3; // soft volume
-
-    // Use B minor notes for pad (subtle, slow glide)
-    this.atmosPad.frequency.value = 246.94; // start on B3
-
-    // LFO for slow modulation, scaled by tempo
-    this.atmosLFO = this.ac.createOscillator();
-    this.atmosLFOGain = this.ac.createGain();
-    this.atmosLFO.type = "sine";
-    this.atmosLFO.frequency.value = (this.tempo / 174) * 0.5; // mod speed scales with tempo
-    this.atmosLFOGain.gain.value = 6; // ±4Hz frequency swing
-    this.atmosLFO.connect(this.atmosLFOGain).connect(this.atmosPad.frequency);
-
-    this.atmosPad.connect(this.atmosGain);
-    this.atmosGain.connect(this.compressor);
-
-    // this.atmosLFO.start();
-
-    // Lead
+    // --- Lead ---
     const coreLead = [
       "D4 q",
       "A4 q",
@@ -77,31 +49,29 @@ export class Music {
       ...coreLead,
       ...offLead,
     ]);
-
-    this.lead.staccato = 0.2; // nice short beep
-    this.lead.smoothing = 0.05; // no glide, clean
+    this.lead.staccato = 0.2;
+    this.lead.smoothing = 0.05;
     this.lead.waveType = "sine";
+    this.lead.connect(this.compressor);
 
+    // --- Bass ---
     this.bass = new Sequence(this.ac, this.tempo, [
-      "B1 w",
-      "B1 w",
-      "D2 w",
-      "D2 w",
+      "B1 h",
+      "- h",
+      "B1 h",
+      "- h",
+      "D2 h",
+      "- h",
+      "D2 h",
+      "- h",
     ]);
     this.bass.staccato = 0;
     this.bass.smoothing = 0.8;
     this.bass.waveType = "triangle";
     const bassGain = this.ac.createGain();
-    bassGain.gain.value = 2.0;
-
+    bassGain.gain.value = 1.5;
     this.bass.connect(bassGain);
     bassGain.connect(this.compressor);
-
-    this.lead.connect(this.compressor);
-
-    // Connect to compressor/output
-    this.atmosPad.connect(this.atmosGain);
-    this.atmosGain.connect(this.compressor);
 
     this.stepLength = 60 / this.tempo / 4;
   }
@@ -113,7 +83,6 @@ export class Music {
     const now = this.ac.currentTime;
     this.lead.play(now);
     this.bass.play(now);
-    // this.atmosPad.start();
 
     const schedule = () => {
       const now = this.ac.currentTime;
@@ -122,20 +91,22 @@ export class Music {
         this.currentStep * this.stepLength <
         now + this.scheduleAheadTime
       ) {
-        const stepTime =
-          this.currentStep * this.stepLength +
-          (this.currentStep % 2 ? 0.02 : 0);
+        const stepTime = this.currentStep * this.stepLength;
 
-        // HiHat every 16th
-        this.drumSynth.playHiHat(stepTime);
+        // Reduced hi-hat: play only on selected steps for swing
+        if ([0, 3, 6, 10, 12, 15].includes(this.currentStep % 16)) {
+          this.drumSynth.playHiHat(stepTime);
+        }
 
-        // Kick
-        if (this.currentStep % 16 === 0 || this.currentStep % 16 === 8)
+        // Kick pattern with slight swing
+        if ([0, 7, 11].includes(this.currentStep % 16)) {
           this.drumSynth.playKick(stepTime);
+        }
 
-        // Snare
-        if (this.currentStep % 16 === 4 || this.currentStep % 16 === 12)
+        // Snare on 4 and 12 (classic DnB break)
+        if ([4, 12].includes(this.currentStep % 16)) {
           this.drumSynth.playSnare(stepTime);
+        }
 
         this.currentStep++;
       }
@@ -145,6 +116,7 @@ export class Music {
 
     schedule();
   }
+
   stop() {
     this.lead.stop();
     this.bass.stop();
