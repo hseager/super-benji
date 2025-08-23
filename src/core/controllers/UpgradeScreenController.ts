@@ -127,10 +127,10 @@ export class UpgradeScreenController {
         this.canSelectUpgrade = false;
 
         // Remove upgrade from future options
-        // Don't remove common items so there's always options later
-        this.allUpgrades = this.allUpgrades
-          .filter((u) => u.rarity !== "Common")
-          .filter((u) => u !== upgrade);
+        this.allUpgrades = this.allUpgrades.filter((u) => {
+          if (u.rarity === "Common") return true; // Don't remove common items so there's always options later
+          return u !== upgrade;
+        });
 
         screenTransitions.start(1, 0, BASE_TRANSITION_ANIMATION_TIME, () => {
           clearClicks();

@@ -58,7 +58,7 @@ const storyActs: Record<number, StoryLine[]> = {
     },
     {
       speaker: "Maggie",
-      text: "Watch out Benji! He's charging his new weapon",
+      text: "Watch out Benji! He's turned the Warp Core into a weapon!",
     },
     {
       speaker: "Benji",

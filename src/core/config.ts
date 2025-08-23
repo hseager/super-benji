@@ -88,15 +88,15 @@ export const BENJI_AVATAR_PALETTE = [
 // ];
 
 // Enemy
-export const ENEMY_MAX_LIFE = 20;
-export const ENEMY_BULLET_DAMAGE = 12;
+export const ENEMY_MAX_LIFE = 16;
+export const ENEMY_BULLET_DAMAGE = 10;
 export const ENEMY_PROXIMITY_DAMAGE = 0.5;
 export const ENEMY_BULLET_SPEED = 75;
 export const ENEMY_MOVEMENT_Y_SPEED = 20;
 export const ENEMY_ATTACK_SPEED = 3.5;
 export const ENEMY_ATTACK_VARIANCE = 0.3;
-export const ENEMY_START_POSITION_Y = -15;
-export const ENEMY_DIRECTION_CHANGE_CHANCE = 0.5; // 50%
+export const ENEMY_START_POSITION_Y = -20;
+export const ENEMY_DIRECTION_CHANGE_CHANCE = 0.3; // 50%
 
 export const BASIC_ENEMY_PALETTE = [
   "#200900",

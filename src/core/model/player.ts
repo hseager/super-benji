@@ -71,7 +71,7 @@ export class Player extends Shooter {
 
       // Movement towards cursor
       const dx = targetX - this.centerX();
-      const dy = targetY - this.centerY() - 22;
+      const dy = targetY - this.centerY() - 28;
       const distance = Math.hypot(dx, dy);
 
       if (this.active && distance > this.moveTolerance) {
@@ -187,6 +187,14 @@ export class Player extends Shooter {
     this.life -= damage;
     if (this.life <= 0) {
       this.explode(40);
+    }
+  }
+
+  heal(amount: number) {
+    if (this.life + amount > this.maxLife) {
+      this.life = this.maxLife;
+    } else {
+      this.life += amount;
     }
   }
 }

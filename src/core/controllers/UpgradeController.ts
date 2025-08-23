@@ -14,6 +14,7 @@ const StatLabel: Record<string, string> = {
   PROJSPD: "Proj Speed",
   HP: "HP",
   REGEN: "Regen",
+  HEAL: "Heal",
   EVASION: "Evasion",
   MOVESPD: "Move Speed",
 };
@@ -36,6 +37,16 @@ export class UpgradeController {
       },
     },
     {
+      rarity: RarityLabel.Common,
+      name: "Ion Cannon",
+      description: `${StatLabel.DMG} +3, ${StatLabel.PROJSPD} +10%`,
+      apply: async () => {
+        this.gameManager.player.damage += 3;
+        this.gameManager.player.bulletSpeed *= 1.1;
+        this.gameManager.player.bulletColor = "blue";
+      },
+    },
+    {
       rarity: RarityLabel.Rare,
       name: "Nebula Railcoil",
       description: `${StatLabel.DMG} +5, ${StatLabel.PROJSPD} +20%`,
@@ -50,17 +61,17 @@ export class UpgradeController {
     {
       rarity: RarityLabel.Epic,
       name: "Iron Fang Torpedo",
-      description: `${StatLabel.DMG} +10, ${StatLabel.ATKSPD} +20%`,
+      description: `${StatLabel.DMG} +6, ${StatLabel.ATKSPD} +20%`,
       description2: "Spread Shot",
       apply: () => {
-        this.gameManager.player.damage += 10;
+        this.gameManager.player.damage += 6;
         this.gameManager.player.attackSpeed *= 0.8;
         this.gameManager.player.bulletColor = "orange";
         this.gameManager.player.shootPattern = "spread";
       },
     },
     {
-      rarity: RarityLabel.Legendary,
+      rarity: RarityLabel.Epic,
       name: "Modified Sprinkler",
       description: `${StatLabel.DMG} -8, ${StatLabel.ATKSPD} +60%`,
       description2: "Mega Shot",
@@ -73,11 +84,11 @@ export class UpgradeController {
     },
     {
       rarity: RarityLabel.Legendary,
-      name: "Glass Canon",
-      description: `${StatLabel.HP} -30, ${StatLabel.DMG} +4`,
+      name: "Glass Cannon",
+      description: `${StatLabel.DMG} +8 ${StatLabel.HP} -40,`,
       description2: "Mega Shot",
       apply: () => {
-        this.gameManager.player.damage += 4;
+        this.gameManager.player.damage += 8;
         this.gameManager.player.life -= 30;
         this.gameManager.player.bulletColor = "orange";
         this.gameManager.player.shootPattern = "megaspread";
@@ -87,7 +98,7 @@ export class UpgradeController {
     {
       rarity: RarityLabel.Common,
       name: "Mithril Plating",
-      description: `${StatLabel.HP} +10, ${StatLabel.REGEN} +2`,
+      description: `${StatLabel.HP} +10, ${StatLabel.REGEN} +3`,
       description2: `${StatLabel.EVASION} +5%`,
       apply: () => {
         this.gameManager.player.maxLife += 20;
@@ -99,7 +110,7 @@ export class UpgradeController {
     {
       rarity: RarityLabel.Common,
       name: "Adamite Panels",
-      description: `${StatLabel.HP} +20, ${StatLabel.REGEN} +5`,
+      description: `${StatLabel.HP} +15, ${StatLabel.REGEN} +2`,
       apply: () => {
         this.gameManager.player.maxLife += 20;
         this.gameManager.player.life += 20;
@@ -109,11 +120,11 @@ export class UpgradeController {
     {
       rarity: RarityLabel.Rare,
       name: "Torx’s Reinforced Shell",
-      description: `${StatLabel.HP} +50, ${StatLabel.REGEN} +10`,
+      description: `${StatLabel.HP} +20, ${StatLabel.REGEN} +4`,
       apply: () => {
-        this.gameManager.player.maxLife += 50;
-        this.gameManager.player.life += 50;
-        this.gameManager.player.regen += 10;
+        this.gameManager.player.maxLife += 20;
+        this.gameManager.player.life += 20;
+        this.gameManager.player.regen += 4;
       },
     },
     {
@@ -124,14 +135,37 @@ export class UpgradeController {
         this.gameManager.player.evasion += 15;
       },
     },
+    {
+      rarity: RarityLabel.Legendary,
+      name: "Maggie's Cloak",
+      description: `${StatLabel.HP} -20, ${StatLabel.REGEN} +5`,
+      description2: `${StatLabel.EVASION} +30%`,
+      apply: () => {
+        this.gameManager.player.maxLife -= 20;
+        this.gameManager.player.life -= 20;
+        this.gameManager.player.regen += 5;
+        this.gameManager.player.evasion += 30;
+      },
+    },
     // Movement
     {
       rarity: RarityLabel.Common,
       name: "Starwing Stabilizers",
-      description: `${StatLabel.MOVESPD} +10%`,
+      description: `${StatLabel.MOVESPD} +12%`,
       apply: () => {
-        this.gameManager.player.movementXSpeed *= 1.15;
-        this.gameManager.player.movementYSpeed *= 1.15;
+        this.gameManager.player.movementXSpeed *= 1.12;
+        this.gameManager.player.movementYSpeed *= 1.12;
+      },
+    },
+    {
+      rarity: RarityLabel.Common,
+      name: "Advanced Wings",
+      description: `${StatLabel.MOVESPD} +10%`,
+      description2: `${StatLabel.ATKSPD} +10%`,
+      apply: () => {
+        this.gameManager.player.movementXSpeed *= 1.1;
+        this.gameManager.player.movementYSpeed *= 1.1;
+        this.gameManager.player.attackSpeed *= 0.9;
       },
     },
     {
@@ -146,9 +180,20 @@ export class UpgradeController {
       },
     },
     {
+      rarity: RarityLabel.Epic,
+      name: "Plasma Rocket Fuel",
+      description: `${StatLabel.MOVESPD} +30%`,
+      description2: `${StatLabel.EVASION} -10%`,
+      apply: () => {
+        this.gameManager.player.movementXSpeed *= 1.3;
+        this.gameManager.player.movementYSpeed *= 1.3;
+        this.gameManager.player.evasion -= 10;
+      },
+    },
+    {
       rarity: RarityLabel.Legendary,
       name: "Voidstep Drive",
-      description: `${StatLabel.MOVESPD} +30%`,
+      description: `${StatLabel.MOVESPD} +25%`,
       description2: `${StatLabel.EVASION} +10%`,
       apply: () => {
         this.gameManager.player.movementXSpeed *= 1.3;
@@ -160,10 +205,20 @@ export class UpgradeController {
     {
       rarity: RarityLabel.Common,
       name: "Hunter’s Instinct",
-      description: `${StatLabel.DMG} +4, ${StatLabel.EVASION} +2%`,
+      description: `${StatLabel.DMG} +3, ${StatLabel.EVASION} +2%`,
       apply: () => {
-        this.gameManager.player.damage += 4;
+        this.gameManager.player.damage += 3;
         this.gameManager.player.evasion += 2;
+      },
+    },
+    {
+      rarity: RarityLabel.Common,
+      name: "Ball of string",
+      description: `${StatLabel.ATKSPD} +10%`,
+      description2: `${StatLabel.EVASION} -5%`,
+      apply: () => {
+        this.gameManager.player.attackSpeed *= 0.9;
+        this.gameManager.player.evasion -= 5;
       },
     },
     {
@@ -177,45 +232,72 @@ export class UpgradeController {
       },
     },
     {
+      rarity: RarityLabel.Epic,
+      name: "Warp Core Fragment",
+      description: `${StatLabel.ATKSPD} +30%`,
+      description2: `${StatLabel.PROJSPD} -40%`,
+      apply: () => {
+        this.gameManager.player.attackSpeed *= 0.7;
+        this.gameManager.player.bulletSpeed *= 0.4;
+      },
+    },
+    {
       rarity: RarityLabel.Legendary,
       name: "Jackalbane Core",
-      description: `${StatLabel.DMG} +15, ${StatLabel.HP} +50`,
+      description: `${StatLabel.DMG} +5, ${StatLabel.HP} +30`,
+      description2: `${StatLabel.PROJSPD} -10%`,
       apply: () => {
-        this.gameManager.player.damage += 15;
-        this.gameManager.player.maxLife += 50;
-        this.gameManager.player.life += 50;
+        this.gameManager.player.damage += 5;
+        this.gameManager.player.maxLife += 30;
+        this.gameManager.player.life += 30;
+        this.gameManager.player.bulletSpeed *= 0.9;
       },
     },
     // Heal
     {
       rarity: RarityLabel.Common,
       name: "Left-over Sushi",
-      description: `${StatLabel.HP} +10, ${StatLabel.REGEN} +1`,
+      description: `${StatLabel.HEAL} +10, ${StatLabel.REGEN} +1`,
       apply: () => {
         this.gameManager.player.regen += 1;
-        this.gameManager.player.maxLife += 10;
-        this.gameManager.player.life += 10;
+        this.gameManager.player.heal(15);
       },
     },
     {
       rarity: RarityLabel.Common,
       name: "Tuna Suprise",
-      description: `${StatLabel.HP} +5, ${StatLabel.REGEN} +3`,
+      description: `${StatLabel.HEAL} +15 ${StatLabel.HP} +5`,
       apply: () => {
-        this.gameManager.player.regen += 3;
         this.gameManager.player.maxLife += 5;
-        this.gameManager.player.life += 5;
+        this.gameManager.player.heal(5);
+      },
+    },
+    {
+      rarity: RarityLabel.Common,
+      name: "Juggernog",
+      description: `${StatLabel.HEAL} +20`,
+      apply: () => {
+        this.gameManager.player.heal(20);
       },
     },
     {
       rarity: RarityLabel.Rare,
       name: "Iron Jackal Bru",
-      description: `${StatLabel.HP} +10, ${StatLabel.REGEN} +3`,
+      description: `${StatLabel.HEAL} +25, ${StatLabel.REGEN} +2`,
       description2: `${StatLabel.PROJSPD} +10%`,
       apply: () => {
-        this.gameManager.player.regen += 3;
-        this.gameManager.player.maxLife += 10;
+        this.gameManager.player.regen += 2;
+        this.gameManager.player.heal(25);
         this.gameManager.player.bulletSpeed *= 1.1;
+      },
+    },
+    {
+      rarity: RarityLabel.Legendary,
+      name: "Stardust",
+      description: `${StatLabel.HEAL} +80, ${StatLabel.ATKSPD} +20%`,
+      apply: () => {
+        this.gameManager.player.heal(80);
+        this.gameManager.player.attackSpeed *= 0.8;
       },
     },
   ];

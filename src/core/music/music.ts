@@ -13,6 +13,9 @@ export class MusicPlayer {
   private scheduleAheadTime = 0.1; // 100ms lookahead
   private stepLength: number;
 
+  private atmosOscs: OscillatorNode[] = [];
+  private atmosGains: GainNode[] = [];
+
   lead: Sequence;
   bass: Sequence;
   drumSynth: DrumSynth;
@@ -50,7 +53,7 @@ export class MusicPlayer {
       ...offLead,
     ]);
     this.lead.staccato = 0.2;
-    this.lead.smoothing = 0.05;
+    this.lead.smoothing = 0.2;
     this.lead.waveType = "sine";
     this.lead.connect(this.compressor);
 
@@ -70,6 +73,7 @@ export class MusicPlayer {
     this.bass.waveType = "triangle";
     const bassGain = this.ac.createGain();
     bassGain.gain.value = 1.5;
+
     this.bass.connect(bassGain);
     bassGain.connect(this.compressor);
 
@@ -85,6 +89,38 @@ export class MusicPlayer {
 
     this.lead.play(now + barLength * 8);
     this.bass.play(now);
+
+    // --- Atmos Pad 1 (B) ---
+    const bOsc = this.ac.createOscillator();
+    bOsc.type = "sine";
+    bOsc.frequency.value = 246.94; // B3
+    const bGain = this.ac.createGain();
+    bGain.gain.value = 0;
+    bOsc.connect(bGain).connect(this.compressor);
+    bOsc.start();
+
+    // Fade-in B pad
+    bGain.gain.setValueAtTime(0, now + barLength * 64); // 16 bars
+    bGain.gain.linearRampToValueAtTime(0.3, now + barLength * 64); // fade in over 4 bars
+
+    this.atmosOscs.push(bOsc);
+    this.atmosGains.push(bGain);
+
+    // --- Atmos Pad 2 (D) ---
+    const dOsc = this.ac.createOscillator();
+    dOsc.type = "sine";
+    dOsc.frequency.value = 293.66; // D4
+    const dGain = this.ac.createGain();
+    dGain.gain.value = 0;
+    dOsc.connect(dGain).connect(this.compressor);
+    dOsc.start();
+
+    // Fade-in D pad after the first B pad
+    dGain.gain.setValueAtTime(0, now + barLength * 80); // 2 bars after B pad starts
+    dGain.gain.linearRampToValueAtTime(0.3, now + barLength * 64); // fade in over 4 bars
+
+    this.atmosOscs.push(dOsc);
+    this.atmosGains.push(dGain);
 
     const schedule = () => {
       const now = this.ac.currentTime;
@@ -125,6 +161,23 @@ export class MusicPlayer {
   stop() {
     this.lead.stop();
     this.bass.stop();
+    // Stop all atmospheric pads
+    this.atmosOscs.forEach((osc, i) => {
+      const gain = this.atmosGains[i];
+      const now = this.ac.currentTime;
+
+      // Fade out the pad quickly to avoid clicks
+      gain.gain.cancelScheduledValues(now);
+      gain.gain.setValueAtTime(gain.gain.value, now);
+      gain.gain.linearRampToValueAtTime(0, now + 0.05);
+
+      // Stop the oscillator shortly after fade
+      osc.stop(now + 0.06);
+    });
+
+    this.atmosOscs = [];
+    this.atmosGains = [];
+
     this.isPlaying = false;
     if (this.schedulerId) clearTimeout(this.schedulerId);
     this.currentStep = 0;
@@ -132,9 +185,10 @@ export class MusicPlayer {
 
   playExplosionSound() {
     const ac = this.ac;
+    const now = ac.currentTime;
 
-    // White noise buffer
-    const bufferSize = ac.sampleRate * 0.2; // 200ms crash
+    // --- White noise burst ---
+    const bufferSize = ac.sampleRate * 0.5; // longer: 500ms
     const buffer = ac.createBuffer(1, bufferSize, ac.sampleRate);
     const data = buffer.getChannelData(0);
     for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
@@ -142,14 +196,33 @@ export class MusicPlayer {
     const noise = ac.createBufferSource();
     noise.buffer = buffer;
 
-    const gain = ac.createGain();
-    gain.gain.setValueAtTime(3, ac.currentTime); // start loud
-    gain.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 0.2); // decay
+    const noiseFilter = ac.createBiquadFilter();
+    noiseFilter.type = "highpass";
+    noiseFilter.frequency.value = 400; // cut mud, keep it crisp
 
-    noise.connect(gain);
-    gain.connect(this.compressor);
+    const noiseGain = ac.createGain();
+    noiseGain.gain.setValueAtTime(2, now);
+    noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
 
-    noise.start();
-    noise.stop(ac.currentTime + 0.2);
+    noise.connect(noiseFilter).connect(noiseGain).connect(this.compressor);
+
+    // --- Low-end thump (oscillator) ---
+    const osc = ac.createOscillator();
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(80, now);
+    osc.frequency.exponentialRampToValueAtTime(30, now + 0.5); // pitch dive
+
+    const oscGain = ac.createGain();
+    oscGain.gain.setValueAtTime(2, now);
+    oscGain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+
+    osc.connect(oscGain).connect(this.compressor);
+
+    // --- Start everything ---
+    noise.start(now);
+    noise.stop(now + 0.5);
+
+    osc.start(now);
+    osc.stop(now + 0.5);
   }
 }
