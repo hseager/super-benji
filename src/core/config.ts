@@ -97,7 +97,7 @@ export const ENEMY_BULLET_SPEED = 75;
 export const ENEMY_MOVEMENT_Y_SPEED = 20;
 export const ENEMY_ATTACK_SPEED = 3.5;
 export const ENEMY_ATTACK_VARIANCE = 0.3;
-export const ENEMY_START_POSITION_Y = -20;
+export const ENEMY_START_POSITION_Y = -30;
 export const ENEMY_DIRECTION_CHANGE_CHANCE = 0.3; // 50%
 
 export const BASIC_ENEMY_PALETTE = [
@@ -217,7 +217,7 @@ export const JACKAL_AVATAR_PALETTE = [
 // Items
 export const RARITY_WEIGHTS: Record<string, number> = {
   Common: 65,
-  Rare: 20,
-  Epic: 10,
-  Legendary: 5,
+  Rare: 25,
+  Epic: 15,
+  Legendary: 10,
 };

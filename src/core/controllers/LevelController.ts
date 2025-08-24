@@ -76,7 +76,7 @@ export class LevelController {
         config.bulletSpeed * (1 + this.currentLevel * 0.03);
       const scaledBulletDamage =
         config.bulletDamage * (1 + this.currentLevel * 0.02);
-      const scaledHealth = ENEMY_MAX_LIFE * (1 + this.currentLevel * 0.05);
+      const scaledHealth = ENEMY_MAX_LIFE * (1 + this.currentLevel * 0.15);
 
       const x = Math.random() * (drawEngine.canvasWidth - config.sprite.width);
       const y = ENEMY_START_POSITION_Y - Math.random() * this.enemyYSpawnOffset;

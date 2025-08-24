@@ -86,16 +86,36 @@ export class UpgradeScreenController {
 
       let rarity: ItemRarity;
       if (r <= RARITY_WEIGHTS.Legendary) rarity = "Legendary";
-      else if (r <= RARITY_WEIGHTS.Epic) rarity = "Epic"; // 5% + 10%
-      else if (r <= 35) rarity = "Rare"; // 15% + 20%
+      else if (r <= RARITY_WEIGHTS.Legendary + RARITY_WEIGHTS.Epic)
+        rarity = "Epic";
+      else if (
+        r <=
+        RARITY_WEIGHTS.Legendary + RARITY_WEIGHTS.Epic + RARITY_WEIGHTS.Rare
+      )
+        rarity = "Rare";
       else rarity = "Common";
 
       return pickFromRarity(rarity);
     };
 
     const pickFromRarity = (rarity: ItemRarity): Upgrade => {
-      const pool = this.allUpgrades.filter((u) => u.rarity === rarity);
-      if (!pool.length) return pickFromRarity("Common"); // fallback
+      // Only pick items not already chosen
+      let pool = this.allUpgrades.filter(
+        (u) => u.rarity === rarity && !chosen.includes(u)
+      );
+
+      if (!pool.length) {
+        // Fallback to common items that haven't been picked yet
+        pool = this.allUpgrades.filter(
+          (u) => u.rarity === "Common" && !chosen.includes(u)
+        );
+      }
+
+      if (!pool.length) {
+        // If somehow nothing left, fallback to any not chosen
+        pool = this.allUpgrades.filter((u) => !chosen.includes(u));
+      }
+
       return pool[Math.floor(Math.random() * pool.length)];
     };
 
