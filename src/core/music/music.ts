@@ -48,9 +48,9 @@ export class MusicPlayer {
     const offLead = ["D4 q", "E4 q", "B3 q", "- q", "- q", "- q", "- q", "- q"];
     this.lead = new Sequence(this.ac, this.tempo, [
       ...coreLead,
-      ...coreLead,
-      ...coreLead,
+      "- f",
       ...offLead,
+      "- f",
     ]);
     this.lead.staccato = 0.2;
     this.lead.smoothing = 0.2;
@@ -224,5 +224,47 @@ export class MusicPlayer {
 
     osc.start(now);
     osc.stop(now + 0.5);
+  }
+
+  playMenuSuccess() {
+    const ac = this.ac;
+    const now = ac.currentTime;
+
+    const notes = [880, 1174, 1568]; // A5 -> D6 -> G6 (ascending triad)
+
+    notes.forEach((freq, i) => {
+      const osc = ac.createOscillator();
+      osc.type = "sine"; // sweet & clean
+      osc.frequency.value = freq;
+
+      const gain = ac.createGain();
+      gain.gain.setValueAtTime(0, now + i * 0.1);
+      gain.gain.linearRampToValueAtTime(0.5, now + i * 0.1 + 0.05);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.1 + 0.5);
+
+      osc.connect(gain).connect(this.compressor);
+
+      osc.start(now + i * 0.1);
+      osc.stop(now + i * 0.1 + 0.6);
+    });
+  }
+
+  playTakeDamage() {
+    const ac = this.ac;
+    const now = ac.currentTime;
+
+    const osc = ac.createOscillator();
+    osc.type = "square"; // harsh
+    osc.frequency.setValueAtTime(600, now);
+    osc.frequency.linearRampToValueAtTime(120, now + 0.15); // quick drop
+
+    const gain = ac.createGain();
+    gain.gain.setValueAtTime(0.6, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+
+    osc.connect(gain).connect(this.compressor);
+
+    osc.start(now);
+    osc.stop(now + 0.15);
   }
 }

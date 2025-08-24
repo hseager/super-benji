@@ -122,6 +122,7 @@ export class UpgradeScreenController {
       if (!this.canSelectUpgrade) return;
       addClick(x, y, width, boxHeight, () => {
         upgrade.apply();
+        this.gameManager.musicPlayer.playMenuSuccess();
 
         // Prevent multiple clicks
         this.canSelectUpgrade = false;

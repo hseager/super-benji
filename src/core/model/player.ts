@@ -187,7 +187,9 @@ export class Player extends Shooter {
     this.life -= damage;
     if (this.life <= 0) {
       this.explode(40);
+      this.gameController.musicPlayer.playExplosionSound();
     }
+    this.gameController.musicPlayer.playTakeDamage();
   }
 
   heal(amount: number) {

@@ -25,8 +25,33 @@ The hunt builds toward a final showdown aboard the Jackal’s massive flagship, 
 
 ### TODO
 
+- Bugs
+  - Cap attackspeed, background movement, move speed
+- Items
+  - Get a relic from Maggie at the start of the game
+    - Increase damage vs lower health
+    - Lower damage vs more health
+    - Faster projectiles vs slower attack
+  - Actually add Rarity
+    - More rare items
+  - Magashot short range
+  - New stats
+    - Range
+    - Proj size
+  - Special
+    - Poison aoe
+    - 100% increase Projsize/ 50% less proj speed & attack speed
+    - Increase damage at full life/ - 10 Regen
+    - Beam (max attackspeed) / - 20damage
+    - Homing missile
+  - Gate items behind level
 - Levels
+  - Different enemies stats for each zone (speed, type)
   - Don't have upgrades at the end of every level
+    - Maggie upgrade screen
+      - More gold/health drops/more enemies spawn
+      - More attack speed/enemies are quicker
+      - More Proj size/enemies have more health
     - Have random chance of healing, gold or upgrade
       - Risk/reward = Sacrifice HP for random upgrade
       - Spend gold to heal
