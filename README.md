@@ -29,13 +29,14 @@ The hunt builds toward a final showdown aboard the Jackal’s massive flagship, 
 
 ### TODO
 
+- Bugs
+  - Taking damage after boss deafeated and on upgrade screen
+  - Enemies still spawning after boss
 - Items
   - Get a relic from Maggie at the start of the game
     - Increase damage vs lower health
     - Lower damage vs more health
     - Faster projectiles vs slower attack
-  - Actually add Rarity
-    - More rare items
   - Magashot short range
   - New stats
     - Range
@@ -69,7 +70,6 @@ The hunt builds toward a final showdown aboard the Jackal’s massive flagship, 
   - Faster
   - Health bars
   - Redo enemy sprites, Iron Jackal Fleet
-- Screen shake on taking damage
 - Loot/Upgrades
   - Each upgrade costs gold, rarer = more expensive
   - Balance stats, add more downsizes

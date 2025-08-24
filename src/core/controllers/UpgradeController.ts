@@ -47,6 +47,27 @@ export class UpgradeController {
       },
     },
     {
+      rarity: RarityLabel.Common,
+      name: "A.F.K Simulator",
+      description: `Spread Shot`,
+      description2: `${StatLabel.PROJSPD} -5%`,
+      apply: async () => {
+        this.gameManager.player.bulletSpeed *= 0.95;
+        this.gameManager.player.bulletColor = "orange";
+        this.gameManager.player.shootPattern = "spread";
+      },
+    },
+    {
+      rarity: RarityLabel.Common,
+      name: "Starburst",
+      description: `Burst Shot`,
+      description2: `${StatLabel.ATKSPD} -5%`,
+      apply: async () => {
+        this.gameManager.player.attackSpeed *= 1.05;
+        this.gameManager.player.shootPattern = "burst";
+      },
+    },
+    {
       rarity: RarityLabel.Rare,
       name: "Nebula Railcoil",
       description: `${StatLabel.DMG} +5, ${StatLabel.PROJSPD} +20%`,

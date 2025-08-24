@@ -62,21 +62,40 @@ export class LevelController {
     ];
   }
 
+  pickEnemyType() {
+    const level = this.currentLevel;
+
+    // Example: early levels favor easier enemies
+    let weights: number[];
+    if (level < 5) {
+      weights = [0.7, 0.25, 0.05]; // mostly basic, few moderate, almost no advanced
+    } else if (level < 10) {
+      weights = [0.5, 0.4, 0.1];
+    } else if (level < 15) {
+      weights = [0.3, 0.5, 0.2];
+    } else {
+      weights = [0.2, 0.5, 0.3]; // later levels include more advanced
+    }
+
+    const r = Math.random();
+    if (r < weights[0]) return this.enemyTypes[0];
+    if (r < weights[0] + weights[1]) return this.enemyTypes[1];
+    return this.enemyTypes[2];
+  }
+
   /** Spawn a single wave */
   spawnWave(waveNumber: number) {
-    const baseCount = this.baseEnemyCount + (this.currentLevel - 1) * 2;
-    const enemyCount = baseCount + waveNumber * 2; // wave scaling
+    const baseCount = this.baseEnemyCount + (this.currentLevel - 1) * 1.5;
+    const enemyCount = baseCount + waveNumber * 1.5;
 
     for (let i = 0; i < enemyCount; i++) {
-      const config =
-        this.enemyTypes[Math.floor(Math.random() * this.enemyTypes.length)];
+      const config = this.pickEnemyType();
 
-      // scale difficulty with level
       const scaledBulletSpeed =
         config.bulletSpeed * (1 + this.currentLevel * 0.03);
       const scaledBulletDamage =
         config.bulletDamage * (1 + this.currentLevel * 0.02);
-      const scaledHealth = ENEMY_MAX_LIFE * (1 + this.currentLevel * 0.15);
+      const scaledHealth = ENEMY_MAX_LIFE * (1 + this.currentLevel * 0.1);
 
       const x = Math.random() * (drawEngine.canvasWidth - config.sprite.width);
       const y = ENEMY_START_POSITION_Y - Math.random() * this.enemyYSpawnOffset;
@@ -266,7 +285,11 @@ export class LevelController {
       this.spawnRift();
     }
 
-    if (boss.life <= boss.maxLife * 0.35 && this.rifts.length <= 1) {
+    if (boss.life <= boss.maxLife * 0.5 && this.rifts.length <= 1) {
+      this.spawnRift();
+    }
+
+    if (boss.life <= boss.maxLife * 0.25 && this.rifts.length <= 2) {
       this.spawnRift();
     }
 

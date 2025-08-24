@@ -151,9 +151,9 @@ export const ADVANCED_ENEMY_PALETTE = [
 ];
 
 // Boss
-export const BOSS_MAX_LIFE = 1000;
+export const BOSS_MAX_LIFE = 1400;
 export const BOSS_BULLET_DAMAGE = 10;
-export const BOSS_BULLET_SPEED = 150;
+export const BOSS_BULLET_SPEED = 90;
 export const BOSS_ATTACK_SPEED = 1.4;
 export const UBER_BOSS_STAT_MULTIPLIER = 2.5;
 
