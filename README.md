@@ -25,8 +25,6 @@ The hunt builds toward a final showdown aboard the Jackal’s massive flagship, 
 
 ### TODO
 
-- Bugs
-  - Cap attackspeed, background movement, move speed
 - Items
   - Get a relic from Maggie at the start of the game
     - Increase damage vs lower health

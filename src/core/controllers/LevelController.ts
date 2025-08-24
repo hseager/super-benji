@@ -5,14 +5,17 @@ import { Background } from "@/core/model/background";
 import {
   BACKGROUND_SPEED_INCREASE,
   BASE_TRANSITION_ANIMATION_TIME,
+  BOSS_ATTACK_SPEED,
   BOSS_BULLET_DAMAGE,
   BOSS_BULLET_SPEED,
   BOSS_MAX_LIFE,
+  ENEMY_ATTACK_SPEED,
   ENEMY_BULLET_DAMAGE,
   ENEMY_BULLET_SPEED,
   ENEMY_MAX_LIFE,
   ENEMY_START_POSITION_Y,
   LEVEL_NAMES,
+  UBER_BOSS_STAT_MULTIPLIER,
 } from "../config";
 import { screenTransitions } from "./ScreenTransitionController";
 import { EnemyConfig } from "../types";
@@ -73,7 +76,7 @@ export class LevelController {
         config.bulletSpeed * (1 + this.currentLevel * 0.03);
       const scaledBulletDamage =
         config.bulletDamage * (1 + this.currentLevel * 0.02);
-      const scaledHealth = ENEMY_MAX_LIFE * (1 + this.currentLevel * 0.03);
+      const scaledHealth = ENEMY_MAX_LIFE * (1 + this.currentLevel * 0.05);
 
       const x = Math.random() * (drawEngine.canvasWidth - config.sprite.width);
       const y = ENEMY_START_POSITION_Y - Math.random() * this.enemyYSpawnOffset;
@@ -85,6 +88,7 @@ export class LevelController {
           this.gameManager.enemyBulletPool,
           scaledHealth,
           scaledBulletDamage,
+          ENEMY_ATTACK_SPEED,
           scaledBulletSpeed,
           x,
           y,
@@ -110,8 +114,31 @@ export class LevelController {
       this.wavesPerLevel++;
     }
 
-    if (this.currentLevel === 15) {
-      this.spawnBoss();
+    const firstBossLevel = 15;
+    const repeatInterval = 6;
+
+    if (
+      this.currentLevel >= firstBossLevel &&
+      (this.currentLevel - firstBossLevel) % repeatInterval === 0
+    ) {
+      const bossNumber =
+        Math.floor((this.currentLevel - firstBossLevel) / repeatInterval) + 1;
+
+      const scaledLife =
+        BOSS_MAX_LIFE * Math.pow(UBER_BOSS_STAT_MULTIPLIER, bossNumber);
+      const scaledDamage =
+        BOSS_BULLET_DAMAGE * Math.pow(UBER_BOSS_STAT_MULTIPLIER, bossNumber);
+      const scaledAttackSpeed =
+        BOSS_ATTACK_SPEED * Math.pow(UBER_BOSS_STAT_MULTIPLIER, bossNumber);
+      const scaledBulletSpeed =
+        BOSS_BULLET_SPEED * Math.pow(UBER_BOSS_STAT_MULTIPLIER, bossNumber);
+
+      this.spawnBoss(
+        scaledLife,
+        scaledDamage,
+        scaledAttackSpeed,
+        scaledBulletSpeed
+      );
     } else {
       this.spawnNextWave();
     }
@@ -141,16 +168,22 @@ export class LevelController {
     }
   }
 
-  spawnBoss() {
+  spawnBoss(
+    health: number,
+    damage: number,
+    attackSpeed: number,
+    bulletSpeed: number
+  ) {
     this.bossSpawned = true;
     this.gameManager.addEnemy(
       new Boss(
         this.gameManager,
         this.gameManager.spriteManager.jackalSprite,
         this.gameManager.enemyBulletPool,
-        BOSS_MAX_LIFE,
-        BOSS_BULLET_DAMAGE,
-        BOSS_BULLET_SPEED,
+        health,
+        damage,
+        attackSpeed,
+        bulletSpeed,
         drawEngine.canvasWidth / 2 -
           this.gameManager.spriteManager.jackalSprite.width / 2,
         20,

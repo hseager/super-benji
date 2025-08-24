@@ -1,4 +1,4 @@
-import { BULLET_PALETTES } from "../config";
+import { BULLET_PALETTES, MIN_ATTACK_SPEED } from "../config";
 import { GameController } from "../controllers/GameController";
 import { Coordinates, ShootPattern } from "../types";
 import { BulletPool } from "./bulletPool";
@@ -57,7 +57,7 @@ export class Shooter extends GameObject {
         }
 
         if (this.burstShotsRemaining <= 0) {
-          this.attackCooldown = this.attackSpeed; // after burst, reset
+          this.attackCooldown = Math.max(MIN_ATTACK_SPEED, this.attackSpeed);
         }
       } else {
         // Waiting to start burst
@@ -150,7 +150,7 @@ export class Shooter extends GameObject {
             break;
           }
         }
-        this.attackCooldown = this.attackSpeed;
+        this.attackCooldown = Math.max(MIN_ATTACK_SPEED, this.attackSpeed);
       }
     }
   }

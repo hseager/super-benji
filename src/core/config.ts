@@ -16,6 +16,8 @@ export const PLAYER_BULLET_SPEED = 200;
 export const PLAYER_ATTACK_SPEED = 0.6;
 export const PLAYER_MOVEMENT_X_SPEED = 150;
 export const PLAYER_MOVEMENT_Y_SPEED = 100;
+export const MIN_ATTACK_SPEED = 0.05;
+export const MAX_MOVE_SPEED = 400;
 
 export const PLAYER_HEALTH_GLOW_COLOURS = [
   { hp: 1.0, color: "#00FF66" }, // green
@@ -133,6 +135,7 @@ export const BOSS_MAX_LIFE = 1000;
 export const BOSS_BULLET_DAMAGE = 10;
 export const BOSS_BULLET_SPEED = 150;
 export const BOSS_ATTACK_SPEED = 1.4;
+export const UBER_BOSS_STAT_MULTIPLIER = 2.5;
 
 // Background
 export const BACKGROUND_HUE_SHIFT = 200; // 20 = 10%
@@ -142,6 +145,7 @@ export const BACKGROUND_MOVEMENT_Y_SPEED = 75;
 export const BACKGROUND_SPEED_INCREASE = 1.1; // Increase background speed each level
 export const BACKGROUND_CLOUD_OPACITY = 0.1;
 export const BACKGROUND_WAVE_DISTORTION = [25, 50, 0];
+export const BACKGROUND_MOVEMENT_Y_SPEED_MAX = 350;
 
 // Enemy
 export const EXPLOSION_SIZE = 400; // Pixels per second
@@ -209,3 +213,11 @@ export const JACKAL_AVATAR_PALETTE = [
   "#c5c6c9", // polished steel
   "#e0e1e3", // bright silver highlight
 ];
+
+// Items
+export const RARITY_WEIGHTS: Record<string, number> = {
+  Common: 65,
+  Rare: 20,
+  Epic: 10,
+  Legendary: 5,
+};

@@ -1,6 +1,5 @@
-import { BASE_TRANSITION_ANIMATION_TIME } from "../config";
-import { Upgrade } from "../types";
-import { shuffleArray } from "../utilities";
+import { BASE_TRANSITION_ANIMATION_TIME, RARITY_WEIGHTS } from "../config";
+import { ItemRarity, Upgrade } from "../types";
 import { addClick, clearClicks } from "./ClickController";
 import { drawEngine } from "./DrawController";
 import { GameController } from "./GameController";
@@ -80,9 +79,31 @@ export class UpgradeScreenController {
   }
 
   generateUpgrades() {
-    // Shuffle and pick first 3
-    const shuffled = shuffleArray(this.allUpgrades);
-    this.upgrades = shuffled.slice(0, 3);
+    const chosen: Upgrade[] = [];
+
+    const rollUpgrade = (): Upgrade => {
+      const r = Math.random() * 100;
+
+      let rarity: ItemRarity;
+      if (r <= RARITY_WEIGHTS.Legendary) rarity = "Legendary";
+      else if (r <= RARITY_WEIGHTS.Epic) rarity = "Epic"; // 5% + 10%
+      else if (r <= 35) rarity = "Rare"; // 15% + 20%
+      else rarity = "Common";
+
+      return pickFromRarity(rarity);
+    };
+
+    const pickFromRarity = (rarity: ItemRarity): Upgrade => {
+      const pool = this.allUpgrades.filter((u) => u.rarity === rarity);
+      if (!pool.length) return pickFromRarity("Common"); // fallback
+      return pool[Math.floor(Math.random() * pool.length)];
+    };
+
+    while (chosen.length < 3) {
+      chosen.push(rollUpgrade());
+    }
+
+    this.upgrades = chosen;
   }
 
   draw(ctx: CanvasRenderingContext2D) {

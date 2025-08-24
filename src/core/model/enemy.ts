@@ -39,6 +39,7 @@ export class Enemy extends Shooter {
     bulletPool: BulletPool,
     health: number,
     damage: number,
+    attackSpeed: number,
     bulletSpeed: number,
     x: number,
     y: number,
@@ -68,7 +69,7 @@ export class Enemy extends Shooter {
 
     // Give each enemy attack speed variance
     this.attackSpeed =
-      ENEMY_ATTACK_SPEED + (Math.random() * 2 - 1) * ENEMY_ATTACK_VARIANCE;
+      attackSpeed + (Math.random() * 2 - 1) * ENEMY_ATTACK_VARIANCE;
     this.attackCooldown = Math.random() * this.attackSpeed; // Prevent all enemies attacking at the same time
   }
 

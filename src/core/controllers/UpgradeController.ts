@@ -1,7 +1,7 @@
-import { Upgrade, UpgradeRarity } from "../types";
+import { Upgrade, ItemRarity } from "../types";
 import { GameController } from "./GameController";
 
-const RarityLabel: Record<string, UpgradeRarity> = {
+const RarityLabel: Record<string, ItemRarity> = {
   Common: "Common",
   Rare: "Rare",
   Epic: "Epic",
@@ -161,11 +161,11 @@ export class UpgradeController {
       rarity: RarityLabel.Common,
       name: "Advanced Wings",
       description: `${StatLabel.MOVESPD} +10%`,
-      description2: `${StatLabel.ATKSPD} +10%`,
+      description2: `${StatLabel.ATKSPD} +5%`,
       apply: () => {
         this.gameManager.player.movementXSpeed *= 1.1;
         this.gameManager.player.movementYSpeed *= 1.1;
-        this.gameManager.player.attackSpeed *= 0.9;
+        this.gameManager.player.attackSpeed *= 0.95;
       },
     },
     {
@@ -214,8 +214,8 @@ export class UpgradeController {
     {
       rarity: RarityLabel.Common,
       name: "Ball of string",
-      description: `${StatLabel.ATKSPD} +10%`,
-      description2: `${StatLabel.EVASION} -5%`,
+      description: `${StatLabel.ATKSPD} +5%`,
+      description2: `${StatLabel.EVASION} -3%`,
       apply: () => {
         this.gameManager.player.attackSpeed *= 0.9;
         this.gameManager.player.evasion -= 5;
@@ -232,13 +232,24 @@ export class UpgradeController {
       },
     },
     {
+      rarity: RarityLabel.Rare,
+      name: "Reverse Polarity",
+      description: `${StatLabel.PROJSPD} +30%`,
+      description2: `${StatLabel.MOVESPD} -15%`,
+      apply: () => {
+        this.gameManager.player.bulletSpeed *= 1.3;
+        this.gameManager.player.movementXSpeed *= 0.85;
+        this.gameManager.player.movementYSpeed *= 0.85;
+      },
+    },
+    {
       rarity: RarityLabel.Epic,
       name: "Warp Core Fragment",
       description: `${StatLabel.ATKSPD} +30%`,
       description2: `${StatLabel.PROJSPD} -40%`,
       apply: () => {
         this.gameManager.player.attackSpeed *= 0.7;
-        this.gameManager.player.bulletSpeed *= 0.4;
+        this.gameManager.player.bulletSpeed *= 0.6;
       },
     },
     {

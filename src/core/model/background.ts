@@ -1,6 +1,7 @@
 import { hexToRgbaString, randomisePalette } from "@/core/utilities";
 import {
   BACKGROUND_MOVEMENT_Y_SPEED,
+  BACKGROUND_MOVEMENT_Y_SPEED_MAX,
   BACKGROUND_WAVE_DISTORTION,
   STORY_LEVELS,
 } from "../config";
@@ -40,7 +41,11 @@ export class Background {
   ) {
     // Randomise a base palette
     const basePalette = randomisePalette(BASE_BACKGROUND_PALETTE);
-    this.backgroundYSpeed = backgroundYSpeed;
+
+    this.backgroundYSpeed = Math.min(
+      backgroundYSpeed,
+      BACKGROUND_MOVEMENT_Y_SPEED_MAX
+    );
     this.currentLevel = currentLevel;
 
     // Create layers with different densities and speeds for parallax effect

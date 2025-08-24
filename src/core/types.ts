@@ -4,10 +4,10 @@ export interface State {
   onLeave?: Function;
 }
 
-export type UpgradeRarity = "Common" | "Rare" | "Epic" | "Legendary";
+export type ItemRarity = "Common" | "Rare" | "Epic" | "Legendary";
 
 export type Upgrade = {
-  rarity: UpgradeRarity;
+  rarity: ItemRarity;
   name: string;
   description: string;
   description2?: string;

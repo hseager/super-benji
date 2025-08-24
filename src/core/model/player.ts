@@ -1,4 +1,5 @@
 import {
+  MAX_MOVE_SPEED,
   PLAYER_ATTACK_SPEED,
   PLAYER_BULLET_DAMAGE,
   PLAYER_BULLET_SPEED,
@@ -19,7 +20,7 @@ export class Player extends Shooter {
   active = false;
 
   // Movement
-  moveTolerance = 2; // Pixels to consider "close enough" to target
+  moveTolerance = 4; // Pixels to consider "close enough" to target
 
   // GFX
   sprite: HTMLImageElement;
@@ -76,8 +77,14 @@ export class Player extends Shooter {
 
       if (this.active && distance > this.moveTolerance) {
         // Normalize and move toward mouse at fixed speed
-        this.x += (dx / distance) * this.movementXSpeed * delta;
-        this.y += (dy / distance) * this.movementYSpeed * delta;
+        this.x +=
+          (dx / distance) *
+          Math.min(MAX_MOVE_SPEED, this.movementXSpeed) *
+          delta;
+        this.y +=
+          (dy / distance) *
+          Math.min(MAX_MOVE_SPEED, this.movementYSpeed) *
+          delta;
       }
 
       this.velocity = {
