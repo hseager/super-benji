@@ -178,6 +178,7 @@ export class Background {
       );
       ctx.restore();
     }
+    ctx.restore();
   }
 
   generateStarTile(

@@ -46,6 +46,26 @@ export const PLAYER_PALETTE = [
   "#00BFFF",
 ];
 
+// export const PLAYER_PALETTE = [
+//   "#201400",
+//   "#402800",
+//   "#604000",
+//   "#805800",
+//   "#A07000",
+//   "#C08800",
+//   "#FF7F00",
+// ];
+
+// export const PLAYER_PALETTE = [
+//   "#002010",
+//   "#004020",
+//   "#006030",
+//   "#008040",
+//   "#00A050",
+//   "#00C060",
+//   "#00FF7F",
+// ];
+
 export const BENJI_AVATAR_PALETTE = [
   "#0d0d0d", // near-black (fur/primary shadow)
   "#1a1a1a", // soft black (highlighted fur)

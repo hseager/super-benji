@@ -1,5 +1,9 @@
 # Super Benji
 
+## Playable Demo
+
+https://hseager.github.io/super-benji/
+
 ## Story
 
 In a distant frontier of the galaxy, a ruthless warlord known as The Iron Jackal has stolen the Warp Core—a powerful artifact capable of bending space and time itself. With the core in his claws, he threatens to reshape the universe to his own design, or destroy it in the process.

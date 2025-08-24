@@ -182,5 +182,6 @@ export class UpgradeScreenController {
         });
       });
     });
+    ctx.restore();
   }
 }
