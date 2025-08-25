@@ -28,30 +28,21 @@ export class UpgradeController {
     {
       rarity: RarityLabel.Common,
       name: "Pulse Lazer MK-II",
-      description: `${StatLabel.DMG} +2, ${StatLabel.ATKSPD} +10%`,
+      description: `${StatLabel.DMG} +4, ${StatLabel.ATKSPD} +10%`,
       apply: async () => {
-        this.gameManager.player.damage += 2;
+        this.gameManager.player.damage += 4;
         this.gameManager.player.attackSpeed *= 0.9;
         this.gameManager.player.bulletColor = "green";
       },
     },
     {
       rarity: RarityLabel.Common,
-      name: "Ion Cannon",
-      description: `${StatLabel.DMG} +3, ${StatLabel.PROJSPD} +10%`,
-      apply: async () => {
-        this.gameManager.player.damage += 3;
-        this.gameManager.player.bulletSpeed *= 1.1;
-        this.gameManager.player.bulletColor = "blue";
-      },
-    },
-    {
-      rarity: RarityLabel.Common,
       name: "A.F.K Simulator",
-      description: `Spread Shot`,
-      description2: `${StatLabel.PROJSPD} -5%`,
+      description: `${StatLabel.Damage} +2, ${StatLabel.PROJSPD} 5%`,
+      description2: `Spread Shot`,
       apply: async () => {
-        this.gameManager.player.bulletSpeed *= 0.95;
+        this.gameManager.player.damage += 2;
+        this.gameManager.player.bulletSpeed *= 1.05;
         this.gameManager.player.bulletColor = "orange";
         this.gameManager.player.shootPattern = "spread";
       },
@@ -59,10 +50,11 @@ export class UpgradeController {
     {
       rarity: RarityLabel.Common,
       name: "Starburst",
-      description: `Burst Shot`,
-      description2: `${StatLabel.ATKSPD} -5%`,
+      description: `${StatLabel.DMG}, ${StatLabel.ATKSPD} 5%`,
+      description2: `Burst Shot`,
       apply: async () => {
-        this.gameManager.player.attackSpeed *= 1.05;
+        this.gameManager.player.damage += 3;
+        this.gameManager.player.attackSpeed *= 0.95;
         this.gameManager.player.shootPattern = "burst";
       },
     },

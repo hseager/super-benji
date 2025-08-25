@@ -178,10 +178,9 @@ export class LevelController {
       this.spawnWave(this.currentWave);
     } else {
       // no more waves -> go to upgrade screen
-      screenTransitions.start(1, 0, BASE_TRANSITION_ANIMATION_TIME, () => {
-        this.gameManager.upgradeScreen.start();
-        screenTransitions.start(0, 1, BASE_TRANSITION_ANIMATION_TIME);
-      });
+      screenTransitions.fadeOutThenIn(() =>
+        this.gameManager.upgradeScreen.start()
+      );
     }
   }
 
@@ -331,12 +330,9 @@ export class LevelController {
   handleBossDown() {
     this.bossSpawned = false;
     this.rifts = [];
-    if (!screenTransitions.active) {
-      screenTransitions.start(1, 0, BASE_TRANSITION_ANIMATION_TIME, () => {
-        this.gameManager.upgradeScreen.start();
-        screenTransitions.start(0, 1, BASE_TRANSITION_ANIMATION_TIME);
-      });
-    }
+    screenTransitions.fadeOutThenIn(() =>
+      this.gameManager.upgradeScreen.start()
+    );
   }
 
   /** Called every frame */
@@ -361,12 +357,9 @@ export class LevelController {
         // More waves remain → spawn next one
         this.spawnNextWave();
       } else {
-        if (!screenTransitions.active) {
-          screenTransitions.start(1, 0, BASE_TRANSITION_ANIMATION_TIME, () => {
-            this.gameManager.upgradeScreen.start();
-            screenTransitions.start(0, 1, BASE_TRANSITION_ANIMATION_TIME);
-          });
-        }
+        screenTransitions.fadeOutThenIn(() =>
+          this.gameManager.upgradeScreen.start()
+        );
       }
     }
 

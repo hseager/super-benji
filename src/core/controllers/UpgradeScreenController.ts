@@ -1,4 +1,4 @@
-import { BASE_TRANSITION_ANIMATION_TIME, RARITY_WEIGHTS } from "../config";
+import { RARITY_WEIGHTS } from "../config";
 import { ItemRarity, Upgrade } from "../types";
 import { addClick, clearClicks } from "./ClickController";
 import { drawEngine } from "./DrawController";
@@ -174,11 +174,10 @@ export class UpgradeScreenController {
           return u !== upgrade;
         });
 
-        screenTransitions.start(1, 0, BASE_TRANSITION_ANIMATION_TIME, () => {
+        screenTransitions.fadeOutThenIn(() => {
           clearClicks();
           this.isActive = false;
           this.gameManager.levelManager.nextLevel();
-          screenTransitions.start(0, 1, BASE_TRANSITION_ANIMATION_TIME);
         });
       });
     });

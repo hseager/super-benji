@@ -1,6 +1,5 @@
 import {
   AVATAR_BODY_HEIGHT,
-  BASE_TRANSITION_ANIMATION_TIME,
   STORY_LEVELS,
   TORX_AVATAR_HEIGHT,
   TORX_AVATAR_WIDTH,
@@ -138,43 +137,30 @@ export class StoryController {
     switch (this.currentAct) {
       case StoryActs.Act1:
         this.currentAct = StoryActs.Act2;
-        if (!screenTransitions.active) {
-          screenTransitions.start(1, 0, BASE_TRANSITION_ANIMATION_TIME, () => {
-            this.gameController.startGame();
-            this.gameController.resumeGame();
-            screenTransitions.start(0, 1, BASE_TRANSITION_ANIMATION_TIME);
-          });
-        }
-
+        screenTransitions.fadeOutThenIn(() => {
+          this.gameController.startGame();
+          this.gameController.resumeGame();
+        });
         break;
       case StoryActs.Act2:
         this.currentAct = StoryActs.Act3;
-        if (!screenTransitions.active) {
-          screenTransitions.start(1, 0, BASE_TRANSITION_ANIMATION_TIME, () => {
-            this.gameController.levelManager.startLevel();
-            this.gameController.resumeGame();
-            screenTransitions.start(0, 1, BASE_TRANSITION_ANIMATION_TIME);
-          });
-        }
+        screenTransitions.fadeOutThenIn(() => {
+          this.gameController.levelManager.startLevel();
+          this.gameController.resumeGame();
+        });
         break;
       case StoryActs.Act3:
         this.currentAct = StoryActs.Epilogue;
-        if (!screenTransitions.active) {
-          screenTransitions.start(1, 0, BASE_TRANSITION_ANIMATION_TIME, () => {
-            this.gameController.levelManager.startLevel();
-            this.gameController.resumeGame();
-            screenTransitions.start(0, 1, BASE_TRANSITION_ANIMATION_TIME);
-          });
-        }
+        screenTransitions.fadeOutThenIn(() => {
+          this.gameController.levelManager.startLevel();
+          this.gameController.resumeGame();
+        });
         break;
       default:
-        if (!screenTransitions.active) {
-          screenTransitions.start(1, 0, BASE_TRANSITION_ANIMATION_TIME, () => {
-            this.gameController.levelManager.startLevel();
-            this.gameController.resumeGame();
-            screenTransitions.start(0, 1, BASE_TRANSITION_ANIMATION_TIME);
-          });
-        }
+        screenTransitions.fadeOutThenIn(() => {
+          this.gameController.levelManager.startLevel();
+          this.gameController.resumeGame();
+        });
         break;
     }
   }

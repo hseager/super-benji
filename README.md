@@ -25,6 +25,14 @@ The hunt builds toward a final showdown aboard the Jackal’s massive flagship, 
 
 ### TODO
 
+- 9 Lives (Currency)
+  - You get 9 lives you can use to make the game harder/easier
+  - Options when you die and at start, maybe every x levels?
+  - Coin gfx
+  - e.g. 0 coins = Enemies do 20% increased damage
+    - 3 coins = Enemies attack 40% slower
+    - 6 coins = Jackal attacks 20% slower
+  - If you run out of lives, game over
 - Bugs
   - Taking damage after boss deafeated and on upgrade screen
   - Enemies still spawning after boss
@@ -33,7 +41,6 @@ The hunt builds toward a final showdown aboard the Jackal’s massive flagship, 
     - Increase damage vs lower health
     - Lower damage vs more health
     - Faster projectiles vs slower attack
-  - Magashot short range
   - New stats
     - Range
     - Proj size
