@@ -124,7 +124,6 @@ export class GameController {
     // Anything that depends on sprites need to be awaited as the spritesheet is loaded, so we create some objects here instead of the constuctor
     this.musicPlayer = musicPlayer;
     this.spriteManager = await new SpriteController().init();
-    const { playerSprite } = this.spriteManager;
 
     // Create Bullet pools
     this.playerBulletPool = new BulletPool(100, () => {
@@ -137,7 +136,11 @@ export class GameController {
     );
 
     // Create Player
-    this.player = new Player(this, playerSprite, this.playerBulletPool);
+    this.player = new Player(
+      this,
+      this.spriteManager.getPlayerSprite(),
+      this.playerBulletPool
+    );
     // Begin Story
     this.storyController.start();
 

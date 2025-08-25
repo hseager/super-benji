@@ -20,8 +20,6 @@ The hunt builds toward a final showdown aboard the Jackal’s massive flagship, 
 
 - Damage types (Ice, Fire, Poison) + enemy Res
 - Crit Chance, Multi
-- Adamite/ Mitril Panels
-  - Change ship color
 - Booster
   - Changes booster colour
 - Advanced wings

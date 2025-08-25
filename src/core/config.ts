@@ -36,78 +36,75 @@ export const BULLET_PALETTES: Record<string, string[]> = {
   red: ["#ff5e49", "#881c18"],
 };
 
-export const PLAYER_PALETTE = [
-  "#202020",
-  "#404040",
-  "#606060",
-  "#808080",
-  "#A0A0A0",
-  "#C0C0C0",
-  "#00BFFF",
-];
-
-// export const PLAYER_PALETTE = [
-//   "#201400",
-//   "#402800",
-//   "#604000",
-//   "#805800",
-//   "#A07000",
-//   "#C08800",
-//   "#FF7F00",
-// ];
-
-// export const PLAYER_PALETTE = [
-//   "#002010",
-//   "#004020",
-//   "#006030",
-//   "#008040",
-//   "#00A050",
-//   "#00C060",
-//   "#00FF7F",
-// ];
+export const PLAYER_PALETTES: Record<string, string[]> = {
+  grey: [
+    "#202020",
+    "#404040",
+    "#606060",
+    "#808080",
+    "#A0A0A0",
+    "#C0C0C0",
+    "#00BFFF",
+  ],
+  gold: [
+    "#201400",
+    "#402800",
+    "#604000",
+    "#805800",
+    "#A07000",
+    "#C08800",
+    "#FF7F00",
+  ],
+  green: [
+    "#0D1A0D",
+    "#163322",
+    "#1F4D31",
+    "#2A6B44",
+    "#3C8C5A",
+    "#56B27D",
+    "#7FE6AF",
+  ],
+  purple: [
+    "#1A1026",
+    "#2C1E4A",
+    "#3C2F6B",
+    "#4E3F8C",
+    "#6757B0",
+    "#8A7ED6",
+    "#B5A6FF",
+  ],
+  blue: [
+    "#0A1A33",
+    "#122B57",
+    "#1B3C7A",
+    "#25509E",
+    "#3166C7",
+    "#4C82E6",
+    "#7FAFFF",
+  ],
+  orange: [
+    "#331A0A", // very dark ember base
+    "#572B12", // deep burnt orange
+    "#7A3C1B", // earthy orange-brown
+    "#9E5025", // solid orange
+    "#C76631", // bright molten orange
+    "#E6824C", // fiery orange glow
+    "#FFB27F", // hot highlight
+  ],
+};
 
 export const BENJI_AVATAR_PALETTE = [
-  "#0d0d0d", // near-black (fur/primary shadow)
-  "#1a1a1a", // soft black (highlighted fur)
-  "#2c2c2c", // dark gray (mid-tone fur)
-  "#3f3f3f", // lighter gray (whiskers/edges)
-  "#5a2b00", // deep burnt umber (transition into suit)
-  "#8c3b00", // dark orange-brown (undersuit/shadows)
-  "#9aacac", // vivid orange (main jumpsuit)
-  "#ff7b1c", // bright orange (highlighted suit)
-  "#ffb84d", // golden orange (trim/glow details)
-  "#ffd9a3", // pale orange-cream (soft highlight/accent)
+  "#0d0d0d",
+  "#1a1a1a",
+  "#2c2c2c",
+  "#3f3f3f",
+  "#5a2b00",
+  "#8c3b00",
+  "#9aacac",
+  "#ff7b1c",
+  "#ffb84d",
+  "#ffd9a3",
 ];
-
-// export const PLAYER_PALETTE = [
-//   "#201400",
-//   "#402800",
-//   "#604000",
-//   "#805800",
-//   "#A07000",
-//   "#C08800",
-//   "#FF7F00",
-// ];
-
-// export const PLAYER_PALETTE = [
-//   "#002010",
-//   "#004020",
-//   "#006030",
-//   "#008040",
-//   "#00A050",
-//   "#00C060",
-//   "#00FF7F",
-// ];
-
-// export const PLAYER_PALETTE = [
-//   "#200000",
-//   "#400000",
-//   "#601010",
-//   "#802020",
-//   "#A03030",
-//   "#C04040",
-//   "#FF3333",
-// ];
 
 // Enemy
 export const ENEMY_MAX_LIFE = 16;
@@ -118,7 +115,7 @@ export const ENEMY_MOVEMENT_Y_SPEED = 20;
 export const ENEMY_ATTACK_SPEED = 3.5;
 export const ENEMY_ATTACK_VARIANCE = 0.3;
 export const ENEMY_START_POSITION_Y = -30;
-export const ENEMY_DIRECTION_CHANGE_CHANCE = 0.3; // 50%
+export const ENEMY_DIRECTION_CHANGE_CHANCE = 0.3; // 30%
 
 export const BASIC_ENEMY_PALETTE = [
   "#200900",
@@ -196,42 +193,42 @@ export const JACKAL_AVATAR_WIDTH = 16;
 export const JACKAL_AVATAR_HEIGHT = 20;
 
 export const TORX_AVATAR_PALETTE = [
-  "#0a0f0a", // near-black green, deepest shadow
-  "#121a12", // dark moss shadow
-  "#1b261a", // muted forest
-  "#253424", // earthy green
-  "#3d583e", // olive shadow
-  "#4a5c46", // mid muted green
-  "#63755f", // softer desaturated mid
-  "#7f8f7c", // gray-olive highlight
-  "#a4b1a1", // pale moss highlight
-  "#d0d8ce", // soft, muted off-white highlight
+  "#0a0f0a",
+  "#121a12",
+  "#1b261a",
+  "#253424",
+  "#3d583e",
+  "#4a5c46",
+  "#63755f",
+  "#7f8f7c",
+  "#a4b1a1",
+  "#d0d8ce",
 ];
 
 export const MAGGIE_AVATAR_PALETTE = [
-  "#111821", // near-black navy
-  "#152236", // deep midnight blue
-  "#1b2e45", // dark slate blue
-  "#2d4668", // muted navy blue
-  "#22354f", // shadow blue
-  "#3a567a", // steel blue
-  "#5a7ba3", // medium blue-gray
-  "#6f92b8", // lighter dusty blue
-  "#90afcf", // pale cool blue
-  "#b0cde6", // soft pastel blue
+  "#111821",
+  "#152236",
+  "#1b2e45",
+  "#2d4668",
+  "#22354f",
+  "#3a567a",
+  "#5a7ba3",
+  "#6f92b8",
+  "#90afcf",
+  "#b0cde6",
 ];
 
 export const JACKAL_AVATAR_PALETTE = [
-  "#1a130f", // near-black brown (shadowed metal)
-  "#2a1f18", // deep iron-brown
-  "#3b2c22", // dark forged brown
-  "#544036", // muted rusted brown
-  "#6a5448", // weathered steel-brown
-  "#7f6a5a", // tarnished bronze tone
-  "#8e8e91", // dark steel gray
-  "#a5a6a9", // worn silver
-  "#c5c6c9", // polished steel
-  "#e0e1e3", // bright silver highlight
+  "#1a130f",
+  "#2a1f18",
+  "#3b2c22",
+  "#544036",
+  "#6a5448",
+  "#7f6a5a",
+  "#8e8e91",
+  "#a5a6a9",
+  "#c5c6c9",
+  "#e0e1e3",
 ];
 
 // Items

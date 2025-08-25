@@ -7,36 +7,30 @@ import {
   MODERATE_ENEMY_PALETTE,
   BENJI_AVATAR_PALETTE,
   BULLET_PALETTES,
-  PLAYER_PALETTE,
+  PLAYER_PALETTES,
   TORX_AVATAR_PALETTE,
 } from "../config";
 import { SpriteSheet } from "../graphics/spriteSheet";
 
 export class SpriteController {
-  playerSprite!: HTMLImageElement;
+  private spriteSheet!: SpriteSheet;
+
+  playerSprites: Record<string, HTMLImageElement> = {};
+  bulletSprites: Record<string, HTMLImageElement> = {};
   playerAvatar!: HTMLImageElement;
   basicEnemySprite!: HTMLImageElement;
   moderateEnemySprite!: HTMLImageElement;
   advancedEnemySprite!: HTMLImageElement;
-  playerBulletSprite!: HTMLImageElement;
   torxAvatar!: HTMLImageElement;
   maggieAvatar!: HTMLImageElement;
   jackalAvatar!: HTMLImageElement;
   jackalSprite!: HTMLImageElement;
 
-  private spriteSheet!: SpriteSheet;
-
-  playerBulletSprites: Record<string, HTMLImageElement> = {};
-
   async init() {
     this.spriteSheet = await SpriteBuilder.loadSpriteSheet();
 
+    await this.preloadPlayerSprites();
     await this.preloadBulletPalettes();
-
-    this.playerSprite = await SpriteBuilder.createPlayer(
-      this.spriteSheet,
-      PLAYER_PALETTE
-    );
 
     this.basicEnemySprite = await SpriteBuilder.createBasicEnemy(
       this.spriteSheet,
@@ -79,11 +73,26 @@ export class SpriteController {
     return this;
   }
 
+  getPlayerSprite(color: string = "grey") {
+    return this.playerSprites[color] ?? this.playerSprites["grey"];
+  }
+
+  private async preloadPlayerSprites() {
+    const palettes = Object.keys(PLAYER_PALETTES);
+    for (const color of palettes) {
+      const palette = PLAYER_PALETTES[color as keyof typeof PLAYER_PALETTES];
+      this.playerSprites[color] = await SpriteBuilder.createPlayer(
+        this.spriteSheet,
+        palette
+      );
+    }
+  }
+
   private async preloadBulletPalettes() {
     const palettes = Object.keys(BULLET_PALETTES);
     for (const color of palettes) {
       const palette = BULLET_PALETTES[color as keyof typeof BULLET_PALETTES];
-      this.playerBulletSprites[color] = await SpriteBuilder.createBullet(
+      this.bulletSprites[color] = await SpriteBuilder.createBullet(
         this.spriteSheet,
         palette
       );
@@ -91,6 +100,6 @@ export class SpriteController {
   }
 
   getBulletSprite(color: string = "blue") {
-    return this.playerBulletSprites[color] ?? this.playerBulletSprites["blue"];
+    return this.bulletSprites[color] ?? this.bulletSprites["blue"];
   }
 }

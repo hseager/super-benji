@@ -46,6 +46,7 @@ export class Player extends Shooter {
 
   shootPattern: ShootPattern = "single";
   bulletColor: string = "blue";
+  playerColor: string = "grey";
 
   constructor(
     gameController: GameController,
@@ -103,7 +104,14 @@ export class Player extends Shooter {
       );
 
       this.updateShooting(delta, this.damage, this.bulletSpeed);
+      this.updateSpriteColor();
     }
+  }
+
+  updateSpriteColor() {
+    this.sprite = this.gameController.spriteManager.getPlayerSprite(
+      this.playerColor
+    );
   }
 
   draw(ctx: CanvasRenderingContext2D) {

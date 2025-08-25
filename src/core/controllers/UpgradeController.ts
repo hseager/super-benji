@@ -23,7 +23,6 @@ export class UpgradeController {
   private gameManager: GameController;
 
   // Change color of boosters
-  // Adamite/Mithril panel colour
   private upgrades: Upgrade[] = [
     // Offensive
     {
@@ -126,6 +125,7 @@ export class UpgradeController {
         this.gameManager.player.life += 20;
         this.gameManager.player.regen += 5;
         this.gameManager.player.evasion += 5;
+        this.gameManager.player.playerColor = "purple";
       },
     },
     {
@@ -136,6 +136,7 @@ export class UpgradeController {
         this.gameManager.player.maxLife += 20;
         this.gameManager.player.life += 20;
         this.gameManager.player.regen += 5;
+        this.gameManager.player.playerColor = "green";
       },
     },
     {
@@ -149,23 +150,36 @@ export class UpgradeController {
       },
     },
     {
+      rarity: RarityLabel.Rare,
+      name: "Sunlight Medal Reflectors",
+      description: `${StatLabel.HP} +22, ${StatLabel.MOVESPD} +5%`,
+      apply: () => {
+        this.gameManager.player.maxLife += 22;
+        this.gameManager.player.movementXSpeed *= 1.05;
+        this.gameManager.player.movementYSpeed *= 1.05;
+        this.gameManager.player.playerColor = "gold";
+      },
+    },
+    {
       rarity: RarityLabel.Epic,
       name: "Aether Veil",
       description: `${StatLabel.EVASION} +15%`,
       apply: () => {
         this.gameManager.player.evasion += 15;
+        this.gameManager.player.playerColor = "orange";
       },
     },
     {
       rarity: RarityLabel.Legendary,
       name: "Maggie's Cloak",
-      description: `${StatLabel.HP} -20, ${StatLabel.REGEN} +5`,
+      description: `${StatLabel.HP} -15, ${StatLabel.REGEN} +5`,
       description2: `${StatLabel.EVASION} +30%`,
       apply: () => {
-        this.gameManager.player.maxLife -= 20;
+        this.gameManager.player.maxLife -= 15;
         this.gameManager.player.life -= 20;
         this.gameManager.player.regen += 5;
         this.gameManager.player.evasion += 30;
+        this.gameManager.player.playerColor = "blue";
       },
     },
     // Movement
