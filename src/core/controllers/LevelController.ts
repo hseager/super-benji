@@ -137,11 +137,6 @@ export class LevelController {
     this.textDisplayTimer = 4;
     this.gameManager.enemies = []; // Clear previous enemies
 
-    // Increase waves
-    if (this.currentLevel % 6 === 0) {
-      this.wavesPerLevel++;
-    }
-
     if (
       this.currentLevel >= BOSS_SPAWN_LEVEL &&
       (this.currentLevel - BOSS_SPAWN_LEVEL) % BOSS_SPAWN_LEVEL_INTERVAL === 0
@@ -167,6 +162,11 @@ export class LevelController {
         scaledBulletSpeed
       );
     } else {
+      // Increase waves
+      if (this.currentLevel % 6 === 0) {
+        this.wavesPerLevel++;
+      }
+
       this.spawnNextWave();
     }
   }
