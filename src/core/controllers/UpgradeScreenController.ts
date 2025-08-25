@@ -146,15 +146,13 @@ export class UpgradeScreenController {
   drawUpgradeOptions(ctx: CanvasRenderingContext2D) {
     ctx.save();
     const boxHeight = 90;
-    const spacing = 15;
     const x = 10;
     const width = ctx.canvas.width - x * 2;
-    const startY = 200;
 
     clearClicks(); // reset for fresh click mapping
 
     this.upgrades.forEach((upgrade, index) => {
-      const y = startY + index * (boxHeight + spacing);
+      const y = 200 + index * (boxHeight + 15);
 
       // Draw box
       this.drawUpgradeOption(ctx, x, y, width, boxHeight, upgrade);

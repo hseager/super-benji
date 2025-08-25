@@ -207,64 +207,58 @@ export class MusicPlayer {
     noise.connect(noiseFilter).connect(noiseGain).connect(this.compressor);
 
     // --- Low-end thump (oscillator) ---
-    const osc = ac.createOscillator();
-    osc.type = "sine";
-    osc.frequency.setValueAtTime(80, now);
-    osc.frequency.exponentialRampToValueAtTime(30, now + 0.5); // pitch dive
-
-    const oscGain = ac.createGain();
-    oscGain.gain.setValueAtTime(2, now);
-    oscGain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
-
-    osc.connect(oscGain).connect(this.compressor);
-
-    // --- Start everything ---
-    noise.start(now);
-    noise.stop(now + 0.5);
-
-    osc.start(now);
-    osc.stop(now + 0.5);
+    this.oscEnv(ac, "sine", 80, now, 0.5, this.compressor, 2, 0.001);
   }
 
   playMenuSuccess() {
-    const ac = this.ac;
-    const now = ac.currentTime;
-
-    const notes = [880, 1174, 1568]; // A5 -> D6 -> G6 (ascending triad)
-
-    notes.forEach((freq, i) => {
-      const osc = ac.createOscillator();
-      osc.type = "sine"; // sweet & clean
-      osc.frequency.value = freq;
-
-      const gain = ac.createGain();
-      gain.gain.setValueAtTime(0, now + i * 0.1);
-      gain.gain.linearRampToValueAtTime(0.5, now + i * 0.1 + 0.05);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.1 + 0.5);
-
-      osc.connect(gain).connect(this.compressor);
-
-      osc.start(now + i * 0.1);
-      osc.stop(now + i * 0.1 + 0.6);
-    });
+    [880, 1174, 1568].forEach((f, i) =>
+      this.oscEnv(
+        this.ac,
+        "sine",
+        f,
+        this.ac.currentTime + i * 0.1,
+        0.6,
+        this.compressor,
+        0.5,
+        0.001
+      )
+    );
   }
 
   playTakeDamage() {
-    const ac = this.ac;
-    const now = ac.currentTime;
+    // Reuse function to save some bytes
+    this.oscEnv(
+      this.ac,
+      "square",
+      600,
+      this.ac.currentTime,
+      0.15,
+      this.compressor,
+      0.6,
+      0.001
+    );
+  }
 
-    const osc = ac.createOscillator();
-    osc.type = "square"; // harsh
-    osc.frequency.setValueAtTime(600, now);
-    osc.frequency.linearRampToValueAtTime(120, now + 0.15); // quick drop
+  oscEnv(
+    ac: AudioContext,
+    type: OscillatorType,
+    freq: number,
+    start: number,
+    duration: number,
+    compressor: AudioNode,
+    gainStart: number,
+    gainEnd: number
+  ) {
+    const o = ac.createOscillator();
+    o.type = type;
+    o.frequency.setValueAtTime(freq, start);
 
-    const gain = ac.createGain();
-    gain.gain.setValueAtTime(0.6, now);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+    const g = ac.createGain();
+    g.gain.setValueAtTime(gainStart, start);
+    g.gain.exponentialRampToValueAtTime(gainEnd, start + duration);
 
-    osc.connect(gain).connect(this.compressor);
-
-    osc.start(now);
-    osc.stop(now + 0.15);
+    o.connect(g).connect(compressor);
+    o.start(start);
+    o.stop(start + duration);
   }
 }

@@ -236,16 +236,12 @@ export class StoryController {
     if (line.trim()) lines.push(line.trim());
 
     // Box size
-    const textHeight = lines.length * lineHeight + boxPadding * 2;
-    const boxHeight = Math.max(dialogBoxHeight, textHeight);
-    const boxWidth = drawEngine.canvasWidth - boxPadding * 2;
-
     drawEngine.drawRoundedRect(
       ctx,
       boxPadding,
       dialogBoxY,
-      boxWidth,
-      boxHeight,
+      drawEngine.canvasWidth - boxPadding * 2,
+      Math.max(dialogBoxHeight, lines.length * lineHeight + boxPadding * 2),
       4,
       "#1f1722"
     );
@@ -254,12 +250,9 @@ export class StoryController {
     this.drawAvatar(ctx, speaker, this.getAvatar(speaker), avatarPos);
 
     // Draw text
-    ctx.fillStyle = "white";
-    ctx.textAlign = "left";
-
     let y = dialogBoxY + boxPadding / 2 + fontSize;
     for (let l of lines) {
-      ctx.fillText(l, textX, y);
+      drawEngine.drawText(l, fontSize, textX, y, "white", "left");
       y += lineHeight;
     }
   }
@@ -271,16 +264,21 @@ export class StoryController {
     { x, y, width, height }: ImageProperties
   ) {
     if (!sprite) return;
+
     ctx.save();
     ctx.drawImage(sprite, x, y, width, height);
     ctx.strokeStyle = "white";
     ctx.lineWidth = 1;
     ctx.strokeRect(x + 0.5, y + 0.5, width - 1, height - 1);
     ctx.strokeRect(x, y, width, height);
-    ctx.fillStyle = "white";
-    ctx.textAlign = "center";
-    ctx.font = "bold 12px Courier New";
-    ctx.fillText(speaker, x + width / 2, y + height + 15);
+    drawEngine.drawText(
+      speaker,
+      12,
+      x + width / 2,
+      y + height + 15,
+      "white",
+      "center"
+    );
     ctx.restore();
   }
 

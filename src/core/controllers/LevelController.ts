@@ -89,7 +89,6 @@ export class LevelController {
     return this.enemyTypes[2];
   }
 
-  /** Spawn a single wave */
   spawnWave(waveNumber: number) {
     const baseCount =
       this.baseEnemyCount + (this.currentLevel - 1) * ENEMY_SPAWN_MULTIPLIER;
@@ -171,7 +170,6 @@ export class LevelController {
     }
   }
 
-  /** Spawn the next wave or end the level */
   spawnNextWave() {
     if (this.currentWave < this.wavesPerLevel) {
       this.currentWave++;
@@ -227,7 +225,6 @@ export class LevelController {
 
   drawRift(ctx: CanvasRenderingContext2D, x: number, y: number, time: number) {
     const numArms = 5; // spiral arms
-    const armLength = 30; // how far out the galaxy goes
     const particles = 15; // number of dots per arm
 
     ctx.save();
@@ -238,7 +235,7 @@ export class LevelController {
 
       for (let i = 0; i < particles; i++) {
         const t = i / particles;
-        const radius = t * armLength;
+        const radius = t * 30;
 
         // spiral angle
         const angle = angleOffset + t * 2.5 + time * 0.75;
@@ -303,25 +300,20 @@ export class LevelController {
     for (const rift of this.rifts) {
       if (Math.random() < 0.02) {
         // 2% chance each frame
-        this.shootFromRift(rift, ENEMY_BULLET_DAMAGE, ENEMY_BULLET_SPEED * 1.2);
+        this.shootFromRift(rift);
       }
     }
   }
 
-  shootFromRift(rift: { x: number; y: number }, damage: number, speed: number) {
+  shootFromRift(rift: { x: number; y: number }) {
     const bullet = this.gameManager.enemyBulletPool.get();
     if (!bullet) return;
 
-    // random direction (unit vector)
-    const angle = Math.random() * Math.PI * 2;
-    const dx = Math.cos(angle);
-    const dy = 1;
-
-    bullet.damage = damage;
-    bullet.speed = speed;
+    bullet.damage = ENEMY_BULLET_DAMAGE;
+    bullet.speed = ENEMY_BULLET_SPEED * 1.2;
 
     // spawn at rift center
-    bullet.fire(rift.x, rift.y, dx, dy);
+    bullet.fire(rift.x, rift.y, Math.cos(Math.random() * Math.PI * 2), 1);
 
     // optional: make rift bullets a different color
     bullet.sprite = this.gameManager.spriteManager.getBulletSprite("purple");
@@ -382,7 +374,7 @@ export class LevelController {
       );
     }
 
-    /** Draw level/zone title during fade-in */
+    // Draw level/zone title during fade-in
     if (this.textDisplayTimer > 0) {
       const maxDisplayTime = BASE_TRANSITION_ANIMATION_TIME;
       const opacity = Math.min(this.textDisplayTimer / maxDisplayTime, 1);

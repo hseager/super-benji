@@ -50,7 +50,7 @@ export class UpgradeController {
     {
       rarity: RarityLabel.Common,
       name: "Starburst",
-      description: `${StatLabel.DMG}, ${StatLabel.ATKSPD} 5%`,
+      description: `${StatLabel.DMG} +3, ${StatLabel.ATKSPD} 5%`,
       description2: `Burst Shot`,
       apply: async () => {
         this.gameManager.player.damage += 3;
