@@ -10,10 +10,9 @@ import {
   PLAYER_PALETTES,
   TORX_AVATAR_PALETTE,
 } from "../config";
-import { SpriteSheet } from "../graphics/spriteSheet";
 
 export class SpriteController {
-  private spriteSheet!: SpriteSheet;
+  spriteBuilder!: SpriteBuilder;
 
   playerSprites: Record<string, HTMLImageElement> = {};
   bulletSprites: Record<string, HTMLImageElement> = {};
@@ -27,47 +26,74 @@ export class SpriteController {
   jackalSprite!: HTMLImageElement;
 
   async init() {
-    this.spriteSheet = await SpriteBuilder.loadSpriteSheet();
+    const spriteBuilder = new SpriteBuilder();
+    this.spriteBuilder = await spriteBuilder.init();
 
     await this.preloadPlayerSprites();
     await this.preloadBulletPalettes();
 
-    this.basicEnemySprite = await SpriteBuilder.createBasicEnemy(
-      this.spriteSheet,
-      BASIC_ENEMY_PALETTE
-    );
-    this.moderateEnemySprite = await SpriteBuilder.createModerateEnemy(
-      this.spriteSheet,
-      MODERATE_ENEMY_PALETTE
-    );
-    this.advancedEnemySprite = await SpriteBuilder.createAdvancedEnemy(
-      this.spriteSheet,
-      ADVANCED_ENEMY_PALETTE
+    this.basicEnemySprite = await spriteBuilder.createSprite(
+      BASIC_ENEMY_PALETTE,
+      14,
+      14,
+      0,
+      1
     );
 
-    this.playerAvatar = await SpriteBuilder.createPlayerAvatar(
-      this.spriteSheet,
-      BENJI_AVATAR_PALETTE
+    this.moderateEnemySprite = await spriteBuilder.createSprite(
+      MODERATE_ENEMY_PALETTE,
+      16,
+      16,
+      0,
+      15
     );
 
-    this.torxAvatar = await SpriteBuilder.createTorxAvatar(
-      this.spriteSheet,
-      TORX_AVATAR_PALETTE
+    this.advancedEnemySprite = await spriteBuilder.createSprite(
+      ADVANCED_ENEMY_PALETTE,
+      16,
+      16,
+      2,
+      16
     );
 
-    this.maggieAvatar = await SpriteBuilder.createMaggieAvatar(
-      this.spriteSheet,
-      MAGGIE_AVATAR_PALETTE
+    this.playerAvatar = await spriteBuilder.createAvatar(
+      BENJI_AVATAR_PALETTE,
+      18,
+      16,
+      29,
+      32
     );
 
-    this.jackalAvatar = await SpriteBuilder.createJackalAvatar(
-      this.spriteSheet,
-      JACKAL_AVATAR_PALETTE
+    this.torxAvatar = await spriteBuilder.createAvatar(
+      TORX_AVATAR_PALETTE,
+      17,
+      16,
+      47,
+      49
     );
 
-    this.jackalSprite = await SpriteBuilder.createJackalSprite(
-      this.spriteSheet,
-      JACKAL_AVATAR_PALETTE
+    this.maggieAvatar = await spriteBuilder.createAvatar(
+      MAGGIE_AVATAR_PALETTE,
+      17,
+      16,
+      47,
+      32
+    );
+
+    this.jackalAvatar = await spriteBuilder.createSprite(
+      JACKAL_AVATAR_PALETTE,
+      16,
+      20,
+      31,
+      48
+    );
+
+    this.jackalSprite = await spriteBuilder.createSprite(
+      JACKAL_AVATAR_PALETTE,
+      32,
+      31,
+      32,
+      0
     );
 
     return this;
@@ -81,20 +107,34 @@ export class SpriteController {
     const palettes = Object.keys(PLAYER_PALETTES);
     for (const color of palettes) {
       const palette = PLAYER_PALETTES[color as keyof typeof PLAYER_PALETTES];
-      this.playerSprites[color] = await SpriteBuilder.createPlayer(
-        this.spriteSheet,
-        palette
+      this.playerSprites[color] = await this.spriteBuilder.createSprite(
+        palette,
+        25,
+        30,
+        4,
+        38
       );
     }
   }
+
+  //   const buffer = new CanvasBuffer(54, 60);
+
+  // const maxWingSize = 14;
+  // const bodySize = 30;
+
+  // // Draw body
+  // buffer.drawSprite(this.sheet, maxWingSize, 0, 0, 15, 13, 30);
 
   private async preloadBulletPalettes() {
     const palettes = Object.keys(BULLET_PALETTES);
     for (const color of palettes) {
       const palette = BULLET_PALETTES[color as keyof typeof BULLET_PALETTES];
-      this.bulletSprites[color] = await SpriteBuilder.createBullet(
-        this.spriteSheet,
-        palette
+      this.bulletSprites[color] = await this.spriteBuilder.createSprite(
+        palette,
+        3,
+        3,
+        0,
+        65
       );
     }
   }

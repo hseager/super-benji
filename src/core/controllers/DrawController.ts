@@ -25,7 +25,6 @@ class DrawController {
     });
 
     window.addEventListener("resize", () => this.resizeCanvas());
-    window.addEventListener("orientationchange", () => this.resizeCanvas());
     this.resizeCanvas();
   }
 

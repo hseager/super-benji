@@ -38,7 +38,7 @@ export class UpgradeController {
     {
       rarity: RarityLabel.Common,
       name: "A.F.K Simulator",
-      description: `${StatLabel.Damage} +2, ${StatLabel.PROJSPD} 5%`,
+      description: `${StatLabel.DMG} +2, ${StatLabel.PROJSPD} 5%`,
       description2: `Spread Shot`,
       apply: async () => {
         this.gameManager.player.damage += 2;

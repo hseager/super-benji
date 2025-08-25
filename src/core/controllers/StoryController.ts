@@ -1,9 +1,4 @@
-import {
-  AVATAR_BODY_HEIGHT,
-  STORY_LEVELS,
-  TORX_AVATAR_HEIGHT,
-  TORX_AVATAR_WIDTH,
-} from "../config";
+import { AVATAR_BODY_HEIGHT, STORY_LEVELS } from "../config";
 import { Character, ImageProperties, StoryActs, StoryLine } from "../types";
 import { drawEngine } from "./DrawController";
 import { GameController } from "./GameController";
@@ -212,8 +207,8 @@ export class StoryController {
     const avatarPos: ImageProperties = {
       x: 25,
       y: dialogBoxY - 65,
-      width: TORX_AVATAR_WIDTH * 2,
-      height: (TORX_AVATAR_HEIGHT + AVATAR_BODY_HEIGHT) * 2,
+      width: 16 * 2,
+      height: (17 + AVATAR_BODY_HEIGHT) * 2,
     };
 
     // Settings

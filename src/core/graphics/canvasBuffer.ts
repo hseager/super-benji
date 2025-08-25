@@ -1,5 +1,3 @@
-import { Flip, SpriteSheet } from "./spriteSheet";
-
 export class CanvasBuffer {
   canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D;
@@ -12,17 +10,18 @@ export class CanvasBuffer {
   }
 
   drawSprite(
-    sheet: SpriteSheet,
+    image: HTMLImageElement,
     dx: number,
     dy: number,
     sx: number,
     sy: number,
     sw: number,
-    sh: number,
-    flip: number = Flip.None,
-    rotation?: number
+    sh: number
   ) {
-    sheet.draw(this.ctx, dx, dy, sx, sy, sw, sh, flip, rotation);
+    this.ctx.save();
+    this.ctx.imageSmoothingEnabled = false;
+    this.ctx.drawImage(image, sx, sy, sw, sh, dx, dy, sw * 2, sh * 2);
+    this.ctx.restore();
   }
 
   toImage(): HTMLImageElement {
