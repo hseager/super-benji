@@ -20,8 +20,6 @@ The hunt builds toward a final showdown aboard the Jackal’s massive flagship, 
 
 - Damage types (Ice, Fire, Poison) + enemy Res
 - Crit Chance, Multi
-- Booster
-  - Changes booster colour
 - Advanced wings
   - Changes wing sprite
 

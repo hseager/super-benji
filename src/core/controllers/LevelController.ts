@@ -9,10 +9,16 @@ import {
   BOSS_BULLET_DAMAGE,
   BOSS_BULLET_SPEED,
   BOSS_MAX_LIFE,
+  BOSS_SPAWN_LEVEL,
+  BOSS_SPAWN_LEVEL_INTERVAL,
   ENEMY_ATTACK_SPEED,
   ENEMY_BULLET_DAMAGE,
   ENEMY_BULLET_SPEED,
+  ENEMY_BULLET_SPEED_MULTIPLIER,
+  ENEMY_DAMAGE_MULTIPLIER,
+  ENEMY_HEALTH_MULTIPLIER,
   ENEMY_MAX_LIFE,
+  ENEMY_SPAWN_MULTIPLIER,
   ENEMY_START_POSITION_Y,
   LEVEL_NAMES,
   UBER_BOSS_STAT_MULTIPLIER,
@@ -85,17 +91,20 @@ export class LevelController {
 
   /** Spawn a single wave */
   spawnWave(waveNumber: number) {
-    const baseCount = this.baseEnemyCount + (this.currentLevel - 1) * 1.5;
-    const enemyCount = baseCount + waveNumber * 1.5;
+    const baseCount =
+      this.baseEnemyCount + (this.currentLevel - 1) * ENEMY_SPAWN_MULTIPLIER;
+    const enemyCount = baseCount + waveNumber * ENEMY_SPAWN_MULTIPLIER;
 
     for (let i = 0; i < enemyCount; i++) {
       const config = this.pickEnemyType();
 
       const scaledBulletSpeed =
-        config.bulletSpeed * (1 + this.currentLevel * 0.03);
+        config.bulletSpeed *
+        (1 + this.currentLevel * ENEMY_BULLET_SPEED_MULTIPLIER);
       const scaledBulletDamage =
-        config.bulletDamage * (1 + this.currentLevel * 0.02);
-      const scaledHealth = ENEMY_MAX_LIFE * (1 + this.currentLevel * 0.1);
+        config.bulletDamage * (1 + this.currentLevel * ENEMY_DAMAGE_MULTIPLIER);
+      const scaledHealth =
+        ENEMY_MAX_LIFE * (1 + this.currentLevel * ENEMY_HEALTH_MULTIPLIER);
 
       const x = Math.random() * (drawEngine.canvasWidth - config.sprite.width);
       const y = ENEMY_START_POSITION_Y - Math.random() * this.enemyYSpawnOffset;
@@ -133,15 +142,14 @@ export class LevelController {
       this.wavesPerLevel++;
     }
 
-    const firstBossLevel = 15;
-    const repeatInterval = 6;
-
     if (
-      this.currentLevel >= firstBossLevel &&
-      (this.currentLevel - firstBossLevel) % repeatInterval === 0
+      this.currentLevel >= BOSS_SPAWN_LEVEL &&
+      (this.currentLevel - BOSS_SPAWN_LEVEL) % BOSS_SPAWN_LEVEL_INTERVAL === 0
     ) {
       const bossNumber =
-        Math.floor((this.currentLevel - firstBossLevel) / repeatInterval) + 1;
+        Math.floor(
+          (this.currentLevel - BOSS_SPAWN_LEVEL) / BOSS_SPAWN_LEVEL_INTERVAL
+        ) + 1;
 
       const scaledLife =
         BOSS_MAX_LIFE * Math.pow(UBER_BOSS_STAT_MULTIPLIER, bossNumber);

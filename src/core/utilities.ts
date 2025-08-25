@@ -160,3 +160,7 @@ function rgbToHex(r: number, g: number, b: number): string {
 export function roll() {
   return Math.random() * 100;
 }
+
+export function toHexColor(c: number) {
+  return "#" + c.toString(16).padStart(6, "0");
+}

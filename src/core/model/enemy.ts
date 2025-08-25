@@ -21,6 +21,10 @@ export class Enemy extends Shooter {
   maxLife = ENEMY_MAX_LIFE;
   life = ENEMY_MAX_LIFE;
   movementYSpeed: number = ENEMY_MOVEMENT_Y_SPEED;
+  yJitter = 0;
+  yTargetJitter = 0;
+  jitterTimer = 0;
+
   movementVilocityX: number = 0;
   proximityDamage: number = ENEMY_PROXIMITY_DAMAGE;
   attackSpeed: number = ENEMY_ATTACK_SPEED;
@@ -81,10 +85,26 @@ export class Enemy extends Shooter {
 
     const prevX = this.x;
 
+    // Don't move boss
+    if (this.movePattern !== "none") {
+      // countdown to next target change
+      this.jitterTimer -= delta;
+      if (this.jitterTimer <= 0) {
+        this.jitterTimer = 0.5 + Math.random() * 1.5; // every 0.5–2s
+        this.yTargetJitter = (Math.random() - 0.5) * 100; // target offset speed [-20..+20]
+      }
+
+      // ease toward target (smooth change)
+      this.yJitter += (this.yTargetJitter - this.yJitter) * delta * 2;
+
+      // apply base + jitter
+      const netDownward = Math.max(10, this.movementYSpeed + this.yJitter);
+      this.y += netDownward * delta;
+    }
+
     // --- Movement ---
     switch (this.movePattern) {
       case "straight":
-        this.y += this.movementYSpeed * delta;
         this.directionChangeTimer -= delta;
         if (this.directionChangeTimer <= 0) {
           this.movementVilocityX = (Math.random() < 0.5 ? -1 : 1) * 30;
@@ -94,12 +114,10 @@ export class Enemy extends Shooter {
         break;
 
       case "sine":
-        this.y += this.movementYSpeed * delta;
         this.x += Math.sin(this.y / 20) * 1.5;
         break;
 
       case "zigzag":
-        this.y += this.movementYSpeed * delta;
         this.directionChangeTimer -= delta;
         if (this.directionChangeTimer <= 0) {
           this.movementVilocityX = (Math.random() < 0.5 ? -1 : 1) * 50;

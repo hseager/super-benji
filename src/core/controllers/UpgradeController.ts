@@ -93,10 +93,10 @@ export class UpgradeController {
     {
       rarity: RarityLabel.Epic,
       name: "Modified Sprinkler",
-      description: `${StatLabel.DMG} -8, ${StatLabel.ATKSPD} +60%`,
+      description: `${StatLabel.DMG} -4, ${StatLabel.ATKSPD} +60%`,
       description2: "Mega Shot",
       apply: () => {
-        this.gameManager.player.damage -= 8;
+        this.gameManager.player.damage -= 4;
         this.gameManager.player.attackSpeed *= 0.6;
         this.gameManager.player.bulletColor = "pink";
         this.gameManager.player.shootPattern = "megaspread";

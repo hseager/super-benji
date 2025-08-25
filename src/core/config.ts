@@ -83,13 +83,13 @@ export const PLAYER_PALETTES: Record<string, string[]> = {
     "#7FAFFF",
   ],
   orange: [
-    "#331A0A", // very dark ember base
-    "#572B12", // deep burnt orange
-    "#7A3C1B", // earthy orange-brown
-    "#9E5025", // solid orange
-    "#C76631", // bright molten orange
-    "#E6824C", // fiery orange glow
-    "#FFB27F", // hot highlight
+    "#331A0A",
+    "#572B12",
+    "#7A3C1B",
+    "#9E5025",
+    "#C76631",
+    "#E6824C",
+    "#FFB27F",
   ],
 };
 
@@ -111,10 +111,10 @@ export const ENEMY_MAX_LIFE = 16;
 export const ENEMY_BULLET_DAMAGE = 10;
 export const ENEMY_PROXIMITY_DAMAGE = 0.5;
 export const ENEMY_BULLET_SPEED = 75;
-export const ENEMY_MOVEMENT_Y_SPEED = 20;
+export const ENEMY_MOVEMENT_Y_SPEED = 10;
 export const ENEMY_ATTACK_SPEED = 3.5;
 export const ENEMY_ATTACK_VARIANCE = 0.3;
-export const ENEMY_START_POSITION_Y = -30;
+export const ENEMY_START_POSITION_Y = -40;
 export const ENEMY_DIRECTION_CHANGE_CHANCE = 0.3; // 30%
 
 export const BASIC_ENEMY_PALETTE = [
@@ -150,9 +150,11 @@ export const ADVANCED_ENEMY_PALETTE = [
 // Boss
 export const BOSS_MAX_LIFE = 1400;
 export const BOSS_BULLET_DAMAGE = 10;
-export const BOSS_BULLET_SPEED = 90;
+export const BOSS_BULLET_SPEED = 80;
 export const BOSS_ATTACK_SPEED = 1.4;
 export const UBER_BOSS_STAT_MULTIPLIER = 2.5;
+export const BOSS_SPAWN_LEVEL = 15;
+export const BOSS_SPAWN_LEVEL_INTERVAL = 5; // After the first encounter, spawn the boss x levels after
 
 // Background
 export const BACKGROUND_HUE_SHIFT = 200; // 20 = 10%
@@ -164,7 +166,7 @@ export const BACKGROUND_CLOUD_OPACITY = 0.1;
 export const BACKGROUND_WAVE_DISTORTION = [25, 50, 0];
 export const BACKGROUND_MOVEMENT_Y_SPEED_MAX = 350;
 
-// Enemy
+// Explosion
 export const EXPLOSION_SIZE = 400; // Pixels per second
 export const EXPLOSION_PART_SIZE = 12;
 export const EXPLOSION_ROTATION_SPEED = 8;
@@ -177,8 +179,11 @@ export const LEVEL_NAMES = [
   "Rift Horizon",
   "Outer wilds",
 ];
-
-export const STORY_LEVELS = [6, 15, 16];
+export const STORY_LEVELS = [6, 15, 16]; // Levels that the story should progress
+export const ENEMY_SPAWN_MULTIPLIER = 1.75;
+export const ENEMY_BULLET_SPEED_MULTIPLIER = 0.03;
+export const ENEMY_DAMAGE_MULTIPLIER = 0.02;
+export const ENEMY_HEALTH_MULTIPLIER = 0.2;
 
 // Sprites
 export const AVATAR_BODY_WIDTH = 16;
