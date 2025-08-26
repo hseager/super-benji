@@ -41,7 +41,21 @@ export class BargainScreenController extends ChoiceScreenController<Bargain> {
   }
 
   protected generateOptions(): Bargain[] {
-    return this.allBargains;
+    // Filter bargains by cost < playerLives
+    const validBargains = this.allBargains.filter(
+      (b) => b.cost < this.gameManager.player.lives
+    );
+
+    // Shuffle the bargains
+    for (let i = validBargains.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [validBargains[i], validBargains[j]] = [
+        validBargains[j],
+        validBargains[i],
+      ];
+    }
+
+    return validBargains;
   }
 
   protected drawOption(

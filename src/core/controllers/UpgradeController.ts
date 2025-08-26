@@ -319,14 +319,6 @@ export class UpgradeController {
       },
     },
     {
-      rarity: RarityLabel.Common,
-      name: "Juggernog",
-      description: `${StatLabel.HEAL} +20`,
-      apply: () => {
-        this.gameManager.player.heal(20);
-      },
-    },
-    {
       rarity: RarityLabel.Rare,
       name: "Iron Jackal Bru",
       description: `${StatLabel.HEAL} +25, ${StatLabel.REGEN} +2`,

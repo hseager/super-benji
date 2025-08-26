@@ -31,14 +31,15 @@ export class LevelController {
   currentLevel: number = 0;
   currentWave: number = 0;
   wavesPerLevel: number = 1; // waves per level
-  private baseEnemyCount = 4;
+  baseEnemyCount = 4;
   private textDisplayTimer = 0;
   private gameManager: GameController;
   private enemyYSpawnOffset = 100;
-  private enemyTypes: EnemyConfig[];
+  enemyTypes: EnemyConfig[];
   bossSpawned = false;
   rifts: { x: number; y: number; spawnTime: number }[] = [];
   gameTime: number = 0;
+  bossAttackSpeedPenalty = 0; // Pretty messy here, but need to save bytes
 
   constructor(gameManager: GameController) {
     this.gameManager = gameManager;
@@ -50,6 +51,7 @@ export class LevelController {
         shootPattern: "single",
         bulletSpeed: ENEMY_BULLET_SPEED,
         bulletDamage: ENEMY_BULLET_DAMAGE,
+        health: ENEMY_MAX_LIFE * 1.2,
       },
       {
         sprite: this.gameManager.spriteManager.moderateEnemySprite,
@@ -57,6 +59,7 @@ export class LevelController {
         shootPattern: "burst",
         bulletSpeed: ENEMY_BULLET_SPEED * 1.2,
         bulletDamage: ENEMY_BULLET_DAMAGE * 1.1,
+        health: ENEMY_MAX_LIFE * 1.1,
       },
       {
         sprite: this.gameManager.spriteManager.advancedEnemySprite,
@@ -64,6 +67,7 @@ export class LevelController {
         shootPattern: "spread",
         bulletSpeed: ENEMY_BULLET_SPEED * 1.5,
         bulletDamage: ENEMY_BULLET_DAMAGE,
+        health: ENEMY_MAX_LIFE,
       },
     ];
   }
@@ -103,7 +107,7 @@ export class LevelController {
       const scaledBulletDamage =
         config.bulletDamage * (1 + this.currentLevel * ENEMY_DAMAGE_MULTIPLIER);
       const scaledHealth =
-        ENEMY_MAX_LIFE * (1 + this.currentLevel * ENEMY_HEALTH_MULTIPLIER);
+        config.health * (1 + this.currentLevel * ENEMY_HEALTH_MULTIPLIER);
 
       const x = Math.random() * (drawEngine.canvasWidth - config.sprite.width);
       const y = ENEMY_START_POSITION_Y - Math.random() * this.enemyYSpawnOffset;
@@ -150,7 +154,9 @@ export class LevelController {
       const scaledDamage =
         BOSS_BULLET_DAMAGE * Math.pow(UBER_BOSS_STAT_MULTIPLIER, bossNumber);
       const scaledAttackSpeed =
-        BOSS_ATTACK_SPEED * Math.pow(UBER_BOSS_STAT_MULTIPLIER, bossNumber);
+        BOSS_ATTACK_SPEED *
+        Math.pow(UBER_BOSS_STAT_MULTIPLIER, bossNumber) *
+        this.bossAttackSpeedPenalty;
       const scaledBulletSpeed =
         BOSS_BULLET_SPEED * Math.pow(UBER_BOSS_STAT_MULTIPLIER, bossNumber);
 

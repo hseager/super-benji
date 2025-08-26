@@ -67,6 +67,7 @@ The hunt builds toward a final showdown aboard the Jackal’s massive flagship, 
 - Loot/Upgrades
   - Each upgrade costs gold, rarer = more expensive
   - Balance stats, add more downsizes
+- Write about boss challenge mode
 
 # About
 

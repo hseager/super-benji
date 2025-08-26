@@ -59,4 +59,5 @@ export type EnemyConfig = {
   shootPattern: ShootPattern;
   bulletSpeed: number;
   bulletDamage: number;
+  health: number;
 };
