@@ -31,73 +31,77 @@ export class SpriteController {
     const spriteBuilder = new SpriteBuilder();
     this.spriteBuilder = await spriteBuilder.init();
 
-    await this.preloadPlayerSprites();
-    await this.preloadBulletPalettes();
+    // preload sprites in parallel
+    await Promise.all([
+      this.preloadPlayerSprites(),
+      this.preloadBulletPalettes(),
+      (async () =>
+        (this.basicEnemySprite = await spriteBuilder.createSprite(
+          BASIC_ENEMY_PALETTE,
+          14,
+          14,
+          0,
+          1
+        )))(),
+      (async () =>
+        (this.moderateEnemySprite = await spriteBuilder.createSprite(
+          MODERATE_ENEMY_PALETTE,
+          16,
+          16,
+          0,
+          15
+        )))(),
+      (async () =>
+        (this.advancedEnemySprite = await spriteBuilder.createSprite(
+          ADVANCED_ENEMY_PALETTE,
+          16,
+          16,
+          2,
+          16
+        )))(),
+      (async () =>
+        (this.playerAvatar = await spriteBuilder.createAvatar(
+          BENJI_AVATAR_PALETTE,
+          18,
+          16,
+          29,
+          32
+        )))(),
+      (async () =>
+        (this.torxAvatar = await spriteBuilder.createAvatar(
+          TORX_AVATAR_PALETTE,
+          17,
+          16,
+          47,
+          49
+        )))(),
+      (async () =>
+        (this.maggieAvatar = await spriteBuilder.createAvatar(
+          MAGGIE_AVATAR_PALETTE,
+          17,
+          16,
+          47,
+          32
+        )))(),
+      (async () =>
+        (this.jackalAvatar = await spriteBuilder.createSprite(
+          JACKAL_AVATAR_PALETTE,
+          16,
+          20,
+          31,
+          48
+        )))(),
+      (async () =>
+        (this.jackalSprite = await spriteBuilder.createSprite(
+          JACKAL_AVATAR_PALETTE,
+          32,
+          31,
+          32,
+          0
+        )))(),
+    ]);
 
-    this.basicEnemySprite = await spriteBuilder.createSprite(
-      BASIC_ENEMY_PALETTE,
-      14,
-      14,
-      0,
-      1
-    );
-
-    this.moderateEnemySprite = await spriteBuilder.createSprite(
-      MODERATE_ENEMY_PALETTE,
-      16,
-      16,
-      0,
-      15
-    );
-
-    this.advancedEnemySprite = await spriteBuilder.createSprite(
-      ADVANCED_ENEMY_PALETTE,
-      16,
-      16,
-      2,
-      16
-    );
-
-    this.playerAvatar = await spriteBuilder.createAvatar(
-      BENJI_AVATAR_PALETTE,
-      18,
-      16,
-      29,
-      32
-    );
-
-    this.torxAvatar = await spriteBuilder.createAvatar(
-      TORX_AVATAR_PALETTE,
-      17,
-      16,
-      47,
-      49
-    );
-
-    this.maggieAvatar = await spriteBuilder.createAvatar(
-      MAGGIE_AVATAR_PALETTE,
-      17,
-      16,
-      47,
-      32
-    );
-
-    this.jackalAvatar = await spriteBuilder.createSprite(
-      JACKAL_AVATAR_PALETTE,
-      16,
-      20,
-      31,
-      48
-    );
-
-    this.jackalSprite = await spriteBuilder.createSprite(
-      JACKAL_AVATAR_PALETTE,
-      32,
-      31,
-      32,
-      0
-    );
-
+    // coin depends on playerAvatar, so wait separately
     const goldWithoutFirst = PLAYER_PALETTES.gold.slice(1);
     this.benjiCoin = await PaletteApplier.applyPalette(
       this.playerAvatar,
