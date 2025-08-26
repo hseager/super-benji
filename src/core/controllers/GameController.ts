@@ -10,6 +10,7 @@ import { UpgradeScreenController } from "./UpgradeScreenController";
 import { roll } from "../utilities";
 import { StoryController } from "./StoryController";
 import { MusicPlayer } from "../music/music";
+import { BargainScreenController } from "./BargainScreenController";
 
 export class GameController {
   musicPlayer!: MusicPlayer;
@@ -22,11 +23,13 @@ export class GameController {
   enemyBulletPool!: BulletPool;
   storyController: StoryController;
   upgradeScreen: UpgradeScreenController;
+  bargainScreen: BargainScreenController;
 
   constructor() {
     this.background = new Background();
     this.storyController = new StoryController(this);
     this.upgradeScreen = new UpgradeScreenController(this);
+    this.bargainScreen = new BargainScreenController(this);
   }
 
   update(delta: number, mouse: { x: number; y: number }) {
@@ -34,6 +37,10 @@ export class GameController {
 
     // Background
     background.update(delta, player.velocity);
+
+    this.bargainScreen.update();
+
+    if (this.bargainScreen.isActive || this.upgradeScreen.isActive) return;
 
     // Player movement
     player.update(delta, mouse.x, mouse.y);
@@ -103,6 +110,11 @@ export class GameController {
       return;
     }
 
+    if (this.bargainScreen.isActive) {
+      this.bargainScreen.draw(ctx);
+      return;
+    }
+
     this.background.draw(ctx);
     this.enemies.forEach((enemy) => enemy.draw(ctx));
     this.player.draw(ctx);
@@ -151,7 +163,11 @@ export class GameController {
     this.storyController.isActive = false;
     this.player.active = true;
     this.levelManager = new LevelController(this);
-    this.levelManager.nextLevel();
+
+    // Show Bargain menu
+    this.bargainScreen.start();
+
+    // this.levelManager.nextLevel();
   }
 
   resumeGame() {

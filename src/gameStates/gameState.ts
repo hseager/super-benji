@@ -49,7 +49,7 @@ class GameState implements State {
   }
 
   private checkLoseCondition() {
-    if (this.gameManager.player.isDead()) {
+    if (this.gameManager.player.isReallyDead()) {
       screenTransitions.fadeOutThenIn(() => {
         gameStateMachine.setState(
           new LoseState(this.gameManager.levelManager.currentLevel)

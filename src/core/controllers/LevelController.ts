@@ -334,6 +334,7 @@ export class LevelController {
     const noEnemiesLeft = this.gameManager.enemies.length === 0;
     const noScreensActive =
       !this.gameManager.upgradeScreen.isActive &&
+      !this.gameManager.bargainScreen.isActive &&
       !this.gameManager.storyController.isActive;
 
     if (this.bossSpawned) {

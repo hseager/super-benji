@@ -14,6 +14,13 @@ export type Upgrade = {
   apply: () => void;
 };
 
+export type Bargain = {
+  cost: number;
+  description: string;
+  description2?: string;
+  apply: () => void;
+};
+
 export type Coordinates = {
   y: number;
   x: number;

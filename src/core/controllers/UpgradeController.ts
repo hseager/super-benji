@@ -22,6 +22,14 @@ const StatLabel: Record<string, string> = {
 export class UpgradeController {
   private gameManager: GameController;
 
+  constructor(gameManager: GameController) {
+    this.gameManager = gameManager;
+  }
+
+  getAllUpgrades() {
+    return this.upgrades;
+  }
+
   // Change color of boosters
   private upgrades: Upgrade[] = [
     // Offensive
@@ -339,12 +347,4 @@ export class UpgradeController {
       },
     },
   ];
-
-  constructor(gameManager: GameController) {
-    this.gameManager = gameManager;
-  }
-
-  getAllUpgrades() {
-    return this.upgrades;
-  }
 }

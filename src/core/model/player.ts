@@ -16,8 +16,8 @@ import { GameController } from "../controllers/GameController";
 import { ShootPattern } from "../types";
 
 export class Player extends Shooter {
-  // Disabled by default for story, no shooting or movement
-  active = false;
+  lives = 3; // We hardcode this because cats always have 9 lives!
+  active = false; // Disabled by default for story, no shooting or movement
 
   // Movement
   moveTolerance = 4; // Pixels to consider "close enough" to target
@@ -201,6 +201,8 @@ export class Player extends Shooter {
   takeDamage(damage: number) {
     this.life -= damage;
     if (this.life <= 0) {
+      // Prevent the player losing multiple lives
+      if (!this.isExploding) this.lives--;
       this.explode(40);
       this.gameController.musicPlayer.playExplosionSound();
     }
@@ -213,5 +215,19 @@ export class Player extends Shooter {
     } else {
       this.life += amount;
     }
+  }
+
+  revive() {
+    this.life = this.maxLife;
+    this.isExploding = false;
+    this.explosionPieces = [];
+    this.sprite = this.gameController.spriteManager.getPlayerSprite();
+  }
+
+  // Ran out of lives
+  isReallyDead(): boolean {
+    return (
+      this.lives <= 0 && this.isExploding && this.explosionPieces.length === 0
+    );
   }
 }
