@@ -102,7 +102,8 @@ export class SpriteController {
     ]);
 
     // coin depends on playerAvatar, so wait separately
-    const goldWithoutFirst = PLAYER_PALETTES.gold.slice(1);
+    const goldPalette = PLAYER_PALETTES.find(([key]) => key === "gold")![1];
+    const goldWithoutFirst = goldPalette.slice(1);
     this.benjiCoin = await PaletteApplier.applyPalette(
       this.playerAvatar,
       goldWithoutFirst
@@ -116,9 +117,7 @@ export class SpriteController {
   }
 
   private async preloadPlayerSprites() {
-    const palettes = Object.keys(PLAYER_PALETTES);
-    for (const color of palettes) {
-      const palette = PLAYER_PALETTES[color as keyof typeof PLAYER_PALETTES];
+    for (const [color, palette] of PLAYER_PALETTES) {
       this.playerSprites[color] = await this.spriteBuilder.createSprite(
         palette,
         25,
@@ -129,18 +128,8 @@ export class SpriteController {
     }
   }
 
-  //   const buffer = new CanvasBuffer(54, 60);
-
-  // const maxWingSize = 14;
-  // const bodySize = 30;
-
-  // // Draw body
-  // buffer.drawSprite(this.sheet, maxWingSize, 0, 0, 15, 13, 30);
-
   private async preloadBulletPalettes() {
-    const palettes = Object.keys(BULLET_PALETTES);
-    for (const color of palettes) {
-      const palette = BULLET_PALETTES[color as keyof typeof BULLET_PALETTES];
+    for (const [color, palette] of BULLET_PALETTES) {
       this.bulletSprites[color] = await this.spriteBuilder.createSprite(
         palette,
         3,

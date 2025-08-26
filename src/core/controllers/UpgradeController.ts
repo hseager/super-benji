@@ -150,23 +150,11 @@ export class UpgradeController {
       },
     },
     {
-      rarity: RarityLabel.Rare,
-      name: "Sunlight Medal Reflectors",
-      description: `${StatLabel.HP} +22, ${StatLabel.MOVESPD} +5%`,
-      apply: () => {
-        this.gameManager.player.maxLife += 22;
-        this.gameManager.player.movementXSpeed *= 1.05;
-        this.gameManager.player.movementYSpeed *= 1.05;
-        this.gameManager.player.playerColor = "gold";
-      },
-    },
-    {
       rarity: RarityLabel.Epic,
       name: "Aether Veil",
       description: `${StatLabel.EVASION} +15%`,
       apply: () => {
         this.gameManager.player.evasion += 15;
-        this.gameManager.player.playerColor = "orange";
       },
     },
     {

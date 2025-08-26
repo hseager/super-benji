@@ -26,7 +26,8 @@ export class GameController {
   bargainScreen: BargainScreenController;
   paused = true;
 
-  constructor() {
+  constructor(spriteManager: SpriteController) {
+    this.spriteManager = spriteManager;
     this.background = new Background();
     this.storyController = new StoryController(this);
     this.upgradeScreen = new UpgradeScreenController(this);
@@ -138,8 +139,6 @@ export class GameController {
   async init(musicPlayer: MusicPlayer): Promise<GameController> {
     // Anything that depends on sprites need to be awaited as the spritesheet is loaded, so we create some objects here instead of the constuctor
     this.musicPlayer = musicPlayer;
-    this.spriteManager = await new SpriteController().init();
-
     // Create Bullet pools
     this.playerBulletPool = new BulletPool(100, () => {
       // always grab the latest sprite from the sprite manager

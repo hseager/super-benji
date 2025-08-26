@@ -27,71 +27,77 @@ export const PLAYER_HEALTH_GLOW_COLOURS = [
   { hp: 0.0, color: "rgba(255, 0, 0, 0)" }, // transparent red
 ];
 
-export const BULLET_PALETTES: Record<string, string[]> = {
-  blue: ["#35a3ec", "#4480b8"],
-  green: ["#7dff99", "#44b867"],
-  purple: ["#ce7bfd", "#a144b8"],
-  pink: ["#ff80df", "#b84488"],
-  orange: ["#eca335", "#b88244"],
-  red: ["#ff5e49", "#881c18"],
-};
+export const BULLET_PALETTES: [string, string[]][] = [
+  ["blue", ["#35a3ec", "#4480b8"]],
+  ["green", ["#7dff99", "#44b867"]],
+  ["purple", ["#ce7bfd", "#a144b8"]],
+  ["pink", ["#ff80df", "#b84488"]],
+  ["orange", ["#eca335", "#b88244"]],
+  ["red", ["#ff5e49", "#881c18"]],
+];
 
-export const PLAYER_PALETTES: Record<string, string[]> = {
-  grey: [
-    "#202020",
-    "#404040",
-    "#606060",
-    "#808080",
-    "#A0A0A0",
-    "#C0C0C0",
-    "#00BFFF",
+export const PLAYER_PALETTES: [string, string[]][] = [
+  [
+    "grey",
+    [
+      "#202020",
+      "#404040",
+      "#606060",
+      "#808080",
+      "#A0A0A0",
+      "#C0C0C0",
+      "#00BFFF",
+    ],
   ],
-  gold: [
-    "#201400",
-    "#402800",
-    "#604000",
-    "#805800",
-    "#A07000",
-    "#d1960d",
-    "#FF7F00",
+  [
+    "gold",
+    [
+      "#201400",
+      "#402800",
+      "#604000",
+      "#805800",
+      "#A07000",
+      "#d1960d",
+      "#FF7F00",
+    ],
   ],
-  green: [
-    "#0D1A0D",
-    "#163322",
-    "#1F4D31",
-    "#2A6B44",
-    "#3C8C5A",
-    "#56B27D",
-    "#7FE6AF",
+  [
+    "green",
+    [
+      "#0D1A0D",
+      "#163322",
+      "#1F4D31",
+      "#2A6B44",
+      "#3C8C5A",
+      "#56B27D",
+      "#7FE6AF",
+    ],
   ],
-  purple: [
-    "#1A1026",
-    "#2C1E4A",
-    "#3C2F6B",
-    "#4E3F8C",
-    "#6757B0",
-    "#8A7ED6",
-    "#B5A6FF",
+  [
+    "purple",
+    [
+      "#1A1026",
+      "#2C1E4A",
+      "#3C2F6B",
+      "#4E3F8C",
+      "#6757B0",
+      "#8A7ED6",
+      "#B5A6FF",
+    ],
   ],
-  blue: [
-    "#0A1A33",
-    "#122B57",
-    "#1B3C7A",
-    "#25509E",
-    "#3166C7",
-    "#4C82E6",
-    "#7FAFFF",
+  [
+    "blue",
+    [
+      "#0A1A33",
+      "#122B57",
+      "#1B3C7A",
+      "#25509E",
+      "#3166C7",
+      "#4C82E6",
+      "#7FAFFF",
+    ],
   ],
-  orange: [
-    "#331A0A",
-    "#572B12",
-    "#7A3C1B",
-    "#9E5025",
-    "#C76631",
-    "#E6824C",
-    "#FFB27F",
-  ],
-};
+];
 
 export const BENJI_AVATAR_PALETTE = [
   "#0d0d0d",

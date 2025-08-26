@@ -5,6 +5,7 @@ import { GameController } from "@/core/controllers/GameController";
 import { LoseState } from "./loseState";
 import { MusicPlayer } from "@/core/music/music";
 import { screenTransitions } from "@/core/controllers/ScreenTransitionController";
+import { SpriteController } from "@/core/controllers/SpriteController";
 
 class GameState implements State {
   private ctx;
@@ -30,10 +31,14 @@ class GameState implements State {
       this.toggleFullscreen();
     }
 
+    const spriteManager = await new SpriteController().init();
+
     // Setup Music
     this.musicPlayer = new MusicPlayer();
     this.musicPlayer.play();
-    this.gameManager = await new GameController().init(this.musicPlayer);
+    this.gameManager = await new GameController(spriteManager).init(
+      this.musicPlayer
+    );
     screenTransitions.start(0, 1, 1);
   }
 
