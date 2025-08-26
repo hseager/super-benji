@@ -9,7 +9,6 @@ export class Shooter extends GameObject {
 
   // Position
   lastPosition: Coordinates = { x: 0, y: 0 };
-  velocity: Coordinates = { x: 0, y: 0 };
   shootingXOffset = 0;
 
   active = true;

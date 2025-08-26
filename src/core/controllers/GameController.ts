@@ -24,6 +24,7 @@ export class GameController {
   storyController: StoryController;
   upgradeScreen: UpgradeScreenController;
   bargainScreen: BargainScreenController;
+  paused = true;
 
   constructor() {
     this.background = new Background();
@@ -41,6 +42,8 @@ export class GameController {
     this.bargainScreen.update();
 
     if (this.bargainScreen.isActive || this.upgradeScreen.isActive) return;
+
+    if (this.paused) return;
 
     // Player movement
     player.update(delta, mouse.x, mouse.y);
@@ -161,22 +164,12 @@ export class GameController {
 
   startGame() {
     this.storyController.isActive = false;
-    this.player.active = true;
+    this.paused = true;
     this.levelManager = new LevelController(this);
 
     // Show Bargain menu
     this.bargainScreen.start();
 
     // this.levelManager.nextLevel();
-  }
-
-  resumeGame() {
-    this.storyController.isActive = false;
-    this.player.active = true;
-  }
-
-  pauseGame() {
-    this.storyController.isActive = true;
-    this.player.active = false;
   }
 }

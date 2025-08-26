@@ -134,27 +134,27 @@ export class StoryController {
         this.currentAct = StoryActs.Act2;
         screenTransitions.fadeOutThenIn(() => {
           this.gameController.startGame();
-          this.gameController.resumeGame();
+          this.gameController.paused = false;
         });
         break;
       case StoryActs.Act2:
         this.currentAct = StoryActs.Act3;
         screenTransitions.fadeOutThenIn(() => {
           this.gameController.levelManager.startLevel();
-          this.gameController.resumeGame();
+          this.gameController.paused = false;
         });
         break;
       case StoryActs.Act3:
         this.currentAct = StoryActs.Epilogue;
         screenTransitions.fadeOutThenIn(() => {
           this.gameController.levelManager.startLevel();
-          this.gameController.resumeGame();
+          this.gameController.paused = false;
         });
         break;
       default:
         screenTransitions.fadeOutThenIn(() => {
           this.gameController.levelManager.startLevel();
-          this.gameController.resumeGame();
+          this.gameController.paused = false;
         });
         break;
     }
@@ -162,8 +162,18 @@ export class StoryController {
 
   progressStory(level: number) {
     STORY_LEVELS.includes(level)
-      ? this.gameController.pauseGame()
-      : this.gameController.resumeGame();
+      ? this.activateStory()
+      : this.deactivateStory();
+  }
+
+  activateStory() {
+    this.isActive = true;
+    this.gameController.paused = true;
+  }
+
+  deactivateStory() {
+    this.isActive = false;
+    this.gameController.paused = false;
   }
 
   draw() {
@@ -206,9 +216,9 @@ export class StoryController {
     const words = text.split(" ");
     const avatarPos: ImageProperties = {
       x: 25,
-      y: dialogBoxY - 65,
-      width: 16 * 2,
-      height: (17 + AVATAR_BODY_HEIGHT) * 2,
+      y: dialogBoxY - 75,
+      width: 16 * 2.5,
+      height: (16 + AVATAR_BODY_HEIGHT) * 2.5,
     };
 
     // Settings
@@ -289,6 +299,6 @@ export class StoryController {
 
   drawTorxDialog() {
     if (!this.currentTorxDialog) return;
-    this.drawDialogBox("Torx", this.currentTorxDialog, 120, 60);
+    this.drawDialogBox("Torx", this.currentTorxDialog, 120, 65);
   }
 }

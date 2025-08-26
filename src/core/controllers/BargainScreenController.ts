@@ -17,6 +17,7 @@ export class BargainScreenController extends ChoiceScreenController<Bargain> {
 
   update() {
     if (this.gameManager.player.isDead()) {
+      this.gameManager.paused = true;
       this.start();
       this.gameManager.player.revive();
     }
@@ -26,7 +27,18 @@ export class BargainScreenController extends ChoiceScreenController<Bargain> {
     return "Life Exchange";
   }
 
-  protected drawIntroSection() {}
+  protected drawIntroSection() {
+    drawEngine.drawTitle(
+      this.gameManager.player.lives.toString(),
+      38,
+      drawEngine.getCenterX() - 25,
+      112
+    );
+    drawEngine.drawBenjiCoin(this.gameManager.spriteManager.benjiCoin, {
+      x: drawEngine.getCenterX() + 25,
+      y: 100,
+    });
+  }
 
   protected generateOptions(): Bargain[] {
     return this.allBargains;
@@ -46,11 +58,25 @@ export class BargainScreenController extends ChoiceScreenController<Bargain> {
     drawEngine.drawRoundedRect(ctx, x, y, w, h, 6, "#222", "white");
 
     let textY = y + lineHeight;
+
+    drawEngine.drawTitle(
+      bargain.cost.toString(),
+      24,
+      drawEngine.getCenterX() - 13,
+      textY + 10
+    );
+    drawEngine.drawBenjiCoin(
+      this.gameManager.spriteManager.benjiCoin,
+      {
+        x: drawEngine.getCenterX() + 13,
+        y: textY + 3,
+      },
+      10
+    );
+
     ctx.fillStyle = "white";
     ctx.font = "16px Courier New";
-    ctx.fillText(`[${bargain.cost}]`, x + padding, textY);
-
-    textY += lineHeight;
+    textY += lineHeight * 2;
     ctx.fillText(bargain.description, x + padding, textY);
 
     if (bargain.description2) {
@@ -61,13 +87,14 @@ export class BargainScreenController extends ChoiceScreenController<Bargain> {
 
   protected handleSelection(bargain: Bargain) {
     bargain.apply();
+    this.gameManager.player.lives -= bargain.cost;
     this.gameManager.musicPlayer.playMenuSuccess();
     this.canSelectOption = false;
 
     screenTransitions.fadeOutThenIn(() => {
       clearClicks();
       this.isActive = false;
-      this.gameManager.levelManager.nextLevel();
+      this.gameManager.paused = false;
     });
   }
 }

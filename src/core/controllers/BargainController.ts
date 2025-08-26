@@ -42,5 +42,7 @@ export class BargainController {
       },
     },
     // Warp directly to Rift Horizon (Jackal fight)
+    // Evasion % also increases damage
+    // Legendaries are more common
   ];
 }

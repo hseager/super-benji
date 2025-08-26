@@ -5,6 +5,7 @@ import {
   EXPLOSION_SIZE,
 } from "../config";
 import { drawEngine } from "../controllers/DrawController";
+import { Coordinates } from "../types";
 
 export class GameObject {
   x: number;
@@ -26,6 +27,7 @@ export class GameObject {
   }[] = [];
   isExploding = false;
   sprite: HTMLImageElement;
+  velocity: Coordinates = { x: 0, y: 0 };
 
   constructor(
     sprite: HTMLImageElement,
@@ -53,7 +55,7 @@ export class GameObject {
 
   explode(pieces: number = 8, pieceSize: number = EXPLOSION_PART_SIZE) {
     if (this.isExploding) return;
-
+    this.velocity = { x: 0, y: 0 };
     this.isExploding = true;
 
     for (let i = 0; i < pieces; i++) {

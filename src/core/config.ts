@@ -52,7 +52,7 @@ export const PLAYER_PALETTES: Record<string, string[]> = {
     "#604000",
     "#805800",
     "#A07000",
-    "#C08800",
+    "#d1960d",
     "#FF7F00",
   ],
   green: [

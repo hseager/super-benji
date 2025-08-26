@@ -31,7 +31,7 @@ export class LevelController {
   currentLevel: number = 0;
   currentWave: number = 0;
   wavesPerLevel: number = 1; // waves per level
-  private baseEnemyCount = 1;
+  private baseEnemyCount = 4;
   private textDisplayTimer = 0;
   private gameManager: GameController;
   private enemyYSpawnOffset = 100;

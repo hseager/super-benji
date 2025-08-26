@@ -14,15 +14,6 @@ As you draw closer, the very fabric of reality begins to warp—stars ripple, sp
 
 The hunt builds toward a final showdown aboard the Jackal’s massive flagship, where his ultimate weapon waits. Only Benji has the courage to face him and reclaim the Warp Core before the galaxy collapses into madness.
 
-### Stats
-
-#### Maybe Later
-
-- Damage types (Ice, Fire, Poison) + enemy Res
-- Crit Chance, Multi
-- Advanced wings
-  - Changes wing sprite
-
 ### TODO
 
 - 9 Lives (Currency)

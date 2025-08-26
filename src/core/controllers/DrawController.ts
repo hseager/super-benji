@@ -1,3 +1,6 @@
+import { PLAYER_PALETTES } from "../config";
+import { Coordinates } from "../types";
+
 export const logicalWidth = 288; // base logical resolution
 export const logicalHeight = 512; // base logical resolution
 
@@ -256,6 +259,35 @@ class DrawController {
       ctx.strokeStyle = strokeStyle;
       ctx.stroke();
     }
+  }
+
+  drawBenjiCoin(image: HTMLImageElement, position: Coordinates, size = 25) {
+    const ctx = this.context;
+    // Draw coin circle
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(position.x, position.y, size, 0, Math.PI * 2);
+    ctx.fillStyle = PLAYER_PALETTES.gold[4]; // gold color
+    ctx.fill();
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = PLAYER_PALETTES.gold[5]; // darker gold rim
+    ctx.stroke();
+    ctx.closePath();
+
+    // Clip to circle so image stays inside coin
+    ctx.clip();
+
+    // Draw image centered inside coin
+    const imgSize = size * 1.2; // scale factor for image inside circle
+    ctx.drawImage(
+      image,
+      position.x - (imgSize * 0.8) / 2,
+      position.y - imgSize / 2,
+      imgSize * 0.8,
+      imgSize
+    );
+
+    ctx.restore();
   }
 
   getCenterX() {
