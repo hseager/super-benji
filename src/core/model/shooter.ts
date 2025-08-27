@@ -1,4 +1,4 @@
-import { BULLET_PALETTES, MIN_ATTACK_SPEED } from "../config";
+import { MIN_ATTACK_SPEED } from "../config";
 import { GameController } from "../controllers/GameController";
 import { Coordinates, ShootPattern } from "../types";
 import { BulletPool } from "./bulletPool";
@@ -158,7 +158,7 @@ export class Shooter extends GameObject {
     damage: number,
     bulletSpeed: number,
     dir: { x: number; y: number } = this.shootDir,
-    bulletColor?: keyof typeof BULLET_PALETTES
+    bulletColor?: string
   ) {
     if (!this.active || !this.bulletPool) return;
 

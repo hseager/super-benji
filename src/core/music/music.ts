@@ -139,7 +139,7 @@ export class MusicPlayer {
           }
 
           // Kick pattern with slight swing
-          if ([0, 7, 11].includes(this.currentStep % 16)) {
+          if ([0, 7].includes(this.currentStep % 16)) {
             this.drumSynth.playKick(stepTime);
           }
 

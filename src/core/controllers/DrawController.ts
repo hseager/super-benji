@@ -208,19 +208,22 @@ class DrawController {
   }
 
   resizeCanvas() {
+    const vh = window.visualViewport?.height || window.innerHeight;
+    const vw = window.visualViewport?.width || window.innerWidth;
+
     const targetRatio = logicalWidth / logicalHeight;
-    const screenRatio = window.innerWidth / window.innerHeight;
+    const screenRatio = vw / vh;
 
     let displayWidth: number;
     let displayHeight: number;
 
     if (screenRatio > targetRatio) {
       // Screen is wider than target, fit height
-      displayHeight = window.innerHeight;
+      displayHeight = vh;
       displayWidth = displayHeight * targetRatio;
     } else {
       // Screen is taller/narrower, fit width
-      displayWidth = window.innerWidth;
+      displayWidth = vw;
       displayHeight = displayWidth / targetRatio;
     }
 

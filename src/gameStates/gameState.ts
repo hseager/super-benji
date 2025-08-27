@@ -18,9 +18,13 @@ class GameState implements State {
 
   toggleFullscreen() {
     if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen();
+      document.documentElement.requestFullscreen().then(() => {
+        setTimeout(() => drawEngine.resizeCanvas(), 100);
+      });
     } else {
-      document.exitFullscreen();
+      document.exitFullscreen().then(() => {
+        setTimeout(() => drawEngine.resizeCanvas(), 100);
+      });
     }
   }
 
