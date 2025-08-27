@@ -16,15 +16,9 @@ The hunt builds toward a final showdown aboard the Jackal’s massive flagship, 
 
 ### TODO
 
-- No life exchange on the first run
-  - Only use 3 lines for Maggie that are really clear
-  - Remove lots of randomisation
-  - It's not a good first impression
-- Improve coin gfx
-- Show health on Torx upgrade screen
+- Make more positive Bargains
 - Tidy up UI
-- Maybe do some kind of drops, even just health pickups
-- Redo enemy sprites, Iron Jackal Fleet
+- Enemy sprite fix
 - Balance testing
 - Write intro
   - Write about boss challenge mode

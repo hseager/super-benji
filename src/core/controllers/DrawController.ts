@@ -82,7 +82,7 @@ class DrawController {
     ctx.strokeStyle = shadowColor;
     ctx.fillStyle = shadowColor;
     ctx.textAlign = "center";
-    ctx.strokeText(text, x, y + 2);
+    ctx.strokeText(text, x, y + 1);
     ctx.fillText(text, x, y + 2);
     ctx.font = `bold ${fontSize}px "Courier New"`;
     ctx.fillStyle = this.getGradient(ctx, y, [
@@ -233,7 +233,7 @@ class DrawController {
     }
   }
 
-  drawBenjiCoin(image: HTMLImageElement, position: Coordinates, size = 25) {
+  drawBenjiCoin(position: Coordinates, size = 25) {
     const ctx = this.context;
     const goldPalette = PLAYER_PALETTES.find(([key]) => key === "gold")![1];
 
@@ -268,14 +268,16 @@ class DrawController {
     ctx.clip();
 
     // Draw image centered inside coin
-    const imgSize = size * 1.4; // scale factor for image inside circle
-    ctx.drawImage(
-      image,
-      position.x - (imgSize * 0.75) / 2,
-      position.y - imgSize / 2,
-      imgSize * 0.8,
-      imgSize
-    );
+    // const imgSize = size * 1.4; // scale factor for image inside circle
+    // ctx.drawImage(
+    //   image,
+    //   position.x - (imgSize * 0.75) / 2,
+    //   position.y - imgSize / 2,
+    //   imgSize * 0.8,
+    //   imgSize
+    // );
+
+    this.drawTitle("B", size, position.x, position.y + size * 0.2);
 
     ctx.restore();
   }

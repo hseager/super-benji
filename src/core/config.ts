@@ -193,9 +193,9 @@ export const LEVEL_NAMES = [
 ];
 export const STORY_LEVELS = [6, 15, 16]; // Levels that the story should progress
 export const ENEMY_SPAWN_MULTIPLIER = 1.75;
-export const ENEMY_BULLET_SPEED_MULTIPLIER = 0.3;
-export const ENEMY_DAMAGE_MULTIPLIER = 0.3;
-export const ENEMY_HEALTH_MULTIPLIER = 0.4;
+export const ENEMY_BULLET_SPEED_MULTIPLIER = 0.1;
+export const ENEMY_DAMAGE_MULTIPLIER = 0.08;
+export const ENEMY_HEALTH_MULTIPLIER = 0.3;
 
 // Sprites
 export const AVATAR_BODY_WIDTH = 16;

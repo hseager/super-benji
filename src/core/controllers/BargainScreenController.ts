@@ -35,7 +35,7 @@ export class BargainScreenController extends ChoiceScreenController<Bargain> {
       drawEngine.getCenterX(),
       92
     );
-    drawEngine.drawBenjiCoin(this.gameManager.spriteManager.benjiCoin, {
+    drawEngine.drawBenjiCoin({
       x: drawEngine.getCenterX() + 45,
       y: 80,
     });
@@ -86,7 +86,6 @@ export class BargainScreenController extends ChoiceScreenController<Bargain> {
       textY + 10
     );
     drawEngine.drawBenjiCoin(
-      this.gameManager.spriteManager.benjiCoin,
       {
         x: drawEngine.getCenterX() + 13,
         y: textY + 3,
