@@ -167,6 +167,6 @@ export class GameController {
     this.levelManager = new LevelController(this);
 
     // Show Bargain menu
-    this.bargainScreen.start();
+    this.levelManager.nextLevel();
   }
 }

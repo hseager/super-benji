@@ -17,6 +17,7 @@ The hunt builds toward a final showdown aboard the Jackal’s massive flagship, 
 ### TODO
 
 - Do life exchange after first wave
+- Improve coin gfx
 - Mobile fullscreen bug
 - 1 Life left and no upgrades bug
 - Show health on Torx upgrade screen

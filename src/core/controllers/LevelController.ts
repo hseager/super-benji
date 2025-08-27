@@ -31,7 +31,7 @@ export class LevelController {
   currentLevel: number = 0;
   currentWave: number = 0;
   wavesPerLevel: number = 1; // waves per level
-  baseEnemyCount = 4;
+  baseEnemyCount = 2;
   private textDisplayTimer = 0;
   private gameManager: GameController;
   private enemyYSpawnOffset = 100;
@@ -130,13 +130,12 @@ export class LevelController {
     }
   }
 
-  /** Start a new level */
   startLevel() {
     this.currentWave = 0;
     this.gameManager.background = new Background(
       this.gameManager.background.backgroundYSpeed * BACKGROUND_SPEED_INCREASE,
       this.currentLevel
-    );
+    ); // Create a new coloured bg
     this.textDisplayTimer = 4;
     this.gameManager.enemies = []; // Clear previous enemies
 
@@ -181,14 +180,18 @@ export class LevelController {
       this.currentWave++;
       this.spawnWave(this.currentWave);
     } else {
-      // no more waves -> go to upgrade screen
-      screenTransitions.fadeOutThenIn(() =>
-        this.gameManager.upgradeScreen.start()
-      );
+      // no more waves -> go to choice screen
+      screenTransitions.fadeOutThenIn(() => {
+        if (this.currentLevel === 1) {
+          // Do a bargain after the first level
+          this.gameManager.bargainScreen.start();
+        } else {
+          this.gameManager.upgradeScreen.start();
+        }
+      });
     }
   }
 
-  /** Go to the next level */
   nextLevel() {
     this.currentLevel++;
     this.gameManager.storyController.progressStory(this.currentLevel);

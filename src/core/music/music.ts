@@ -187,27 +187,29 @@ export class MusicPlayer {
     const ac = this.ac;
     const now = ac.currentTime;
 
-    // --- White noise burst ---
-    const bufferSize = ac.sampleRate * 0.5; // longer: 500ms
-    const buffer = ac.createBuffer(1, bufferSize, ac.sampleRate);
-    const data = buffer.getChannelData(0);
-    for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+    // --- Noise burst ---
+    const buf = ac.createBuffer(1, ac.sampleRate * 0.3, ac.sampleRate);
+    const data = buf.getChannelData(0);
+    for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
 
     const noise = ac.createBufferSource();
-    noise.buffer = buffer;
+    noise.buffer = buf;
 
-    const noiseFilter = ac.createBiquadFilter();
-    noiseFilter.type = "highpass";
-    noiseFilter.frequency.value = 400; // cut mud, keep it crisp
+    const filt = ac.createBiquadFilter();
+    filt.type = "bandpass";
+    filt.frequency.value = 800;
 
-    const noiseGain = ac.createGain();
-    noiseGain.gain.setValueAtTime(2, now);
-    noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+    const g = ac.createGain();
+    g.gain.setValueAtTime(3, now);
+    g.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
 
-    noise.connect(noiseFilter).connect(noiseGain).connect(this.compressor);
+    noise.connect(filt).connect(g).connect(this.compressor);
+    noise.start(now);
+    noise.stop(now + 0.3);
 
-    // --- Low-end thump (oscillator) ---
-    this.oscEnv(ac, "sine", 80, now, 0.5, this.compressor, 2, 0.001);
+    // --- Boom using oscEnv ---
+    this.oscEnv(ac, "sine", 100, now, 0.5, this.compressor, 4, 0.001);
+    this.oscEnv(ac, "sawtooth", 55, now, 0.3, this.compressor, 2, 0.001);
   }
 
   playMenuSuccess() {
