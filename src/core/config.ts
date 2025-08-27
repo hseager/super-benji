@@ -236,8 +236,8 @@ export const JACKAL_AVATAR_PALETTE = [
 
 // Items
 export const RARITY_WEIGHTS: Record<string, number> = {
-  Common: 65,
+  Common: 45,
   Rare: 25,
-  Epic: 15,
-  Legendary: 10,
+  Epic: 18,
+  Legendary: 12,
 };

@@ -16,6 +16,8 @@ The hunt builds toward a final showdown aboard the Jackal’s massive flagship, 
 
 ### TODO
 
+- Mobile fullscreen bug
+- 1 Life left and no upgrades bug
 - Show health on Torx upgrade screen
 - Tidy up UI
 - Maybe so some kind of drops, even just health pickups

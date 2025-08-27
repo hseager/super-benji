@@ -263,16 +263,32 @@ class DrawController {
 
   drawBenjiCoin(image: HTMLImageElement, position: Coordinates, size = 25) {
     const ctx = this.context;
-    // Draw coin circle
     const goldPalette = PLAYER_PALETTES.find(([key]) => key === "gold")![1];
 
     ctx.save();
+
+    // Create radial gradient for coin fill
+    const gradient = ctx.createRadialGradient(
+      position.x - size * 0.3, // light source offset
+      position.y - size * 0.3,
+      size * 0.3, // inner circle radius
+      position.x,
+      position.y,
+      size // outer radius
+    );
+    gradient.addColorStop(0, goldPalette[5]);
+    gradient.addColorStop(0.5, goldPalette[4]);
+    gradient.addColorStop(1, goldPalette[2]);
+
+    // Draw coin circle with gradient
     ctx.beginPath();
     ctx.arc(position.x, position.y, size, 0, Math.PI * 2);
-    ctx.fillStyle = goldPalette[4]; // gold color
+    ctx.fillStyle = gradient;
     ctx.fill();
+
+    // Stroke (outer rim) for stronger edge
     ctx.lineWidth = 4;
-    ctx.strokeStyle = goldPalette[5]; // darker gold rim
+    ctx.strokeStyle = goldPalette[5];
     ctx.stroke();
     ctx.closePath();
 
