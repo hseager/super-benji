@@ -35,6 +35,7 @@ export class BargainController {
     {
       cost: 8,
       description: `Warp to Rift Horizon`,
+      description2: `(Danger!)`,
       apply: async () => {
         this.gameManager.levelManager.currentLevel = 15;
         this.gameManager.levelManager.startLevel();
@@ -71,7 +72,7 @@ export class BargainController {
       },
     },
     {
-      cost: 5,
+      cost: 6,
       description: `You deal double damage`,
       description2: `You have half max health`,
       apply: async () => {

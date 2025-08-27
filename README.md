@@ -18,7 +18,6 @@ The hunt builds toward a final showdown aboard the Jackal’s massive flagship, 
 
 - Show health on Torx upgrade screen
 - Tidy up UI
-- Fix bullets freezing on pause
 - Maybe so some kind of drops, even just health pickups
 - Redo enemy sprites, Iron Jackal Fleet
 - Balance testing

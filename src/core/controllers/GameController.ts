@@ -44,6 +44,10 @@ export class GameController {
 
     if (this.bargainScreen.isActive || this.upgradeScreen.isActive) return;
 
+    // Bullets
+    this.playerBulletPool.updateAll(delta);
+    this.enemyBulletPool.updateAll(delta);
+
     if (this.paused) return;
 
     // Player movement
@@ -57,10 +61,6 @@ export class GameController {
     this.enemies = this.enemies.filter(
       (enemy) => !enemy.offScreen() && !enemy.isDead()
     );
-
-    // Bullets
-    this.playerBulletPool.updateAll(delta);
-    this.enemyBulletPool.updateAll(delta);
 
     // Player Bullet and enemy collision
     CollisionController.checkAll(
@@ -168,7 +168,5 @@ export class GameController {
 
     // Show Bargain menu
     this.bargainScreen.start();
-
-    // this.levelManager.nextLevel();
   }
 }
