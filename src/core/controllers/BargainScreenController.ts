@@ -28,15 +28,16 @@ export class BargainScreenController extends ChoiceScreenController<Bargain> {
   }
 
   protected drawIntroSection() {
+    this.gameManager.storyController.drawUpgradeDialog("Maggie");
     drawEngine.drawTitle(
       this.gameManager.player.lives.toString(),
       38,
-      drawEngine.getCenterX() - 25,
-      112
+      drawEngine.getCenterX(),
+      92
     );
     drawEngine.drawBenjiCoin(this.gameManager.spriteManager.benjiCoin, {
-      x: drawEngine.getCenterX() + 25,
-      y: 100,
+      x: drawEngine.getCenterX() + 45,
+      y: 80,
     });
   }
 

@@ -18,7 +18,7 @@ export abstract class ChoiceScreenController<T> {
     this.canSelectOption = true;
     this.options = this.generateOptions();
 
-    this.gameManager.storyController.chooseTorxDialog();
+    this.gameManager.storyController.randomiseDialog();
     clearClicks();
   }
 

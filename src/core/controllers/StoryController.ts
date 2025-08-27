@@ -91,15 +91,21 @@ export class StoryController {
     "Hull patched. Tape counts as armor, right?",
     "Think Maggie prefers chrome or silver?",
     "Big red button… probably important.",
-    "Not easy, but nothing worth doing is.",
     "Shh—don’t tell the Jackal about this mod.",
-    "Found a shiny bit for the collection!",
-    "This part’s purr-fect for Benji’s claws.",
     "Stay sharp—Jackal’s crew love ambushes.",
     "Fitting this might take a plasma torch… or luck.",
   ];
+  private maggieDialog: string[] = [
+    "Playing dice with your heartbeat? Bold move.",
+    "Choose your path wisely.",
+    "Even Jackal wouldn’t wager that recklessly.",
+    "Life’s not a slot machine, but you spin it anyway.",
+    "Every choice is a coin flip, Benji - and you’re the coin.",
+    "You're lucky that cats get 9 lives to gamble with.",
+  ];
 
   private currentTorxDialog: string | null = null;
+  private currentMaggieDialog: string | null = null;
 
   constructor(gameController: GameController) {
     this.gameController = gameController;
@@ -292,13 +298,20 @@ export class StoryController {
     ctx.restore();
   }
 
-  chooseTorxDialog() {
+  randomiseDialog() {
     this.currentTorxDialog =
       this.torxDialog[Math.floor(Math.random() * this.torxDialog.length)];
+    this.currentMaggieDialog =
+      this.maggieDialog[Math.floor(Math.random() * this.maggieDialog.length)];
   }
 
-  drawTorxDialog() {
-    if (!this.currentTorxDialog) return;
-    this.drawDialogBox("Torx", this.currentTorxDialog, 120, 65);
+  drawUpgradeDialog(speaker: Character) {
+    if (!this.currentMaggieDialog || !this.currentTorxDialog) return;
+    if (speaker === "Maggie") {
+      if (!this.currentMaggieDialog) return;
+      this.drawDialogBox("Maggie", this.currentMaggieDialog, 120, 65);
+    } else {
+      this.drawDialogBox("Torx", this.currentTorxDialog, 120, 65);
+    }
   }
 }

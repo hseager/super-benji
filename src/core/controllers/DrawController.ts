@@ -280,10 +280,10 @@ class DrawController {
     ctx.clip();
 
     // Draw image centered inside coin
-    const imgSize = size * 1.2; // scale factor for image inside circle
+    const imgSize = size * 1.4; // scale factor for image inside circle
     ctx.drawImage(
       image,
-      position.x - (imgSize * 0.8) / 2,
+      position.x - (imgSize * 0.75) / 2,
       position.y - imgSize / 2,
       imgSize * 0.8,
       imgSize

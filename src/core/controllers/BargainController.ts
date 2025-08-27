@@ -70,6 +70,15 @@ export class BargainController {
         this.gameManager.levelManager.baseEnemyCount *= 2;
       },
     },
+    {
+      cost: 5,
+      description: `You deal double damage`,
+      description2: `You have half max health`,
+      apply: async () => {
+        this.gameManager.player.maxLife /= 2;
+        this.gameManager.player.damage *= 2;
+      },
+    },
     // {
     //   cost: 4,
     //   description: `Enemies do 10% increased`,

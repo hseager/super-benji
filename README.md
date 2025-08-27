@@ -16,58 +16,15 @@ The hunt builds toward a final showdown aboard the Jackal’s massive flagship, 
 
 ### TODO
 
-- 9 Lives (Currency)
-  - You get 9 lives you can use to make the game harder/easier
-  - Options when you die and at start, maybe every x levels?
-  - Coin gfx
-  - e.g. 0 coins = Enemies do 20% increased damage
-    - 3 coins = Enemies attack 40% slower
-    - 6 coins = Jackal attacks 20% slower
-  - If you run out of lives, game over
-- Bugs
-  - Taking damage after boss deafeated and on upgrade screen
-  - Enemies still spawning after boss
-- Items
-  - Get a relic from Maggie at the start of the game
-    - Increase damage vs lower health
-    - Lower damage vs more health
-    - Faster projectiles vs slower attack
-  - New stats
-    - Range
-    - Proj size
-  - Special
-    - Poison aoe
-    - 100% increase Projsize/ 50% less proj speed & attack speed
-    - Increase damage at full life/ - 10 Regen
-    - Beam (max attackspeed) / - 20damage
-    - Homing missile
-  - Gate items behind level
-- Levels
-  - Different enemies stats for each zone (speed, type)
-  - Don't have upgrades at the end of every level
-    - Maggie upgrade screen
-      - More gold/health drops/more enemies spawn
-      - More attack speed/enemies are quicker
-      - More Proj size/enemies have more health
-    - Have random chance of healing, gold or upgrade
-      - Risk/reward = Sacrifice HP for random upgrade
-      - Spend gold to heal
-    - Get an item and more enemies next round
-    - Pick a ? card, get health, gold, item or curse?
-- Perfect bonus
-  - Gives gold bonus
-  - Each upgrade option
-- Bosses
-  - Drop loads of coins
-- Enemies
-  - Drop proximity bombs
-  - Faster
-  - Health bars
-  - Redo enemy sprites, Iron Jackal Fleet
-- Loot/Upgrades
-  - Each upgrade costs gold, rarer = more expensive
-  - Balance stats, add more downsizes
-- Write about boss challenge mode
+- Show health on Torx upgrade screen
+- Tidy up UI
+- Fix bullets freezing on pause
+- Maybe so some kind of drops, even just health pickups
+- Redo enemy sprites, Iron Jackal Fleet
+- Balance testing
+- Write intro
+  - Write about boss challenge mode
+- Make artwork
 
 # About
 

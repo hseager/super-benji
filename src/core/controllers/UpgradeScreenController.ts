@@ -21,7 +21,7 @@ export class UpgradeScreenController extends ChoiceScreenController<Upgrade> {
   }
 
   protected drawIntroSection() {
-    this.gameManager.storyController.drawTorxDialog();
+    this.gameManager.storyController.drawUpgradeDialog("Torx");
   }
 
   protected generateOptions(): Upgrade[] {
