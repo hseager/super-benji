@@ -73,19 +73,14 @@ export class BargainController {
         this.gameManager.player.damage *= 2;
       },
     },
-    // {
-    //   cost: 4,
-    //   description: `Enemies do 10% increased`,
-    //   description2: "damage",
-    //   apply: async () => {
-    //     this.gameManager.player.damage += 4;
-    //     this.gameManager.player.attackSpeed *= 0.9;
-    //     this.gameManager.player.bulletColor = "green";
-    //   },
-    // },
-
-    // Warp directly to Rift Horizon (Jackal fight)
-    // Evasion % also increases damage
+    {
+      cost: 0,
+      description: `Last Chance`,
+      description2: `Megashot`,
+      apply: async () => {
+        this.gameManager.player.shootPattern = "megaspread";
+      },
+    },
     // Legendaries are more common
   ];
 }

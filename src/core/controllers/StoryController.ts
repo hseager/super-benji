@@ -86,21 +86,16 @@ export class StoryController {
     "Jackal’s junk is our treasure.",
     "Zone clear. Let’s bolt on something new.",
     "Reactor’s humming—don’t breathe too close.",
-    "Enemy tech? More like spare parts.",
     "Cut the green wire… I think.",
     "Hull patched. Tape counts as armor, right?",
     "Think Maggie prefers chrome or silver?",
     "Big red button… probably important.",
-    "Shh—don’t tell the Jackal about this mod.",
-    "Stay sharp—Jackal’s crew love ambushes.",
-    "Fitting this might take a plasma torch… or luck.",
   ];
   private maggieDialog: string[] = [
-    "Playing dice with your heartbeat? Bold move.",
-    "Choose your path wisely.",
-    "Even Jackal wouldn’t wager that recklessly.",
-    "Life’s not a slot machine, but you spin it anyway.",
-    "Every choice is a coin flip, Benji - and you’re the coin.",
+    "You’re betting with lives, Benji - and you don’t have many left.",
+    "Nine lives sound plenty… until you spend them like pocket change.",
+    "Each choice shaves another chance off your nine lives.",
+    "Benji, you’re not rolling dice — you’re rolling your life away.",
     "You're lucky that cats get 9 lives to gamble with.",
   ];
 

@@ -11,6 +11,7 @@ import { roll } from "../utilities";
 import { StoryController } from "./StoryController";
 import { MusicPlayer } from "../music/music";
 import { BargainScreenController } from "./BargainScreenController";
+import { LOCAL_STORAGE_KEY, PLAYER_EVASION_CAP } from "../config";
 
 export class GameController {
   musicPlayer!: MusicPlayer;
@@ -94,13 +95,12 @@ export class GameController {
         const player = playerObject as Player;
         const bullet = bulletObject as Bullet;
 
-        if (roll() < player.evasion) {
-          bullet.explode(6, 2);
-          return;
-        }
-
-        player.takeDamage(bullet.damage);
         bullet.explode(6, 2);
+
+        const evasion = Math.min(player.evasion, PLAYER_EVASION_CAP);
+        if (roll() > evasion) {
+          player.takeDamage(bullet.damage);
+        }
       }
     );
 
@@ -166,6 +166,12 @@ export class GameController {
     this.paused = true;
     this.levelManager = new LevelController(this);
 
+    if (localStorage.getItem(`${LOCAL_STORAGE_KEY}hasDied`) == "true") {
+      // Make the game more interesting for players who have already played before by
+      // doing a bargain at start of game
+      this.bargainScreen.start();
+    }
+    // Make the game easier for new players without the Life Exchange screen straight away
     this.levelManager.nextLevel();
   }
 }

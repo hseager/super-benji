@@ -16,9 +16,11 @@ The hunt builds toward a final showdown aboard the Jackal’s massive flagship, 
 
 ### TODO
 
-- Cap evasion and regen
+- No life exchange on the first run
+  - Only use 3 lines for Maggie that are really clear
+  - Remove lots of randomisation
+  - It's not a good first impression
 - Improve coin gfx
-- 1 Life left and no upgrades bug
 - Show health on Torx upgrade screen
 - Tidy up UI
 - Maybe do some kind of drops, even just health pickups

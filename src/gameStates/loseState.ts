@@ -1,5 +1,6 @@
 import { State } from "@/core/types";
 import { drawEngine } from "@/core/controllers/DrawController";
+import { LOCAL_STORAGE_KEY } from "@/core/config";
 
 export class LoseState implements State {
   level: number = 1;
@@ -9,6 +10,7 @@ export class LoseState implements State {
   }
 
   onEnter() {
+    localStorage.setItem(`${LOCAL_STORAGE_KEY}hasDied`, "true");
     c2d.addEventListener("click", () => {
       window.location.reload();
     });

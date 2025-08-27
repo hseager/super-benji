@@ -347,13 +347,7 @@ export class LevelController {
         this.spawnNextWave();
       } else {
         screenTransitions.fadeOutThenIn(() => {
-          if (this.currentLevel === 1) {
-            // Do a bargain at the start to make it more interesting
-            this.gameManager.bargainScreen.start();
-            this.nextLevel();
-          } else {
-            this.gameManager.upgradeScreen.start();
-          }
+          this.gameManager.upgradeScreen.start();
         });
       }
     }

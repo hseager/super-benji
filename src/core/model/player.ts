@@ -7,6 +7,7 @@ import {
   PLAYER_MAX_LIFE,
   PLAYER_MOVEMENT_X_SPEED,
   PLAYER_MOVEMENT_Y_SPEED,
+  PLAYER_REGEN_CAP,
 } from "@/core/config";
 import { drawEngine } from "@/core/controllers/DrawController";
 import { Shooter } from "./shooter";
@@ -156,9 +157,10 @@ export class Player extends Shooter {
     if (this.regen > 0 && this.life < this.maxLife) {
       this.regenTimer += delta;
 
-      // Trigger once per second
+      // Trigger once every 5 seconds
       if (this.regenTimer >= 5) {
-        this.life += this.regen;
+        const regen = Math.min(this.regen, PLAYER_REGEN_CAP);
+        this.life += regen;
 
         if (this.life > this.maxLife) {
           this.life = this.maxLife;

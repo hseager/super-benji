@@ -6,6 +6,9 @@ export const SPRITE_BASE64 =
 // export const FONT_BASE64 =
 //   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAAAgAQMAAADg7OJmAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAZQTFRFAAAA////pdmf3QAAAAJ0Uk5TAP9bkSK1AAAA/0lEQVR4nG2OMW7DMAxFOWnSAThkzAE8dNBAZMrYQxBF8YdC8GhoEDT0CB079hg9QKfOOU8oWjYCIwQMUw//838ipkQ+42fg+u/LlTfwVXz53cH35MtP28DnUAxAjzfYFVvKAMcRTik2qSLrk5ByPiki4HIQOMaXqhsIBji9h8pyccvJwBRbwITAayuw5jgbwIgUqSmKTCPlSZGzVSi1CkSgbzBdA7KqnYjQZQEJoFAjHLO2ZsVQFaXMjWNxYF9XmOU168fcFX5jAed+1C2WopaSUD3lOJWqWPKfidfpJj4A7UDwYDFw48sASiUwzjcJO8jgRep+QwnCYq2eNPC5Awk8Xb8C28oeAAAAAElFTkSuQmCC";
 
+// Localstorage
+export const LOCAL_STORAGE_KEY = "SUPER_BENJI_";
+
 // Menus
 export const BASE_TRANSITION_ANIMATION_TIME = 0.5;
 
@@ -18,6 +21,9 @@ export const PLAYER_MOVEMENT_X_SPEED = 150;
 export const PLAYER_MOVEMENT_Y_SPEED = 100;
 export const MIN_ATTACK_SPEED = 0.05;
 export const MAX_MOVE_SPEED = 400;
+// Anti-fun balance changes, sorry!
+export const PLAYER_EVASION_CAP = 50;
+export const PLAYER_REGEN_CAP = 40;
 
 export const PLAYER_HEALTH_GLOW_COLOURS = [
   { hp: 1.0, color: "#00FF66" }, // green
@@ -113,7 +119,7 @@ export const BENJI_AVATAR_PALETTE = [
 ];
 
 // Enemy
-export const ENEMY_MAX_LIFE = 16;
+export const ENEMY_MAX_LIFE = 10;
 export const ENEMY_BULLET_DAMAGE = 10;
 export const ENEMY_PROXIMITY_DAMAGE = 0.5;
 export const ENEMY_BULLET_SPEED = 90;
@@ -187,9 +193,9 @@ export const LEVEL_NAMES = [
 ];
 export const STORY_LEVELS = [6, 15, 16]; // Levels that the story should progress
 export const ENEMY_SPAWN_MULTIPLIER = 1.75;
-export const ENEMY_BULLET_SPEED_MULTIPLIER = 0.2;
-export const ENEMY_DAMAGE_MULTIPLIER = 0.2;
-export const ENEMY_HEALTH_MULTIPLIER = 0.2;
+export const ENEMY_BULLET_SPEED_MULTIPLIER = 0.3;
+export const ENEMY_DAMAGE_MULTIPLIER = 0.3;
+export const ENEMY_HEALTH_MULTIPLIER = 0.4;
 
 // Sprites
 export const AVATAR_BODY_WIDTH = 16;
