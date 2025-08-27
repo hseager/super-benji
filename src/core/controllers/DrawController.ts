@@ -176,37 +176,6 @@ class DrawController {
     }
   }
 
-  drawButton(
-    text: string,
-    buttonY: number,
-    options?: {
-      x?: number; // custom x position
-      w?: number; // custom width
-      h?: number; // custom height
-    }
-  ) {
-    const ctx = this.context;
-
-    const buttonWidth = options?.w ?? 80;
-    const buttonHeight = options?.h ?? 20;
-    const buttonX = options?.x ?? ctx.canvas.width / 2 - buttonWidth / 2;
-
-    ctx.fillStyle = "#555";
-    ctx.fillRect(buttonX, buttonY, buttonWidth, buttonHeight);
-
-    ctx.strokeStyle = "white";
-    ctx.lineWidth = 2;
-    ctx.strokeRect(buttonX, buttonY, buttonWidth, buttonHeight);
-
-    ctx.fillStyle = "white";
-    ctx.font = "10px Arial";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText(text, buttonX + buttonWidth / 2, buttonY + buttonHeight / 2);
-
-    return { x: buttonX, y: buttonY, w: buttonWidth, h: buttonHeight };
-  }
-
   resizeCanvas() {
     const vh = window.visualViewport?.height || window.innerHeight;
     const vw = window.visualViewport?.width || window.innerWidth;

@@ -1,13 +1,37 @@
-import { BOSS_ATTACK_SPEED, BOSS_MAX_LIFE } from "../config";
+import { GameController } from "../controllers/GameController";
+import { MovePattern, ShootPattern } from "../types";
+import { BulletPool } from "./bulletPool";
 import { Enemy } from "./enemy";
 
 export class Boss extends Enemy {
-  glowColor: string = "#ff1e007c";
-  glowAmount: number = 12;
-
   // Stats
-  maxLife = BOSS_MAX_LIFE;
-  life = BOSS_MAX_LIFE;
-  attackSpeed: number = BOSS_ATTACK_SPEED;
   shootDir = { x: 0, y: 1 };
+
+  constructor(
+    gameController: GameController,
+    sprite: HTMLImageElement,
+    bulletPool: BulletPool,
+    health: number,
+    damage: number,
+    attackSpeed: number,
+    bulletSpeed: number,
+    x: number,
+    y: number,
+    movePattern: MovePattern,
+    shootPattern: ShootPattern
+  ) {
+    super(
+      gameController,
+      sprite,
+      bulletPool,
+      health,
+      damage,
+      attackSpeed,
+      bulletSpeed,
+      x,
+      y,
+      movePattern,
+      shootPattern
+    );
+  }
 }

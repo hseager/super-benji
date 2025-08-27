@@ -166,7 +166,6 @@ export class GameController {
     this.paused = true;
     this.levelManager = new LevelController(this);
 
-    // Show Bargain menu
     this.levelManager.nextLevel();
   }
 }

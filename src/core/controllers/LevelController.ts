@@ -39,7 +39,6 @@ export class LevelController {
   bossSpawned = false;
   rifts: { x: number; y: number; spawnTime: number }[] = [];
   gameTime: number = 0;
-  bossAttackSpeedPenalty = 0; // Pretty messy here, but need to save bytes
 
   constructor(gameManager: GameController) {
     this.gameManager = gameManager;
@@ -153,16 +152,16 @@ export class LevelController {
       const scaledDamage =
         BOSS_BULLET_DAMAGE * Math.pow(UBER_BOSS_STAT_MULTIPLIER, bossNumber);
       const scaledAttackSpeed =
-        BOSS_ATTACK_SPEED *
-        Math.pow(UBER_BOSS_STAT_MULTIPLIER, bossNumber) *
-        this.bossAttackSpeedPenalty;
+        BOSS_ATTACK_SPEED * Math.pow(UBER_BOSS_STAT_MULTIPLIER, bossNumber);
       const scaledBulletSpeed =
         BOSS_BULLET_SPEED * Math.pow(UBER_BOSS_STAT_MULTIPLIER, bossNumber);
+
+      console.log(scaledAttackSpeed);
 
       this.spawnBoss(
         scaledLife,
         scaledDamage,
-        scaledAttackSpeed,
+        BOSS_ATTACK_SPEED,
         scaledBulletSpeed
       );
     } else {
@@ -176,20 +175,8 @@ export class LevelController {
   }
 
   spawnNextWave() {
-    if (this.currentWave < this.wavesPerLevel) {
-      this.currentWave++;
-      this.spawnWave(this.currentWave);
-    } else {
-      // no more waves -> go to choice screen
-      screenTransitions.fadeOutThenIn(() => {
-        if (this.currentLevel === 1) {
-          // Do a bargain after the first level
-          this.gameManager.bargainScreen.start();
-        } else {
-          this.gameManager.upgradeScreen.start();
-        }
-      });
-    }
+    this.currentWave++;
+    this.spawnWave(this.currentWave);
   }
 
   nextLevel() {
@@ -359,9 +346,15 @@ export class LevelController {
         // More waves remain → spawn next one
         this.spawnNextWave();
       } else {
-        screenTransitions.fadeOutThenIn(() =>
-          this.gameManager.upgradeScreen.start()
-        );
+        screenTransitions.fadeOutThenIn(() => {
+          if (this.currentLevel === 1) {
+            // Do a bargain at the start to make it more interesting
+            this.gameManager.bargainScreen.start();
+            this.nextLevel();
+          } else {
+            this.gameManager.upgradeScreen.start();
+          }
+        });
       }
     }
 

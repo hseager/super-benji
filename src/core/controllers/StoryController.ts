@@ -48,7 +48,7 @@ const storyActs: Record<number, StoryLine[]> = {
     },
     {
       speaker: "Jackal",
-      text: "Just in time for us to test our Mega Drive! Hahaha",
+      text: "Just in time for us to test the Mega Drive! Hahaha",
     },
     {
       speaker: "Maggie",

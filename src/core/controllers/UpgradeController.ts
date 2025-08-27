@@ -160,12 +160,11 @@ export class UpgradeController {
     {
       rarity: RarityLabel.Legendary,
       name: "Maggie's Cloak",
-      description: `${StatLabel.HP} -15, ${StatLabel.REGEN} +5`,
+      description: `${StatLabel.HP} +15, ${StatLabel.REGEN} +6`,
       description2: `${StatLabel.EVASION} +30%`,
       apply: () => {
-        this.gameManager.player.maxLife -= 15;
-        this.gameManager.player.life -= 20;
-        this.gameManager.player.regen += 5;
+        this.gameManager.player.maxLife = 15;
+        this.gameManager.player.regen += 6;
         this.gameManager.player.evasion += 30;
         this.gameManager.player.playerColor = "blue";
       },
@@ -206,11 +205,11 @@ export class UpgradeController {
       rarity: RarityLabel.Epic,
       name: "Plasma Rocket Fuel",
       description: `${StatLabel.MOVESPD} +30%`,
-      description2: `${StatLabel.EVASION} -10%`,
+      description2: `${StatLabel.EVASION} 10%`,
       apply: () => {
         this.gameManager.player.movementXSpeed *= 1.3;
         this.gameManager.player.movementYSpeed *= 1.3;
-        this.gameManager.player.evasion -= 10;
+        this.gameManager.player.evasion += 10;
       },
     },
     {

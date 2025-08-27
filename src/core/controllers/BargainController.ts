@@ -26,13 +26,6 @@ export class BargainController {
       },
     },
     {
-      cost: 4,
-      description: `Jackal attacks 20% slower`,
-      apply: async () => {
-        this.gameManager.levelManager.bossAttackSpeedPenalty = 1.2;
-      },
-    },
-    {
       cost: 8,
       description: `Warp to Rift Horizon`,
       description2: `(Danger!)`,
@@ -73,8 +66,8 @@ export class BargainController {
     },
     {
       cost: 6,
-      description: `You deal double damage`,
-      description2: `You have half max health`,
+      description: `Benji deals double damage`,
+      description2: `Benji has half max health`,
       apply: async () => {
         this.gameManager.player.maxLife /= 2;
         this.gameManager.player.damage *= 2;
