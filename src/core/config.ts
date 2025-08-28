@@ -130,33 +130,33 @@ export const ENEMY_START_POSITION_Y = -40;
 export const ENEMY_DIRECTION_CHANGE_CHANCE = 0.3; // 30%
 
 export const BASIC_ENEMY_PALETTE = [
-  "#200900",
-  "#190902",
-  "#291403",
-  "#311d0c",
-  "#a05030",
-  "#c06440",
-  "#e6a67c",
+  "#1A0D00", // void black-orange
+  "#331A00", // deep shadow
+  "#663311", // enemy orange hull
+  "#994422", // battle-scarred plating
+  "#CC6633", // highlights
+  "#FF9966", // glowing accents
+  "#FFD9B3", // faint reflections
 ];
 
 export const MODERATE_ENEMY_PALETTE = [
-  "#201a00",
-  "#191502",
-  "#291f03",
-  "#312e0c",
-  "#a08230",
-  "#c09e40",
-  "#e6d37c",
+  "#1A1A00", // void black-yellow (kept dark)
+  "#2B2B1A", // deep shadow
+  "#555533", // muted yellow hull
+  "#777755", // worn plating
+  "#999966", // dusty highlight
+  "#BBBB88", // pale glowing accent
+  "#E0E0C0", // faint reflections
 ];
 
 export const ADVANCED_ENEMY_PALETTE = [
-  "#310101",
-  "#331515",
-  "#380d0d",
-  "#310c0c",
-  "#A03030",
-  "#c04040",
-  "#e67c7c",
+  "#1A0000", // void black
+  "#330000", // deep crimson shadow
+  "#661111", // enemy red hull
+  "#992222", // battle-scarred plating
+  "#CC3333", // highlights
+  "#FF6666", // glowing accents
+  "#FFD9D9", // faint reflections
 ];
 
 // Boss

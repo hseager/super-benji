@@ -15,7 +15,7 @@ export class BargainController {
   private bargains: Bargain[] = [
     {
       cost: 3,
-      description: `50% increase enemy`,
+      description: `Enemies have increased`,
       description2: `projectile speed`,
       apply: async () => {
         this.gameManager.levelManager.enemyTypes =
@@ -36,41 +36,40 @@ export class BargainController {
     },
     {
       cost: 2,
-      description: `Enemies deal double damage`,
+      description: `Enemies deal more damage`,
       apply: async () => {
         this.gameManager.levelManager.enemyTypes =
           this.gameManager.levelManager.enemyTypes.map((e) => {
-            e.bulletDamage *= 2;
+            e.bulletDamage *= 1.5;
             return e;
           });
       },
     },
     {
       cost: 2,
-      description: `Enemies have double health`,
+      description: `Enemies have more health`,
       apply: async () => {
         this.gameManager.levelManager.enemyTypes =
           this.gameManager.levelManager.enemyTypes.map((e) => {
-            e.health *= 2;
+            e.health *= 1.5;
             return e;
           });
       },
     },
     {
       cost: 1,
-      description: `Jackal calls for backup`,
-      description2: `(Twice as many enemies)`,
+      description: `Increased enemy count`,
       apply: async () => {
-        this.gameManager.levelManager.baseEnemyCount *= 2;
+        this.gameManager.levelManager.baseEnemyCount *= 1.5;
       },
     },
     {
       cost: 6,
-      description: `Benji deals double damage`,
-      description2: `Benji has half max health`,
+      description: `Benji deals more damage`,
+      description2: `Benji has less max health`,
       apply: async () => {
-        this.gameManager.player.maxLife /= 2;
-        this.gameManager.player.damage *= 2;
+        this.gameManager.player.maxLife /= 1.5;
+        this.gameManager.player.damage *= 1.5;
       },
     },
     {

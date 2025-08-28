@@ -20,6 +20,8 @@ The hunt builds toward a final showdown with the Jackal himself, where his ultim
   - Skip 5 levels
   - Evasion chance increases damge
   - Change enemy flight/shooting behaviour
+  - Increased regen on low life
+  - Regen tick
 - Remove some dud items for space
 - Tidy up UI
 - Balance testing
