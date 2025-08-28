@@ -4,72 +4,79 @@ import { drawEngine } from "./DrawController";
 import { GameController } from "./GameController";
 import { screenTransitions } from "./ScreenTransitionController";
 
+export const characterNames: Record<string, Character> = {
+  Benji: "Benji",
+  Maggie: "Maggie",
+  Torx: "Torx",
+  Jackal: "Jackal",
+};
+
 const storyActs: Record<number, StoryLine[]> = {
   [StoryActs.Act1]: [
     {
-      speaker: "Maggie",
-      text: "Benji, the Iron Jackal has stolen the Warp Core.",
+      speaker: characterNames.Maggie,
+      text: `${characterNames.Benji}, the Iron ${characterNames.Jackal} has stolen the Warp Core!`,
     },
     {
-      speaker: "Maggie",
+      speaker: characterNames.Maggie,
       text: "Who knows what he plans to do with it, but it can't be good.",
     },
     {
-      speaker: "Torx",
+      speaker: characterNames.Torx,
       text: "That core could power a thousand fleets…",
     },
     {
-      speaker: "Benji",
+      speaker: characterNames.Benji,
       text: "Then what are we waiting for? After him!",
     },
   ],
   [StoryActs.Act2]: [
     {
-      speaker: "Maggie",
-      text: "The closer we get, the more concerning some of these readings are. ",
+      speaker: characterNames.Maggie,
+      text: "The closer we get, the more concerning some of these readings are.",
     },
     {
-      speaker: "Torx",
+      speaker: characterNames.Torx,
       text: "It looks like space-time itself is... distorting...",
     },
     {
-      speaker: "Jackal",
+      speaker: characterNames.Jackal,
       text: "Hahaha, you should be running rather than chasing me!",
     },
     {
-      speaker: "Benji",
+      speaker: characterNames.Benji,
       text: "You will regret stealing The Warp Core once we are done with you Jackal!",
     },
   ],
   [StoryActs.Act3]: [
     {
-      speaker: "Torx",
+      speaker: characterNames.Torx,
       text: "We're close, but I hope we're ready, this area looks very unstable.",
     },
     {
-      speaker: "Jackal",
+      speaker: characterNames.Jackal,
       text: "Just in time for us to test the Mega Drive! Hahaha",
     },
     {
-      speaker: "Maggie",
-      text: "Watch out Benji! He's turned the Warp Core into a weapon!",
+      speaker: characterNames.Maggie,
+      text: `Watch out ${characterNames.Benji}! He's turned the Warp Core into a weapon!`,
     },
     {
-      speaker: "Benji",
-      text: "This stops now Jackal! Feel my claws",
+      speaker: characterNames.Benji,
+      text: `This stops now ${characterNames.Jackal}! Feel my claws`,
     },
   ],
   [StoryActs.Epilogue]: [
     {
-      speaker: "Maggie",
-      text: "It’s done. The Jackal is defeated, and The Core is safe.",
+      speaker: characterNames.Maggie,
+      text: `It's done. The ${characterNames.Jackal} is defeated, and The Core is safe.`,
     },
     {
       speaker: "Torx",
-      text: "There's plenty of Iron Jackal's allies left to clean up.",
+      text: `There's plenty of Iron ${characterNames.Jackal}'s allies left to clean up.`,
     },
     {
-      speaker: "Benji",
+      speaker: characterNames.Benji,
       text: "Let's see how far we can get!",
     },
   ],
@@ -83,18 +90,17 @@ export class StoryController {
 
   private torxDialog: string[] = [
     "Scrap secured. Upgrade time!",
-    "Jackal’s junk is our treasure.",
-    "Zone clear. Let’s bolt on something new.",
+    `${characterNames.Jackal}'s junk is our treasure.`,
+    "Zone clear. Let's bolt on something new.",
     "Bolted on. Hope it stays put.",
     "Hull patched. Tape counts as armor, right?",
-    "Think Maggie prefers chrome or silver?",
     "System update: paws-itively improved.",
   ];
   private maggieDialog: string[] = [
-    "You’re betting with lives, Benji - and you don’t have many left.",
-    "Nine lives sound plenty… until you spend them like pocket change.",
+    `You're betting with lives, ${characterNames.Benji} - and you don't have many left.`,
+    "Nine lives sound plenty, until you spend them like pocket change.",
     "Each choice shaves another chance off your nine lives.",
-    "Benji, you’re not rolling dice — you’re rolling your life away.",
+    `${characterNames.Benji}, use your 9 lives wisely.`,
     "You're lucky that cats get 9 lives to gamble with.",
   ];
 

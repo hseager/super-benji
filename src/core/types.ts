@@ -45,7 +45,7 @@ export const StoryActs = {
 
 export type Character = "Benji" | "Maggie" | "Torx" | "Jackal";
 
-export type MovePattern = "none" | "straight" | "sine" | "zigzag";
+export type MovePattern = "none" | "sine" | "zigzag";
 export type ShootPattern =
   | "single"
   | "burst"

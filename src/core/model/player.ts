@@ -48,6 +48,9 @@ export class Player extends Shooter {
   bulletColor: string = "blue";
   playerColor: string = "grey";
 
+  moveSpeedEvasionBuff = false;
+  regenIncreaseBuff = false;
+
   constructor(
     gameController: GameController,
     sprite: HTMLImageElement,
@@ -157,8 +160,8 @@ export class Player extends Shooter {
     if (this.regen > 0 && this.life < this.maxLife) {
       this.regenTimer += delta;
 
-      // Trigger once every 5 seconds
-      if (this.regenTimer >= 5) {
+      let regenTick = this.regenIncreaseBuff ? 2.5 : 5;
+      if (this.regenTimer >= regenTick) {
         const regen = Math.min(this.regen, PLAYER_REGEN_CAP);
         this.life += regen;
 

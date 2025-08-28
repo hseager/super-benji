@@ -1,5 +1,6 @@
 import { Bargain } from "../types";
 import { GameController } from "./GameController";
+import { characterNames } from "./StoryController";
 
 export class BargainController {
   private gameManager: GameController;
@@ -35,14 +36,19 @@ export class BargainController {
       },
     },
     {
-      cost: 2,
-      description: `Enemies deal more damage`,
+      cost: 7,
+      description: `${characterNames.Benji}'s movement speed`,
+      description2: `also increases evasion`,
       apply: async () => {
-        this.gameManager.levelManager.enemyTypes =
-          this.gameManager.levelManager.enemyTypes.map((e) => {
-            e.bulletDamage *= 1.5;
-            return e;
-          });
+        this.gameManager.player.moveSpeedEvasionBuff = true;
+      },
+    },
+    {
+      cost: 6,
+      description: `${characterNames.Benji}'s regen is`,
+      description2: `increased at low health`,
+      apply: async () => {
+        this.gameManager.player.regenIncreaseBuff = true;
       },
     },
     {
@@ -58,15 +64,28 @@ export class BargainController {
     },
     {
       cost: 1,
-      description: `Increased enemy count`,
+      description: `Increases the amount`,
+      description2: `of enemies`,
       apply: async () => {
-        this.gameManager.levelManager.baseEnemyCount *= 1.5;
+        this.gameManager.levelManager.baseEnemyCount *= 1.75;
       },
     },
     {
-      cost: 6,
-      description: `Benji deals more damage`,
-      description2: `Benji has less max health`,
+      cost: 3,
+      description: `Changes enemy shooting`,
+      description2: `patterns`,
+      apply: async () => {
+        this.gameManager.levelManager.enemyTypes =
+          this.gameManager.levelManager.enemyTypes.map((e) => {
+            e.shootPattern = "megaspread";
+            return e;
+          });
+      },
+    },
+    {
+      cost: 5,
+      description: `${characterNames.Benji} deals more damage`,
+      description2: `${characterNames.Benji} has less max health`,
       apply: async () => {
         this.gameManager.player.maxLife /= 1.5;
         this.gameManager.player.damage *= 1.5;
@@ -80,6 +99,5 @@ export class BargainController {
         this.gameManager.player.shootPattern = "megaspread";
       },
     },
-    // Legendaries are more common
   ];
 }

@@ -97,7 +97,11 @@ export class GameController {
 
         bullet.explode(6, 2);
 
-        const evasion = Math.min(player.evasion, PLAYER_EVASION_CAP);
+        let evasion = Math.min(player.evasion, PLAYER_EVASION_CAP);
+        if (player.moveSpeedEvasionBuff) {
+          evasion += player.movementXSpeed * 0.05;
+        }
+        console.log("Evasion:", evasion.toFixed(2));
         if (roll() > evasion) {
           player.takeDamage(bullet.damage);
         }

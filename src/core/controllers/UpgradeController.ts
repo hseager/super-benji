@@ -30,19 +30,7 @@ export class UpgradeController {
     return this.upgrades;
   }
 
-  // Change color of boosters
   private upgrades: Upgrade[] = [
-    // Offensive
-    {
-      rarity: RarityLabel.Common,
-      name: "Pulse Lazer MK-II",
-      description: `${StatLabel.DMG} +4, ${StatLabel.ATKSPD} +10%`,
-      apply: async () => {
-        this.gameManager.player.damage += 4;
-        this.gameManager.player.attackSpeed *= 0.9;
-        this.gameManager.player.bulletColor = "green";
-      },
-    },
     {
       rarity: RarityLabel.Common,
       name: "A.F.K Simulator",
@@ -172,22 +160,13 @@ export class UpgradeController {
     // Movement
     {
       rarity: RarityLabel.Common,
-      name: "Starwing Stabilizers",
-      description: `${StatLabel.MOVESPD} +12%`,
-      apply: () => {
-        this.gameManager.player.movementXSpeed *= 1.12;
-        this.gameManager.player.movementYSpeed *= 1.12;
-      },
-    },
-    {
-      rarity: RarityLabel.Common,
       name: "Advanced Wings",
       description: `${StatLabel.MOVESPD} +10%`,
-      description2: `${StatLabel.ATKSPD} +5%`,
+      description2: `${StatLabel.ATKSPD} +2%`,
       apply: () => {
         this.gameManager.player.movementXSpeed *= 1.1;
         this.gameManager.player.movementYSpeed *= 1.1;
-        this.gameManager.player.attackSpeed *= 0.95;
+        this.gameManager.player.attackSpeed *= 0.98;
       },
     },
     {
@@ -202,20 +181,9 @@ export class UpgradeController {
       },
     },
     {
-      rarity: RarityLabel.Epic,
-      name: "Plasma Rocket Fuel",
-      description: `${StatLabel.MOVESPD} +30%`,
-      description2: `${StatLabel.EVASION} 10%`,
-      apply: () => {
-        this.gameManager.player.movementXSpeed *= 1.3;
-        this.gameManager.player.movementYSpeed *= 1.3;
-        this.gameManager.player.evasion += 10;
-      },
-    },
-    {
       rarity: RarityLabel.Legendary,
       name: "Voidstep Drive",
-      description: `${StatLabel.MOVESPD} +25%`,
+      description: `${StatLabel.MOVESPD} +30%`,
       description2: `${StatLabel.EVASION} +10%`,
       apply: () => {
         this.gameManager.player.movementXSpeed *= 1.3;
@@ -236,10 +204,10 @@ export class UpgradeController {
     {
       rarity: RarityLabel.Common,
       name: "Lazer pointer attachment",
-      description: `${StatLabel.ATKSPD} +8%`,
+      description: `${StatLabel.ATKSPD} +5%`,
       description2: `${StatLabel.EVASION} 3%`,
       apply: () => {
-        this.gameManager.player.attackSpeed *= 0.92;
+        this.gameManager.player.attackSpeed *= 0.95;
         this.gameManager.player.evasion += 3;
       },
     },
@@ -299,10 +267,10 @@ export class UpgradeController {
     {
       rarity: RarityLabel.Common,
       name: "Tuna Suprise",
-      description: `${StatLabel.HEAL} +15 ${StatLabel.HP} +5`,
+      description: `${StatLabel.HEAL} +15 ${StatLabel.HP} +4`,
       apply: () => {
         this.gameManager.player.maxLife += 5;
-        this.gameManager.player.heal(5);
+        this.gameManager.player.heal(4);
       },
     },
     {

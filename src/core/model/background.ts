@@ -194,12 +194,14 @@ export class Background {
     ctx.imageSmoothingEnabled = false;
 
     // Stars
-    const totalStars = Math.floor(size * size * density);
-    for (let i = 0; i < totalStars; i++) {
-      const x = Math.floor(Math.random() * size);
-      const y = Math.floor(Math.random() * size);
+    for (let i = 0; i < Math.floor(size * size * density); i++) {
       ctx.fillStyle = palette[Math.floor(Math.random() * palette.length)];
-      ctx.fillRect(x, y, starSize, starSize);
+      ctx.fillRect(
+        Math.floor(Math.random() * size),
+        Math.floor(Math.random() * size),
+        starSize,
+        starSize
+      );
     }
 
     // Add nebula clouds
@@ -217,10 +219,14 @@ export class Background {
     palette: string[]
   ) {
     for (let i = 0; i < count; i++) {
-      const radius = Math.random() * (size / 2) + size / 3;
-      const x = Math.random() * size;
-      const y = Math.random() * size;
-      this.drawWrappedGradient(ctx, x, y, radius, size, palette);
+      this.drawWrappedGradient(
+        ctx,
+        Math.random() * size,
+        Math.random() * size,
+        Math.random() * (size / 2) + size / 3,
+        size,
+        palette
+      );
     }
   }
 

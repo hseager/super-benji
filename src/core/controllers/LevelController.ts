@@ -46,7 +46,7 @@ export class LevelController {
     this.enemyTypes = [
       {
         sprite: this.gameManager.spriteManager.basicEnemySprite,
-        movePattern: "straight",
+        movePattern: "zigzag",
         shootPattern: "single",
         bulletSpeed: ENEMY_BULLET_SPEED,
         bulletDamage: ENEMY_BULLET_DAMAGE,

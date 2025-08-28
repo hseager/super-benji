@@ -4,7 +4,6 @@ import { BulletPool } from "./bulletPool";
 import { Enemy } from "./enemy";
 
 export class Boss extends Enemy {
-  // Stats
   shootDir = { x: 0, y: 1 };
 
   constructor(
