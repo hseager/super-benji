@@ -85,11 +85,10 @@ export class StoryController {
     "Scrap secured. Upgrade time!",
     "Jackal’s junk is our treasure.",
     "Zone clear. Let’s bolt on something new.",
-    "Reactor’s humming—don’t breathe too close.",
-    "Cut the green wire… I think.",
+    "Bolted on. Hope it stays put.",
     "Hull patched. Tape counts as armor, right?",
     "Think Maggie prefers chrome or silver?",
-    "Big red button… probably important.",
+    "System update: paws-itively improved.",
   ];
   private maggieDialog: string[] = [
     "You’re betting with lives, Benji - and you don’t have many left.",

@@ -56,8 +56,8 @@ export class SpriteController {
           ADVANCED_ENEMY_PALETTE,
           16,
           16,
-          2,
-          16
+          16,
+          2
         )))(),
       (async () =>
         (this.playerAvatar = await spriteBuilder.createAvatar(
