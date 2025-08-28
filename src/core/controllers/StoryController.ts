@@ -90,14 +90,11 @@ export class StoryController {
 
   private torxDialog: string[] = [
     "Scrap secured. Upgrade time!",
-    `${characterNames.Jackal}'s junk is our treasure.`,
     "Zone clear. Let's bolt on something new.",
     "Bolted on. Hope it stays put.",
-    "Hull patched. Tape counts as armor, right?",
     "System update: paws-itively improved.",
   ];
   private maggieDialog: string[] = [
-    `You're betting with lives, ${characterNames.Benji} - and you don't have many left.`,
     "Nine lives sound plenty, until you spend them like pocket change.",
     "Each choice shaves another chance off your nine lives.",
     `${characterNames.Benji}, use your 9 lives wisely.`,

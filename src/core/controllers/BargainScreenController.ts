@@ -16,7 +16,7 @@ export class BargainScreenController extends ChoiceScreenController<Bargain> {
   }
 
   update() {
-    if (this.gameManager.player.isDead()) {
+    if (this.gameManager.player.isDead() && this.gameManager.player.lives > 0) {
       this.gameManager.paused = true;
       this.start();
       this.gameManager.player.revive();

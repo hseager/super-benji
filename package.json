@@ -35,7 +35,7 @@
     "lint": "eslint --ext .ts,.js,.vue --ignore-path .gitignore src",
     "vite": "vite serve",
     "tsc": "tsc --noEmit",
-    "predeploy": "npm run build",
+    "predeploy": "npm run build-with-best-roadroller",
     "deploy": "gh-pages -d dist"
   },
   "author": "Harvey Seager",

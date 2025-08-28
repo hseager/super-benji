@@ -46,7 +46,6 @@ class GameState implements State {
     const mouse = drawEngine.mousePosition;
 
     if (!this.gameManager) return;
-
     this.gameManager.update(delta, mouse);
     this.gameManager.draw(this.ctx);
 

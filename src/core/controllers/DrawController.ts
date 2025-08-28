@@ -82,8 +82,8 @@ class DrawController {
     ctx.strokeStyle = shadowColor;
     ctx.fillStyle = shadowColor;
     ctx.textAlign = "center";
-    ctx.strokeText(text, x, y + 1);
-    ctx.fillText(text, x, y + 2);
+    ctx.strokeText(text, x, fontSize > 12 ? y + 1 : y);
+    ctx.fillText(text, x, fontSize > 12 ? y + 2 : y);
     ctx.font = `bold ${fontSize}px "Courier New"`;
     ctx.fillStyle = this.getGradient(ctx, y, [
       [0.0, "#fff4c1"],
@@ -266,20 +266,9 @@ class DrawController {
 
     // Clip to circle so image stays inside coin
     ctx.clip();
-
-    // Draw image centered inside coin
-    // const imgSize = size * 1.4; // scale factor for image inside circle
-    // ctx.drawImage(
-    //   image,
-    //   position.x - (imgSize * 0.75) / 2,
-    //   position.y - imgSize / 2,
-    //   imgSize * 0.8,
-    //   imgSize
-    // );
+    ctx.restore();
 
     this.drawTitle("B", size, position.x, position.y + size * 0.2);
-
-    ctx.restore();
   }
 
   getCenterX() {

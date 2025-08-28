@@ -16,12 +16,7 @@ The hunt builds toward a final showdown with the Jackal himself, where his ultim
 
 ### TODO
 
-- Make more positive Bargains
-  - Skip 5 levels
-  - Evasion chance increases damge
-  - Increased regen on low life
-  - Regen tick
-- Remove some dud items for space
+- Fullscreen mobile bug
 - Tidy up UI
 - Balance testing
 - Write intro
