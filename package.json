@@ -38,8 +38,5 @@
     "predeploy": "npm run build-with-best-roadroller",
     "deploy": "gh-pages -d dist"
   },
-  "author": "Harvey Seager",
-  "dependencies": {
-    "tinymusic": "^1.0.0"
-  }
+  "author": "Harvey Seager"
 }
