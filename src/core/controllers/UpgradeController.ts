@@ -204,7 +204,7 @@ export class UpgradeController {
     },
     {
       rarity: RarityLabel.Common,
-      name: "Lazer pointer attachment",
+      name: "Lazer pointer addon",
       description: `${StatLabel.ATKSPD} +5%`,
       description2: `${StatLabel.EVASION} 3%`,
       apply: () => {
@@ -287,7 +287,7 @@ export class UpgradeController {
     },
     {
       rarity: RarityLabel.Legendary,
-      name: "Schrödinger Sandwich",
+      name: "Schrodinger Sandwich",
       description: `${StatLabel.HEAL} +80, ${StatLabel.ATKSPD} +20%`,
       apply: () => {
         this.gameManager.player.heal(80);

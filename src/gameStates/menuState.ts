@@ -2,6 +2,7 @@ import { State } from "@/core/types";
 import { drawEngine } from "@/core/controllers/DrawController";
 import { gameStateMachine } from "@/gameStates/gameStateMachine";
 import { gameState } from "./gameState";
+import { DEFAULT_FONT } from "@/core/config";
 
 class MenuState implements State {
   playerAvatar: HTMLImageElement | null;
@@ -20,27 +21,48 @@ class MenuState implements State {
   }
 
   onUpdate(delta: number) {
-    drawEngine.drawTitle("BENJI", 56, drawEngine.getCenterX() + 15, 180);
-    drawEngine.drawText(
-      "SUPER",
-      36,
-      drawEngine.getCenterX() - 70,
-      145,
-      "#fff",
-      "center",
-      "#ee2626",
-      3,
-      Math.PI / -20
-    );
-
     const { context } = drawEngine;
 
+    const text = "BENJI";
+    const y = 180;
+    const fontSize = 56;
+
+    // Main Text
     context.save();
-    context.font = `900 14px "Tahoma"`;
     context.textAlign = "center";
-    context.fillStyle = "#f01b1bce";
+    context.font = `900 ${fontSize}px ${DEFAULT_FONT}`;
+
+    context.lineWidth = 10;
+    context.strokeStyle = "#322d5a";
+    context.strokeText(text, drawEngine.getCenterX(), y);
+
+    // --- Thin inner stroke ---
+    context.lineWidth = 2;
+    context.strokeStyle = "#fe4d2c";
+    context.strokeText(text, drawEngine.getCenterX(), y);
+
+    const gradient = context.createLinearGradient(0, 0, 200, 0);
+    gradient.addColorStop(0, "#c95f33");
+    gradient.addColorStop(1, "#fed266");
+    context.fillStyle = gradient;
+
+    context.fillText(text, drawEngine.getCenterX(), y);
+    drawEngine.drawText(
+      "SUPER",
+      24,
+      drawEngine.getCenterX() - 65,
+      138,
+      "#8e5439",
+      "center",
+      "#aa221b",
+      2,
+      Math.PI / -20,
+      "Arial"
+    );
+
+    context.font = `900 14px "Tahoma"`;
+    context.fillStyle = "#f01b1b";
     context.fillText("JS13K 2025", 55, drawEngine.canvasHeight - 10);
-    context.restore();
 
     drawEngine.drawText(
       "by hseager",
@@ -54,6 +76,8 @@ class MenuState implements State {
       delta,
       drawEngine.canvasHeight * 0.6
     );
+
+    context.restore();
   }
 
   onLeave() {

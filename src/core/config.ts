@@ -246,3 +246,5 @@ export const RARITY_WEIGHTS: Record<string, number> = {
   Epic: 8,
   Legendary: 5,
 };
+
+export const DEFAULT_FONT = '"Courier New", monospace';

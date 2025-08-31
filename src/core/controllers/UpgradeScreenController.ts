@@ -1,6 +1,6 @@
 import { Upgrade, ItemRarity } from "../types";
 import { UpgradeController } from "./UpgradeController";
-import { RARITY_WEIGHTS } from "../config";
+import { DEFAULT_FONT, RARITY_WEIGHTS } from "../config";
 import { GameController } from "./GameController";
 import { ChoiceScreenController } from "./ChoiceScreenController";
 import { drawEngine } from "./DrawController";
@@ -71,24 +71,25 @@ export class UpgradeScreenController extends ChoiceScreenController<Upgrade> {
     const padding = 10;
     const lineHeight = 18;
 
-    let borderColor = "white";
+    let borderColor = "#fff";
     if (upgrade.rarity === "Rare") borderColor = "#60a5fa";
     else if (upgrade.rarity === "Epic") borderColor = "#c084fc";
     else if (upgrade.rarity === "Legendary") borderColor = "#fb923c";
 
     drawEngine.drawRoundedRect(ctx, x, y, w, h, 6, "#222", borderColor);
+    const fontSize = "16px";
 
     let textY = y + lineHeight;
     ctx.fillStyle = borderColor;
-    ctx.font = "16px Courier New";
+    ctx.font = `${fontSize} ${DEFAULT_FONT}`;
     ctx.fillText(`[${upgrade.rarity}]`, x + padding, textY);
 
     textY += lineHeight;
-    ctx.font = "bold 16px Courier New";
-    ctx.fillStyle = "white";
+    ctx.font = `bold ${fontSize} ${DEFAULT_FONT}`;
+    ctx.fillStyle = "#fff";
     ctx.fillText(upgrade.name, x + padding, textY);
 
-    ctx.font = "16px Courier New";
+    ctx.font = `${fontSize} ${DEFAULT_FONT}`;
     textY += lineHeight;
     ctx.fillText(upgrade.description, x + padding, textY);
 

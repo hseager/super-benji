@@ -1,4 +1,4 @@
-import { AVATAR_BODY_HEIGHT, STORY_LEVELS } from "../config";
+import { AVATAR_BODY_HEIGHT, DEFAULT_FONT, STORY_LEVELS } from "../config";
 import { Character, ImageProperties, StoryActs, StoryLine } from "../types";
 import { drawEngine } from "./DrawController";
 import { GameController } from "./GameController";
@@ -229,7 +229,7 @@ export class StoryController {
     const fontSize = 12;
     const lineHeight = fontSize + 4; // breathing room between lines
 
-    ctx.font = `bold ${fontSize}px Courier New`;
+    ctx.font = `bold ${fontSize}px ${DEFAULT_FONT}`;
 
     const textX = boxPadding * 2;
     const maxTextWidth = drawEngine.canvasWidth - textX - boxPadding;
@@ -265,7 +265,7 @@ export class StoryController {
     // Draw text
     let y = dialogBoxY + boxPadding / 2 + fontSize;
     for (let l of lines) {
-      drawEngine.drawText(l, fontSize, textX, y, "white", "left");
+      drawEngine.drawText(l, fontSize, textX, y, "#fff", "left");
       y += lineHeight;
     }
   }
@@ -280,18 +280,10 @@ export class StoryController {
 
     ctx.save();
     ctx.drawImage(sprite, x, y, width, height);
-    ctx.strokeStyle = "white";
+    ctx.strokeStyle = "#fff";
     ctx.lineWidth = 1;
-    ctx.strokeRect(x + 0.5, y + 0.5, width - 1, height - 1);
-    ctx.strokeRect(x, y, width, height);
-    drawEngine.drawText(
-      speaker,
-      12,
-      x + width / 2,
-      y + height + 15,
-      "white",
-      "center"
-    );
+    ctx.strokeRect(x, y, width, height - 2);
+    drawEngine.drawText(speaker, 12, x + width / 2, y + height + 15, "#fff");
     ctx.restore();
   }
 

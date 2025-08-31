@@ -1,3 +1,4 @@
+import { DEFAULT_FONT } from "../config";
 import { Bargain } from "../types";
 import { BargainController } from "./BargainController";
 import { ChoiceScreenController } from "./ChoiceScreenController";
@@ -75,7 +76,7 @@ export class BargainScreenController extends ChoiceScreenController<Bargain> {
     const padding = 10;
     const lineHeight = 18;
 
-    drawEngine.drawRoundedRect(ctx, x, y, w, h, 6, "#222", "white");
+    drawEngine.drawRoundedRect(ctx, x, y, w, h, 6, "#222", "#fff");
 
     let textY = y + lineHeight;
 
@@ -93,8 +94,8 @@ export class BargainScreenController extends ChoiceScreenController<Bargain> {
       10
     );
 
-    ctx.fillStyle = "white";
-    ctx.font = "16px Courier New";
+    ctx.fillStyle = "#fff";
+    ctx.font = `16px ${DEFAULT_FONT}`;
     textY += lineHeight * 2;
     ctx.fillText(bargain.description, x + padding, textY);
 

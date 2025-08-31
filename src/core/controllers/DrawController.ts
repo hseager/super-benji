@@ -1,4 +1,4 @@
-import { PLAYER_PALETTES } from "../config";
+import { DEFAULT_FONT, PLAYER_PALETTES } from "../config";
 import { Coordinates } from "../types";
 
 export const logicalWidth = 288; // base logical resolution
@@ -78,13 +78,13 @@ class DrawController {
 
     // Main Text
     ctx.save();
-    ctx.font = `bold ${fontSize - 2}px "Courier New"`;
+    ctx.font = `900 ${fontSize - 2}px ${DEFAULT_FONT}`;
     ctx.strokeStyle = shadowColor;
     ctx.fillStyle = shadowColor;
     ctx.textAlign = "center";
     ctx.strokeText(text, x, fontSize > 12 ? y + 1 : y);
     ctx.fillText(text, x, fontSize > 12 ? y + 2 : y);
-    ctx.font = `bold ${fontSize}px "Courier New"`;
+    ctx.font = `900 ${fontSize}px ${DEFAULT_FONT}`;
     ctx.fillStyle = this.getGradient(ctx, y, [
       [0.0, "#fff4c1"],
       [0.25, "#ffd84a"],
@@ -101,16 +101,17 @@ class DrawController {
     fontSize: number,
     x: number,
     y: number,
-    color = "white",
+    color = "#fff",
     textAlign: "center" | "left" | "right" = "center",
     strokeColor?: string,
     strokeSize?: number,
-    rotation?: number // rotation in radians
+    rotation?: number, // rotation in radians
+    font: string = DEFAULT_FONT
   ) {
     const context = this.context;
 
     context.save();
-    context.font = `${fontSize}px "Courier New", monospace`;
+    context.font = `${fontSize}px ${font}`;
     context.textAlign = textAlign;
     context.fillStyle = color;
 
@@ -147,7 +148,7 @@ class DrawController {
       const fontSize = 24;
 
       ctx.save();
-      ctx.font = `bold ${fontSize}px "Courier New", serif`;
+      ctx.font = `bold ${fontSize}px ${DEFAULT_FONT}`;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
 
