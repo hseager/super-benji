@@ -20,9 +20,9 @@ class MenuState implements State {
   }
 
   onUpdate(delta: number) {
-    drawEngine.drawTitle("Benji", 56, drawEngine.getCenterX() + 15, 180);
+    drawEngine.drawTitle("BENJI", 56, drawEngine.getCenterX() + 15, 180);
     drawEngine.drawText(
-      "Super",
+      "SUPER",
       36,
       drawEngine.getCenterX() - 70,
       145,

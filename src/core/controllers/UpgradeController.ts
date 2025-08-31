@@ -8,6 +8,7 @@ const RarityLabel: Record<string, ItemRarity> = {
   Legendary: "Legendary",
 };
 
+// Save some bytes by storing repeated text as vars
 const StatLabel: Record<string, string> = {
   DMG: "Damage",
   ATKSPD: "Fire Rate",
@@ -33,7 +34,7 @@ export class UpgradeController {
   private upgrades: Upgrade[] = [
     {
       rarity: RarityLabel.Common,
-      name: "A.F.K Simulator",
+      name: "Cosmic Claw",
       description: `${StatLabel.DMG} +3, ${StatLabel.PROJSPD} 5%`,
       description2: `Spread Shot`,
       apply: async () => {
@@ -81,11 +82,11 @@ export class UpgradeController {
     {
       rarity: RarityLabel.Epic,
       name: "Modified Sprinkler",
-      description: `${StatLabel.DMG} -4, ${StatLabel.ATKSPD} +60%`,
+      description: `${StatLabel.DMG} -6, ${StatLabel.ATKSPD} +50%`,
       description2: "Mega Shot",
       apply: () => {
-        this.gameManager.player.damage -= 4;
-        this.gameManager.player.attackSpeed *= 0.6;
+        this.gameManager.player.damage -= 6;
+        this.gameManager.player.attackSpeed *= 0.5;
         this.gameManager.player.bulletColor = "pink";
         this.gameManager.player.shootPattern = "megaspread";
       },
@@ -93,7 +94,7 @@ export class UpgradeController {
     {
       rarity: RarityLabel.Legendary,
       name: "Glass Cannon",
-      description: `${StatLabel.DMG} +8 ${StatLabel.HP} -40,`,
+      description: `${StatLabel.DMG} +8 ${StatLabel.HP} -30`,
       description2: "Mega Shot",
       apply: () => {
         this.gameManager.player.damage += 8;
@@ -130,9 +131,9 @@ export class UpgradeController {
     {
       rarity: RarityLabel.Rare,
       name: "Torx’s Reinforced Shell",
-      description: `${StatLabel.HP} +20, ${StatLabel.REGEN} +4`,
+      description: `${StatLabel.HP} +25, ${StatLabel.REGEN} +4`,
       apply: () => {
-        this.gameManager.player.maxLife += 20;
+        this.gameManager.player.maxLife += 25;
         this.gameManager.player.life += 20;
         this.gameManager.player.regen += 4;
       },
@@ -213,7 +214,7 @@ export class UpgradeController {
     },
     {
       rarity: RarityLabel.Rare,
-      name: "Plasma Capacitor",
+      name: "Astro Whiskers",
       description: `${StatLabel.ATKSPD} +15%`,
       description2: `${StatLabel.PROJSPD} +20%`,
       apply: () => {
@@ -224,10 +225,10 @@ export class UpgradeController {
     {
       rarity: RarityLabel.Rare,
       name: "Reverse Polarity",
-      description: `${StatLabel.PROJSPD} +30%`,
+      description: `${StatLabel.PROJSPD} +40%`,
       description2: `${StatLabel.MOVESPD} -15%`,
       apply: () => {
-        this.gameManager.player.bulletSpeed *= 1.3;
+        this.gameManager.player.bulletSpeed *= 1.4;
         this.gameManager.player.movementXSpeed *= 0.85;
         this.gameManager.player.movementYSpeed *= 0.85;
       },
@@ -258,16 +259,16 @@ export class UpgradeController {
     {
       rarity: RarityLabel.Common,
       name: "Left-over Sushi",
-      description: `${StatLabel.HEAL} +10, ${StatLabel.REGEN} +1`,
+      description: `${StatLabel.HEAL} +10, ${StatLabel.REGEN} +2`,
       apply: () => {
-        this.gameManager.player.regen += 1;
+        this.gameManager.player.regen += 2;
         this.gameManager.player.heal(15);
       },
     },
     {
       rarity: RarityLabel.Common,
-      name: "Tuna Suprise",
-      description: `${StatLabel.HEAL} +15 ${StatLabel.HP} +4`,
+      name: "Alien Catnip",
+      description: `${StatLabel.HEAL} +15 ${StatLabel.HP} +5`,
       apply: () => {
         this.gameManager.player.maxLife += 5;
         this.gameManager.player.heal(4);
@@ -286,7 +287,7 @@ export class UpgradeController {
     },
     {
       rarity: RarityLabel.Legendary,
-      name: "Stardust",
+      name: "Schrödinger Sandwich",
       description: `${StatLabel.HEAL} +80, ${StatLabel.ATKSPD} +20%`,
       apply: () => {
         this.gameManager.player.heal(80);

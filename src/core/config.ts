@@ -22,7 +22,7 @@ export const PLAYER_MOVEMENT_Y_SPEED = 100;
 export const MIN_ATTACK_SPEED = 0.05;
 export const MAX_MOVE_SPEED = 400;
 // Anti-fun balance changes, sorry!
-export const PLAYER_EVASION_CAP = 50;
+export const PLAYER_EVASION_CAP = 66;
 export const PLAYER_REGEN_CAP = 40;
 
 export const PLAYER_HEALTH_GLOW_COLOURS = [
@@ -34,11 +34,11 @@ export const PLAYER_HEALTH_GLOW_COLOURS = [
 ];
 
 export const BULLET_PALETTES: [string, string[]][] = [
-  ["blue", ["#35a3ec", "#4480b8"]],
-  ["green", ["#7dff99", "#44b867"]],
-  ["purple", ["#ce7bfd", "#a144b8"]],
-  ["pink", ["#ff80df", "#b84488"]],
-  ["orange", ["#eca335", "#b88244"]],
+  ["blue", ["#49b6ff", "#184888"]],
+  ["green", ["#49ff70", "#1c8818"]],
+  ["purple", ["#9e49ff", "#4c1888"]],
+  ["pink", ["#ff49a4", "#881863"]],
+  ["orange", ["#ffb049", "#884e18"]],
   ["red", ["#ff5e49", "#881c18"]],
 ];
 
@@ -125,7 +125,7 @@ export const ENEMY_PROXIMITY_DAMAGE = 0.5;
 export const ENEMY_BULLET_SPEED = 90;
 export const ENEMY_MOVEMENT_Y_SPEED = 10;
 export const ENEMY_ATTACK_SPEED = 3.5;
-export const ENEMY_ATTACK_VARIANCE = 0.3;
+export const ENEMY_ATTACK_VARIANCE = 0.4;
 export const ENEMY_START_POSITION_Y = -40;
 export const ENEMY_DIRECTION_CHANGE_CHANCE = 0.3; // 30%
 
@@ -194,7 +194,7 @@ export const LEVEL_NAMES = [
 export const STORY_LEVELS = [6, 15, 16]; // Levels that the story should progress
 export const ENEMY_SPAWN_MULTIPLIER = 1.75;
 export const ENEMY_BULLET_SPEED_MULTIPLIER = 0.1;
-export const ENEMY_DAMAGE_MULTIPLIER = 0.075;
+export const ENEMY_DAMAGE_MULTIPLIER = 0.05;
 export const ENEMY_HEALTH_MULTIPLIER = 0.5;
 
 // Sprites
@@ -242,8 +242,7 @@ export const JACKAL_AVATAR_PALETTE = [
 
 // Items
 export const RARITY_WEIGHTS: Record<string, number> = {
-  Common: 50,
-  Rare: 25,
-  Epic: 15,
-  Legendary: 10,
+  Rare: 15,
+  Epic: 8,
+  Legendary: 5,
 };
