@@ -156,7 +156,7 @@ export class Enemy extends Shooter {
     offscreen.width = this.sprite.width + this.glowAmount * 4;
     offscreen.height = this.sprite.height + this.glowAmount * 4;
     const offCtx = offscreen.getContext("2d");
-    if (!offCtx) throw new Error("Failed to get 2D context");
+    if (!offCtx) throw new Error();
 
     offCtx.shadowColor = this.glowColor;
     offCtx.shadowBlur = this.glowAmount;

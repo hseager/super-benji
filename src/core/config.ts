@@ -124,7 +124,7 @@ export const ENEMY_BULLET_DAMAGE = 10;
 export const ENEMY_PROXIMITY_DAMAGE = 0.5;
 export const ENEMY_BULLET_SPEED = 90;
 export const ENEMY_MOVEMENT_Y_SPEED = 10;
-export const ENEMY_ATTACK_SPEED = 3.5;
+export const ENEMY_ATTACK_SPEED = 3.2;
 export const ENEMY_ATTACK_VARIANCE = 0.4;
 export const ENEMY_START_POSITION_Y = -40;
 export const ENEMY_DIRECTION_CHANGE_CHANCE = 0.3; // 30%
@@ -164,9 +164,9 @@ export const BOSS_MAX_LIFE = 1400;
 export const BOSS_BULLET_DAMAGE = 10;
 export const BOSS_BULLET_SPEED = 80;
 export const BOSS_ATTACK_SPEED = 1.4;
-export const UBER_BOSS_STAT_MULTIPLIER = 1.75;
-export const BOSS_SPAWN_LEVEL = 15;
-export const BOSS_SPAWN_LEVEL_INTERVAL = 5; // After the first encounter, spawn the boss x levels after
+export const UBER_BOSS_STAT_MULTIPLIER = 1.5;
+export const BOSS_SPAWN_LEVEL = 12;
+export const BOSS_SPAWN_LEVEL_INTERVAL = 3; // After the first encounter, spawn the boss x levels after
 
 // Background
 export const BACKGROUND_HUE_SHIFT = 200; // 20 = 10%
@@ -191,10 +191,10 @@ export const LEVEL_NAMES = [
   "Rift Horizon",
   "Outer wilds",
 ];
-export const STORY_LEVELS = [6, 15, 16]; // Levels that the story should progress
+export const STORY_LEVELS = [5, 9, 11]; // Levels that the story should progress
 export const ENEMY_SPAWN_MULTIPLIER = 1.75;
-export const ENEMY_BULLET_SPEED_MULTIPLIER = 0.1;
-export const ENEMY_DAMAGE_MULTIPLIER = 0.05;
+export const ENEMY_BULLET_SPEED_MULTIPLIER = 0.13;
+export const ENEMY_DAMAGE_MULTIPLIER = 0.03;
 export const ENEMY_HEALTH_MULTIPLIER = 0.5;
 
 // Sprites
@@ -242,9 +242,9 @@ export const JACKAL_AVATAR_PALETTE = [
 
 // Items
 export const RARITY_WEIGHTS: Record<string, number> = {
-  Rare: 15,
-  Epic: 8,
-  Legendary: 5,
+  Rare: 18,
+  Epic: 12,
+  Legendary: 7,
 };
 
 export const DEFAULT_FONT = '"Courier New", monospace';

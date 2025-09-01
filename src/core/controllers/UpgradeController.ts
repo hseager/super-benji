@@ -107,12 +107,12 @@ export class UpgradeController {
     {
       rarity: RarityLabel.Common,
       name: "Mithril Plating",
-      description: `${StatLabel.HP} +10, ${StatLabel.REGEN} +3`,
+      description: `${StatLabel.HP} +20, ${StatLabel.REGEN} +2`,
       description2: `${StatLabel.EVASION} +5%`,
       apply: () => {
         this.gameManager.player.maxLife += 20;
         this.gameManager.player.life += 20;
-        this.gameManager.player.regen += 5;
+        this.gameManager.player.regen += 2;
         this.gameManager.player.evasion += 5;
         this.gameManager.player.playerColor = "purple";
       },
@@ -120,10 +120,10 @@ export class UpgradeController {
     {
       rarity: RarityLabel.Common,
       name: "Adamite Panels",
-      description: `${StatLabel.HP} +15, ${StatLabel.REGEN} +2`,
+      description: `${StatLabel.HP} +25, ${StatLabel.REGEN} +5`,
       apply: () => {
-        this.gameManager.player.maxLife += 20;
-        this.gameManager.player.life += 20;
+        this.gameManager.player.maxLife += 25;
+        this.gameManager.player.life += 25;
         this.gameManager.player.regen += 5;
         this.gameManager.player.playerColor = "green";
       },
@@ -131,11 +131,11 @@ export class UpgradeController {
     {
       rarity: RarityLabel.Rare,
       name: "Torx’s Reinforced Shell",
-      description: `${StatLabel.HP} +25, ${StatLabel.REGEN} +4`,
+      description: `${StatLabel.HP} +35, ${StatLabel.REGEN} +6`,
       apply: () => {
-        this.gameManager.player.maxLife += 25;
-        this.gameManager.player.life += 20;
-        this.gameManager.player.regen += 4;
+        this.gameManager.player.maxLife += 35;
+        this.gameManager.player.life += 35;
+        this.gameManager.player.regen += 6;
       },
     },
     {
@@ -149,12 +149,13 @@ export class UpgradeController {
     {
       rarity: RarityLabel.Legendary,
       name: "Maggie's Cloak",
-      description: `${StatLabel.HP} +15, ${StatLabel.REGEN} +6`,
-      description2: `${StatLabel.EVASION} +30%`,
+      description: `${StatLabel.HP} +25, ${StatLabel.REGEN} +6`,
+      description2: `${StatLabel.EVASION} +20%`,
       apply: () => {
-        this.gameManager.player.maxLife = 15;
+        this.gameManager.player.maxLife += 25;
+        this.gameManager.player.life += 25;
         this.gameManager.player.regen += 6;
-        this.gameManager.player.evasion += 30;
+        this.gameManager.player.evasion += 20;
         this.gameManager.player.playerColor = "blue";
       },
     },
