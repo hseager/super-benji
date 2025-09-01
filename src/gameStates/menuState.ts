@@ -23,14 +23,17 @@ class MenuState implements State {
   onUpdate(delta: number) {
     const { context } = drawEngine;
 
+    // Main Text
     const text = "BENJI";
     const y = 180;
     const fontSize = 56;
 
-    // Main Text
     context.save();
     context.textAlign = "center";
     context.font = `900 ${fontSize}px ${DEFAULT_FONT}`;
+
+    context.lineJoin = "round"; // or "bevel"
+    context.lineCap = "round";
 
     context.lineWidth = 10;
     context.strokeStyle = "#322d5a";

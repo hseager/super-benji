@@ -164,7 +164,7 @@ export const BOSS_MAX_LIFE = 1400;
 export const BOSS_BULLET_DAMAGE = 10;
 export const BOSS_BULLET_SPEED = 80;
 export const BOSS_ATTACK_SPEED = 1.4;
-export const UBER_BOSS_STAT_MULTIPLIER = 1.5;
+export const UBER_BOSS_STAT_MULTIPLIER = 1.75;
 export const BOSS_SPAWN_LEVEL = 12;
 export const BOSS_SPAWN_LEVEL_INTERVAL = 3; // After the first encounter, spawn the boss x levels after
 
@@ -191,11 +191,11 @@ export const LEVEL_NAMES = [
   "Rift Horizon",
   "Outer wilds",
 ];
-export const STORY_LEVELS = [5, 9, 11]; // Levels that the story should progress
+export const STORY_LEVELS = [5, 12, 13]; // Levels that the story should progress
 export const ENEMY_SPAWN_MULTIPLIER = 1.75;
 export const ENEMY_BULLET_SPEED_MULTIPLIER = 0.13;
-export const ENEMY_DAMAGE_MULTIPLIER = 0.03;
-export const ENEMY_HEALTH_MULTIPLIER = 0.5;
+export const ENEMY_DAMAGE_MULTIPLIER = 0.04;
+export const ENEMY_HEALTH_MULTIPLIER = 0.6;
 
 // Sprites
 export const AVATAR_BODY_WIDTH = 16;

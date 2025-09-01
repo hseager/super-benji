@@ -400,7 +400,7 @@ export class LevelController {
 
   /** Map level number to area/zone name */
   getLevelName(level: number) {
-    const zonesPerArea = 5;
+    const zonesPerArea = 4;
     const lastAreaIndex = LEVEL_NAMES.length - 1;
     const areaIndex = Math.floor((level - 1) / zonesPerArea);
 
