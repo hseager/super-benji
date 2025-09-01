@@ -185,9 +185,10 @@ export class UpgradeController {
     {
       rarity: RarityLabel.Legendary,
       name: "Voidstep Drive",
-      description: `${StatLabel.MOVESPD} +30%`,
+      description: `${StatLabel.MOVESPD} +30%, ${StatLabel.ATKSPD} +15%`,
       description2: `${StatLabel.EVASION} +10%`,
       apply: () => {
+        this.gameManager.player.attackSpeed *= 0.85;
         this.gameManager.player.movementXSpeed *= 1.3;
         this.gameManager.player.movementYSpeed *= 1.3;
         this.gameManager.player.evasion += 10;
