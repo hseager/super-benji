@@ -2,6 +2,8 @@ import { Bargain } from "../types";
 import { GameController } from "./GameController";
 import { characterNames } from "./StoryController";
 
+const enemyName = "Enemy";
+
 export class BargainController {
   private gameManager: GameController;
 
@@ -16,14 +18,16 @@ export class BargainController {
   private bargains: Bargain[] = [
     {
       cost: 3,
-      description: `Enemies have increased`,
-      description2: `projectile speed`,
+      description: `+ ${enemyName} proj speed`,
+      description2: `+ ${characterNames.Benji} move speed`,
       apply: async () => {
         this.gameManager.levelManager.enemyTypes =
           this.gameManager.levelManager.enemyTypes.map((e) => {
             e.bulletSpeed *= 1.5;
             return e;
           });
+        this.gameManager.player.movementYSpeed *= 1.2;
+        this.gameManager.player.movementXSpeed *= 1.2;
       },
     },
     {
@@ -52,40 +56,44 @@ export class BargainController {
       },
     },
     {
-      cost: 2,
-      description: `Enemies have more health`,
+      cost: 3,
+      description: `+ ${enemyName} health`,
+      description2: `+ ${characterNames.Benji} Fire Rate`,
       apply: async () => {
         this.gameManager.levelManager.enemyTypes =
           this.gameManager.levelManager.enemyTypes.map((e) => {
             e.health *= 1.5;
             return e;
           });
+        this.gameManager.player.attackSpeed *= 0.85;
+      },
+    },
+    {
+      cost: 2,
+      description: `+ ${enemyName} count`,
+      description2: `+ ${characterNames.Benji} Proj Speed`,
+      apply: async () => {
+        this.gameManager.levelManager.baseEnemyCount *= 1.5;
+        this.gameManager.player.bulletSpeed *= 1.2;
       },
     },
     {
       cost: 1,
-      description: `Increases the amount`,
-      description2: `of enemies`,
-      apply: async () => {
-        this.gameManager.levelManager.baseEnemyCount *= 1.75;
-      },
-    },
-    {
-      cost: 3,
-      description: `Changes enemy shooting`,
-      description2: `patterns`,
+      description: `Changes ${enemyName} attacks`,
+      description2: `+ ${characterNames.Benji} Evasion`,
       apply: async () => {
         this.gameManager.levelManager.enemyTypes =
           this.gameManager.levelManager.enemyTypes.map((e) => {
             e.shootPattern = "megaspread";
             return e;
           });
+        this.gameManager.player.evasion += 5;
       },
     },
     {
       cost: 5,
-      description: `${characterNames.Benji} deals more damage`,
-      description2: `${characterNames.Benji} has less max health`,
+      description: `+ ${characterNames.Benji} damage`,
+      description2: `- ${characterNames.Benji} health`,
       apply: async () => {
         this.gameManager.player.maxLife /= 1.5;
         this.gameManager.player.damage *= 1.5;
@@ -93,7 +101,7 @@ export class BargainController {
     },
     {
       cost: 0,
-      description: `Last Chance`,
+      description: `(Last Chance!)`,
       description2: `Megashot`,
       apply: async () => {
         this.gameManager.player.shootPattern = "megaspread";
