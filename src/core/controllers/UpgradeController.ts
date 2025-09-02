@@ -35,11 +35,11 @@ export class UpgradeController {
     {
       rarity: RarityLabel.Common,
       name: "Cosmic Claw",
-      description: `${StatLabel.DMG} +3, ${StatLabel.PROJSPD} 5%`,
+      description: `${StatLabel.DMG} +4, ${StatLabel.PROJSPD} 15%`,
       description2: `Spread Shot`,
       apply: async () => {
-        this.gameManager.player.damage += 3;
-        this.gameManager.player.bulletSpeed *= 1.05;
+        this.gameManager.player.damage += 4;
+        this.gameManager.player.bulletSpeed *= 1.15;
         this.gameManager.player.bulletColor = "orange";
         this.gameManager.player.shootPattern = "spread";
       },
@@ -47,22 +47,22 @@ export class UpgradeController {
     {
       rarity: RarityLabel.Common,
       name: "Starburst",
-      description: `${StatLabel.DMG} +3, ${StatLabel.ATKSPD} 5%`,
+      description: `${StatLabel.DMG} +6, ${StatLabel.ATKSPD} 10%`,
       description2: `Burst Shot`,
       apply: async () => {
-        this.gameManager.player.damage += 3;
-        this.gameManager.player.attackSpeed *= 0.95;
+        this.gameManager.player.damage += 6;
+        this.gameManager.player.attackSpeed *= 0.9;
         this.gameManager.player.shootPattern = "burst";
       },
     },
     {
       rarity: RarityLabel.Rare,
       name: "Nebula Railcoil",
-      description: `${StatLabel.DMG} +5, ${StatLabel.PROJSPD} +20%`,
+      description: `${StatLabel.DMG} +8, ${StatLabel.PROJSPD} +30%`,
       description2: "Burst Shot",
       apply: () => {
         this.gameManager.player.damage += 5;
-        this.gameManager.player.bulletSpeed *= 1.2;
+        this.gameManager.player.bulletSpeed *= 1.3;
         this.gameManager.player.bulletColor = "purple";
         this.gameManager.player.shootPattern = "burst";
       },
@@ -94,11 +94,11 @@ export class UpgradeController {
     {
       rarity: RarityLabel.Legendary,
       name: "Glass Cannon",
-      description: `${StatLabel.DMG} +8 ${StatLabel.HP} -30`,
+      description: `${StatLabel.DMG} +10 ${StatLabel.HP} -20`,
       description2: "Mega Shot",
       apply: () => {
-        this.gameManager.player.damage += 8;
-        this.gameManager.player.life -= 30;
+        this.gameManager.player.damage += 10;
+        this.gameManager.player.life -= 20;
         this.gameManager.player.bulletColor = "orange";
         this.gameManager.player.shootPattern = "megaspread";
       },
@@ -221,19 +221,19 @@ export class UpgradeController {
       rarity: RarityLabel.Rare,
       name: "Astro Whiskers",
       description: `${StatLabel.ATKSPD} +15%`,
-      description2: `${StatLabel.PROJSPD} +20%`,
+      description2: `${StatLabel.PROJSPD} +40%`,
       apply: () => {
         this.gameManager.player.attackSpeed *= 0.85;
-        this.gameManager.player.bulletSpeed *= 1.2;
+        this.gameManager.player.bulletSpeed *= 1.4;
       },
     },
     {
       rarity: RarityLabel.Rare,
       name: "Reverse Polarity",
-      description: `${StatLabel.PROJSPD} +40%`,
+      description: `${StatLabel.PROJSPD} +60%`,
       description2: `${StatLabel.MOVESPD} -15%`,
       apply: () => {
-        this.gameManager.player.bulletSpeed *= 1.4;
+        this.gameManager.player.bulletSpeed *= 1.6;
         this.gameManager.player.movementXSpeed *= 0.85;
         this.gameManager.player.movementYSpeed *= 0.85;
       },
@@ -242,17 +242,17 @@ export class UpgradeController {
       rarity: RarityLabel.Epic,
       name: "Warp Core Fragment",
       description: `${StatLabel.ATKSPD} +40%`,
-      description2: `${StatLabel.PROJSPD} -25%`,
+      description2: `${StatLabel.PROJSPD} -15%`,
       apply: () => {
         this.gameManager.player.attackSpeed *= 0.6;
-        this.gameManager.player.bulletSpeed *= 0.75;
+        this.gameManager.player.bulletSpeed *= 0.85;
       },
     },
     {
       rarity: RarityLabel.Legendary,
       name: "Jackalbane Core",
       description: `${StatLabel.DMG} +7, ${StatLabel.HP} +35`,
-      description2: `${StatLabel.PROJSPD} 12%`,
+      description2: `${StatLabel.PROJSPD} 20%`,
       apply: () => {
         this.gameManager.player.damage += 7;
         this.gameManager.player.maxLife += 35;
@@ -274,7 +274,9 @@ export class UpgradeController {
       rarity: RarityLabel.Common,
       name: "Alien Catnip",
       description: `${StatLabel.HEAL} +30 ${StatLabel.HP} +4`,
+      description2: `${StatLabel.DMG} +3`,
       apply: () => {
+        this.gameManager.player.damage += 3;
         this.gameManager.player.maxLife += 4;
         this.gameManager.player.heal(30);
       },
