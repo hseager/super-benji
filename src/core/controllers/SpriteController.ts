@@ -10,7 +10,6 @@ import {
   PLAYER_PALETTES,
   TORX_AVATAR_PALETTE,
 } from "../config";
-import { PaletteApplier } from "../graphics/palletteApplier";
 
 export class SpriteController {
   spriteBuilder!: SpriteBuilder;
@@ -25,7 +24,6 @@ export class SpriteController {
   maggieAvatar!: HTMLImageElement;
   jackalAvatar!: HTMLImageElement;
   jackalSprite!: HTMLImageElement;
-  benjiCoin!: HTMLImageElement;
 
   async init() {
     const spriteBuilder = new SpriteBuilder();
@@ -100,14 +98,6 @@ export class SpriteController {
           0
         )))(),
     ]);
-
-    // coin depends on playerAvatar, so wait separately
-    const goldPalette = PLAYER_PALETTES.find(([key]) => key === "gold")![1];
-    const goldWithoutFirst = goldPalette.slice(1);
-    this.benjiCoin = await PaletteApplier.applyPalette(
-      this.playerAvatar,
-      goldWithoutFirst
-    );
 
     return this;
   }

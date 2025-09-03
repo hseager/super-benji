@@ -3,6 +3,7 @@ import { drawEngine } from "@/core/controllers/DrawController";
 import { gameStateMachine } from "@/gameStates/gameStateMachine";
 import { gameState } from "./gameState";
 import { DEFAULT_FONT } from "@/core/config";
+import { SpriteController } from "@/core/controllers/SpriteController";
 
 class MenuState implements State {
   playerAvatar: HTMLImageElement | null;
@@ -17,6 +18,8 @@ class MenuState implements State {
   }
 
   async onEnter() {
+    const spriteManager = await new SpriteController().init();
+    this.playerAvatar = spriteManager.playerAvatar;
     c2d.addEventListener("click", this.startGame);
   }
 
@@ -25,7 +28,7 @@ class MenuState implements State {
 
     // Main Text
     const text = "BENJI";
-    const y = 180;
+    const y = 220;
     const fontSize = 56;
 
     context.save();
@@ -54,7 +57,7 @@ class MenuState implements State {
       "SUPER",
       24,
       drawEngine.getCenterX() - 65,
-      138,
+      178,
       "#8e5439",
       "center",
       "#aa221b",
@@ -77,8 +80,17 @@ class MenuState implements State {
     drawEngine.drawMenuAction(
       "Start Game",
       delta,
-      drawEngine.canvasHeight * 0.6
+      drawEngine.canvasHeight * 0.7
     );
+
+    this.playerAvatar &&
+      context.drawImage(
+        this.playerAvatar,
+        drawEngine.getCenterX(),
+        113,
+        16 * 4,
+        18 * 4
+      );
 
     context.restore();
   }
