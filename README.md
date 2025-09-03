@@ -6,9 +6,7 @@ https://hseager.github.io/super-benji/
 
 ### TODO
 
-- Fullscreen mobile bug
-- Tidy up UI
-- Balance testing
+- Find some bytes
 
 # About
 

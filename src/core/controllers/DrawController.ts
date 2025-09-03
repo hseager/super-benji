@@ -234,6 +234,46 @@ class DrawController {
     }
   }
 
+  drawBeveledRect(
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    w: number,
+    h: number,
+    radius: number,
+    fillStyle: string,
+    lightEdge: string, // highlight color
+    darkEdge: string // shadow color
+  ) {
+    // Base filled rounded rect
+    this.drawRoundedRect(ctx, x, y, w, h, radius, fillStyle);
+
+    // Highlight edge (top + left)
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.strokeStyle = lightEdge;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+    ctx.strokeStyle = lightEdge;
+    ctx.stroke();
+
+    // Shadow edge (bottom + right)
+    ctx.beginPath();
+    ctx.moveTo(x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.strokeStyle = darkEdge;
+    ctx.stroke();
+  }
+
   drawBenjiCoin(position: Coordinates, size = 25) {
     const ctx = this.context;
     const goldPalette = PLAYER_PALETTES.find(([key]) => key === "gold")![1];

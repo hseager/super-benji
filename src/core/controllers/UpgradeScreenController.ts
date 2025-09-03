@@ -71,12 +71,32 @@ export class UpgradeScreenController extends ChoiceScreenController<Upgrade> {
     const padding = 10;
     const lineHeight = 18;
 
-    let borderColor = "#fff";
-    if (upgrade.rarity === "Rare") borderColor = "#60a5fa";
-    else if (upgrade.rarity === "Epic") borderColor = "#c084fc";
-    else if (upgrade.rarity === "Legendary") borderColor = "#fb923c";
+    let borderColor = "#aaa";
+    let borderDarkColor = "#1d1d1d";
+    if (upgrade.rarity === "Rare") {
+      borderColor = "#60a5fa";
+      borderDarkColor = "#132741";
+    } else if (upgrade.rarity === "Epic") {
+      borderColor = "#c084fc";
+      borderDarkColor = "#2a1d38";
+    } else if (upgrade.rarity === "Legendary") {
+      borderColor = "#fb923c";
+      borderDarkColor = "#41250f";
+    }
 
-    drawEngine.drawRoundedRect(ctx, x, y, w, h, 6, "#222", borderColor);
+    // drawEngine.drawRoundedRect(ctx, x, y, w, h, 6, "#222", borderColor);
+    drawEngine.drawBeveledRect(
+      ctx,
+      x,
+      y,
+      w,
+      h,
+      1,
+      "#3b3b3b",
+      borderColor,
+      borderDarkColor
+    );
+
     const fontSize = "16px";
 
     let textY = y + lineHeight;

@@ -256,7 +256,8 @@ export class StoryController {
       drawEngine.canvasWidth - boxPadding * 2,
       Math.max(dialogBoxHeight, lines.length * lineHeight + boxPadding * 2),
       4,
-      "#1f1722"
+      "#1f1722",
+      "#ccc"
     );
 
     // Draw avatar
@@ -279,11 +280,14 @@ export class StoryController {
     if (!sprite) return;
 
     ctx.save();
+    ctx.fillStyle = "#1f1722";
+    ctx.fillRect(x, y, width, height - 2);
     ctx.drawImage(sprite, x, y, width, height);
     ctx.strokeStyle = "#fff";
     ctx.lineWidth = 1;
     ctx.strokeRect(x, y, width, height - 2);
-    drawEngine.drawText(speaker, 12, x + width / 2, y + height + 15, "#fff");
+
+    drawEngine.drawText(speaker, 12, x + width / 2, y + height + 13, "#fff");
     ctx.restore();
   }
 

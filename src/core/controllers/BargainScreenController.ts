@@ -76,7 +76,17 @@ export class BargainScreenController extends ChoiceScreenController<Bargain> {
     const padding = 10;
     const lineHeight = 18;
 
-    drawEngine.drawRoundedRect(ctx, x, y, w, h, 6, "#222", "#fff");
+    drawEngine.drawBeveledRect(
+      ctx,
+      x,
+      y,
+      w,
+      h,
+      1,
+      "#201e31",
+      "#5d5d8f",
+      "#0f0f13"
+    );
 
     let textY = y + lineHeight;
 
