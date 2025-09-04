@@ -4,6 +4,11 @@
 
 https://hseager.github.io/super-benji/
 
+## TODO
+
+- Update intro
+- Add inspirations and credits
+
 # About
 
 My entry for the [JS13K](https://js13kgames.com/) 2025 competition.
