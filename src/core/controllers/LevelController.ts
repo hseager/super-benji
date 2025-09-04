@@ -152,12 +152,8 @@ export class LevelController {
         BOSS_MAX_LIFE * Math.pow(UBER_BOSS_STAT_MULTIPLIER, bossNumber);
       const scaledDamage =
         BOSS_BULLET_DAMAGE * Math.pow(UBER_BOSS_STAT_MULTIPLIER, bossNumber);
-      const scaledAttackSpeed =
-        BOSS_ATTACK_SPEED * Math.pow(UBER_BOSS_STAT_MULTIPLIER, bossNumber);
       const scaledBulletSpeed =
         BOSS_BULLET_SPEED * Math.pow(UBER_BOSS_STAT_MULTIPLIER, bossNumber);
-
-      console.log(scaledAttackSpeed);
 
       this.spawnBoss(
         scaledLife,
@@ -224,7 +220,7 @@ export class LevelController {
     const numArms = 5; // spiral arms
     const particles = 15; // number of dots per arm
 
-    ctx.save();
+    drawEngine.save();
     ctx.translate(x, y);
 
     for (let arm = 0; arm < numArms; arm++) {
@@ -247,7 +243,7 @@ export class LevelController {
       }
     }
 
-    ctx.restore();
+    drawEngine.restore();
   }
 
   showBossHealth() {

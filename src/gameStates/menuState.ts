@@ -31,7 +31,7 @@ class MenuState implements State {
     const y = 220;
     const fontSize = 56;
 
-    context.save();
+    drawEngine.save();
     context.textAlign = CENTER;
     context.font = `900 ${fontSize}px ${DEFAULT_FONT}`;
 
@@ -92,7 +92,7 @@ class MenuState implements State {
         18 * 4
       );
 
-    context.restore();
+    drawEngine.restore();
   }
 
   onLeave() {

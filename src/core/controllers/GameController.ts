@@ -101,7 +101,6 @@ export class GameController {
         if (player.moveSpeedEvasionBuff) {
           evasion += player.movementXSpeed * 0.05;
         }
-        console.log("Evasion:", evasion.toFixed(2));
         if (roll() > evasion) {
           player.takeDamage(bullet.damage);
         }

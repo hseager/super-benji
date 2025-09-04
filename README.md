@@ -4,10 +4,6 @@
 
 https://hseager.github.io/super-benji/
 
-### TODO
-
-- Find some bytes
-
 # About
 
 My entry for the [JS13K](https://js13kgames.com/) 2025 competition.

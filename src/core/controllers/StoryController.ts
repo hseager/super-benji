@@ -284,7 +284,7 @@ export class StoryController {
   ) {
     if (!sprite) return;
 
-    ctx.save();
+    drawEngine.save();
     ctx.fillStyle = "#1f1722";
     ctx.fillRect(x, y, width, height - 2);
     ctx.drawImage(sprite, x, y, width, height);
@@ -293,7 +293,7 @@ export class StoryController {
     ctx.strokeRect(x, y, width, height - 2);
 
     drawEngine.drawText(speaker, 12, x + width / 2, y + height + 13, WHITE);
-    ctx.restore();
+    drawEngine.restore();
   }
 
   randomiseDialog() {

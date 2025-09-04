@@ -77,7 +77,7 @@ class DrawController {
     const shadowColor = "#0a0601";
 
     // Main Text
-    ctx.save();
+    drawEngine.save();
     ctx.font = `900 ${fontSize - 2}px ${DEFAULT_FONT}`;
     ctx.strokeStyle = shadowColor;
     ctx.fillStyle = shadowColor;
@@ -93,7 +93,7 @@ class DrawController {
       [1.0, "#ff9d00"],
     ]);
     ctx.fillText(text, x, y);
-    ctx.restore();
+    drawEngine.restore();
   }
 
   drawText(
@@ -145,10 +145,9 @@ class DrawController {
 
     if (this.showMenuAction) {
       const ctx = this.context;
-      const fontSize = 24;
 
-      ctx.save();
-      ctx.font = `900 ${fontSize}px ${DEFAULT_FONT}`;
+      drawEngine.save();
+      ctx.font = `900 24px ${DEFAULT_FONT}`;
       ctx.textAlign = CENTER;
       ctx.textBaseline = "middle";
 
@@ -171,7 +170,7 @@ class DrawController {
       );
       ctx.fillText(text, ctx.canvas.width / 2, y);
 
-      ctx.restore();
+      drawEngine.restore();
     }
   }
 
@@ -276,7 +275,7 @@ class DrawController {
     const ctx = this.context;
     const goldPalette = PLAYER_PALETTES.find(([key]) => key === "gold")![1];
 
-    ctx.save();
+    drawEngine.save();
 
     // Create radial gradient for coin fill
     const gradient = ctx.createRadialGradient(
@@ -305,13 +304,21 @@ class DrawController {
 
     // Clip to circle so image stays inside coin
     ctx.clip();
-    ctx.restore();
+    drawEngine.restore();
 
     this.drawTitle("B", size, position.x, position.y + size * 0.2);
   }
 
   getCenterX() {
     return drawEngine.context.canvas.width / 2;
+  }
+
+  save() {
+    this.context.save();
+  }
+
+  restore() {
+    this.context.restore();
   }
 }
 

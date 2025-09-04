@@ -26,8 +26,8 @@ export abstract class ChoiceScreenController<T> {
     if (!this.isActive) return;
 
     // Dim background
-    ctx.save();
-    ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
+    drawEngine.save();
+    ctx.fillStyle = "#000000b3";
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
     // Title
@@ -36,11 +36,11 @@ export abstract class ChoiceScreenController<T> {
     this.drawIntroSection();
     this.drawOptions(ctx);
 
-    ctx.restore();
+    drawEngine.restore();
   }
 
   private drawOptions(ctx: CanvasRenderingContext2D) {
-    ctx.save();
+    drawEngine.save();
     const boxHeight = 90;
     const x = 10;
     const width = ctx.canvas.width - x * 2;
@@ -59,7 +59,7 @@ export abstract class ChoiceScreenController<T> {
       });
     });
 
-    ctx.restore();
+    drawEngine.restore();
   }
 
   /** To be implemented by subclasses */
