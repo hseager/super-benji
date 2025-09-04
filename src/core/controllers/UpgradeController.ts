@@ -1,12 +1,6 @@
-import { Upgrade, ItemRarity } from "../types";
+import { RarityLabel } from "../config";
+import { Upgrade } from "../types";
 import { GameController } from "./GameController";
-
-const RarityLabel: Record<string, ItemRarity> = {
-  Common: "Common",
-  Rare: "Rare",
-  Epic: "Epic",
-  Legendary: "Legendary",
-};
 
 // Save some bytes by storing repeated text as vars
 const StatLabel: Record<string, string> = {

@@ -2,7 +2,7 @@ import { State } from "@/core/types";
 import { drawEngine } from "@/core/controllers/DrawController";
 import { gameStateMachine } from "@/gameStates/gameStateMachine";
 import { gameState } from "./gameState";
-import { DEFAULT_FONT } from "@/core/config";
+import { CENTER, DEFAULT_FONT } from "@/core/config";
 import { SpriteController } from "@/core/controllers/SpriteController";
 
 class MenuState implements State {
@@ -32,7 +32,7 @@ class MenuState implements State {
     const fontSize = 56;
 
     context.save();
-    context.textAlign = "center";
+    context.textAlign = CENTER;
     context.font = `900 ${fontSize}px ${DEFAULT_FONT}`;
 
     context.lineJoin = "round"; // or "bevel"
@@ -59,7 +59,7 @@ class MenuState implements State {
       drawEngine.getCenterX() - 65,
       178,
       "#8e5439",
-      "center",
+      CENTER,
       "#aa221b",
       2,
       Math.PI / -20,

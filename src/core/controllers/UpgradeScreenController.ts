@@ -1,6 +1,6 @@
 import { Upgrade, ItemRarity } from "../types";
 import { UpgradeController } from "./UpgradeController";
-import { DEFAULT_FONT, RARITY_WEIGHTS } from "../config";
+import { DEFAULT_FONT, RARITY_WEIGHTS, RarityLabel, WHITE } from "../config";
 import { GameController } from "./GameController";
 import { ChoiceScreenController } from "./ChoiceScreenController";
 import { drawEngine } from "./DrawController";
@@ -32,7 +32,7 @@ export class UpgradeScreenController extends ChoiceScreenController<Upgrade> {
       );
       if (!pool.length) {
         pool = this.allUpgrades.filter(
-          (u) => u.rarity === "Common" && !chosen.includes(u)
+          (u) => u.rarity === RarityLabel.Common && !chosen.includes(u)
         );
       }
       if (!pool.length) {
@@ -44,15 +44,15 @@ export class UpgradeScreenController extends ChoiceScreenController<Upgrade> {
     while (chosen.length < 3) {
       const r = Math.random() * 100;
       let rarity: ItemRarity;
-      if (r <= RARITY_WEIGHTS.Legendary) rarity = "Legendary";
+      if (r <= RARITY_WEIGHTS.Legendary) rarity = RarityLabel.Legendary;
       else if (r <= RARITY_WEIGHTS.Legendary + RARITY_WEIGHTS.Epic)
-        rarity = "Epic";
+        rarity = RarityLabel.Epic;
       else if (
         r <=
         RARITY_WEIGHTS.Legendary + RARITY_WEIGHTS.Epic + RARITY_WEIGHTS.Rare
       )
-        rarity = "Rare";
-      else rarity = "Common";
+        rarity = RarityLabel.Rare;
+      else rarity = RarityLabel.Common;
 
       chosen.push(pickFromRarity(rarity));
     }
@@ -84,7 +84,6 @@ export class UpgradeScreenController extends ChoiceScreenController<Upgrade> {
       borderDarkColor = "#41250f";
     }
 
-    // drawEngine.drawRoundedRect(ctx, x, y, w, h, 6, "#222", borderColor);
     drawEngine.drawBeveledRect(
       ctx,
       x,
@@ -92,7 +91,7 @@ export class UpgradeScreenController extends ChoiceScreenController<Upgrade> {
       w,
       h,
       1,
-      "#3b3b3b",
+      "#333",
       borderColor,
       borderDarkColor
     );
@@ -105,8 +104,8 @@ export class UpgradeScreenController extends ChoiceScreenController<Upgrade> {
     ctx.fillText(`[${upgrade.rarity}]`, x + padding, textY);
 
     textY += lineHeight;
-    ctx.font = `bold ${fontSize} ${DEFAULT_FONT}`;
-    ctx.fillStyle = "#fff";
+    ctx.font = `900 ${fontSize} ${DEFAULT_FONT}`;
+    ctx.fillStyle = WHITE;
     ctx.fillText(upgrade.name, x + padding, textY);
 
     ctx.font = `${fontSize} ${DEFAULT_FONT}`;
@@ -125,7 +124,7 @@ export class UpgradeScreenController extends ChoiceScreenController<Upgrade> {
     this.canSelectOption = false;
 
     this.allUpgrades = this.allUpgrades.filter((u) => {
-      if (u.rarity === "Common") return true;
+      if (u.rarity === RarityLabel.Common) return true;
       return u !== upgrade;
     });
 

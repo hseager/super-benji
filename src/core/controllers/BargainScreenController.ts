@@ -1,4 +1,4 @@
-import { DEFAULT_FONT } from "../config";
+import { DEFAULT_FONT, WHITE } from "../config";
 import { Bargain } from "../types";
 import { BargainController } from "./BargainController";
 import { ChoiceScreenController } from "./ChoiceScreenController";
@@ -104,7 +104,7 @@ export class BargainScreenController extends ChoiceScreenController<Bargain> {
       10
     );
 
-    ctx.fillStyle = "#fff";
+    ctx.fillStyle = WHITE;
     ctx.font = `16px ${DEFAULT_FONT}`;
     textY += lineHeight * 2;
     ctx.fillText(bargain.description, x + padding, textY);

@@ -22,6 +22,7 @@ import {
   ENEMY_START_POSITION_Y,
   LEVEL_NAMES,
   UBER_BOSS_STAT_MULTIPLIER,
+  WHITE,
 } from "../config";
 import { screenTransitions } from "./ScreenTransitionController";
 import { EnemyConfig } from "../types";
@@ -272,7 +273,7 @@ export class LevelController {
     ctx.fillRect(x, y, currentWidth, barHeight);
 
     // outline
-    ctx.strokeStyle = "#fff";
+    ctx.strokeStyle = WHITE;
     ctx.lineWidth = 2;
     ctx.strokeRect(x, y, barWidth, barHeight);
   }

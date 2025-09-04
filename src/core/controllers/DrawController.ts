@@ -1,4 +1,4 @@
-import { DEFAULT_FONT, PLAYER_PALETTES } from "../config";
+import { CENTER, DEFAULT_FONT, PLAYER_PALETTES, WHITE } from "../config";
 import { Coordinates } from "../types";
 
 export const logicalWidth = 288; // base logical resolution
@@ -81,7 +81,7 @@ class DrawController {
     ctx.font = `900 ${fontSize - 2}px ${DEFAULT_FONT}`;
     ctx.strokeStyle = shadowColor;
     ctx.fillStyle = shadowColor;
-    ctx.textAlign = "center";
+    ctx.textAlign = CENTER;
     ctx.strokeText(text, x, fontSize > 12 ? y + 1 : y);
     ctx.fillText(text, x, fontSize > 12 ? y + 2 : y);
     ctx.font = `900 ${fontSize}px ${DEFAULT_FONT}`;
@@ -101,8 +101,8 @@ class DrawController {
     fontSize: number,
     x: number,
     y: number,
-    color = "#fff",
-    textAlign: "center" | "left" | "right" = "center",
+    color = WHITE,
+    textAlign: string = CENTER,
     strokeColor?: string,
     strokeSize?: number,
     rotation?: number, // rotation in radians
@@ -112,7 +112,7 @@ class DrawController {
 
     context.save();
     context.font = `${fontSize}px ${font}`;
-    context.textAlign = textAlign;
+    context.textAlign = textAlign as CanvasTextAlign;
     context.fillStyle = color;
 
     if (strokeColor) {
@@ -148,12 +148,12 @@ class DrawController {
       const fontSize = 24;
 
       ctx.save();
-      ctx.font = `bold ${fontSize}px ${DEFAULT_FONT}`;
-      ctx.textAlign = "center";
+      ctx.font = `900 ${fontSize}px ${DEFAULT_FONT}`;
+      ctx.textAlign = CENTER;
       ctx.textBaseline = "middle";
 
       // Fill text with gradient
-      ctx.strokeStyle = "#161616ff";
+      ctx.strokeStyle = "#161616";
       ctx.strokeText(text, ctx.canvas.width / 2, y + 1);
 
       // Steel Gradient
@@ -161,13 +161,11 @@ class DrawController {
         ctx,
         y,
         [
-          [0.0, "#ffffff"],
-          [0.15, "#dcdcdc"],
-          [0.3, "#a0a0a0"],
-          [0.45, "#f8f8f8"],
-          [0.6, "#7a7a7a"],
-          [0.8, "#c8c8c8"],
-          [1, "#5a5a5a"],
+          [0.0, WHITE],
+          [0.45, "#eee"],
+          [0.6, "#777"],
+          [0.8, "#ccc"],
+          [1, "#555"],
         ],
         20
       );

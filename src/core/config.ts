@@ -1,3 +1,5 @@
+import { ItemRarity } from "./types";
+
 // Genreated from ss.png in project root
 export const SPRITE_BASE64 =
   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABEBAMAAADD1i77AAAAHlBMVEUAAABcXFza2toUFBMzMzIhISFHR0cODg53d3eenp6oiQ8+AAAABHRSTlMA/vZm6v66FgAABMZJREFUSMedlM9z0kAUx79oSOBGNCx4U8cfV53RGY9BdxN6C2OWtDeim4XeqJMf9gbaMnirHW3Lf+tukkKtevEBk328T96+H7sP/xCfznfKj1tG6qI59QsYvNIbooJdoFku5ARTSjMYrFTPzJVrlgvAvAaoCEMYidZa80bsNpQPY2Gg5dZALkIOUW5xJxjOPMNV5KQ1rQFq0mkaBR4rI7AP+8xRBsN+lIgS8KgYJ5xTykq8f/iYelPAJFdOGkCJI6SUCafepMS9+MqhvloNzi8ilGHFiUdEFHqlZqTfyDOVuYXhlwuGUpyEqiAzt1SazBYinINg/8uJQImYST4UfloBZpBTV2VxeTU7f/ZEijJw4qU2C2vANWlguljK4eZHVzDAmptEekmSAUVdYRjAKsm/xFOPTtBlUFnQMEDD0Za6a4OsMZNByMXc66IxOn6aBcjSguqsgEDHYg2Ei4X0P3eL3N97mvH0WKQeSmvzIVpB1VIyHbEsD/u9LMqOolSUHexgpblSPH/I5GAURYzneRQy4CcaZxjjWozkA4+9UcEZD/MTVSCD4J4D6m6JjAjraLAcsSiXQnfZGZyTNJ5gK860MYtXgob0SOocyHBzQcn0xhF1G4IRLwrdz5lSY2l/ezSQcgd8n6AXj7osDI5XSiVMPnhEmXcD6MAioe8HaGkPCZL+MnTpDrhyAdJ3qCp1olQOY730cRMIFLAmTMXHyj4dEZFg9LuHeLkFTMjxVOJGmpuOPhGSAm0HWhIjyDHfAS39WmzrtztlewzgBLekMbN3tVVAgNviqs9/iqmvlAudAuf7fwGW2tYHcKx+D/7cu10Oi2yOVlWTPwDZjAAr9HBWqg8f3rIb89SfI6PM6oDzCHes28BZ6nOeMW8PXc45cGdrMaubipRrkQfI+Kei2AHtVg1MtX08UQArinTavgbubGogiy75cYEDnOqCyOOth6tr4OCIF5c4sM45T6OivQW+V89FwQseRa12+7HOAlvg8KJqzrxQ9ow3m+3HTzTQ3Fa4bq9pFUVU5IvG6VvlYo6za+Di5GN1EHihZDzHAVWAniy1nJy+q6IcKSIbqcXlp588SnfXqVexllFsNs8zBRCVJ986MJe9yoP5tXy8mSiEUh9bwOnxF2XJY93uu46LfVdpT7dAtwbM9H6Tv3/pu1V+zx5ux0Yvm5dBRqJvE68IgqoDH2pgZrOsDMKKsgd9kmT5GcyiyOWzGtjEYf6xBPjRoe0kWQGkdmxvo9wkvQrA6xlRw8G3YA2kbTv1jWuuvXFaAcZwyeOua8GQn2K7XwX5PR4OZU7lAsrxYBA53FdAUsTd3qKs/4rs7a3yUBA9kt/6/HPEFRCvbdvWW3QmQh4oIE1cdwLPGRMWJhqwa2B1ReVw5uRhd3TSQUgkER7DworH/siRClgvl2Q4EyknZLlASnurI8bh+15fynyogbVNYpuOQxL3O6pFvSJPAlinNKRTdqaBASHSFuErIUcKSG0mpwGa/ppKfhpUc2ZirDjHBOprRZRTrv43Pc55owaAU+ZWg+VutFfI7AXGA0nLQWHehZbuuxJQSnPKjwNgdhqqPN8Dj6piui+0s6pdHgtwt38iqaCj7ZEIdoMsp3qGbpbx+sF6P/gFd29b4XeVJzIAAAAASUVORK5CYII=";
@@ -248,3 +250,15 @@ export const RARITY_WEIGHTS: Record<string, number> = {
 };
 
 export const DEFAULT_FONT = '"Courier New", monospace';
+
+// Common colors... Trying to save bytes here and there
+export const WHITE = "#fff";
+
+export const RarityLabel: Record<string, ItemRarity> = {
+  Common: "Common",
+  Rare: "Rare",
+  Epic: "Epic",
+  Legendary: "Legendary",
+};
+
+export const CENTER = "center";
